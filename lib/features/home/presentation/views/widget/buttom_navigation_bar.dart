@@ -10,68 +10,68 @@ class ButtomNavigationBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return NavigationView(
-      curve: Curves.fastEaseInToSlowEaseOut,
-      //durationAnimation: const Duration(microseconds: 1000),
-      color: primaryColer,
-      borderTopColor: primaryColer,
-      onChangePage: (p0) {
-        
-      }, items: [
-      ItemNavigationView(
-          childAfter: const Icon(
-            IconlyBold.profile,
-            color: primaryColer,
-            size: 30,
-          ),
-          childBefore: const Icon(
-            IconlyBold.profile,
-            color: Colors.grey,
-            size: 30,
-          )),
-      ItemNavigationView(
-          childAfter: const Icon(
-            IconlyBold.bag,
-            color: primaryColer,
-            size: 30,
-          ),
-          childBefore: const Icon(
-            IconlyBold.bag,
-            color:Colors.grey,
-            size: 30,
-          )),
-      ItemNavigationView(
-          childAfter: const Icon(
-            IconlyBold.search,
-            color: primaryColer,
-            size: 30,
-          ),
-          childBefore: const Icon(
-            IconlyBold.search,
-            color: Colors.grey,
-            size: 30,
-          )),
-      ItemNavigationView(
-          childAfter: const Icon(
-            IconlyBold.chat,
-            color: primaryColer,
-            size: 30,
-          ),
-          childBefore: const Icon(
-            IconlyBold.chat,
-            color: Colors.grey,
-            size: 30,
-          )),
-      ItemNavigationView(
-          childAfter: const Icon(
-            IconlyBold.home,
-            color: primaryColer,
-            size: 30,
-          ),
-          childBefore: const Icon(
-            IconlyBold.home,
-            color: Colors.grey,
-            size: 30,
-          )),
-    ]);
+        backgroundColor: Theme.of(context).primaryColor,
+        curve: Curves.fastEaseInToSlowEaseOut,
+        //durationAnimation: const Duration(microseconds: 1000),
+        color: primaryColer,
+        borderTopColor: primaryColer,
+        onChangePage: (p0) {},
+        items: [
+          ItemNavigationView(
+              childAfter: const Icon(
+                IconlyBold.profile,
+                color: primaryColer,
+                size: 30,
+              ),
+              childBefore: const Icon(
+                IconlyBold.profile,
+                color: Colors.grey,
+                size: 30,
+              )),
+          ItemNavigationView(
+              childAfter: const Icon(
+                IconlyBold.bag,
+                color: primaryColer,
+                size: 30,
+              ),
+              childBefore: const Icon(
+                IconlyBold.bag,
+                color: Colors.grey,
+                size: 30,
+              )),
+          ItemNavigationView(
+              childAfter: const Icon(
+                IconlyBold.search,
+                color: primaryColer,
+                size: 30,
+              ),
+              childBefore: const Icon(
+                IconlyBold.search,
+                color: Colors.grey,
+                size: 30,
+              )),
+          ItemNavigationView(
+              childAfter: const Icon(
+                IconlyBold.chat,
+                color: primaryColer,
+                size: 30,
+              ),
+              childBefore: const Icon(
+                IconlyBold.chat,
+                color: Colors.grey,
+                size: 30,
+              )),
+          ItemNavigationView(
+              childAfter: const Icon(
+                IconlyBold.home,
+                color: primaryColer,
+                size: 30,
+              ),
+              childBefore: const Icon(
+                IconlyBold.home,
+                color: Colors.grey,
+                size: 30,
+              )),
+        ]);
   }
 }
