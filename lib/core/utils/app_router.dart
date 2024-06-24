@@ -4,14 +4,14 @@ import 'package:freelance_job_portal/features/auth/presentation/views/resetpassw
 import 'package:freelance_job_portal/features/auth/presentation/views/signup.dart';
 import 'package:freelance_job_portal/features/auth/presentation/views/verification_signup.dart';
 import 'package:freelance_job_portal/features/home/presentation/views/home.dart';
-import 'package:freelance_job_portal/features/profile/presentation/views/profile.dart';
+import 'package:freelance_job_portal/features/wallet/presentation/views/wallet.dart';
 import 'package:go_router/go_router.dart';
 
 abstract class AppRouter {
   static final router = GoRouter(routes: [
     GoRoute(
       path: '/',
-      builder: (context, state) => const Profile(),
+      builder: (context, state) =>  const Wallet(),
     ),
     GoRoute(
       path: '/signup',

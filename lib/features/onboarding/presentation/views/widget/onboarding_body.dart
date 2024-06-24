@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:freelance_job_portal/core/constants/colors.dart';
-import 'package:freelance_job_portal/core/widget/custom_button.dart';
+import 'package:freelance_job_portal/features/auth/presentation/views/widget/custom_button_auth.dart';
 import 'package:freelance_job_portal/features/onboarding/presentation/views/widget/custom_indcator.dart';
 import 'package:freelance_job_portal/features/onboarding/presentation/views/widget/custom_page_view.dart';
 

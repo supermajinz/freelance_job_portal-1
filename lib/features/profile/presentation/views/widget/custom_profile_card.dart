@@ -27,7 +27,7 @@ class CustomProfileCard extends StatelessWidget {
                       Text(
                         "Nansy Ajram",
                         style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
+                fontSize: 20, fontWeight: FontWeight.bold),
                       ),
                       VirticalSpace(1),
                       Text("Flutter Developer", style: TextStyle(fontSize: 15)),
