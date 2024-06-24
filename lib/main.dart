@@ -8,6 +8,7 @@ void main()async {
 //zen
 
 //ahmad
+//code bad
 class FreelanceJob extends StatelessWidget {
   const FreelanceJob({super.key});
 
