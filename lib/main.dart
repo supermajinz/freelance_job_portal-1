@@ -3,6 +3,7 @@ import 'package:freelance_job_portal/core/utils/app_router.dart';
 
 void main()async {
   WidgetsFlutterBinding.ensureInitialized();
+  
   runApp(const FreelanceJob());
 }
 //zen
