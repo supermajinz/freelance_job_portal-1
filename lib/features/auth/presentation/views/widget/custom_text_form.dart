@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:freelance_job_portal/core/utils/size_config.dart';
 
 class CustomTextForm extends StatelessWidget {
   final String hinttext;
@@ -23,7 +24,7 @@ class CustomTextForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(bottom: 25,left:20 ,right: 20),
+      margin:  EdgeInsets.only(bottom: SizeConfig.defaultSize! *2,left:SizeConfig.defaultSize! *2 ,right: SizeConfig.defaultSize! *2),
       child: TextFormField(
         keyboardType: isNumber
             ? const TextInputType.numberWithOptions(decimal: true)
@@ -36,9 +37,9 @@ class CustomTextForm extends StatelessWidget {
             hintStyle: const TextStyle(fontSize: 12),
             floatingLabelBehavior: FloatingLabelBehavior.always,
             contentPadding:
-                const EdgeInsets.symmetric(vertical: 15, horizontal: 30),
+                 EdgeInsets.symmetric(vertical: SizeConfig.defaultSize! *1.5, horizontal:SizeConfig.defaultSize!*2.5),
             label: Container(
-                margin: const EdgeInsets.symmetric(horizontal: 15),
+                margin: EdgeInsets.symmetric(horizontal: SizeConfig.defaultSize! *1.5),
                 child: Text(
                   lable,
                   style: const TextStyle(fontSize: 20),
@@ -47,7 +48,7 @@ class CustomTextForm extends StatelessWidget {
             floatingLabelAlignment: FloatingLabelAlignment.start,
             suffixIcon: InkWell(onTap: onTapicon, child: Icon(icon)),
             border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(40))),
+                OutlineInputBorder(borderRadius: BorderRadius.circular(SizeConfig.defaultSize!*10))),
       ),
     );
   }

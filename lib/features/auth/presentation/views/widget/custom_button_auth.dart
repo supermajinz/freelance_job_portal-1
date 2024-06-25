@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:freelance_job_portal/core/utils/size_config.dart';
 
 class CustomButton extends StatelessWidget {
   const CustomButton(
@@ -23,11 +24,11 @@ class CustomButton extends StatelessWidget {
         onPressed: onPressed,
         color: color,
         shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(25), side: borderSide),
-        padding: const EdgeInsets.symmetric(vertical: 8),
+            borderRadius: BorderRadius.circular(SizeConfig.defaultSize! *5), side: borderSide),
+        padding:  EdgeInsets.symmetric(vertical:SizeConfig.defaultSize! *.9),
         child: Text(
           text,
-          style: TextStyle(color: textcolor, fontSize: 20),
+          style: TextStyle(color: textcolor, fontSize: 20,fontWeight: FontWeight.bold),
         ),
       ),
     );

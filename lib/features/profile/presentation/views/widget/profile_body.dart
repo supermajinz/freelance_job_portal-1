@@ -18,10 +18,8 @@ class ProfileBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
-    var groupValue = context.read<LocalizationBloc>().state.locale.languageCode;
     return BlocConsumer<LocalizationBloc, LocalizationState>(
       listener: (context, state) {
-        // TODO: implement listener
       },
       builder: (context, state) {
         return ListView(

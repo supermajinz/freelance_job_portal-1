@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:freelance_job_portal/core/constants/colors.dart';
-import 'package:freelance_job_portal/features/auth/presentation/views/widget/custom_button_auth.dart';
+import 'package:freelance_job_portal/core/utils/size_config.dart';
+import 'package:freelance_job_portal/core/widget/custom_button_general.dart';
 import 'package:freelance_job_portal/features/onboarding/presentation/views/widget/custom_indcator.dart';
 import 'package:freelance_job_portal/features/onboarding/presentation/views/widget/custom_page_view.dart';
+import 'package:go_router/go_router.dart';
 
 class OnboardingBody extends StatefulWidget {
   const OnboardingBody({super.key});
@@ -30,38 +31,47 @@ class _OnboardingBodyState extends State<OnboardingBody> {
           pageController: pageController,
         ),
         Positioned(
-            bottom: 180,
+            bottom: SizeConfig.defaultSize! * 19,
             left: 0,
             right: 0,
             child: CustomIndcator(
               dotIndex: pageController!.hasClients ? pageController?.page : 0,
             )),
-        const Positioned(
-            bottom: 110,
-            left: 80,
-            child: CustomButton(
-              width: 250,
-              borderSide: BorderSide(width: 0),
-              color: primaryColer,
+        Positioned(
+            bottom: SizeConfig.defaultSize! * 12,
+            left: SizeConfig.defaultSize! * 8,
+            child: CustomButtonGeneral(
+              onPressed: () {
+                GoRouter.of(context).push("/signup");
+              },
+              width: SizeConfig.defaultSize! * 25.5,
+              borderSide: const BorderSide(width: 0),
+              color: Theme.of(context).primaryColor,
               text: "SignUp",
               textcolor: Colors.white,
             )),
-        const Positioned(
-            bottom: 60,
-            left: 80,
-            child: CustomButton(
-              width: 250,
-              borderSide: BorderSide(width: 0),
+        Positioned(
+            bottom: SizeConfig.defaultSize! * 6.5,
+            left: SizeConfig.defaultSize! * 8,
+            child: CustomButtonGeneral(
+              onPressed: () {
+                 GoRouter.of(context).push("/login");
+              },
+              width: SizeConfig.defaultSize! * 25.5,
+              borderSide: const BorderSide(width: 0),
               color: Colors.cyanAccent,
               text: "SignIn",
               textcolor: Colors.white,
             )),
-        const Positioned(
-            bottom: 10,
-            left: 80,
-            child: CustomButton(
-              width: 250,
-              borderSide: BorderSide(width: 1),
+        Positioned(
+            bottom: SizeConfig.defaultSize! * 1,
+            left: SizeConfig.defaultSize! * 8,
+            child: CustomButtonGeneral(
+              onPressed: () {
+                 GoRouter.of(context).push("/home");
+              },
+              width: SizeConfig.defaultSize! * 25.5,
+              borderSide: const BorderSide(width: 1),
               color: Colors.white,
               text: "Continue As Guest",
               textcolor: Colors.black,

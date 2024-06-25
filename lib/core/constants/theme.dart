@@ -1,23 +1,40 @@
 import 'package:flutter/material.dart';
+import 'package:freelance_job_portal/core/constants/colors.dart';
 
 ThemeData themeEn = ThemeData(
     useMaterial3: true,
     colorSchemeSeed: Colors.blue,
     fontFamily: "Roboto",
     textTheme: const TextTheme(
-        displayLarge: TextStyle(
-            fontSize: 25, fontWeight: FontWeight.bold, color: Colors.black),
-        displayMedium: TextStyle(
-            fontSize: 18, fontWeight: FontWeight.bold, color: Colors.grey),
-        bodySmall: TextStyle(height: 2, color: Colors.grey, fontSize: 14)));
+        headlineLarge: TextStyle(
+            fontSize: 25, fontWeight: FontWeight.w600, color: Colors.black),
+        headlineMedium: TextStyle(
+            fontSize: 22, fontWeight: FontWeight.bold, color: primaryColer),
+        headlineSmall: TextStyle(
+            fontSize: 20, fontWeight: FontWeight.bold, color: primaryColer),
+        titleMedium: TextStyle(
+            fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
+        titleSmall: TextStyle(
+            fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),
+        bodyLarge: TextStyle(color: Colors.grey, fontSize: 18),
+        bodyMedium: TextStyle(color: Colors.grey, fontSize: 15),
+        bodySmall: TextStyle(color: Colors.grey, fontSize: 12)));
 ThemeData themeAr = ThemeData(
     fontFamily: "Roboto",
     textTheme: const TextTheme(
-        displayLarge: TextStyle(
-            fontSize: 30, fontWeight: FontWeight.bold, color: Colors.black),
-        displayMedium: TextStyle(
-            fontSize: 18, fontWeight: FontWeight.bold, color: Colors.grey),
-        bodySmall: TextStyle(height: 2, color: Colors.grey, fontSize: 14)));
+       headlineLarge: TextStyle(
+            fontSize: 25, fontWeight: FontWeight.bold, color: Colors.black),
+        headlineMedium: TextStyle(
+            fontSize: 22, fontWeight: FontWeight.bold, color: primaryColer),
+        headlineSmall: TextStyle(
+            fontSize: 20, fontWeight: FontWeight.bold, color: primaryColer),
+        titleMedium: TextStyle(
+            fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black),
+        titleSmall: TextStyle(
+            fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),
+        bodyLarge: TextStyle(color: Colors.grey, fontSize: 18),
+        bodyMedium: TextStyle(color: Colors.grey, fontSize: 15),
+        bodySmall: TextStyle(color: Colors.grey, fontSize: 12)));
 
 ThemeData getThemeForLocale(Locale locale) {
   switch (locale.languageCode) {

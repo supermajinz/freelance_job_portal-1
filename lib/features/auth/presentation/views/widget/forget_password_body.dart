@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:freelance_job_portal/core/constants/colors.dart';
 import 'package:freelance_job_portal/core/utils/functions/validinput.dart';
+import 'package:freelance_job_portal/core/utils/size_config.dart';
+import 'package:freelance_job_portal/features/auth/presentation/views/widget/custom_auth_title.dart';
 import 'package:freelance_job_portal/features/auth/presentation/views/widget/custom_button_auth.dart';
 import 'package:freelance_job_portal/core/widget/custom_title.dart';
 import 'package:freelance_job_portal/core/widget/space.dart';
@@ -16,19 +17,17 @@ class ForgetPasswordBody extends StatelessWidget {
         child: ListView(
       children: [
         const VirticalSpace(5),
-        const Center(
-            child: CustomTitle(
-                size: 25, text: "Forget Password", color: primaryColer)),
+       const Center(
+            child: CustomAuthTitle(
+                 text: "Forget Password")),
         const VirticalSpace(4),
-        const Text("Cheek Phone Number",
-            style: TextStyle(fontSize: 25, fontWeight: FontWeight.w600),
-            textAlign: TextAlign.center),
+        const Center(child: CustomTitle(text: "Cheek Phone Number")),
         const VirticalSpace(2),
         Container(
-          margin: const EdgeInsets.symmetric(horizontal: 10),
+          margin:  EdgeInsets.symmetric(horizontal: SizeConfig.defaultSize! *1),
           child: const Text(
               "please Enter Your Phone Number To Recive A Verification Code",
-              style: TextStyle(fontSize: 15),
+              style: TextStyle(fontSize: 18),
               textAlign: TextAlign.center),
         ),
         const VirticalSpace(6),
@@ -41,16 +40,16 @@ class ForgetPasswordBody extends StatelessWidget {
             return validInput(p0!, 5, 15, "phonenumber");
           },
         ),
-        const VirticalSpace(38),
+        const VirticalSpace(34),
         CustomButton(
             onPressed: () {
               GoRouter.of(context).push("/verificationcode");
             },
-            color: const Color.fromARGB(255, 80, 34, 88),
+            color: Theme.of(context).primaryColor,
             textcolor: Colors.white,
             text: "Ckeek",
             borderSide: const BorderSide(width: 0),
-            width: 20),
+            width: SizeConfig.defaultSize! *2),
       ],
     ));
   }

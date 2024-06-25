@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:freelance_job_portal/core/constants/colors.dart';
 import 'package:freelance_job_portal/core/utils/functions/validinput.dart';
-import 'package:freelance_job_portal/features/auth/presentation/views/widget/custom_button_auth.dart';
+import 'package:freelance_job_portal/core/utils/size_config.dart';
+import 'package:freelance_job_portal/core/widget/custom_body_medium.dart';
 import 'package:freelance_job_portal/core/widget/custom_title.dart';
+import 'package:freelance_job_portal/features/auth/presentation/views/widget/custom_auth_title.dart';
+import 'package:freelance_job_portal/features/auth/presentation/views/widget/custom_button_auth.dart';
 import 'package:freelance_job_portal/core/widget/space.dart';
 import 'package:freelance_job_portal/features/auth/presentation/views/widget/custom_text_form.dart';
 import 'package:freelance_job_portal/features/auth/presentation/views/widget/custom_text_signup.dart';
@@ -17,15 +19,15 @@ class SignupBody extends StatelessWidget {
         child: ListView(
       children: [
         const VirticalSpace(5),
-        const Center(
-            child: CustomTitle(size: 25, text: "Sign Up", color: primaryColer)),
+        const Center(child: CustomAuthTitle(text: "Sign Up")),
         const VirticalSpace(4),
-        const Text("Welcom Back",
-            style: TextStyle(fontSize: 25, fontWeight: FontWeight.w600),
-            textAlign: TextAlign.center),
+        const Center(child: CustomTitle(text: "Welcom Back")),
         const VirticalSpace(2),
-        const Text("Sign Up With Phone Number and Password",
-            style: TextStyle(fontSize: 15), textAlign: TextAlign.center),
+        const Center(
+          child: CustomBodyMedium(
+            text: "Sign Up With Phone Number and Password",
+          ),
+        ),
         const VirticalSpace(6),
         Row(children: [
           Expanded(
@@ -78,16 +80,16 @@ class SignupBody extends StatelessWidget {
             return validInput(password!, 5, 30, "password");
           },
         ),
-        const VirticalSpace(10),
+        const VirticalSpace(12.5),
         CustomButton(
             onPressed: () {
               GoRouter.of(context).push("/verificationsignup");
             },
-            color: const Color.fromARGB(255, 80, 34, 88),
+            color: Theme.of(context).primaryColor,
             textcolor: Colors.white,
             text: "Sign Up",
             borderSide: const BorderSide(width: 0),
-            width: 20),
+            width: SizeConfig.defaultSize! *2),
         const VirticalSpace(1),
         TextSignUp(
           text1: "Already have an account? ",

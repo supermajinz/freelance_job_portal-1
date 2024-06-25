@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:freelance_job_portal/core/constants/colors.dart';
 import 'package:freelance_job_portal/core/utils/functions/validinput.dart';
 import 'package:freelance_job_portal/core/utils/size_config.dart';
-import 'package:freelance_job_portal/features/auth/presentation/views/widget/custom_button_auth.dart';
+import 'package:freelance_job_portal/core/widget/custom_body_medium.dart';
 import 'package:freelance_job_portal/core/widget/custom_title.dart';
+import 'package:freelance_job_portal/features/auth/presentation/views/widget/custom_auth_title.dart';
+import 'package:freelance_job_portal/features/auth/presentation/views/widget/custom_button_auth.dart';
 import 'package:freelance_job_portal/core/widget/space.dart';
 import 'package:freelance_job_portal/features/auth/presentation/views/widget/custom_text_form.dart';
 import 'package:freelance_job_portal/features/auth/presentation/views/widget/custom_text_signup.dart';
@@ -20,20 +21,22 @@ class LoginBody extends StatelessWidget {
       children: [
         const VirticalSpace(5),
         const Center(
-            child: CustomTitle(size: 25, text: "Sign In", color: primaryColer)),
+            child: CustomAuthTitle(
+          text: "Sign In",
+        )),
         const VirticalSpace(3),
         Image.asset(
           "assets/images/logo1.png",
-          height: 150,
-          width: 150,
+          height: SizeConfig.defaultSize! * 15,
+          width: SizeConfig.defaultSize! * 15,
         ),
         const VirticalSpace(4),
-        const Text("Welcom Back",
-            style: TextStyle(fontSize: 25, fontWeight: FontWeight.w600),
-            textAlign: TextAlign.center),
+       const Center(child: CustomTitle(text: "Welcom Back")),
         const VirticalSpace(2),
-        const Text("Sign In With Phone Number and Password",
-            style: TextStyle(fontSize: 15), textAlign: TextAlign.center),
+        const Center(
+          child: CustomBodyMedium(text: "Sign In With Phone Number and Password",
+             ),
+        ),
         const VirticalSpace(6),
         CustomTextForm(
           hinttext: "Enter Your Phone Number",
@@ -60,7 +63,7 @@ class LoginBody extends StatelessWidget {
               GoRouter.of(context).push("/forgetpassword");
             },
             child: const Text("Forget Password",
-                style: TextStyle(fontSize: 15, color: Colors.redAccent),
+                style: TextStyle(fontSize: 15, color: Color.fromARGB(255, 165, 11, 11)),
                 textAlign: TextAlign.end),
           ),
         ),
@@ -69,11 +72,11 @@ class LoginBody extends StatelessWidget {
             onPressed: () {
               GoRouter.of(context).push("/home");
             },
-            color: Colors.cyan,
+            color: Colors.cyanAccent,
             textcolor: Colors.white,
             text: "Sign In",
             borderSide: const BorderSide(width: 0),
-            width: 20),
+            width: SizeConfig.defaultSize! *2),
         const VirticalSpace(1),
         TextSignUp(
           text1: "Don’t have an account?  ",
