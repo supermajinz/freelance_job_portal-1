@@ -33,7 +33,7 @@ class ProfileBody extends StatelessWidget {
                     clipper: WaveClipperTwo(),
                     child: Container(
                       height: 250,
-                      color: Colors.orange,
+                      color: Theme.of(context).primaryColor,
                     )),
                 const Positioned(
                     top: 150, right: 15, left: 15, child: CustomProfileCard()),
@@ -46,8 +46,7 @@ class ProfileBody extends StatelessWidget {
                   children: [
                     Text(
                       AppLocalizations.of(context)!.desc_title,
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                      style: Theme.of(context).textTheme.displayLarge,
                     ),
                     const SizedBox(
                       height: 70,
@@ -73,24 +72,27 @@ class ProfileBody extends StatelessWidget {
                     ),
                     const VirticalSpace(3),
                     PopupMenuButton<String>(
-      icon: Icon(Icons.language),
-      itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
-         PopupMenuItem<String>(
-          value: 'en',
-          child: const Text('English'),
-          onTap: () {
-             BlocProvider.of<LocalizationBloc>(context).add(const LoadLocalization(Locale('en')));
-          },
-        ),
-         PopupMenuItem<String>(
-          value: 'ar',
-          child: Text('Arabic'),
-          onTap: () {
-             BlocProvider.of<LocalizationBloc>(context).add(const LoadLocalization(Locale('ar')));
-          },
-        ),
-      ],
-    ),
+                      icon: Icon(Icons.language),
+                      itemBuilder: (BuildContext context) =>
+                          <PopupMenuEntry<String>>[
+                        PopupMenuItem<String>(
+                          value: 'en',
+                          child: const Text('English'),
+                          onTap: () {
+                            BlocProvider.of<LocalizationBloc>(context)
+                                .add(const LoadLocalization(Locale('en')));
+                          },
+                        ),
+                        PopupMenuItem<String>(
+                          value: 'ar',
+                          child: Text('Arabic'),
+                          onTap: () {
+                            BlocProvider.of<LocalizationBloc>(context)
+                                .add(const LoadLocalization(Locale('ar')));
+                          },
+                        ),
+                      ],
+                    ),
                     SizedBox(
                       height: 200,
                       child: GridView.builder(

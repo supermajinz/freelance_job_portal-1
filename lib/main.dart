@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:freelance_job_portal/core/constants/theme.dart';
 import 'package:freelance_job_portal/core/localization/bloc/localization_bloc.dart';
 import 'package:freelance_job_portal/core/utils/app_router.dart';
 import 'package:freelance_job_portal/l10n/l10n.dart';
@@ -36,6 +37,7 @@ class FreelanceJob extends StatelessWidget {
           ],
           routerConfig: AppRouter.router,
           debugShowCheckedModeBanner: false,
+          theme: getThemeForLocale(state.locale),
         );
       },
     );
