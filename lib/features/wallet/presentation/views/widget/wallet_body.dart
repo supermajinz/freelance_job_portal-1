@@ -3,6 +3,7 @@ import 'package:freelance_job_portal/core/constants/colors.dart';
 import 'package:freelance_job_portal/core/utils/size_config.dart';
 import 'package:freelance_job_portal/core/widget/custom_button_general.dart';
 import 'package:freelance_job_portal/core/widget/space.dart';
+import 'package:go_router/go_router.dart';
 import 'package:iconly/iconly.dart';
 
 class WalletBody extends StatelessWidget {
@@ -12,21 +13,25 @@ class WalletBody extends StatelessWidget {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return Container(
-      margin: const EdgeInsets.only(left: 20, right: 20, top: 80),
+      margin: EdgeInsets.only(
+          left: SizeConfig.defaultSize! * 2,
+          right: SizeConfig.defaultSize! * 2,
+          top: SizeConfig.defaultSize! * 8),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            margin: const EdgeInsets.symmetric(horizontal: 20),
-            child: const Row(
+            margin:
+                EdgeInsets.symmetric(horizontal: SizeConfig.defaultSize! * 2),
+            child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Icon(
                   IconlyBold.wallet,
-                  size: 150,
+                  size: SizeConfig.defaultSize! * 15,
                 ),
-                HorizintalSpace(1),
-                Column(
+                const HorizintalSpace(1),
+                const Column(
                   children: [
                     Text(
                       "Balance:",
@@ -50,20 +55,24 @@ class WalletBody extends StatelessWidget {
           Row(
             children: [
               CustomButtonGeneral(
-                  onPressed: () {},
+                  onPressed: () {
+                    GoRouter.of(context).push("/deposit");
+                  },
                   color: Colors.deepPurple,
                   textcolor: Colors.white,
                   text: "Deposit",
                   borderSide: const BorderSide(width: 0),
-                  width: 160),
+                  width: SizeConfig.defaultSize! * 16),
               const Spacer(),
               CustomButtonGeneral(
-                  onPressed: () {},
+                  onPressed: () {
+                    GoRouter.of(context).push("/withdraw");
+                  },
                   color: primaryColer,
                   textcolor: Colors.white,
                   text: "Withdraw",
                   borderSide: const BorderSide(width: 0),
-                  width: 160)
+                  width: SizeConfig.defaultSize! * 16)
             ],
           ),
           const VirticalSpace(3),
@@ -73,7 +82,7 @@ class WalletBody extends StatelessWidget {
           ),
           const VirticalSpace(2),
           SizedBox(
-            height: 435,
+            height: SizeConfig.defaultSize! * 44.3,
             child: ListView.separated(
                 itemBuilder: (context, index) {
                   return const Column(
@@ -83,7 +92,7 @@ class WalletBody extends StatelessWidget {
                         children: [
                           Text(
                             "SYP 5,000,000 ",
-                            style: TextStyle(
+                            style: TextStyle(color: Colors.black,
                                 fontSize: 18, fontWeight: FontWeight.bold),
                           ),
                           Text(
@@ -94,7 +103,7 @@ class WalletBody extends StatelessWidget {
                           ),
                           Text(
                             "Ahmad Murad ",
-                            style: TextStyle(
+                            style: TextStyle(color: Colors.black,
                                 fontSize: 18, fontWeight: FontWeight.bold),
                           ),
                           Text(
@@ -103,7 +112,7 @@ class WalletBody extends StatelessWidget {
                           ),
                           Text(
                             "Order Management App",
-                            style: TextStyle(
+                            style: TextStyle(color: Colors.black,
                                 fontSize: 18, fontWeight: FontWeight.bold),
                           )
                         ],

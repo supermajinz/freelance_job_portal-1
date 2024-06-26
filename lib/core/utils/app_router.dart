@@ -11,7 +11,9 @@ import 'package:freelance_job_portal/features/notifications/presentation/views/n
 import 'package:freelance_job_portal/features/onboarding/presentation/views/onboarding_view.dart';
 import 'package:freelance_job_portal/features/profile/presentation/views/profile.dart';
 import 'package:freelance_job_portal/features/saved/presentation/views/saved.dart';
+import 'package:freelance_job_portal/features/wallet/presentation/views/deposit.dart';
 import 'package:freelance_job_portal/features/wallet/presentation/views/wallet.dart';
+import 'package:freelance_job_portal/features/wallet/presentation/views/withdraw.dart';
 import 'package:go_router/go_router.dart';
 
 abstract class AppRouter {
@@ -51,6 +53,14 @@ abstract class AppRouter {
     GoRoute(
       path: '/wallet',
       builder: (context, state) => const Wallet(),
+    ),
+    GoRoute(
+      path: '/deposit',
+      builder: (context, state) => const Deposit(),
+    ),
+    GoRoute(
+      path: '/withdraw',
+      builder: (context, state) => const Withdraw(),
     ),
     GoRoute(
       path: '/profile',

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:freelance_job_portal/core/utils/size_config.dart';
 
 class CustomChoiceChip extends StatelessWidget {
   const CustomChoiceChip({super.key});
@@ -6,13 +7,13 @@ class CustomChoiceChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.only(right: 7),
-      child: const ChoiceChip(
-        selectedColor: Color.fromARGB(255, 200, 225, 245),
-        label: Text("Fluter developer"),
+      margin:  EdgeInsets.only(right:SizeConfig.defaultSize!*0.7),
+      child:  ChoiceChip(
+        selectedColor: const Color.fromARGB(255, 200, 225, 245),
+        label: const Text("Fluter developer"),
         selected: true,
         shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(30))),
+            borderRadius: BorderRadius.all(Radius.circular(SizeConfig.defaultSize!*3))),
         showCheckmark: false,
         visualDensity: VisualDensity.compact,
       ),

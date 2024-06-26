@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:freelance_job_portal/core/utils/size_config.dart';
 import 'package:freelance_job_portal/core/widget/space.dart';
 import 'package:freelance_job_portal/features/home/presentation/views/widget/custom_choice_chip.dart';
 
@@ -8,16 +9,16 @@ class CustomProjectCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-        margin: const EdgeInsets.all(7),
+        margin:  EdgeInsets.all(SizeConfig.defaultSize!*0.7),
         child: Container(
-          padding: const EdgeInsets.only(left: 12, top: 2),
-          height: 245,
-          width: 350,
+          padding: EdgeInsets.only(left: SizeConfig.defaultSize!*1.2, top: SizeConfig.defaultSize!*0.2),
+          height: SizeConfig.defaultSize!*23,
+          width: SizeConfig.defaultSize!*35,
           child: Column(children: [
             Row(
               children: [
                 const Text("Order Management App",
-                    style: TextStyle(fontSize: 18)),
+                    style: TextStyle(fontSize: 18,color: Colors.black)),
                 const Spacer(),
                 const Text("1d", style: TextStyle(fontSize: 15)),
                 IconButton(
@@ -27,10 +28,12 @@ class CustomProjectCard extends StatelessWidget {
             ),
             const Text(
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod temp..",
+                overflow: TextOverflow.ellipsis,
+                        maxLines: 2,
                 style: TextStyle(fontSize: 15, color: Colors.grey)),
-            const VirticalSpace(0.5),
+            const VirticalSpace(1),
             SizedBox(
-              height: 40,
+              height: SizeConfig.defaultSize!*4,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
                 itemCount: 5,
@@ -40,7 +43,7 @@ class CustomProjectCard extends StatelessWidget {
             ),
             const VirticalSpace(0.5),
             Container(
-              margin: const EdgeInsets.only(right: 12),
+              margin:  EdgeInsets.only(right:SizeConfig.defaultSize!*1.2),
               child: const Row(
                 children: [
                   Text("10M S.P",
@@ -54,30 +57,30 @@ class CustomProjectCard extends StatelessWidget {
                 ],
               ),
             ),
-            const VirticalSpace(1),
-            const Row(
+            const VirticalSpace(2),
+             Row(
               children: [
                 CircleAvatar(
-                  maxRadius: 30,
-                  backgroundImage: AssetImage(
+                  maxRadius: SizeConfig.defaultSize!*3,
+                  backgroundImage: const AssetImage(
                     "assets/images/pro.jpg",
                   ),
                 ),
-                HorizintalSpace(1),
+                const HorizintalSpace(1),
                 Column(
                   children: [
-                    Text(
+                    const Text(
                       "melisa",
                       style: TextStyle(fontSize: 20),
                     ),
-                    VirticalSpace(1),
+                    const VirticalSpace(1),
                     Row(
                       children: [
-                        Text("4.6"),
+                        const Text("4.6"),
                         Icon(
                           Icons.star,
                           color: Colors.yellow,
-                          size: 20,
+                          size: SizeConfig.defaultSize!*2,
                         )
                       ],
                     )
