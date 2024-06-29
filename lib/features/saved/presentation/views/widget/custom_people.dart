@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:freelance_job_portal/core/utils/size_config.dart';
 
 class CustomPeople extends StatelessWidget {
   const CustomPeople({super.key});
@@ -6,39 +7,40 @@ class CustomPeople extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 85,
-      decoration: const BoxDecoration(
-        color: Color.fromARGB(255, 201, 224, 243),
-        borderRadius: BorderRadius.all(Radius.circular(15)),
+      height: SizeConfig.defaultSize! * 8.5,
+      decoration: BoxDecoration(
+        color: const Color.fromARGB(255, 201, 224, 243),
+        borderRadius:
+            BorderRadius.all(Radius.circular(SizeConfig.defaultSize! * 1.5)),
       ),
-      margin: const EdgeInsets.symmetric(vertical: 2),
-      child: const ListTile(
-        trailing: Icon(Icons.bookmark),
+      margin: EdgeInsets.symmetric(vertical: SizeConfig.defaultSize! * .2),
+      child: ListTile(
+        trailing: const Icon(Icons.bookmark),
         isThreeLine: true,
         leading: CircleAvatar(
-          radius: 30,
-          backgroundImage: AssetImage(
+          radius: SizeConfig.defaultSize! * 3,
+          backgroundImage: const AssetImage(
             "assets/images/pro.jpg",
           ),
         ),
-        title: Text(
+        title: const Text(
           "melisa",
           style: TextStyle(fontSize: 20),
         ),
         subtitle: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
+            const Text(
               "Ui/Ux Designer",
               style: TextStyle(fontSize: 16),
             ),
             Row(
               children: [
-                Text("4.6"),
+                const Text("4.6"),
                 Icon(
                   Icons.star,
                   color: Colors.yellow,
-                  size: 20,
+                  size: SizeConfig.defaultSize! * 2,
                 )
               ],
             )

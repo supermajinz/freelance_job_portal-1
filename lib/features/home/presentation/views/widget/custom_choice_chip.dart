@@ -9,8 +9,8 @@ class CustomChoiceChip extends StatelessWidget {
     return Container(
       margin:  EdgeInsets.only(right:SizeConfig.defaultSize!*0.7),
       child:  ChoiceChip(
-        selectedColor: const Color.fromARGB(255, 200, 225, 245),
-        label: const Text("Fluter developer"),
+        selectedColor: const Color.fromARGB(255, 237, 232, 238),
+        label: const Text("laravel"),
         selected: true,
         shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(SizeConfig.defaultSize!*3))),

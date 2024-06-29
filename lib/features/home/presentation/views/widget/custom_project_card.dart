@@ -12,7 +12,7 @@ class CustomProjectCard extends StatelessWidget {
         margin:  EdgeInsets.all(SizeConfig.defaultSize!*0.7),
         child: Container(
           padding: EdgeInsets.only(left: SizeConfig.defaultSize!*1.2, top: SizeConfig.defaultSize!*0.2),
-          height: SizeConfig.defaultSize!*23,
+          height: SizeConfig.defaultSize!*25,
           width: SizeConfig.defaultSize!*35,
           child: Column(children: [
             Row(
@@ -44,14 +44,14 @@ class CustomProjectCard extends StatelessWidget {
             const VirticalSpace(0.5),
             Container(
               margin:  EdgeInsets.only(right:SizeConfig.defaultSize!*1.2),
-              child: const Row(
+              child: const Row(mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Text("10M S.P",
                       style: TextStyle(fontSize: 15, color: Colors.green)),
-                  Spacer(),
+                
                   Text("3 Months",
                       style: TextStyle(fontSize: 15, color: Colors.blueAccent)),
-                  Spacer(),
+                  
                   Text("20 Offers",
                       style: TextStyle(fontSize: 15, color: Colors.blueAccent)),
                 ],

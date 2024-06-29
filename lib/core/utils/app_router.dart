@@ -7,9 +7,13 @@ import 'package:freelance_job_portal/features/auth/presentation/views/verificati
 import 'package:freelance_job_portal/features/chat/presentation/views/chat.dart';
 import 'package:freelance_job_portal/features/chat/presentation/views/dms.dart';
 import 'package:freelance_job_portal/features/home/presentation/views/home.dart';
+import 'package:freelance_job_portal/features/my_project/presentation/views/my_project.dart';
 import 'package:freelance_job_portal/features/notifications/presentation/views/notifications.dart';
 import 'package:freelance_job_portal/features/onboarding/presentation/views/onboarding_view.dart';
+import 'package:freelance_job_portal/features/profile/presentation/views/create_profile.dart';
+import 'package:freelance_job_portal/features/profile/presentation/views/edit_profile.dart';
 import 'package:freelance_job_portal/features/profile/presentation/views/profile.dart';
+import 'package:freelance_job_portal/features/report/presentation/views/report.dart';
 import 'package:freelance_job_portal/features/saved/presentation/views/saved.dart';
 import 'package:freelance_job_portal/features/wallet/presentation/views/deposit.dart';
 import 'package:freelance_job_portal/features/wallet/presentation/views/wallet.dart';
@@ -20,6 +24,10 @@ abstract class AppRouter {
   static final router = GoRouter(routes: [
     GoRoute(
       path: '/',
+      builder: (context, state) => const EditProfile(),
+    ),
+     GoRoute(
+      path: '/onboardingview',
       builder: (context, state) => const OnboardingView(),
     ),
     GoRoute(
@@ -66,6 +74,14 @@ abstract class AppRouter {
       path: '/profile',
       builder: (context, state) => const Profile(),
     ),
+     GoRoute(
+      path: '/createprofile',
+      builder: (context, state) => const CreateProfile(),
+    ),
+     GoRoute(
+      path: '/editprofile',
+      builder: (context, state) => const EditProfile(),
+    ),
     GoRoute(
       path: '/chat',
       builder: (context, state) => const Chat(),
@@ -81,6 +97,14 @@ abstract class AppRouter {
     GoRoute(
       path: '/notifications',
       builder: (context, state) => const Notifications(),
+    ),
+     GoRoute(
+      path: '/report',
+      builder: (context, state) => const Report(),
+    ),
+     GoRoute(
+      path: '/myproject',
+      builder: (context, state) => const MyProject(),
     ),
   ]);
 }
