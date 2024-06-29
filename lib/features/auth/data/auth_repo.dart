@@ -1,10 +1,10 @@
-import 'package:freelance_job_portal/features/auth/presentation/views/login.dart';
+import 'package:dartz/dartz.dart';
+import 'package:freelance_job_portal/core/errors/failures.dart';
 
 abstract class AuthRepo {
-  register();
+  Future<Either<Failure, Map>> register();
   login();
   verify();
   changePassword();
-
   refreshToken();
 }
