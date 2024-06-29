@@ -12,7 +12,7 @@ class CustomProjectCard extends StatelessWidget {
         margin:  EdgeInsets.all(SizeConfig.defaultSize!*0.7),
         child: Container(
           padding: EdgeInsets.only(left: SizeConfig.defaultSize!*1.2, top: SizeConfig.defaultSize!*0.2),
-          height: SizeConfig.defaultSize!*25,
+          height: SizeConfig.defaultSize!*30,
           width: SizeConfig.defaultSize!*35,
           child: Column(children: [
             Row(

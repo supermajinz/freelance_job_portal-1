@@ -24,9 +24,9 @@ abstract class AppRouter {
   static final router = GoRouter(routes: [
     GoRoute(
       path: '/',
-      builder: (context, state) => const EditProfile(),
+      builder: (context, state) => const OnboardingView(),
     ),
-     GoRoute(
+    GoRoute(
       path: '/onboardingview',
       builder: (context, state) => const OnboardingView(),
     ),
@@ -74,11 +74,11 @@ abstract class AppRouter {
       path: '/profile',
       builder: (context, state) => const Profile(),
     ),
-     GoRoute(
+    GoRoute(
       path: '/createprofile',
       builder: (context, state) => const CreateProfile(),
     ),
-     GoRoute(
+    GoRoute(
       path: '/editprofile',
       builder: (context, state) => const EditProfile(),
     ),
@@ -98,11 +98,11 @@ abstract class AppRouter {
       path: '/notifications',
       builder: (context, state) => const Notifications(),
     ),
-     GoRoute(
+    GoRoute(
       path: '/report',
       builder: (context, state) => const Report(),
     ),
-     GoRoute(
+    GoRoute(
       path: '/myproject',
       builder: (context, state) => const MyProject(),
     ),
