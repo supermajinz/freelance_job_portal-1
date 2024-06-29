@@ -9,7 +9,7 @@ class CustomTimeline extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: SizedBox(
-        height: SizeConfig.defaultSize!*8, 
+        height: SizeConfig.defaultSize! * 8,
         child: Timeline.tileBuilder(
           scrollDirection: Axis.horizontal,
           builder: TimelineTileBuilder.connected(
@@ -18,23 +18,23 @@ class CustomTimeline extends StatelessWidget {
             contentsBuilder: (context, index) {
               switch (index) {
                 case 0:
-                  return  Padding(
-                    padding: EdgeInsets.all(SizeConfig.defaultSize!*.8),
+                  return Padding(
+                    padding: EdgeInsets.all(SizeConfig.defaultSize! * .8),
                     child: const Text('Applied/Active'),
                   );
                 case 1:
-                  return  Padding(
-                    padding: EdgeInsets.all(SizeConfig.defaultSize!*.8),
+                  return Padding(
+                    padding: EdgeInsets.all(SizeConfig.defaultSize! * .8),
                     child: const Text('In Progress'),
                   );
                 case 2:
-                  return  Padding(
-                    padding: EdgeInsets.all(SizeConfig.defaultSize!*.8),
+                  return Padding(
+                    padding: EdgeInsets.all(SizeConfig.defaultSize! * .8),
                     child: const Text('Delivered'),
                   );
                 case 3:
-                  return  Padding(
-                    padding: EdgeInsets.all(SizeConfig.defaultSize!*.8),
+                  return Padding(
+                    padding: EdgeInsets.all(SizeConfig.defaultSize! * .8),
                     child: const Text('Completed'),
                   );
                 default:

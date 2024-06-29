@@ -12,8 +12,8 @@ class Notifications extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Notifications'),
         centerTitle: true,
-         leading: IconButton(
-              onPressed: () {}, icon: const Icon(Icons.arrow_back)),
+        leading:
+            IconButton(onPressed: () {}, icon: const Icon(Icons.arrow_back)),
       ),
       body: const NotificationsBody(),
     );

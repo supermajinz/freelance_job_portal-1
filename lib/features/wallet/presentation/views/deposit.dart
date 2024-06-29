@@ -15,11 +15,10 @@ class Deposit extends StatelessWidget {
         leading: IconButton(
             onPressed: () {},
             icon: Container(
-                decoration:
-                    BoxDecoration(borderRadius: BorderRadius.circular(5),
-                    border: Border.all(width: 1)
-                    ),
-                child: const Icon(Icons.arrow_back,size: 25))),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5),
+                    border: Border.all(width: 1)),
+                child: const Icon(Icons.arrow_back, size: 25))),
       ),
       body: const DepositBody(),
     );

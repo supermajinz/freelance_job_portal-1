@@ -89,7 +89,7 @@ class SignupBody extends StatelessWidget {
             textcolor: Colors.white,
             text: "Sign Up",
             borderSide: const BorderSide(width: 0),
-            width: SizeConfig.defaultSize! *2),
+            width: SizeConfig.defaultSize! * 2),
         const VirticalSpace(1),
         TextSignUp(
           text1: "Already have an account? ",

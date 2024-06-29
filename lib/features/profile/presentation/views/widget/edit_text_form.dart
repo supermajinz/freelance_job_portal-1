@@ -8,7 +8,8 @@ class EditTextForm extends StatelessWidget {
       required this.lable,
       required this.isNumber,
       this.obs,
-      this.onTapicon, required this.initvalue});
+      this.onTapicon,
+      required this.initvalue});
   final String hinttext;
   final String lable;
   final String initvalue;
@@ -20,8 +21,7 @@ class EditTextForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      initialValue:
-          initvalue,
+      initialValue: initvalue,
       minLines: 1, maxLines: 5,
       keyboardType: isNumber
           ? const TextInputType.numberWithOptions(decimal: true)

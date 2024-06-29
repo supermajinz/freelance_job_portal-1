@@ -92,8 +92,10 @@ class WalletBody extends StatelessWidget {
                         children: [
                           Text(
                             "SYP 5,000,000 ",
-                            style: TextStyle(color: Colors.black,
-                                fontSize: 18, fontWeight: FontWeight.bold),
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold),
                           ),
                           Text(
                             "has been sent to ",
@@ -103,8 +105,10 @@ class WalletBody extends StatelessWidget {
                           ),
                           Text(
                             "Ahmad Murad ",
-                            style: TextStyle(color: Colors.black,
-                                fontSize: 18, fontWeight: FontWeight.bold),
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold),
                           ),
                           Text(
                             "for ",
@@ -112,8 +116,10 @@ class WalletBody extends StatelessWidget {
                           ),
                           Text(
                             "Order Management App",
-                            style: TextStyle(color: Colors.black,
-                                fontSize: 18, fontWeight: FontWeight.bold),
+                            style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 18,
+                                fontWeight: FontWeight.bold),
                           )
                         ],
                       ),

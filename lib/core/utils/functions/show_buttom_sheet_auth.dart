@@ -4,28 +4,29 @@ import 'package:freelance_job_portal/core/widget/space.dart';
 import 'package:freelance_job_portal/features/auth/presentation/views/widget/custom_button_auth.dart';
 import 'package:go_router/go_router.dart';
 
-void showButtomSheet(BuildContext context,String text) {
+void showButtomSheet(BuildContext context, String text) {
   showModalBottomSheet(
       context: context,
       builder: (context) {
         return Container(
-          padding:  EdgeInsets.all(SizeConfig.defaultSize!*2),
+          padding: EdgeInsets.all(SizeConfig.defaultSize! * 2),
           child: Column(
             children: [
               Center(
                 child: Icon(
                   Icons.check_circle_outline,
-                  size: SizeConfig.defaultSize!*20,
+                  size: SizeConfig.defaultSize! * 20,
                   color: Theme.of(context).primaryColor,
                 ),
               ),
               const VirticalSpace(1),
-               Text(
+              Text(
                 text,
                 textAlign: TextAlign.center,
                 style: const TextStyle(
                     fontSize: 18,
-                    fontWeight: FontWeight.bold,fontFamily: "Roboto",
+                    fontWeight: FontWeight.bold,
+                    fontFamily: "Roboto",
                     color: Colors.black),
               ),
               const Spacer(),

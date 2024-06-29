@@ -16,7 +16,7 @@ validInput(String value, int min, int max, String type) {
       return "not valid phonenumber";
     }
   }
-  
+
   if (value.isEmpty) {
     return "can't be empty";
   }

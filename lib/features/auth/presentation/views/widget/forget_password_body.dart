@@ -17,14 +17,12 @@ class ForgetPasswordBody extends StatelessWidget {
         child: ListView(
       children: [
         const VirticalSpace(5),
-       const Center(
-            child: CustomAuthTitle(
-                 text: "Forget Password")),
+        const Center(child: CustomAuthTitle(text: "Forget Password")),
         const VirticalSpace(4),
         const Center(child: CustomTitle(text: "Cheek Phone Number")),
         const VirticalSpace(2),
         Container(
-          margin:  EdgeInsets.symmetric(horizontal: SizeConfig.defaultSize! *1),
+          margin: EdgeInsets.symmetric(horizontal: SizeConfig.defaultSize! * 1),
           child: const Text(
               "please Enter Your Phone Number To Recive A Verification Code",
               style: TextStyle(fontSize: 18),
@@ -49,7 +47,7 @@ class ForgetPasswordBody extends StatelessWidget {
             textcolor: Colors.white,
             text: "Ckeek",
             borderSide: const BorderSide(width: 0),
-            width: SizeConfig.defaultSize! *2),
+            width: SizeConfig.defaultSize! * 2),
       ],
     ));
   }

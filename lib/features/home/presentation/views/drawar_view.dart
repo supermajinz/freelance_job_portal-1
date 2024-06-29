@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
 
-
-
-
 class DrawarView extends StatefulWidget {
   const DrawarView({super.key});
 
@@ -45,7 +42,7 @@ class _DrawarViewState extends State<DrawarView> {
         //     blurRadius: 0.0,
         //   ),
         // ],
-        borderRadius:  BorderRadius.all(Radius.circular(16)),
+        borderRadius: BorderRadius.all(Radius.circular(16)),
       ),
       drawer: SafeArea(
         child: ListTileTheme(
@@ -63,7 +60,7 @@ class _DrawarViewState extends State<DrawarView> {
                 ),
                 clipBehavior: Clip.antiAlias,
                 decoration: const BoxDecoration(
-                   color: Colors.black26,
+                  color: Colors.black26,
                   shape: BoxShape.circle,
                 ),
                 child: Image.asset(

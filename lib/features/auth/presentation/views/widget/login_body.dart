@@ -31,11 +31,12 @@ class LoginBody extends StatelessWidget {
           width: SizeConfig.defaultSize! * 15,
         ),
         const VirticalSpace(4),
-       const Center(child: CustomTitle(text: "Welcom Back")),
+        const Center(child: CustomTitle(text: "Welcom Back")),
         const VirticalSpace(2),
         const Center(
-          child: CustomBodyMedium(text: "Sign In With Phone Number and Password",
-             ),
+          child: CustomBodyMedium(
+            text: "Sign In With Phone Number and Password",
+          ),
         ),
         const VirticalSpace(6),
         CustomTextForm(
@@ -63,7 +64,8 @@ class LoginBody extends StatelessWidget {
               GoRouter.of(context).push("/forgetpassword");
             },
             child: const Text("Forget Password",
-                style: TextStyle(fontSize: 15, color: Color.fromARGB(255, 165, 11, 11)),
+                style: TextStyle(
+                    fontSize: 15, color: Color.fromARGB(255, 165, 11, 11)),
                 textAlign: TextAlign.end),
           ),
         ),
@@ -76,7 +78,7 @@ class LoginBody extends StatelessWidget {
             textcolor: Colors.white,
             text: "Sign In",
             borderSide: const BorderSide(width: 0),
-            width: SizeConfig.defaultSize! *2),
+            width: SizeConfig.defaultSize! * 2),
         const VirticalSpace(1),
         TextSignUp(
           text1: "Don’t have an account?  ",

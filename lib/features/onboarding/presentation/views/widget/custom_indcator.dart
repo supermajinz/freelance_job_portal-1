@@ -9,14 +9,15 @@ class CustomIndcator extends StatelessWidget {
   Widget build(BuildContext context) {
     return DotsIndicator(
       decorator: DotsDecorator(
-        size: const Size(12, 12),activeSize: const Size(12, 12),
+          size: const Size(12, 12),
+          activeSize: const Size(12, 12),
           color: Colors.transparent,
           activeColor: primaryColer,
           shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8),
+              borderRadius: BorderRadius.circular(8),
               side: const BorderSide(color: primaryColer))),
-          dotsCount: 3,
-          position: dotIndex!.toInt(),
+      dotsCount: 3,
+      position: dotIndex!.toInt(),
     );
   }
 }

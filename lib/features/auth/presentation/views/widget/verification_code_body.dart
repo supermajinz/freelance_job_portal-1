@@ -12,33 +12,31 @@ class VerificationCodeBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(children: [
-       const VirticalSpace(5),
-        const Center(
-            child: CustomAuthTitle(
-                 text: "Verification Code")),
+    return ListView(
+      children: [
+        const VirticalSpace(5),
+        const Center(child: CustomAuthTitle(text: "Verification Code")),
         const VirticalSpace(4),
         const Center(
-          child: CustomTitle(text: "Cheek Code",
-              ),
+          child: CustomTitle(
+            text: "Cheek Code",
+          ),
         ),
         const VirticalSpace(2),
         Container(
-          margin:  EdgeInsets.symmetric(horizontal: SizeConfig.defaultSize! *1),
-          child: const Text(
-              "please Enter The Digit Code",
-              style: TextStyle(fontSize: 18),
-              textAlign: TextAlign.center),
+          margin: EdgeInsets.symmetric(horizontal: SizeConfig.defaultSize! * 1),
+          child: const Text("please Enter The Digit Code",
+              style: TextStyle(fontSize: 18), textAlign: TextAlign.center),
         ),
         const VirticalSpace(6),
         const OtpTextFieldVer(),
         const VirticalSpace(1),
-         const Text(
-             "Resend",
-             style: TextStyle(fontSize: 16,decoration: TextDecoration.underline),
-             textAlign: TextAlign.center),
-              const VirticalSpace(35),
-               CustomButton(
+        const Text("Resend",
+            style:
+                TextStyle(fontSize: 16, decoration: TextDecoration.underline),
+            textAlign: TextAlign.center),
+        const VirticalSpace(35),
+        CustomButton(
             onPressed: () {
               GoRouter.of(context).push("/resetpassword");
             },
@@ -46,8 +44,8 @@ class VerificationCodeBody extends StatelessWidget {
             textcolor: Colors.white,
             text: "Ckeek",
             borderSide: const BorderSide(width: 0),
-            width: SizeConfig.defaultSize! *2)
-    ],)
-    ;
+            width: SizeConfig.defaultSize! * 2)
+      ],
+    );
   }
 }

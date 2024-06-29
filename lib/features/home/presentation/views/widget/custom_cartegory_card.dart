@@ -11,19 +11,22 @@ class CustomCartegoryCard extends StatelessWidget {
     return Column(
       children: [
         Container(
-          padding: EdgeInsets.all(SizeConfig.defaultSize!*0.5),
-          height: SizeConfig.defaultSize!*7,
-          width: SizeConfig.defaultSize!*7,
-          decoration:  BoxDecoration(
+          padding: EdgeInsets.all(SizeConfig.defaultSize! * 0.5),
+          height: SizeConfig.defaultSize! * 7,
+          width: SizeConfig.defaultSize! * 7,
+          decoration: BoxDecoration(
             color: Colors.deepPurpleAccent,
-            borderRadius: BorderRadius.all(Radius.circular(SizeConfig.defaultSize!*1)),
+            borderRadius:
+                BorderRadius.all(Radius.circular(SizeConfig.defaultSize! * 1)),
           ),
           child: Image.asset("assets/images/ux.png",
-              height: SizeConfig.defaultSize!*6, width: SizeConfig.defaultSize!*6, fit: BoxFit.fill),
+              height: SizeConfig.defaultSize! * 6,
+              width: SizeConfig.defaultSize! * 6,
+              fit: BoxFit.fill),
         ),
         const VirticalSpace(1),
         SizedBox(
-          width: SizeConfig.defaultSize!*10,
+          width: SizeConfig.defaultSize! * 10,
           child: const Text(
             "Programming",
             maxLines: 2,

@@ -14,22 +14,24 @@ class SavedBody extends StatelessWidget {
         appBar: AppBar(
           title: const Text('Saved items'),
           centerTitle: true,
-          leading: IconButton(
-              onPressed: () {}, icon: const Icon(Icons.arrow_back)),
+          leading:
+              IconButton(onPressed: () {}, icon: const Icon(Icons.arrow_back)),
           bottom: const TabBar(
-            indicatorSize: TabBarIndicatorSize.tab,
-            labelStyle: TextStyle(fontSize: 20),
-            tabs: [
-            Tab(
-              child: Text("People"),
-            ),
-            Tab(
-              child: Text("Project"),
-            )
-          ]),
+              indicatorSize: TabBarIndicatorSize.tab,
+              labelStyle: TextStyle(fontSize: 20),
+              tabs: [
+                Tab(
+                  child: Text("People"),
+                ),
+                Tab(
+                  child: Text("Project"),
+                )
+              ]),
         ),
         body: Container(
-          margin:  EdgeInsets.symmetric(vertical: SizeConfig.defaultSize!*.5, horizontal: SizeConfig.defaultSize!*.5),
+          margin: EdgeInsets.symmetric(
+              vertical: SizeConfig.defaultSize! * .5,
+              horizontal: SizeConfig.defaultSize! * .5),
           child: TabBarView(children: [
             ListView.builder(
               itemCount: 3,

@@ -23,7 +23,7 @@ class HomeBody extends StatelessWidget {
               )),
           const VirticalSpace(2),
           SizedBox(
-            height: SizeConfig.defaultSize!*14,
+            height: SizeConfig.defaultSize! * 14,
             child: ListView.separated(
               separatorBuilder: (context, index) {
                 return const HorizintalSpace(1);
@@ -35,7 +35,6 @@ class HomeBody extends StatelessWidget {
               },
             ),
           ),
-          
           Container(
               margin: EdgeInsets.only(left: SizeConfig.defaultSize! * 0.5),
               child: const CustomSubTitle(
@@ -43,7 +42,7 @@ class HomeBody extends StatelessWidget {
               )),
           const VirticalSpace(1),
           SizedBox(
-            height: SizeConfig.defaultSize!*27,
+            height: SizeConfig.defaultSize! * 27,
             child: ListView.builder(
               itemCount: 4,
               scrollDirection: Axis.horizontal,
@@ -60,7 +59,7 @@ class HomeBody extends StatelessWidget {
               )),
           const VirticalSpace(1),
           SizedBox(
-            height: SizeConfig.defaultSize!*27,
+            height: SizeConfig.defaultSize! * 27,
             child: ListView.builder(
               itemCount: 4,
               scrollDirection: Axis.horizontal,

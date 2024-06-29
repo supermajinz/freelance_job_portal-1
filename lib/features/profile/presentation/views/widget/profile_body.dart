@@ -19,8 +19,7 @@ class ProfileBody extends StatelessWidget {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return BlocConsumer<LocalizationBloc, LocalizationState>(
-      listener: (context, state) {
-      },
+      listener: (context, state) {},
       builder: (context, state) {
         return ListView(
           children: [

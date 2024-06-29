@@ -42,7 +42,7 @@ class VerificationSignupBody extends StatelessWidget {
         const VirticalSpace(29),
         CustomButton(
             onPressed: () {
-              showButtomSheet(context,"Account successfully created");
+              showButtomSheet(context, "Account successfully created");
             },
             color: const Color.fromARGB(255, 80, 34, 88),
             textcolor: Colors.white,

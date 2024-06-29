@@ -156,7 +156,7 @@ class EditProfileBody extends StatelessWidget {
                   ),
                 ),
               ),
-               const VirticalSpace(4),
+              const VirticalSpace(4),
               Center(
                   child: CustomButtonGeneral(
                       onPressed: () {},
@@ -165,7 +165,6 @@ class EditProfileBody extends StatelessWidget {
                       text: "Save",
                       borderSide: const BorderSide(width: 0),
                       width: 200)),
-              
             ],
           ),
         )

@@ -11,8 +11,9 @@ class MyProjectBody extends StatelessWidget {
       itemCount: 3,
       itemBuilder: (context, index) {
         return Container(
-          margin: EdgeInsets.symmetric(horizontal:SizeConfig.defaultSize!*0.5),
-          child: const CustomProjectStatus());
+            margin:
+                EdgeInsets.symmetric(horizontal: SizeConfig.defaultSize! * 0.5),
+            child: const CustomProjectStatus());
       },
     );
   }

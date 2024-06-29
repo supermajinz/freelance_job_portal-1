@@ -51,7 +51,8 @@ class ResetpasswordBody extends StatelessWidget {
         const VirticalSpace(29),
         CustomButton(
             onPressed: () {
-              showButtomSheet(context,"The password has been changed successfully");
+              showButtomSheet(
+                  context, "The password has been changed successfully");
             },
             color: Theme.of(context).primaryColor,
             textcolor: Colors.white,

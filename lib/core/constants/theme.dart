@@ -22,7 +22,7 @@ ThemeData themeEn = ThemeData(
 ThemeData themeAr = ThemeData(
     fontFamily: "Roboto",
     textTheme: const TextTheme(
-       headlineLarge: TextStyle(
+        headlineLarge: TextStyle(
             fontSize: 25, fontWeight: FontWeight.bold, color: Colors.black),
         headlineMedium: TextStyle(
             fontSize: 22, fontWeight: FontWeight.bold, color: primaryColer),

@@ -7,27 +7,28 @@ class OtpTextFieldVer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return     OtpTextField(
-        numberOfFields: 6,borderRadius: BorderRadius.circular(SizeConfig.defaultSize! *2),fieldWidth: SizeConfig.defaultSize! *5,
-        borderColor: const Color(0xFF512DA8),
-        //set to true to show as box or false to show as dash
-        showFieldAsBox: true, 
-        //runs when a code is typed in
-        onCodeChanged: (String code) {
-            //handle validation or checks here           
-        },
-        //runs when every textfield is filled
-        onSubmit: (String verificationCode){
-            showDialog(
-                context: context,
-                builder: (context){
-                return AlertDialog(
-                    title: const Text("Verification Code"),
-                    content: Text('Code entered is $verificationCode'),
-                );
-                }
-            );
-        }, // end onSubmit
+    return OtpTextField(
+      numberOfFields: 6,
+      borderRadius: BorderRadius.circular(SizeConfig.defaultSize! * 2),
+      fieldWidth: SizeConfig.defaultSize! * 5,
+      borderColor: const Color(0xFF512DA8),
+      //set to true to show as box or false to show as dash
+      showFieldAsBox: true,
+      //runs when a code is typed in
+      onCodeChanged: (String code) {
+        //handle validation or checks here
+      },
+      //runs when every textfield is filled
+      onSubmit: (String verificationCode) {
+        showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                title: const Text("Verification Code"),
+                content: Text('Code entered is $verificationCode'),
+              );
+            });
+      }, // end onSubmit
     );
   }
 }

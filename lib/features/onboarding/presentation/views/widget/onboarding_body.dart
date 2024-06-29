@@ -55,7 +55,7 @@ class _OnboardingBodyState extends State<OnboardingBody> {
             left: SizeConfig.defaultSize! * 8,
             child: CustomButtonGeneral(
               onPressed: () {
-                 GoRouter.of(context).push("/login");
+                GoRouter.of(context).push("/login");
               },
               width: SizeConfig.defaultSize! * 25.5,
               borderSide: const BorderSide(width: 0),
@@ -68,7 +68,7 @@ class _OnboardingBodyState extends State<OnboardingBody> {
             left: SizeConfig.defaultSize! * 8,
             child: CustomButtonGeneral(
               onPressed: () {
-                 GoRouter.of(context).push("/home");
+                GoRouter.of(context).push("/home");
               },
               width: SizeConfig.defaultSize! * 25.5,
               borderSide: const BorderSide(width: 1),

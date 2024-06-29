@@ -8,10 +8,24 @@ class PageViewItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: [Image.asset(image,height: SizeConfig.defaultSize! *45,width: SizeConfig.defaultSize! *50,fit: BoxFit.fill ,), Padding(
-        padding:  EdgeInsets.symmetric(horizontal: SizeConfig.defaultSize! *2,vertical: SizeConfig.defaultSize! *4),
-        child: Text(disc,textAlign: TextAlign.center,style: const TextStyle(fontSize: 18,color: Colors.grey),),
-      )],
+      children: [
+        Image.asset(
+          image,
+          height: SizeConfig.defaultSize! * 45,
+          width: SizeConfig.defaultSize! * 50,
+          fit: BoxFit.fill,
+        ),
+        Padding(
+          padding: EdgeInsets.symmetric(
+              horizontal: SizeConfig.defaultSize! * 2,
+              vertical: SizeConfig.defaultSize! * 4),
+          child: Text(
+            disc,
+            textAlign: TextAlign.center,
+            style: const TextStyle(fontSize: 18, color: Colors.grey),
+          ),
+        )
+      ],
     );
   }
 }

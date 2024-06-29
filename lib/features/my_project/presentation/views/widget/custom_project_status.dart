@@ -10,11 +10,10 @@ class CustomProjectStatus extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: Colors.white,
+        color: Colors.white,
         margin: EdgeInsets.all(SizeConfig.defaultSize! * 0.7),
         child: Container(
           padding: EdgeInsets.only(
-          
               left: SizeConfig.defaultSize! * 1.2,
               top: SizeConfig.defaultSize! * 0.2),
           height: SizeConfig.defaultSize! * 35,

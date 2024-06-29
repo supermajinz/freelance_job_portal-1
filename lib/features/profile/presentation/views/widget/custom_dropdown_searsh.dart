@@ -42,10 +42,10 @@ class CustomDropdownSearch extends StatelessWidget {
         },
       ),
       onChanged: (value) {
-       // print('Selected: $value');
+        // print('Selected: $value');
       },
       // selectedItem: null,
-       selectedItem: "Software Development",
+      selectedItem: "Software Development",
     );
   }
 }

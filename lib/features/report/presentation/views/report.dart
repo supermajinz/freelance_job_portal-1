@@ -9,19 +9,18 @@ class Report extends StatelessWidget {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return Scaffold(
-        appBar: AppBar(
+      appBar: AppBar(
         title: const Text('Report'),
         centerTitle: true,
         leading: IconButton(
             onPressed: () {},
             icon: Container(
-                decoration:
-                    BoxDecoration(borderRadius: BorderRadius.circular(5),
-                    border: Border.all(width: 1)
-                    ),
-                child: const Icon(Icons.arrow_back,size: 25))),
+                decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(5),
+                    border: Border.all(width: 1)),
+                child: const Icon(Icons.arrow_back, size: 25))),
       ),
-      body:const ReportBody(),
+      body: const ReportBody(),
     );
   }
 }

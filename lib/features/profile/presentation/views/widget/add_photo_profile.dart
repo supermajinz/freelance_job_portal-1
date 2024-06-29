@@ -6,17 +6,17 @@ class AddPhotoProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  Center(
-                child: CircleAvatar(
-                  backgroundColor: const Color.fromARGB(255, 240, 225, 180),
-                  maxRadius: SizeConfig.defaultSize!*8,
-                  child: IconButton(
-                      onPressed: () {},
-                      icon:  Icon(
-                        Icons.add_a_photo_outlined,
-                        size: SizeConfig.defaultSize!*6,
-                      )),
-                ),
-              );
+    return Center(
+      child: CircleAvatar(
+        backgroundColor: const Color.fromARGB(255, 240, 225, 180),
+        maxRadius: SizeConfig.defaultSize! * 8,
+        child: IconButton(
+            onPressed: () {},
+            icon: Icon(
+              Icons.add_a_photo_outlined,
+              size: SizeConfig.defaultSize! * 6,
+            )),
+      ),
+    );
   }
 }

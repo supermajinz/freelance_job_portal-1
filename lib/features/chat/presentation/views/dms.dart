@@ -9,7 +9,6 @@ class DMs extends StatelessWidget {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return const Scaffold(
-      
       body: DmsBody(),
     );
   }

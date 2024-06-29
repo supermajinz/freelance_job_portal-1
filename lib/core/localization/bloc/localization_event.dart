@@ -15,6 +15,4 @@ class LoadLocalization extends LocalizationEvent {
   List<Object> get props => [locale];
 }
 
-class LoadSavedLocalization extends LocalizationEvent{
-  
-}
+class LoadSavedLocalization extends LocalizationEvent {}

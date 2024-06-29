@@ -26,16 +26,14 @@ class CustomSearch extends StatelessWidget {
             contentPadding:
                 const EdgeInsets.symmetric(vertical: 5, horizontal: 30),
             focusedBorder: OutlineInputBorder(
-              borderSide:
-                  const BorderSide(color: Colors.cyan),
+              borderSide: const BorderSide(color: Colors.cyan),
               borderRadius: BorderRadius.circular(20),
             ),
             enabledBorder: OutlineInputBorder(
-                borderSide:
-                    const BorderSide(color: Colors.cyanAccent),
+                borderSide: const BorderSide(color: Colors.cyanAccent),
                 borderRadius: BorderRadius.circular(30)),
-             filled: true,
-             fillColor:  Colors.cyanAccent,
+            filled: true,
+            fillColor: Colors.cyanAccent,
             prefixIcon: IconButton(
                 onPressed: onPressedSer,
                 icon: const Icon(

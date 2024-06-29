@@ -24,7 +24,10 @@ class CustomTextForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin:  EdgeInsets.only(bottom: SizeConfig.defaultSize! *2,left:SizeConfig.defaultSize! *2 ,right: SizeConfig.defaultSize! *2),
+      margin: EdgeInsets.only(
+          bottom: SizeConfig.defaultSize! * 2,
+          left: SizeConfig.defaultSize! * 2,
+          right: SizeConfig.defaultSize! * 2),
       child: TextFormField(
         keyboardType: isNumber
             ? const TextInputType.numberWithOptions(decimal: true)
@@ -36,10 +39,12 @@ class CustomTextForm extends StatelessWidget {
             hintText: hinttext,
             hintStyle: const TextStyle(fontSize: 12),
             floatingLabelBehavior: FloatingLabelBehavior.always,
-            contentPadding:
-                 EdgeInsets.symmetric(vertical: SizeConfig.defaultSize! *1.5, horizontal:SizeConfig.defaultSize!*2.5),
+            contentPadding: EdgeInsets.symmetric(
+                vertical: SizeConfig.defaultSize! * 1.5,
+                horizontal: SizeConfig.defaultSize! * 2.5),
             label: Container(
-                margin: EdgeInsets.symmetric(horizontal: SizeConfig.defaultSize! *1.5),
+                margin: EdgeInsets.symmetric(
+                    horizontal: SizeConfig.defaultSize! * 1.5),
                 child: Text(
                   lable,
                   style: const TextStyle(fontSize: 20),
@@ -47,8 +52,9 @@ class CustomTextForm extends StatelessWidget {
             isDense: true,
             floatingLabelAlignment: FloatingLabelAlignment.start,
             suffixIcon: InkWell(onTap: onTapicon, child: Icon(icon)),
-            border:
-                OutlineInputBorder(borderRadius: BorderRadius.circular(SizeConfig.defaultSize!*10))),
+            border: OutlineInputBorder(
+                borderRadius:
+                    BorderRadius.circular(SizeConfig.defaultSize! * 10))),
       ),
     );
   }

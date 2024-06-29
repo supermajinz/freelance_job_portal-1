@@ -8,7 +8,8 @@ class CustomButton extends StatelessWidget {
       required this.textcolor,
       required this.text,
       required this.borderSide,
-      required this.width, this.onPressed});
+      required this.width,
+      this.onPressed});
   final Color color;
   final Color textcolor;
   final String text;
@@ -24,11 +25,13 @@ class CustomButton extends StatelessWidget {
         onPressed: onPressed,
         color: color,
         shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(SizeConfig.defaultSize! *5), side: borderSide),
-        padding:  EdgeInsets.symmetric(vertical:SizeConfig.defaultSize! *.9),
+            borderRadius: BorderRadius.circular(SizeConfig.defaultSize! * 5),
+            side: borderSide),
+        padding: EdgeInsets.symmetric(vertical: SizeConfig.defaultSize! * .9),
         child: Text(
           text,
-          style: TextStyle(color: textcolor, fontSize: 20,fontWeight: FontWeight.bold),
+          style: TextStyle(
+              color: textcolor, fontSize: 20, fontWeight: FontWeight.bold),
         ),
       ),
     );
