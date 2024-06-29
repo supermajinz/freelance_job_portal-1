@@ -24,7 +24,7 @@ abstract class AppRouter {
   static final router = GoRouter(routes: [
     GoRoute(
       path: '/',
-      builder: (context, state) => const EditProfile(),
+      builder: (context, state) => const OnboardingView(),
     ),
      GoRoute(
       path: '/onboardingview',
