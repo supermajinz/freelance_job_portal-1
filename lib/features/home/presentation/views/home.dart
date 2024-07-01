@@ -9,7 +9,7 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return const Scaffold(
-      body: HomeBody(),
+      body: SafeArea(child: HomeBody()),
     );
   }
 }

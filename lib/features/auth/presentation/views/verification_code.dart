@@ -7,7 +7,7 @@ class VerificationCode extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      body: VerificationCodeBody(),
+      body: SafeArea(child: VerificationCodeBody()),
     );
   }
 }

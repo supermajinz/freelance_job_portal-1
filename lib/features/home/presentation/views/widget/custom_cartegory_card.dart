@@ -12,8 +12,8 @@ class CustomCartegoryCard extends StatelessWidget {
       children: [
         Container(
           padding: EdgeInsets.all(SizeConfig.defaultSize! * 0.5),
-          height: SizeConfig.defaultSize! * 7,
-          width: SizeConfig.defaultSize! * 7,
+          height: SizeConfig.defaultSize! * 8,
+          width: SizeConfig.defaultSize! * 8,
           decoration: BoxDecoration(
             color: Colors.deepPurpleAccent,
             borderRadius:

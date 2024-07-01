@@ -7,7 +7,7 @@ class Resetpassword extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      body: ResetpasswordBody(),
+      body: SafeArea(child: ResetpasswordBody()),
     );
   }
 }
