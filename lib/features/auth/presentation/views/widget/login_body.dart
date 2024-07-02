@@ -58,7 +58,7 @@ class LoginBody extends StatelessWidget {
           },
         ),
         Container(
-          margin: const EdgeInsets.only(right: 25),
+          margin: const EdgeInsets.only(right: 25,left:25 ),
           child: InkWell(
             onTap: () {
               GoRouter.of(context).push("/forgetpassword");
@@ -72,7 +72,7 @@ class LoginBody extends StatelessWidget {
         const VirticalSpace(8),
         CustomButton(
             onPressed: () {
-              GoRouter.of(context).push("/home");
+              GoRouter.of(context).push("/homescreen");
             },
             color: Colors.cyanAccent,
             textcolor: Colors.white,

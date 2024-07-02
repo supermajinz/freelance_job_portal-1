@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:freelance_job_portal/core/utils/size_config.dart';
 
 class CustomButtonGeneral extends StatelessWidget {
   const CustomButtonGeneral(
@@ -24,8 +25,8 @@ class CustomButtonGeneral extends StatelessWidget {
         onPressed: onPressed,
         color: color,
         shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(25), side: borderSide),
-        padding: const EdgeInsets.symmetric(vertical: 8),
+            borderRadius: BorderRadius.circular(SizeConfig.defaultSize!*2.5), side: borderSide),
+        padding:  EdgeInsets.symmetric(vertical: SizeConfig.defaultSize!*.8),
         child: Text(
           text,
           style: TextStyle(color: textcolor, fontSize: 20),

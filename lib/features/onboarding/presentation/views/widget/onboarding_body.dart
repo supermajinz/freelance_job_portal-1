@@ -47,7 +47,7 @@ class _OnboardingBodyState extends State<OnboardingBody> {
               width: SizeConfig.defaultSize! * 25.5,
               borderSide: const BorderSide(width: 0),
               color: Theme.of(context).primaryColor,
-              text: "SignUp",
+              text: "انشاء حساب",
               textcolor: Colors.white,
             )),
         Positioned(
@@ -60,7 +60,7 @@ class _OnboardingBodyState extends State<OnboardingBody> {
               width: SizeConfig.defaultSize! * 25.5,
               borderSide: const BorderSide(width: 0),
               color: Colors.cyanAccent,
-              text: "SignIn",
+              text: "تسجيل دخول",
               textcolor: Colors.white,
             )),
         Positioned(
@@ -73,7 +73,7 @@ class _OnboardingBodyState extends State<OnboardingBody> {
               width: SizeConfig.defaultSize! * 25.5,
               borderSide: const BorderSide(width: 1),
               color: Colors.white,
-              text: "Continue As Guest",
+              text: "الاستمرار كضيف",
               textcolor: Colors.black,
             )),
       ],

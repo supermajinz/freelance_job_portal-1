@@ -13,16 +13,18 @@ class CustomProjectStatus extends StatelessWidget {
         color: Colors.white,
         margin: EdgeInsets.all(SizeConfig.defaultSize! * 0.7),
         child: Container(
-          padding: EdgeInsets.only(
-              left: SizeConfig.defaultSize! * 1.2,
-              top: SizeConfig.defaultSize! * 0.2),
+          padding: EdgeInsets.only(top: SizeConfig.defaultSize! * 0.2),
           height: SizeConfig.defaultSize! * 35,
           width: SizeConfig.defaultSize! * 35,
-          child: Column(children: [
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Row(
               children: [
-                const Text("Order Management App",
-                    style: TextStyle(fontSize: 18, color: Colors.black)),
+                Container(
+                  margin: EdgeInsets.only(right: SizeConfig.defaultSize! * 1.2),
+                  child: const Text("Order Management App",
+                      style: TextStyle(fontSize: 18, color: Colors.black)),
+                ),
                 const Spacer(),
                 const Text("1d", style: TextStyle(fontSize: 15)),
                 IconButton(
@@ -30,11 +32,13 @@ class CustomProjectStatus extends StatelessWidget {
                     icon: const Icon(Icons.bookmark_add_outlined))
               ],
             ),
-            const Text(
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod temp..",
-                overflow: TextOverflow.ellipsis,
-                maxLines: 2,
-                style: TextStyle(fontSize: 15, color: Colors.grey)),
+            Container(  margin: EdgeInsets.only(right: SizeConfig.defaultSize! * 1.2),
+              child: const Text(
+                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod temp..",
+                  overflow: TextOverflow.ellipsis,
+                  maxLines: 2,
+                  style: TextStyle(fontSize: 15, color: Colors.grey)),
+            ),
             const CustomTimeline(),
             const VirticalSpace(1),
             SizedBox(
@@ -63,35 +67,37 @@ class CustomProjectStatus extends StatelessWidget {
               ),
             ),
             const VirticalSpace(2),
-            Row(
-              children: [
-                CircleAvatar(
-                  maxRadius: SizeConfig.defaultSize! * 3,
-                  backgroundImage: const AssetImage(
-                    "assets/images/pro.jpg",
-                  ),
-                ),
-                const HorizintalSpace(1),
-                Column(
-                  children: [
-                    const Text(
-                      "melisa",
-                      style: TextStyle(fontSize: 20),
+            Container(  margin: EdgeInsets.only(right: SizeConfig.defaultSize! * 1.2),
+              child: Row(
+                children: [
+                  CircleAvatar(
+                    maxRadius: SizeConfig.defaultSize! * 3,
+                    backgroundImage: const AssetImage(
+                      "assets/images/pro.jpg",
                     ),
-                    const VirticalSpace(1),
-                    Row(
-                      children: [
-                        const Text("4.6"),
-                        Icon(
-                          Icons.star,
-                          color: Colors.yellow,
-                          size: SizeConfig.defaultSize! * 2,
-                        )
-                      ],
-                    )
-                  ],
-                ),
-              ],
+                  ),
+                  const HorizintalSpace(1),
+                  Column(
+                    children: [
+                      const Text(
+                        "melisa",
+                        style: TextStyle(fontSize: 20),
+                      ),
+                      const VirticalSpace(1),
+                      Row(
+                        children: [
+                          const Text("4.6"),
+                          Icon(
+                            Icons.star,
+                            color: Colors.yellow,
+                            size: SizeConfig.defaultSize! * 2,
+                          )
+                        ],
+                      )
+                    ],
+                  ),
+                ],
+              ),
             ),
           ]),
         ));

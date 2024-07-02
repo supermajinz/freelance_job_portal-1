@@ -27,8 +27,8 @@ class EditProfileBody extends StatelessWidget {
                 children: [
                   const EditPhotoProfile(),
                   Positioned(
-                    top: 90,
-                    left: 95,
+                    top: SizeConfig.defaultSize!*9,
+                    left: SizeConfig.defaultSize!*9.5,
                     child: IconButton(
                         onPressed: () {}, icon: const Icon(Icons.edit)),
                   )
@@ -61,7 +61,7 @@ class EditProfileBody extends StatelessWidget {
                   hinttext: "",
                   lable: "Descripion",
                   isNumber: false),
-              const VirticalSpace(2),
+              const VirticalSpace(4),
               const Text(
                 "Edit Descriptor Images",
                 style: TextStyle(
@@ -71,7 +71,7 @@ class EditProfileBody extends StatelessWidget {
               ),
               const VirticalSpace(2),
               SizedBox(
-                height: 210,
+                height: SizeConfig.defaultSize!*21,
                 child: ListView.separated(
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (context, index) {
@@ -79,19 +79,19 @@ class EditProfileBody extends StatelessWidget {
                         clipBehavior: Clip.none,
                         children: [
                           Container(
-                            height: 200,
-                            width: 150,
-                            decoration: const BoxDecoration(
+                            height: SizeConfig.defaultSize!*20,
+                            width: SizeConfig.defaultSize!*15,
+                            decoration:  BoxDecoration(
                                 borderRadius:
-                                    BorderRadius.all(Radius.circular(16)),
-                                image: DecorationImage(
+                                    BorderRadius.all(Radius.circular(SizeConfig.defaultSize!*1.6)),
+                                image: const DecorationImage(
                                     fit: BoxFit.fill,
                                     image:
                                         AssetImage("assets/images/pro.jpg"))),
                           ),
                           Positioned(
-                            top: 170,
-                            right: 120,
+                            top: SizeConfig.defaultSize!*17,
+                            right:SizeConfig.defaultSize!*12,
                             child: IconButton(
                                 onPressed: () {}, icon: const Icon(Icons.edit)),
                           )
@@ -103,7 +103,7 @@ class EditProfileBody extends StatelessWidget {
                     },
                     itemCount: 5),
               ),
-              const VirticalSpace(2),
+              const VirticalSpace(4),
               const Text(
                 "Category",
                 style: TextStyle(
@@ -125,7 +125,7 @@ class EditProfileBody extends StatelessWidget {
               const CustomDropdownSearsh1(),
               const VirticalSpace(2),
               SizedBox(
-                height: 100,
+                height: SizeConfig.defaultSize!*10,
                 child: ListView.separated(
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (context, index) {
@@ -144,7 +144,7 @@ class EditProfileBody extends StatelessWidget {
                   onTap: () {},
                   child: CircleAvatar(
                     backgroundColor: Theme.of(context).primaryColor,
-                    maxRadius: 80,
+                    maxRadius: SizeConfig.defaultSize!*8,
                     child: const Text(
                       "Edit Protofolio Project",
                       textAlign: TextAlign.center,
@@ -156,7 +156,7 @@ class EditProfileBody extends StatelessWidget {
                   ),
                 ),
               ),
-              const VirticalSpace(4),
+              const VirticalSpace(5),
               Center(
                   child: CustomButtonGeneral(
                       onPressed: () {},
@@ -164,7 +164,7 @@ class EditProfileBody extends StatelessWidget {
                       textcolor: Colors.white,
                       text: "Save",
                       borderSide: const BorderSide(width: 0),
-                      width: 200)),
+                      width: SizeConfig.defaultSize!*20)),
             ],
           ),
         )

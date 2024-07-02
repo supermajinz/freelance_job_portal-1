@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:freelance_job_portal/core/utils/size_config.dart';
 
 class CustomSearch extends StatelessWidget {
   final String title;
@@ -18,32 +19,32 @@ class CustomSearch extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+      padding:  EdgeInsets.symmetric(vertical:SizeConfig.defaultSize!*1.5, horizontal: SizeConfig.defaultSize!*1),
       child: TextFormField(
         // controller: myController,
         onChanged: onChanged,
         decoration: InputDecoration(
             contentPadding:
-                const EdgeInsets.symmetric(vertical: 5, horizontal: 30),
+                 EdgeInsets.symmetric(vertical: SizeConfig.defaultSize!*1, horizontal:SizeConfig.defaultSize!*3.5),
             focusedBorder: OutlineInputBorder(
-              borderSide: const BorderSide(color: Colors.cyan),
-              borderRadius: BorderRadius.circular(20),
+              borderSide: const BorderSide(color: Colors.blueGrey),
+              borderRadius: BorderRadius.circular(SizeConfig.defaultSize!*3),
             ),
             enabledBorder: OutlineInputBorder(
-                borderSide: const BorderSide(color: Colors.cyanAccent),
-                borderRadius: BorderRadius.circular(30)),
+                borderSide: const BorderSide(color: Colors.grey),
+                borderRadius: BorderRadius.circular(SizeConfig.defaultSize!*3)),
             filled: true,
-            fillColor: Colors.cyanAccent,
+            fillColor: Colors.white,
             prefixIcon: IconButton(
                 onPressed: onPressedSer,
                 icon: const Icon(
                   Icons.search,
-                  color: Color.fromARGB(255, 209, 204, 204),
+                  color: Color.fromARGB(255, 112, 109, 109),
                   size: 28,
                 )),
             hintText: title,
             hintStyle: const TextStyle(
-                color: Color.fromARGB(255, 209, 204, 204), fontSize: 20)),
+                color: Color.fromARGB(255, 151, 150, 150), fontSize: 18)),
       ),
     );
   }

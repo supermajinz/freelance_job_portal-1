@@ -11,8 +11,8 @@ class PageViewItem extends StatelessWidget {
       children: [
         Image.asset(
           image,
-          height: SizeConfig.defaultSize! * 45,
-          width: SizeConfig.defaultSize! * 50,
+          height: SizeConfig.defaultSize! * 40,
+          width: double.infinity,
           fit: BoxFit.fill,
         ),
         Padding(

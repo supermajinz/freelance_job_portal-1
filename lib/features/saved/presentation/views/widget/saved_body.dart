@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:freelance_job_portal/core/utils/size_config.dart';
+import 'package:freelance_job_portal/core/widget/space.dart';
 import 'package:freelance_job_portal/features/home/presentation/views/widget/custom_project_card.dart';
+import 'package:freelance_job_portal/features/profile/presentation/views/widget/custom_profile_card.dart';
 import 'package:freelance_job_portal/features/saved/presentation/views/widget/custom_people.dart';
 
 class SavedBody extends StatelessWidget {
@@ -33,10 +35,13 @@ class SavedBody extends StatelessWidget {
               vertical: SizeConfig.defaultSize! * .5,
               horizontal: SizeConfig.defaultSize! * .5),
           child: TabBarView(children: [
-            ListView.builder(
+            ListView.separated(
+              separatorBuilder: (context, index) {
+                return const VirticalSpace(.5);
+              },
               itemCount: 3,
               itemBuilder: (context, index) {
-                return const CustomPeople();
+                return const CustomProfileCard();
               },
             ),
             ListView.builder(

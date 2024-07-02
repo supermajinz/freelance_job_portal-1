@@ -85,7 +85,7 @@ class DepositBody extends StatelessWidget {
                     textcolor: Colors.white,
                     text: "Deposit",
                     borderSide: const BorderSide(width: 0),
-                    width: 200),
+                    width: SizeConfig.defaultSize!*20),
               )
             ],
           ),

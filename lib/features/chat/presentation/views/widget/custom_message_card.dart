@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:freelance_job_portal/core/utils/size_config.dart';
 import 'package:freelance_job_portal/core/widget/space.dart';
 
 class CustomMessageCard extends StatelessWidget {
@@ -7,21 +8,18 @@ class CustomMessageCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: 66,
-        margin: const EdgeInsets.only(top: 15, left: 10, right: 10),
-        padding: const EdgeInsets.only(bottom: 12),
-        decoration: const BoxDecoration(
-            border: Border(bottom: BorderSide(width: 1, color: Colors.grey))),
-        child: const Row(
+        height: SizeConfig.defaultSize!*6.6,
+        margin:  EdgeInsets.only(right: SizeConfig.defaultSize!*1),
+        child:  Row(
           children: [
             CircleAvatar(
-              radius: 30,
-              backgroundImage: AssetImage(
+              radius:SizeConfig.defaultSize!*3,
+              backgroundImage: const AssetImage(
                 "assets/images/pro.jpg",
               ),
             ),
-            HorizintalSpace(1),
-            Column(
+            const HorizintalSpace(1),
+            const Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
@@ -36,7 +34,7 @@ class CustomMessageCard extends StatelessWidget {
                             fontSize: 15, fontWeight: FontWeight.bold))
                   ],
                 ),
-                Spacer(),
+                VirticalSpace(1),
                 Text(
                   "Lorem ipsum dolor sit amet, consectetur .........",
                   style: TextStyle(

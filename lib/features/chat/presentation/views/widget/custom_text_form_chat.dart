@@ -1,12 +1,13 @@
 import 'package:chat_bubbles/message_bars/message_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:freelance_job_portal/core/utils/size_config.dart';
 
 class CustomTextFormChat extends StatelessWidget {
   const CustomTextFormChat({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return MessageBar(
+    return MessageBar(replying: true,textFieldTextStyle: const TextStyle(fontSize: 20),
       // ignore: avoid_print
       onSend: (_) => print(_),
       actions: [
@@ -19,7 +20,7 @@ class CustomTextFormChat extends StatelessWidget {
           onTap: () {},
         ),
         Padding(
-          padding: const EdgeInsets.only(left: 8, right: 8),
+          padding:  EdgeInsets.only(left: SizeConfig.defaultSize!*.8, right: SizeConfig.defaultSize!*.8),
           child: InkWell(
             child: const Icon(
               Icons.camera_alt,

@@ -11,9 +11,9 @@ class CustomCartegoryCard extends StatelessWidget {
     return Column(
       children: [
         Container(
-          padding: EdgeInsets.all(SizeConfig.defaultSize! * 0.5),
-          height: SizeConfig.defaultSize! * 8,
-          width: SizeConfig.defaultSize! * 8,
+          padding: EdgeInsets.all(SizeConfig.defaultSize! * 0.7),
+          height: SizeConfig.defaultSize! * 8.5,
+          width: SizeConfig.defaultSize! * 8.5,
           decoration: BoxDecoration(
             color: Colors.deepPurpleAccent,
             borderRadius:
@@ -26,9 +26,9 @@ class CustomCartegoryCard extends StatelessWidget {
         ),
         const VirticalSpace(1),
         SizedBox(
-          width: SizeConfig.defaultSize! * 10,
+          width: SizeConfig.defaultSize! * 12,
           child: const Text(
-            "Programming",
+            "أعمال وخدمات استشارية",textAlign: TextAlign.center,
             maxLines: 2,
             style: TextStyle(
                 color: Color.fromARGB(255, 58, 33, 102),

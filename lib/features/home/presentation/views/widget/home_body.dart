@@ -12,24 +12,24 @@ class HomeBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(left: SizeConfig.defaultSize! * 1),
+      margin: EdgeInsets.only(right:  SizeConfig.defaultSize! * 1),
       child: ListView(
         shrinkWrap: true,
         children: [
           const VirticalSpace(2),
           Container(
-              margin: EdgeInsets.only(left: SizeConfig.defaultSize! * 0.5),
+              margin: EdgeInsets.only(left: SizeConfig.defaultSize! * 0.5,right: SizeConfig.defaultSize! * 1),
               child: const CustomSubTitle(
-                text: "Categories",
+                text: "التصنيفات",
               )),
           const VirticalSpace(2),
           SizedBox(
-            height: SizeConfig.defaultSize! * 28,
+            height: SizeConfig.defaultSize! * 29,
             child: GridView.builder(
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
-                  crossAxisSpacing: 0.5,
-                  mainAxisSpacing: 0.5),
+                  childAspectRatio: 1.1,
+                  crossAxisSpacing: 1.5),
               scrollDirection: Axis.horizontal,
               itemCount: 8,
               itemBuilder: (context, index) {
@@ -37,9 +37,10 @@ class HomeBody extends StatelessWidget {
               },
             ),
           ),
+          const VirticalSpace(4),
           Container(
               margin: EdgeInsets.only(
-                  left: SizeConfig.defaultSize! * 0.5,
+                  left: SizeConfig.defaultSize! * 1,
                   right: SizeConfig.defaultSize! * 1),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -98,6 +99,7 @@ class HomeBody extends StatelessWidget {
               },
             ),
           ),
+          const VirticalSpace(1),
         ],
       ),
     );

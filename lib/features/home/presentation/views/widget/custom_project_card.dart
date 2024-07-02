@@ -12,11 +12,12 @@ class CustomProjectCard extends StatelessWidget {
         margin: EdgeInsets.all(SizeConfig.defaultSize! * 0.7),
         child: Container(
           padding: EdgeInsets.only(
-              left: SizeConfig.defaultSize! * 1.2,
+              right: SizeConfig.defaultSize! * 1.2,
               top: SizeConfig.defaultSize! * 0.2),
-          height: SizeConfig.defaultSize! * 25,
+          height: SizeConfig.defaultSize! * 26,
           width: SizeConfig.defaultSize! * 35,
-          child: Column(children: [
+          child: Column(crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
             Row(
               children: [
                 const Text("Order Management App",

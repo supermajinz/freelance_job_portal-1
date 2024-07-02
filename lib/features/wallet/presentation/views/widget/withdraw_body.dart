@@ -75,6 +75,7 @@ class WithdrawBody extends StatelessWidget {
               const VirticalSpace(1),
               const Text(
                 "Note: Your transaction will be processed shortly, thank you for your patience.",
+                textAlign: TextAlign.start,
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w200),
               ),
               const VirticalSpace(8),
@@ -85,7 +86,7 @@ class WithdrawBody extends StatelessWidget {
                     textcolor: Colors.white,
                     text: "Withdraw",
                     borderSide: const BorderSide(width: 0),
-                    width: 200),
+                    width: SizeConfig.defaultSize!*20),
               )
             ],
           ),

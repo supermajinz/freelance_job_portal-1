@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:freelance_job_portal/core/constants/colors.dart';
+import 'package:freelance_job_portal/core/utils/size_config.dart';
 import 'package:freelance_job_portal/core/widget/space.dart';
 
 class CustomNotificationCard extends StatelessWidget {
@@ -8,21 +9,21 @@ class CustomNotificationCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-        color: const Color.fromARGB(255, 229, 232, 235),
-        margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 3),
+        color: const Color.fromARGB(255, 246, 248, 250),
+        margin:  EdgeInsets.symmetric(horizontal: SizeConfig.defaultSize!*1.5, vertical: SizeConfig.defaultSize!*.5),
         child: Container(
-          padding: const EdgeInsets.all(15),
-          height: 150,
+          padding: EdgeInsets.all(SizeConfig.defaultSize!*1.5),
+          height: SizeConfig.defaultSize!*15.5,
           width: double.infinity,
           child: Column(children: [
             Row(
               children: [
                 Container(
-                  height: 13,
-                  width: 13,
-                  decoration: const BoxDecoration(
+                  height: SizeConfig.defaultSize!*1.3,
+                  width:SizeConfig.defaultSize!*1.3,
+                  decoration:  BoxDecoration(
                       color: primaryColer,
-                      borderRadius: BorderRadius.all(Radius.circular(20))),
+                      borderRadius: BorderRadius.all(Radius.circular(SizeConfig.defaultSize!*2))),
                 ),
                 const HorizintalSpace(1),
                 const Text("Apply Success",

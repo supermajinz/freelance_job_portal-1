@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:freelance_job_portal/core/utils/size_config.dart';
 import 'package:freelance_job_portal/features/profile/presentation/views/widget/create_profile_body.dart';
 
 class CreateProfile extends StatelessWidget {
@@ -7,12 +6,11 @@ class CreateProfile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SizeConfig().init(context);
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Create Profile'),
+        title: const Text('Create Profile'),centerTitle: true,
       ),
-      body: const CreateProfileBody(),
+      body: const SafeArea(child: CreateProfileBody()),
     );
   }
 }

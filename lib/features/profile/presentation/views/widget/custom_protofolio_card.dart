@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:freelance_job_portal/core/utils/size_config.dart';
 
 class CustomProtofolioCard extends StatelessWidget {
   const CustomProtofolioCard({super.key});
@@ -9,20 +10,20 @@ class CustomProtofolioCard extends StatelessWidget {
       clipBehavior: Clip.none,
       children: [
         Container(
-          width: 180,
-          height: 180,
+          width: SizeConfig.defaultSize!*18,
+          height: SizeConfig.defaultSize!*18,
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(15),
+              borderRadius: BorderRadius.circular(SizeConfig.defaultSize!*1.5),
               image: const DecorationImage(
                   fit: BoxFit.fill,
                   image: AssetImage("assets/images/proto1.jpg"))),
         ),
         Positioned(
-          bottom: 5,
+          bottom: SizeConfig.defaultSize!*.5,
           child: Container(
             alignment: Alignment.center,
-            width: 180,
-            height: 30,
+            width: SizeConfig.defaultSize!*18,
+            height: SizeConfig.defaultSize!*3,
             child: const Text(
               "Black Hold design",
               style: TextStyle(

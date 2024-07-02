@@ -1,11 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:freelance_job_portal/core/localization/bloc/localization_bloc.dart';
+import 'package:freelance_job_portal/core/utils/size_config.dart';
+import 'package:freelance_job_portal/features/home/presentation/views/widget/home_body.dart';
+import 'package:go_router/go_router.dart';
 
 class DrawarView extends StatefulWidget {
   const DrawarView({super.key});
 
   @override
-  // ignore: library_private_types_in_public_api
   _DrawarViewState createState() => _DrawarViewState();
 }
 
@@ -20,8 +25,8 @@ class _DrawarViewState extends State<DrawarView> {
         height: double.infinity,
         decoration: BoxDecoration(
           gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
+            begin: Alignment.topRight,
+            end: Alignment.bottomLeft,
             colors: [Colors.blueGrey, Colors.blueGrey.withOpacity(0.2)],
           ),
         ),
@@ -30,19 +35,11 @@ class _DrawarViewState extends State<DrawarView> {
       animationCurve: Curves.easeInOut,
       animationDuration: const Duration(milliseconds: 300),
       animateChildDecoration: true,
-      rtlOpening: false,
-      // openScale: 1.0,
+      rtlOpening: true,
       disabledGestures: false,
-      childDecoration: const BoxDecoration(
-        // NOTICE: Uncomment if you want to add shadow behind the page.
-        // Keep in mind that it may cause animation jerks.
-        // boxShadow: <BoxShadow>[
-        //   BoxShadow(
-        //     color: Colors.black12,
-        //     blurRadius: 0.0,
-        //   ),
-        // ],
-        borderRadius: BorderRadius.all(Radius.circular(16)),
+      childDecoration: BoxDecoration(
+        borderRadius:
+            BorderRadius.all(Radius.circular(SizeConfig.defaultSize! * 1.6)),
       ),
       drawer: SafeArea(
         child: ListTileTheme(
@@ -54,9 +51,9 @@ class _DrawarViewState extends State<DrawarView> {
               Container(
                 width: 128.0,
                 height: 128.0,
-                margin: const EdgeInsets.only(
-                  top: 24.0,
-                  bottom: 64.0,
+                margin: EdgeInsets.only(
+                  top: SizeConfig.defaultSize! * 2.4,
+                  bottom: SizeConfig.defaultSize! * 6.4,
                 ),
                 clipBehavior: Clip.antiAlias,
                 decoration: const BoxDecoration(
@@ -70,22 +67,45 @@ class _DrawarViewState extends State<DrawarView> {
               ListTile(
                 onTap: () {},
                 leading: const Icon(Icons.home),
-                title: const Text('Home'),
+                title: const Text('الرئيسية'),
               ),
               ListTile(
                 onTap: () {},
                 leading: const Icon(Icons.account_circle_rounded),
-                title: const Text('Profile'),
+                title: const Text('الملف الشخصي'),
               ),
               ListTile(
-                onTap: () {},
-                leading: const Icon(Icons.favorite),
-                title: const Text('Favourites'),
+                onTap: () {
+                  GoRouter.of(context).push('/saved');
+                },
+                leading: const Icon(Icons.bookmark_add_outlined),
+                title: const Text('العناصر المحفوظة'),
               ),
               ListTile(
                 onTap: () {},
                 leading: const Icon(Icons.settings),
-                title: const Text('Settings'),
+                title: const Text('الإعدادات'),
+              ),
+              PopupMenuButton<String>(
+                icon: const Icon(Icons.language),
+                itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+                  PopupMenuItem<String>(
+                    value: 'en',
+                    child: const Text('English'),
+                    onTap: () {
+                      BlocProvider.of<LocalizationBloc>(context)
+                          .add(const LoadLocalization(Locale('en')));
+                    },
+                  ),
+                  PopupMenuItem<String>(
+                    value: 'ar',
+                    child: const Text('Arabic'),
+                    onTap: () {
+                      BlocProvider.of<LocalizationBloc>(context)
+                          .add(const LoadLocalization(Locale('ar')));
+                    },
+                  ),
+                ],
               ),
               const Spacer(),
               DefaultTextStyle(
@@ -94,10 +114,10 @@ class _DrawarViewState extends State<DrawarView> {
                   color: Colors.white54,
                 ),
                 child: Container(
-                  margin: const EdgeInsets.symmetric(
-                    vertical: 16.0,
+                  margin: EdgeInsets.symmetric(
+                    vertical: SizeConfig.defaultSize! * 1.6,
                   ),
-                  child: const Text('Terms of Service | Privacy Policy'),
+                  child: const Text(''),
                 ),
               ),
             ],
@@ -106,7 +126,22 @@ class _DrawarViewState extends State<DrawarView> {
       ),
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Advanced Drawer Example'),
+          elevation: 5,
+          shadowColor: Theme.of(context).primaryColor,
+          actions: [
+            IconButton(
+                onPressed: () {
+                  GoRouter.of(context).push("/notifications");
+                },
+                icon: const Icon(Icons.notifications_active_outlined))
+          ],
+          backgroundColor: Theme.of(context).primaryColor,
+          title: const Text(
+            'الرئيسية',
+            style: TextStyle(color: Colors.white),
+          ),
+          centerTitle: true,
+          iconTheme: const IconThemeData(color: Colors.white, size: 28),
           leading: IconButton(
             onPressed: _handleMenuButtonPressed,
             icon: ValueListenableBuilder<AdvancedDrawerValue>(
@@ -123,14 +158,12 @@ class _DrawarViewState extends State<DrawarView> {
             ),
           ),
         ),
-        body: Container(),
+        body: const HomeBody(),
       ),
     );
   }
 
   void _handleMenuButtonPressed() {
-    // NOTICE: Manage Advanced Drawer state through the Controller.
-    // _advancedDrawerController.value = AdvancedDrawerValue.visible();
     _advancedDrawerController.showDrawer();
   }
 }

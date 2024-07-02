@@ -14,9 +14,9 @@ class Withdraw extends StatelessWidget {
             onPressed: () {},
             icon: Container(
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
+                    borderRadius: BorderRadius.circular(7),
                     border: Border.all(width: 1)),
-                child: const Icon(Icons.arrow_back, size: 25))),
+                child: const Icon(Icons.arrow_back_outlined, size: 25))),
       ),
       body: const WithdrawBody(),
     );

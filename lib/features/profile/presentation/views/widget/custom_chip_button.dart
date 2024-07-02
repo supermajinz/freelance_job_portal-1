@@ -15,8 +15,8 @@ class CustomChipButton extends StatelessWidget {
           borderRadius:
               BorderRadius.all(Radius.circular(SizeConfig.defaultSize! * 3))),
       showCheckmark: false,
-      labelPadding: const EdgeInsets.all(5),
-      padding: const EdgeInsets.all(5),
+      labelPadding:  EdgeInsets.all(SizeConfig.defaultSize!*.5),
+      padding:  EdgeInsets.all(SizeConfig.defaultSize!*.5),
     );
   }
 }

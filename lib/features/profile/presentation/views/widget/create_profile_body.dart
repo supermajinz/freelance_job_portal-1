@@ -73,7 +73,7 @@ class CreateProfileBody extends StatelessWidget {
               const CustomDropdownSearsh1(),
               const VirticalSpace(2),
               SizedBox(
-                height: 100,
+                height: SizeConfig.defaultSize!*10,
                 child: ListView.separated(
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (context, index) {
@@ -94,7 +94,7 @@ class CreateProfileBody extends StatelessWidget {
                       textcolor: Colors.white,
                       text: "Create",
                       borderSide: const BorderSide(width: 0),
-                      width: 200)),
+                      width: SizeConfig.defaultSize!*20)),
             ],
           ),
         )

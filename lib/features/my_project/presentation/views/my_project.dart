@@ -7,7 +7,6 @@ class MyProject extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SizeConfig().init(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text('My Project'),
@@ -16,11 +15,11 @@ class MyProject extends StatelessWidget {
             onPressed: () {},
             icon: Container(
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
-                    border: Border.all(width: 1)),
+                    borderRadius: BorderRadius.circular(SizeConfig.defaultSize!*.5),
+                    border: Border.all(width: SizeConfig.defaultSize!*.1)),
                 child: const Icon(Icons.arrow_back, size: 25))),
       ),
-      body: const MyProjectBody(),
+      body: const SafeArea(child: MyProjectBody()),
     );
   }
 }

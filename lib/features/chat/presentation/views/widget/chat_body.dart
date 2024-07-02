@@ -1,37 +1,40 @@
 import 'package:flutter/material.dart';
+import 'package:freelance_job_portal/core/utils/size_config.dart';
 import 'package:freelance_job_portal/core/widget/custom_search.dart';
+import 'package:freelance_job_portal/core/widget/space.dart';
 import 'package:freelance_job_portal/features/chat/presentation/views/widget/custom_message_card.dart';
+import 'package:go_router/go_router.dart';
 
 class ChatBody extends StatelessWidget {
   const ChatBody({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
+    return ListView(
       children: [
-        Positioned(
-            top: 55,
-            right: 0,
-            left: 0,
-            bottom: 0,
-            child: Container(
-              height: 710,
-              color: const Color.fromARGB(255, 182, 232, 238),
-              child: Container(
-                margin: const EdgeInsets.only(top: 40),
-                child: ListView.builder(
-                  itemCount: 7,
-                  itemBuilder: (context, index) {
-                    return const CustomMessageCard();
+        const VirticalSpace(2),
+        const CustomSearch(title: "Hinted search text"),
+        Container(
+          margin:  EdgeInsets.symmetric(horizontal: SizeConfig.defaultSize!*.5),
+          height: SizeConfig.defaultSize!*61,
+          color: Theme.of(context).cardColor,
+          child: ListView.separated(
+            separatorBuilder: (context, index) {
+              return Container(
+                  margin:  EdgeInsets.symmetric(horizontal: SizeConfig.defaultSize!*1),
+                  child: const Divider());
+            },
+            shrinkWrap: true,
+            itemCount: 9,
+            itemBuilder: (context, index) {
+              return InkWell(
+                  onTap: () {
+                    GoRouter.of(context).push("/dms");
                   },
-                ),
-              ),
-            )),
-        const Positioned(
-            bottom: 675,
-            right: 10,
-            left: 10,
-            child: CustomSearch(title: "Hinted search text"))
+                  child: const CustomMessageCard());
+            },
+          ),
+        ),
       ],
     );
   }

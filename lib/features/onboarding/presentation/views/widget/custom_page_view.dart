@@ -12,15 +12,15 @@ class CustomPageView extends StatelessWidget {
       children: const [
         PageViewItem(
             disc:
-                "We are looking for a software developer to create an interactive onboarding system for our new employees. The system should include information about the company, the tools used",
+                "نحن نبحث عن مطور برامج لإنشاء نظام تأهيل تفاعلي لموظفينا الجدد. يجب أن يتضمن النظام معلومات عن الشركة والأدوات المستخدمة",
             image: "assets/images/o1.png"),
         PageViewItem(
             disc:
-                "We need an instructional designer to create an online training course for our new hires. The course should include educational videos, interactive slides, and quizzes to assess",
+                "نحن بحاجة إلى مصمم تعليمي لإنشاء دورة تدريبية عبر الإنترنت للموظفين الجدد لدينا. يجب أن تتضمن الدورة مقاطع فيديو تعليمية وشرائح تفاعلية واختبارات للتقييم",
             image: "assets/images/o2.png"),
         PageViewItem(
             disc:
-                "We are seeking a UX specialist to improve the onboarding process for our app users. The project should aim to make the registration and app usage process smoother",
+                "نحن نبحث عن متخصص في تجربة المستخدم لتحسين عملية الإعداد لمستخدمي التطبيق لدينا. يجب أن يهدف المشروع إلى جعل عملية التسجيل واستخدام التطبيق أكثر سلاسة",
             image: "assets/images/o3.jpg")
       ],
     );

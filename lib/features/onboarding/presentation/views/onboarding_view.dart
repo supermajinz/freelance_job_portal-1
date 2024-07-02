@@ -9,8 +9,8 @@ class OnboardingView extends StatelessWidget {
   Widget build(BuildContext context) {
     SizeConfig().init(context);
     return const Scaffold(
-      body: OnboardingBody(),
-      //TODO:SafeArea
+      body: SafeArea(child: OnboardingBody()),
+      
     );
   }
 }

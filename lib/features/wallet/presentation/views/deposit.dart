@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:freelance_job_portal/core/utils/size_config.dart';
 import 'package:freelance_job_portal/features/wallet/presentation/views/widget/deposit_body.dart';
 
 class Deposit extends StatelessWidget {
@@ -7,7 +6,6 @@ class Deposit extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SizeConfig().init(context);
     return Scaffold(
       appBar: AppBar(
         title: const Text('Deposit'),

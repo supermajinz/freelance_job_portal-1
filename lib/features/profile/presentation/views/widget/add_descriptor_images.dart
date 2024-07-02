@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:freelance_job_portal/core/utils/size_config.dart';
 
 class AddDescriptorImages extends StatelessWidget {
   const AddDescriptorImages({super.key});
@@ -22,14 +23,14 @@ class AddDescriptorImages extends StatelessWidget {
           ),
         ),
         Positioned(
-          left: 15,
-          top: 15,
+          right: SizeConfig.defaultSize!*1.5,
+          top: SizeConfig.defaultSize!*1.5,
           child: Container(
             decoration: const BoxDecoration(
               color: Color.fromARGB(255, 206, 202, 202),
             ),
-            height: 170,
-            width: 130,
+            height:SizeConfig.defaultSize!*17,
+            width:SizeConfig.defaultSize!*13,
             child: const Placeholder(
               strokeWidth: 1,
               color: Colors.white,
@@ -37,14 +38,14 @@ class AddDescriptorImages extends StatelessWidget {
           ),
         ),
         Positioned(
-          left: 30,
-          top: 30,
+          right: SizeConfig.defaultSize!*3,
+          top: SizeConfig.defaultSize!*3,
           child: Container(
             decoration: const BoxDecoration(
               color: Color.fromARGB(255, 206, 202, 202),
             ),
-            height: 170,
-            width: 130,
+            height: SizeConfig.defaultSize!*17,
+            width:SizeConfig.defaultSize!*13,
             child: Placeholder(
               strokeWidth: 1,
               color: Colors.white,

@@ -29,8 +29,8 @@ class CustomTextFieldMony extends StatelessWidget {
             width: 80,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(SizeConfig.defaultSize! * 10),
-                    topLeft: Radius.circular(SizeConfig.defaultSize! * 10)),
+                    bottomRight: Radius.circular(SizeConfig.defaultSize! * 10),
+                    topRight: Radius.circular(SizeConfig.defaultSize! * 10)),
                 color: Theme.of(context).primaryColor),
             child: const Text(
               "SYP",
@@ -51,9 +51,9 @@ class CustomTextFieldMony extends StatelessWidget {
               decoration: InputDecoration(
                   focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.only(
-                          bottomRight:
+                          bottomLeft:
                               Radius.circular(SizeConfig.defaultSize! * 10),
-                          topRight:
+                          topLeft:
                               Radius.circular(SizeConfig.defaultSize! * 10))),
                   hintText: "",
                   floatingLabelBehavior: FloatingLabelBehavior.always,
@@ -62,9 +62,9 @@ class CustomTextFieldMony extends StatelessWidget {
                       horizontal: SizeConfig.defaultSize! * 2.5),
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.only(
-                          bottomRight:
+                          bottomLeft:
                               Radius.circular(SizeConfig.defaultSize! * 10),
-                          topRight:
+                          topLeft:
                               Radius.circular(SizeConfig.defaultSize! * 10)))),
             ),
           ),

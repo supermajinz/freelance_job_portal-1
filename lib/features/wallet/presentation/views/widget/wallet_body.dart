@@ -16,7 +16,7 @@ class WalletBody extends StatelessWidget {
       margin: EdgeInsets.only(
           left: SizeConfig.defaultSize! * 2,
           right: SizeConfig.defaultSize! * 2,
-          top: SizeConfig.defaultSize! * 8),
+          top: SizeConfig.defaultSize! * 6),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -80,9 +80,9 @@ class WalletBody extends StatelessWidget {
             "Transaction History:",
             style: TextStyle(fontSize: 25, fontWeight: FontWeight.w900),
           ),
-          const VirticalSpace(2),
+          const VirticalSpace(1),
           SizedBox(
-            height: SizeConfig.defaultSize! * 44.3,
+            height: SizeConfig.defaultSize! * 41.8,
             child: ListView.separated(
                 itemBuilder: (context, index) {
                   return const Column(
