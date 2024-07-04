@@ -14,7 +14,11 @@ import 'package:freelance_job_portal/features/onboarding/presentation/views/onbo
 import 'package:freelance_job_portal/features/profile/presentation/views/create_profile.dart';
 import 'package:freelance_job_portal/features/profile/presentation/views/edit_profile.dart';
 import 'package:freelance_job_portal/features/profile/presentation/views/profile.dart';
+import 'package:freelance_job_portal/features/protofolio/presentaion/views/add_protofolio.dart';
+import 'package:freelance_job_portal/features/protofolio/presentaion/views/edit_protofolio.dart';
+import 'package:freelance_job_portal/features/protofolio/presentaion/views/show_proto_details.dart';
 import 'package:freelance_job_portal/features/report/presentation/views/report.dart';
+import 'package:freelance_job_portal/features/review/presentation/views/review.dart';
 import 'package:freelance_job_portal/features/saved/presentation/views/saved.dart';
 import 'package:freelance_job_portal/features/wallet/presentation/views/deposit.dart';
 import 'package:freelance_job_portal/features/wallet/presentation/views/wallet.dart';
@@ -87,6 +91,18 @@ abstract class AppRouter {
       path: '/editprofile',
       builder: (context, state) => const EditProfile(),
     ),
+     GoRoute(
+      path: '/addprotofolio',
+      builder: (context, state) => const AddProtofolio(),
+    ),
+     GoRoute(
+      path: '/editprotofolio',
+      builder: (context, state) => const EditProtofolio(),
+    ),
+     GoRoute(
+      path: '/showprotodetails',
+      builder: (context, state) => const ShowProtoDetails(),
+    ),
     GoRoute(
       path: '/chat',
       builder: (context, state) => const Chat(),
@@ -110,6 +126,10 @@ abstract class AppRouter {
     GoRoute(
       path: '/myproject',
       builder: (context, state) => const MyProject(),
+    ),
+    GoRoute(
+      path: '/review',
+      builder: (context, state) => const Review(),
     ),
   ]);
 }

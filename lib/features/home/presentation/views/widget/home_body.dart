@@ -12,13 +12,15 @@ class HomeBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(right:  SizeConfig.defaultSize! * 1),
+      margin: EdgeInsets.only(right: SizeConfig.defaultSize! * 1),
       child: ListView(
         shrinkWrap: true,
         children: [
           const VirticalSpace(2),
           Container(
-              margin: EdgeInsets.only(left: SizeConfig.defaultSize! * 0.5,right: SizeConfig.defaultSize! * 1),
+              margin: EdgeInsets.only(
+                  left: SizeConfig.defaultSize! * 0.5,
+                  right: SizeConfig.defaultSize! * 1),
               child: const CustomSubTitle(
                 text: "التصنيفات",
               )),
