@@ -58,7 +58,7 @@ class _VerificationSignupBodyState extends State<VerificationSignupBody> {
             const VirticalSpace(5),
             const Center(child: CustomAuthTitle(text: "Check Phone Number")),
             const VirticalSpace(4),
-            const Center(child: CustomTitle(text: "Complete Sign Up")),
+             Center(child: CustomTitle(text: "Complete Sign Up")),
             const VirticalSpace(2),
             Container(
               margin: EdgeInsets.symmetric(

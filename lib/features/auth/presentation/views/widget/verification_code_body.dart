@@ -47,7 +47,7 @@ class _VerificationCodeBodyState extends State<VerificationCodeBody> {
             const VirticalSpace(5),
             const Center(child: CustomAuthTitle(text: "Verification Code")),
             const VirticalSpace(4),
-            const Center(
+             Center(
               child: CustomTitle(
                 text: "Check Code",
               ),

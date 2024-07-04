@@ -36,8 +36,17 @@ class ServerFailure extends Failure {
           return ServerFailure(errMessage: 'No Internet connection');
         }
         return ServerFailure(errMessage: 'Unexpected error occurred');
+
       default:
-        return ServerFailure(errMessage: 'Oops, something went wrong');
+        {
+          print(dioException.error);
+                    print(dioException.message);
+                              print(dioException.toString());
+
+
+
+          return ServerFailure(errMessage: 'Oops, something went wrong');
+        }
     }
   }
 

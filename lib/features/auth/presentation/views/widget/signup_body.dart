@@ -60,7 +60,7 @@ class _SignupBodyState extends State<SignupBody> {
             const VirticalSpace(5),
             const Center(child: CustomAuthTitle(text: "Sign Up")),
             const VirticalSpace(4),
-            const Center(child: CustomTitle(text: "Welcom Back")),
+             Center(child: CustomTitle(text: "Welcom Back")),
             const VirticalSpace(2),
             const Center(
               child: CustomBodyMedium(

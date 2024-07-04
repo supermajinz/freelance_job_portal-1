@@ -2,8 +2,8 @@ import 'package:chat_bubbles/bubbles/bubble_special_three.dart';
 import 'package:flutter/material.dart';
 import 'package:freelance_job_portal/core/utils/size_config.dart';
 import 'package:freelance_job_portal/core/widget/space.dart';
-import 'package:freelance_job_portal/features/chat/data/message.dart';
-import 'package:freelance_job_portal/features/chat/presentation/views/widget/custom_text_form_chat.dart';
+import 'package:freelance_job_portal/features/chat%20copy/data/message.dart';
+
 
 class DmsBodyCopy extends StatelessWidget {
   const DmsBodyCopy({super.key});
@@ -60,7 +60,7 @@ class DmsBodyCopy extends StatelessWidget {
               },
             ),
           ),
-          const CustomTextFormChat()
+         // const CustomTextFormChat()
         ],
       ),
     );

@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:freelance_job_portal/core/localization/bloc/localization_bloc.dart';
 import 'package:freelance_job_portal/core/utils/size_config.dart';
+import 'package:freelance_job_portal/core/widget/custom_title.dart';
 import 'package:freelance_job_portal/features/auth/presentation/view_models/bloc/auth_bloc.dart';
 import 'package:freelance_job_portal/features/home/presentation/views/widget/home_body.dart';
 import 'package:go_router/go_router.dart';
@@ -137,10 +138,7 @@ class _DrawarViewState extends State<DrawarView> {
                 icon: const Icon(Icons.notifications_active_outlined))
           ],
           backgroundColor: Theme.of(context).primaryColor,
-          title: const Text(
-            'الرئيسية',
-            style: TextStyle(color: Colors.white),
-          ),
+          title: const CustomTitle(text: "الرئيسية",white: true,),
           centerTitle: true,
           iconTheme: const IconThemeData(color: Colors.white, size: 28),
           leading: IconButton(
