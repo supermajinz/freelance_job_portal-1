@@ -26,18 +26,19 @@ class ProfileBody extends StatelessWidget {
             ClipPath(
                 clipper: WaveClipperTwo(),
                 child: Container(
-                  height: SizeConfig.defaultSize!*25,
-                  color: Theme.of(context).primaryColor,
+                  height: SizeConfig.defaultSize! * 25,
+                  color: Colors.deepOrange,
                 )),
             Positioned(
-                top: SizeConfig.defaultSize!*15,
+                top: SizeConfig.defaultSize! * 15,
                 child: InkWell(
                     onTap: () {
                       showModalBottomSheet(
                         context: context,
                         builder: (context) {
                           return Container(
-                            padding:  EdgeInsets.all(SizeConfig.defaultSize!*1),
+                            padding:
+                                EdgeInsets.all(SizeConfig.defaultSize! * 1),
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
                               children: [
@@ -64,7 +65,7 @@ class ProfileBody extends StatelessWidget {
                                     textcolor: Colors.white,
                                     text: "Add New Profile",
                                     borderSide: const BorderSide(),
-                                    width: SizeConfig.defaultSize!*40)
+                                    width: SizeConfig.defaultSize! * 40)
                               ],
                             ),
                           );
@@ -72,12 +73,15 @@ class ProfileBody extends StatelessWidget {
                       );
                     },
                     child: Container(
-                        margin:  EdgeInsets.symmetric(horizontal: SizeConfig.defaultSize!*2),
+                        margin: EdgeInsets.symmetric(
+                            horizontal: SizeConfig.defaultSize! * 2),
                         child: const CustomProfileCard()))),
           ],
         ),
         Container(
-            margin:  EdgeInsets.only(top: SizeConfig.defaultSize!*5, right: SizeConfig.defaultSize!*1),
+            margin: EdgeInsets.only(
+                top: SizeConfig.defaultSize! * 5,
+                right: SizeConfig.defaultSize! * 1),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -87,8 +91,8 @@ class ProfileBody extends StatelessWidget {
                       fontSize: 20, fontWeight: FontWeight.bold),
                 ),
                 const VirticalSpace(.5),
-                 SizedBox(
-                  height: SizeConfig.defaultSize!*7,
+                SizedBox(
+                  height: SizeConfig.defaultSize! * 7,
                   child: const Text(
                     "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce fermentum lacus metus. Vivamus faucibus ullamcorper velit, id facilisis lacus tempus....",
                     overflow: TextOverflow.ellipsis,
@@ -111,16 +115,16 @@ class ProfileBody extends StatelessWidget {
                 ),
                 const VirticalSpace(4),
                 SizedBox(
-                  height: SizeConfig.defaultSize!*21,
+                  height: SizeConfig.defaultSize! * 21,
                   child: ListView.separated(
                       scrollDirection: Axis.horizontal,
                       itemBuilder: (context, index) {
                         return Container(
-                          height: SizeConfig.defaultSize!*20,
-                          width: SizeConfig.defaultSize!*15,
-                          decoration:  BoxDecoration(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(SizeConfig.defaultSize!*1.6)),
+                          height: SizeConfig.defaultSize! * 20,
+                          width: SizeConfig.defaultSize! * 15,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.all(Radius.circular(
+                                  SizeConfig.defaultSize! * 1.6)),
                               image: const DecorationImage(
                                   fit: BoxFit.fill,
                                   image: AssetImage("assets/images/pro.jpg"))),
@@ -136,8 +140,9 @@ class ProfileBody extends StatelessWidget {
                   "Skils",
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
+                const VirticalSpace(1),
                 SizedBox(
-                  height: SizeConfig.defaultSize!*5,
+                  height: SizeConfig.defaultSize! * 5,
                   child: ListView.separated(
                     separatorBuilder: (context, index) {
                       return const HorizintalSpace(0.3);
@@ -154,19 +159,23 @@ class ProfileBody extends StatelessWidget {
                   "Portfolio",
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
-                const VirticalSpace(0.5),
+                const VirticalSpace(1.5),
                 SizedBox(
-                  height: SizeConfig.defaultSize!*36,
+                  height: SizeConfig.defaultSize! * 38.5,
                   child: GridView.builder(
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 2,
-                            mainAxisSpacing: 12,
-                            crossAxisSpacing: 12),
+                            mainAxisSpacing: 20,
+                            crossAxisSpacing: 20),
                     itemCount: 5,
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (context, index) {
-                      return const CustomProtofolioCard();
+                      return InkWell(
+                          onTap: () {
+                            GoRouter.of(context).push("/showprotodetails");
+                          },
+                          child: const CustomProtofolioCard());
                     },
                   ),
                 ),
@@ -177,7 +186,7 @@ class ProfileBody extends StatelessWidget {
                 ),
                 const VirticalSpace(0.5),
                 SizedBox(
-                  height: SizeConfig.defaultSize!*27,
+                  height: SizeConfig.defaultSize! * 27,
                   child: ListView.separated(
                     separatorBuilder: (context, index) {
                       return const HorizintalSpace(0.3);
@@ -191,13 +200,13 @@ class ProfileBody extends StatelessWidget {
                 ),
                 const VirticalSpace(5),
                 const CustomZzz(),
-                const VirticalSpace(4),
+                const VirticalSpace(5),
                 const Text(
                   "Ratings and reviews",
                   textAlign: TextAlign.start,
                   style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
-                const VirticalSpace(3),
+                const VirticalSpace(4),
                 Container(
                   margin: const EdgeInsets.symmetric(horizontal: 5),
                   child: const RatingSummary(
@@ -211,9 +220,9 @@ class ProfileBody extends StatelessWidget {
                     counterOneStars: 1,
                   ),
                 ),
-                const VirticalSpace(4),
+                const VirticalSpace(6),
                 SizedBox(
-                  height: SizeConfig.defaultSize!*40,
+                  height: SizeConfig.defaultSize! * 40,
                   child: ListView.separated(
                     separatorBuilder: (context, index) {
                       return const Divider();

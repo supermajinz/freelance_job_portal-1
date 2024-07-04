@@ -8,7 +8,7 @@ class CustomMessageCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: SizeConfig.defaultSize!*6.6,
+        height: SizeConfig.defaultSize!*6.7,
         margin:  EdgeInsets.only(right: SizeConfig.defaultSize!*1),
         child:  Row(
           children: [

@@ -10,20 +10,29 @@ class CustomProtofolioCard extends StatelessWidget {
       clipBehavior: Clip.none,
       children: [
         Container(
-          width: SizeConfig.defaultSize!*18,
-          height: SizeConfig.defaultSize!*18,
+          width: SizeConfig.defaultSize! * 17.5,
+          height: SizeConfig.defaultSize! * 17.5,
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(SizeConfig.defaultSize!*1.5),
+              borderRadius:
+                  BorderRadius.circular(SizeConfig.defaultSize! * 1.5),
               image: const DecorationImage(
                   fit: BoxFit.fill,
-                  image: AssetImage("assets/images/proto1.jpg"))),
+                  image: AssetImage("assets/images/proto3.jpg"))),
         ),
         Positioned(
-          bottom: SizeConfig.defaultSize!*.5,
+          bottom: SizeConfig.defaultSize! * .0,
+          right: SizeConfig.defaultSize! * .0,
+          left: SizeConfig.defaultSize! * .0,
           child: Container(
+            width: SizeConfig.defaultSize! * 17.5,
+            height: SizeConfig.defaultSize! * 3,
             alignment: Alignment.center,
-            width: SizeConfig.defaultSize!*18,
-            height: SizeConfig.defaultSize!*3,
+            decoration: BoxDecoration(
+                color: Theme.of(context).hintColor,
+                borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(SizeConfig.defaultSize! * 1.5),
+                    bottomRight:
+                        Radius.circular(SizeConfig.defaultSize! * 1.5))),
             child: const Text(
               "Black Hold design",
               style: TextStyle(

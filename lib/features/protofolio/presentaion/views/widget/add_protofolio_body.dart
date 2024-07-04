@@ -4,15 +4,13 @@ import 'package:freelance_job_portal/core/widget/custom_button_general.dart';
 import 'package:freelance_job_portal/core/widget/custom_text_form_general.dart';
 import 'package:freelance_job_portal/core/widget/space.dart';
 import 'package:freelance_job_portal/features/profile/presentation/views/widget/add_descriptor_images.dart';
-import 'package:freelance_job_portal/features/profile/presentation/views/widget/add_edit_proto.dart';
-import 'package:freelance_job_portal/features/profile/presentation/views/widget/add_photo_profile.dart';
-import 'package:freelance_job_portal/features/profile/presentation/views/widget/custom_Chip_button.dart';
+import 'package:freelance_job_portal/features/profile/presentation/views/widget/custom_chip_button.dart';
 import 'package:freelance_job_portal/features/profile/presentation/views/widget/custom_dropdown_searsh.dart';
 import 'package:freelance_job_portal/features/profile/presentation/views/widget/show_chip.dart';
-import 'package:go_router/go_router.dart';
+import 'package:freelance_job_portal/features/protofolio/presentaion/views/widget/custom_date.dart';
 
-class CreateProfileBody extends StatelessWidget {
-  const CreateProfileBody({super.key});
+class AddProtofolioBody extends StatelessWidget {
+  const AddProtofolioBody({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -25,27 +23,15 @@ class CreateProfileBody extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const AddPhotoProfile(),
-              const VirticalSpace(4),
-              const Row(
-                children: [
-                  Expanded(
-                    child: CustomTextFormGeneral(
-                        hinttext: "", lable: "First Name", isNumber: false),
-                  ),
-                  HorizintalSpace(.5),
-                  Expanded(
-                    child: CustomTextFormGeneral(
-                        hinttext: "", lable: "Last Name", isNumber: false),
-                  )
-                ],
-              ),
+              const VirticalSpace(2),
+              const CustomTextFormGeneral(
+                  hinttext: "", lable: "Protofolio Name", isNumber: false),
               const VirticalSpace(2),
               const CustomTextFormGeneral(
                   hinttext: "", lable: "Discripion", isNumber: false),
-              const VirticalSpace(3),
+              const VirticalSpace(5),
               const Text(
-                "Add Descriptor Images",
+                "Images",
                 style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
@@ -88,13 +74,32 @@ class CreateProfileBody extends StatelessWidget {
               ),
               const VirticalSpace(2),
               const ShowChip(),
-              const VirticalSpace(4),
-              AddEditProto(
-                text: "Add Protofolio Project",
-                onTap: () {
-                  GoRouter.of(context).push('/addprotofolio');
-                },
+              const VirticalSpace(5),
+              const Row(
+                children: [
+                  Text(
+                    "Date",
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black),
+                  ),
+                  HorizintalSpace(20),
+                  Column(
+                    children: [
+                      CustomDate(),
+                      Text(
+                        "14/7/2022",
+                        style: TextStyle(
+                            color: Colors.black, fontWeight: FontWeight.bold),
+                      )
+                    ],
+                  ),
+                ],
               ),
+              const VirticalSpace(5),
+              const CustomTextFormGeneral(
+                  hinttext: "", lable: "Link", isNumber: false),
               const VirticalSpace(5),
               Center(
                   child: CustomButtonGeneral(
