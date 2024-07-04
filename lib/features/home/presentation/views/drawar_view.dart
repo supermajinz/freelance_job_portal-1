@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:freelance_job_portal/core/localization/bloc/localization_bloc.dart';
 import 'package:freelance_job_portal/core/utils/size_config.dart';
+import 'package:freelance_job_portal/features/auth/presentation/view_models/bloc/auth_bloc.dart';
 import 'package:freelance_job_portal/features/home/presentation/views/widget/home_body.dart';
 import 'package:go_router/go_router.dart';
 
@@ -158,7 +159,25 @@ class _DrawarViewState extends State<DrawarView> {
             ),
           ),
         ),
-        body: const HomeBody(),
+        body:  BlocListener<AuthBloc, AuthState>(
+      listener: (context, state) {
+        if(state is AuthLoggedOut){
+          GoRouter.of(context).push("/");
+        }
+      },
+      child: Scaffold(
+        body:  const HomeBody(),
+        appBar: AppBar(
+          actions: [
+            IconButton(
+                onPressed: () {
+                  context.read<AuthBloc>().add(LogoutEvent());
+                },
+                icon: const Icon(Icons.logout)),
+          ],
+        ),
+      ),
+    )
       ),
     );
   }
