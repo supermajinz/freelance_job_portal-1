@@ -3,13 +3,19 @@ import 'package:flutter/material.dart';
 import 'package:freelance_job_portal/core/utils/size_config.dart';
 
 class CustomTextFormChat extends StatelessWidget {
-  const CustomTextFormChat({super.key});
+  final TextEditingController controller;
+  final Function() onSend;
+  const CustomTextFormChat(
+      {super.key, required this.controller, required this.onSend});
 
   @override
   Widget build(BuildContext context) {
     return MessageBar(replying: true,textFieldTextStyle: const TextStyle(fontSize: 20),
       // ignore: avoid_print
-      onSend: (_) => print(_),
+      onSend: (_) {
+        onSend();
+        controller.clear();
+      },
       actions: [
         InkWell(
           child: const Icon(

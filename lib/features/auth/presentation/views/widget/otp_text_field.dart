@@ -3,7 +3,17 @@ import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:freelance_job_portal/core/utils/size_config.dart';
 
 class OtpTextFieldVer extends StatelessWidget {
-  const OtpTextFieldVer({super.key});
+  
+  final Function(String) onComplete;
+  final bool isError;
+  final TextEditingController controller;
+
+  const OtpTextFieldVer({
+    super.key,
+    required this.onComplete,
+    this.isError = false,
+    required this.controller,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -11,7 +21,7 @@ class OtpTextFieldVer extends StatelessWidget {
       numberOfFields: 6,
       borderRadius: BorderRadius.circular(SizeConfig.defaultSize! * 2),
       fieldWidth: SizeConfig.defaultSize! * 5,
-      borderColor: const Color(0xFF512DA8),
+      borderColor: isError? const Color(0xFF512DA8) : Colors.red,
       //set to true to show as box or false to show as dash
       showFieldAsBox: true,
       //runs when a code is typed in
@@ -20,14 +30,7 @@ class OtpTextFieldVer extends StatelessWidget {
       },
       //runs when every textfield is filled
       onSubmit: (String verificationCode) {
-        showDialog(
-            context: context,
-            builder: (context) {
-              return AlertDialog(
-                title: const Text("Verification Code"),
-                content: Text('Code entered is $verificationCode'),
-              );
-            });
+        onComplete(verificationCode);
       }, // end onSubmit
     );
   }

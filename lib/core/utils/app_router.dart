@@ -1,3 +1,5 @@
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:freelance_job_portal/features/auth/presentation/view_models/bloc/auth_bloc.dart';
 import 'package:freelance_job_portal/features/auth/presentation/views/login.dart';
 import 'package:freelance_job_portal/features/auth/presentation/views/verification_code.dart';
 import 'package:freelance_job_portal/features/auth/presentation/views/forget_password.dart';
@@ -29,7 +31,15 @@ abstract class AppRouter {
   static final router = GoRouter(routes: [
     GoRoute(
       path: '/',
-      builder: (context, state) => const OnboardingView(),
+      builder: (context, state) => BlocBuilder<AuthBloc, AuthState>(
+        builder: (context, state) {
+          if (state is AuthAuthenticated) {
+            return const Homescreen();
+          } else {
+            return const OnboardingView();
+          }
+        },
+      ),
     ),
     GoRoute(
       path: '/onboardingview',
@@ -109,7 +119,7 @@ abstract class AppRouter {
     ),
     GoRoute(
       path: '/dms',
-      builder: (context, state) => const DMs(),
+      builder: (context, state) =>  DMs(),
     ),
     GoRoute(
       path: '/saved',
@@ -132,4 +142,18 @@ abstract class AppRouter {
       builder: (context, state) => const Review(),
     ),
   ]);
+  
+   /* redirect: (context, state) {
+      final authState = context.read<AuthBloc>().state;
+      final isAuthenticated = authState is AuthAuthenticated;
+
+      if (isAuthenticated && state.uri.toString() == '/') {
+        return '/home';
+      } else if (!isAuthenticated && state.uri.toString() == '/home') {
+        return '/';
+      }
+      return null;
+    },*/
+  
+  
 }

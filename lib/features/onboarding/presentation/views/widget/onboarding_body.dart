@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freelance_job_portal/core/utils/size_config.dart';
 import 'package:freelance_job_portal/core/widget/custom_button_general.dart';
+import 'package:freelance_job_portal/features/auth/presentation/view_models/bloc/auth_bloc.dart';
 import 'package:freelance_job_portal/features/onboarding/presentation/views/widget/custom_indcator.dart';
 import 'package:freelance_job_portal/features/onboarding/presentation/views/widget/custom_page_view.dart';
 import 'package:go_router/go_router.dart';
@@ -68,6 +70,7 @@ class _OnboardingBodyState extends State<OnboardingBody> {
             left: SizeConfig.defaultSize! * 8,
             child: CustomButtonGeneral(
               onPressed: () {
+                context.read<AuthBloc>().add(ContinueAsGuestEvent());
                 GoRouter.of(context).push("/homescreen");
               },
               width: SizeConfig.defaultSize! * 25.5,

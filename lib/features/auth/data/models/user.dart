@@ -5,7 +5,6 @@ class User extends Equatable {
   final String? lastname;
   final String? email;
   final String? phone;
-  final String? password;
   final String? role;
 
   const User({
@@ -13,7 +12,6 @@ class User extends Equatable {
     required this.lastname,
     required this.email,
     required this.phone,
-    required this.password,
     required this.role,
   });
 
@@ -22,7 +20,6 @@ class User extends Equatable {
         lastname: json['lastname'] as String?,
         email: json['email'] as String?,
         phone: json['phone'] as String?,
-        password: json['password'] as String?,
         role: json['role'] as String?,
       );
 
@@ -31,7 +28,6 @@ class User extends Equatable {
         'lastname': lastname,
         'email': email,
         'phone': phone,
-        'password': password,
         'role': role,
       };
 
@@ -42,7 +38,6 @@ class User extends Equatable {
       lastname,
       email,
       phone,
-      password,
       role,
     ];
   }
