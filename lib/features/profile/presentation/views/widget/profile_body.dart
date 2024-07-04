@@ -186,7 +186,7 @@ class ProfileBody extends StatelessWidget {
                 ),
                 const VirticalSpace(0.5),
                 SizedBox(
-                  height: SizeConfig.defaultSize! * 27,
+                  height: SizeConfig.defaultSize! * 29,
                   child: ListView.separated(
                     separatorBuilder: (context, index) {
                       return const HorizintalSpace(0.3);

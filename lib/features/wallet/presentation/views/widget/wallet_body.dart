@@ -82,7 +82,7 @@ class WalletBody extends StatelessWidget {
           ),
           const VirticalSpace(1),
           SizedBox(
-            height: SizeConfig.defaultSize! * 41.8,
+            height: SizeConfig.defaultSize! * 39.8,
             child: ListView.separated(
                 itemBuilder: (context, index) {
                   return const Column(
