@@ -32,7 +32,7 @@ class _VerificationSignupBodyState extends State<VerificationSignupBody> {
     return BlocConsumer<AuthBloc, AuthState>(
       listener: (context, state) {
         if (state is AuthAuthenticated) {
-          GoRouter.of(context).push("/home");
+          GoRouter.of(context).push("/homescreen");
         } else if (state is AuthError) {
           ScaffoldMessenger.of(context)
               .showSnackBar(SnackBar(content: Text(state.error)));
