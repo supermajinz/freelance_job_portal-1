@@ -16,7 +16,7 @@ class ChatBody extends StatelessWidget {
         const CustomSearch(title: "Hinted search text"),
         Container(
           margin:  EdgeInsets.symmetric(horizontal: SizeConfig.defaultSize!*.5),
-          height: SizeConfig.defaultSize!*61,
+          height: SizeConfig.defaultSize!*62,
           color: Theme.of(context).cardColor,
           child: ListView.separated(
             separatorBuilder: (context, index) {

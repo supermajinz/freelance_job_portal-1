@@ -2,16 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:freelance_job_portal/core/utils/size_config.dart';
 import 'package:freelance_job_portal/core/widget/custom_button_general.dart';
 import 'package:freelance_job_portal/core/widget/space.dart';
-import 'package:freelance_job_portal/features/profile/presentation/views/widget/add_edit_proto.dart';
-import 'package:freelance_job_portal/features/profile/presentation/views/widget/custom_Chip_button.dart';
+import 'package:freelance_job_portal/features/profile/presentation/views/widget/custom_chip_button.dart';
 import 'package:freelance_job_portal/features/profile/presentation/views/widget/custom_dropdown_searsh.dart';
-import 'package:freelance_job_portal/features/profile/presentation/views/widget/edit_photo_profile.dart';
 import 'package:freelance_job_portal/features/profile/presentation/views/widget/edit_text_form.dart';
 import 'package:freelance_job_portal/features/profile/presentation/views/widget/show_chip.dart';
-import 'package:go_router/go_router.dart';
+import 'package:freelance_job_portal/features/protofolio/presentaion/views/widget/custom_date.dart';
 
-class EditProfileBody extends StatelessWidget {
-  const EditProfileBody({super.key});
+class EditProtofolioBody extends StatelessWidget {
+  const EditProtofolioBody({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -24,38 +22,12 @@ class EditProfileBody extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Stack(
-                clipBehavior: Clip.none,
-                children: [
-                  const EditPhotoProfile(),
-                  Positioned(
-                    top: SizeConfig.defaultSize! * 9,
-                    left: SizeConfig.defaultSize! * 9.5,
-                    child: IconButton(
-                        onPressed: () {}, icon: const Icon(Icons.edit)),
-                  )
-                ],
-              ),
-              const VirticalSpace(5),
-              const Row(
-                children: [
-                  Expanded(
-                    child: EditTextForm(
-                        initvalue: "Ahmad",
-                        hinttext: "",
-                        lable: "First Name",
-                        isNumber: false),
-                  ),
-                  HorizintalSpace(.5),
-                  Expanded(
-                    child: EditTextForm(
-                        initvalue: "Murad",
-                        hinttext: "",
-                        lable: "Last Name",
-                        isNumber: false),
-                  )
-                ],
-              ),
+              const VirticalSpace(2),
+              const EditTextForm(
+                  initvalue: "Order Management App",
+                  hinttext: "",
+                  lable: "Protofolio Name",
+                  isNumber: false),
               const VirticalSpace(2),
               const EditTextForm(
                   initvalue:
@@ -63,9 +35,9 @@ class EditProfileBody extends StatelessWidget {
                   hinttext: "",
                   lable: "Descripion",
                   isNumber: false),
-              const VirticalSpace(4),
+              const VirticalSpace(5),
               const Text(
-                "Edit Descriptor Images",
+                "Images",
                 style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
@@ -105,7 +77,7 @@ class EditProfileBody extends StatelessWidget {
                     },
                     itemCount: 5),
               ),
-              const VirticalSpace(4),
+              const VirticalSpace(5),
               const Text(
                 "Category",
                 style: TextStyle(
@@ -140,13 +112,35 @@ class EditProfileBody extends StatelessWidget {
               ),
               const VirticalSpace(2),
               const ShowChip(),
-              const VirticalSpace(4),
-              AddEditProto(
-                text: "Edit Protofolio Project",
-                onTap: () {
-                  GoRouter.of(context).push("/editprotofolio");
-                },
+              const VirticalSpace(5),
+              const Row(
+                children: [
+                  Text(
+                    "Date",
+                    style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black),
+                  ),
+                  HorizintalSpace(20),
+                  Column(
+                    children: [
+                      CustomDate(),
+                      Text(
+                        "14/7/2022",
+                        style: TextStyle(
+                            color: Colors.black, fontWeight: FontWeight.bold),
+                      )
+                    ],
+                  ),
+                ],
               ),
+              const VirticalSpace(5),
+              const EditTextForm(
+                  initvalue: "https://docs.google.com/d/10qgrbMt3I",
+                  hinttext: "",
+                  lable: "Link",
+                  isNumber: false),
               const VirticalSpace(5),
               Center(
                   child: CustomButtonGeneral(

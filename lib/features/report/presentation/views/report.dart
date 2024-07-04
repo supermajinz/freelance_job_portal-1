@@ -16,11 +16,11 @@ class Report extends StatelessWidget {
             onPressed: () {},
             icon: Container(
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
+                    borderRadius: BorderRadius.circular(SizeConfig.defaultSize!*.5),
                     border: Border.all(width: 1)),
                 child: const Icon(Icons.arrow_back, size: 25))),
       ),
-      body: const ReportBody(),
+      body: const SafeArea(child: ReportBody()),
     );
   }
 }
