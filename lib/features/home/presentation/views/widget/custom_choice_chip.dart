@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:freelance_job_portal/core/utils/size_config.dart';
+import 'package:freelance_job_portal/core/widget/custom_label.dart';
 
 class CustomChoiceChip extends StatelessWidget {
   const CustomChoiceChip({super.key});
@@ -7,10 +8,10 @@ class CustomChoiceChip extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(right: SizeConfig.defaultSize! * 0.7),
+      margin: EdgeInsets.only(right: SizeConfig.defaultSize! * 1),
       child: ChoiceChip(
         selectedColor: const Color.fromARGB(255, 237, 232, 238),
-        label: const Text("laravel"),
+        label: const CustomLabel(text: "Laravel"),
         selected: true,
         shape: RoundedRectangleBorder(
             borderRadius:

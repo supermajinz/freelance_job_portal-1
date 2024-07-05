@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:freelance_job_portal/core/utils/size_config.dart';
+import 'package:freelance_job_portal/core/widget/custom_body_medium.dart';
+import 'package:freelance_job_portal/core/widget/custom_label.dart';
+import 'package:freelance_job_portal/core/widget/custom_subtitle_medium.dart';
 import 'package:freelance_job_portal/core/widget/space.dart';
 import 'package:freelance_job_portal/features/home/presentation/views/widget/custom_choice_chip.dart';
 
@@ -16,24 +19,23 @@ class CustomProjectCard extends StatelessWidget {
               top: SizeConfig.defaultSize! * 0.2),
           height: SizeConfig.defaultSize! * 26,
           width: SizeConfig.defaultSize! * 35,
-          child: Column(crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
+          child:
+              Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Row(
               children: [
-                const Text("Order Management App",
-                    style: TextStyle(fontSize: 18, color: Colors.black)),
+                const CustomSubTitleMedium(text: 'برنامج إدارة طلبات'),
                 const Spacer(),
-                const Text("1d", style: TextStyle(fontSize: 15)),
+                const CustomLabel(
+                  text: '1d',
+                ),
                 IconButton(
                     onPressed: () {},
                     icon: const Icon(Icons.bookmark_add_outlined))
               ],
             ),
-            const Text(
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod temp..",
-                overflow: TextOverflow.ellipsis,
-                maxLines: 2,
-                style: TextStyle(fontSize: 15, color: Colors.grey)),
+            const CustomBody(
+                text:
+                    'نريد برنامج كامل لمتابعة الطلبات من أجل شركتنا يرجى التقدم فقط إن كنت تريد العمل ضمن دمشق'),
             const VirticalSpace(1),
             SizedBox(
               height: SizeConfig.defaultSize! * 4,
@@ -51,12 +53,18 @@ class CustomProjectCard extends StatelessWidget {
               child: const Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  Text("10M S.P",
-                      style: TextStyle(fontSize: 15, color: Colors.green)),
-                  Text("3 Months",
-                      style: TextStyle(fontSize: 15, color: Colors.blueAccent)),
-                  Text("20 Offers",
-                      style: TextStyle(fontSize: 15, color: Colors.blueAccent)),
+                  CustomBody(
+                    text: '١٠ مليون ل.س',
+                    color: Colors.green,
+                  ),
+                  CustomBody(
+                    text: '٣ شهور',
+                    color: Colors.red,
+                  ),
+                  CustomBody(
+                    text: '٢٠ عرض',
+                    color: Colors.blueAccent,
+                  )
                 ],
               ),
             ),
@@ -72,14 +80,14 @@ class CustomProjectCard extends StatelessWidget {
                 const HorizintalSpace(1),
                 Column(
                   children: [
-                    const Text(
-                      "melisa",
-                      style: TextStyle(fontSize: 20),
-                    ),
+                    const CustomSubTitleMedium(text: ' ميليسا الدمشقية '),
                     const VirticalSpace(1),
                     Row(
                       children: [
-                        const Text("4.6"),
+                        const CustomLabel(
+                          text: '٤.٦',
+                          color: Colors.black,
+                        ),
                         Icon(
                           Icons.star,
                           color: Colors.yellow,

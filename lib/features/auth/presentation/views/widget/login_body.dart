@@ -54,7 +54,7 @@ class _LoginBodyState extends State<LoginBody> {
             const Center(child: CustomTitle(text: "Welcom Back")),
             const VirticalSpace(2),
             const Center(
-              child: CustomBodyMedium(
+              child: CustomBody(
                 text: "Sign In With Phone Number and Password",
               ),
             ),

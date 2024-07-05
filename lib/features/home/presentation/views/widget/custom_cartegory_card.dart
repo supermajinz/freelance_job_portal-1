@@ -27,13 +27,11 @@ class CustomCartegoryCard extends StatelessWidget {
         const VirticalSpace(1),
         SizedBox(
           width: SizeConfig.defaultSize! * 12,
-          child: const Text(
+          child:  Text(
             "أعمال وخدمات استشارية",textAlign: TextAlign.center,
+            
             maxLines: 2,
-            style: TextStyle(
-                color: Color.fromARGB(255, 58, 33, 102),
-                fontWeight: FontWeight.w300,
-                fontSize: 15),
+            style: Theme.of(context).textTheme.labelLarge,
           ),
         ),
       ],

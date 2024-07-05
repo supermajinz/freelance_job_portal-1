@@ -127,56 +127,58 @@ class _DrawarViewState extends State<DrawarView> {
         ),
       ),
       child: Scaffold(
-        appBar: AppBar(
-          elevation: 5,
-          shadowColor: Theme.of(context).primaryColor,
-          actions: [
-            IconButton(
-                onPressed: () {
-                  GoRouter.of(context).push("/notifications");
+          appBar: AppBar(
+            elevation: 5,
+            shadowColor: Theme.of(context).primaryColor,
+            actions: [
+              IconButton(
+                  onPressed: () {
+                    GoRouter.of(context).push("/notifications");
+                  },
+                  icon: const Icon(Icons.notifications_active_outlined))
+            ],
+            backgroundColor: Theme.of(context).primaryColor,
+            title: const CustomTitle(
+              text: "الرئيسية",
+              white: true,
+            ),
+            centerTitle: true,
+            iconTheme: const IconThemeData(color: Colors.white, size: 28),
+            leading: IconButton(
+              onPressed: _handleMenuButtonPressed,
+              icon: ValueListenableBuilder<AdvancedDrawerValue>(
+                valueListenable: _advancedDrawerController,
+                builder: (_, value, __) {
+                  return AnimatedSwitcher(
+                    duration: const Duration(milliseconds: 250),
+                    child: Icon(
+                      value.visible ? Icons.clear : Icons.menu,
+                      key: ValueKey<bool>(value.visible),
+                    ),
+                  );
                 },
-                icon: const Icon(Icons.notifications_active_outlined))
-          ],
-          backgroundColor: Theme.of(context).primaryColor,
-          title: const CustomTitle(text: "الرئيسية",white: true,),
-          centerTitle: true,
-          iconTheme: const IconThemeData(color: Colors.white, size: 28),
-          leading: IconButton(
-            onPressed: _handleMenuButtonPressed,
-            icon: ValueListenableBuilder<AdvancedDrawerValue>(
-              valueListenable: _advancedDrawerController,
-              builder: (_, value, __) {
-                return AnimatedSwitcher(
-                  duration: const Duration(milliseconds: 250),
-                  child: Icon(
-                    value.visible ? Icons.clear : Icons.menu,
-                    key: ValueKey<bool>(value.visible),
-                  ),
-                );
-              },
+              ),
             ),
           ),
-        ),
-        body:  BlocListener<AuthBloc, AuthState>(
-      listener: (context, state) {
-        if(state is AuthLoggedOut){
-          GoRouter.of(context).push("/");
-        }
-      },
-      child: Scaffold(
-        body:  const HomeBody(),
-        appBar: AppBar(
-          actions: [
-            IconButton(
-                onPressed: () {
-                  context.read<AuthBloc>().add(LogoutEvent());
-                },
-                icon: const Icon(Icons.logout)),
-          ],
-        ),
-      ),
-    )
-      ),
+          body: BlocListener<AuthBloc, AuthState>(
+            listener: (context, state) {
+              if (state is AuthLoggedOut) {
+                GoRouter.of(context).push("/");
+              }
+            },
+            child: const Scaffold(
+              body: HomeBody(),
+              // appBar: AppBar( TODO: LOGOUT
+              //   actions: [
+              //     IconButton(
+              //         onPressed: () {
+              //           context.read<AuthBloc>().add(LogoutEvent());
+              //         },
+              //         icon: const Icon(Icons.logout)),
+              //   ],
+              // ),
+            ),
+          )),
     );
   }
 

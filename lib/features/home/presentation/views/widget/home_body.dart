@@ -26,7 +26,7 @@ class HomeBody extends StatelessWidget {
               )),
           const VirticalSpace(2),
           SizedBox(
-            height: SizeConfig.defaultSize! * 29,
+            height: SizeConfig.defaultSize! * 30,
             child: GridView.builder(
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
@@ -49,12 +49,12 @@ class HomeBody extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   const CustomSubTitle(
-                    text: "Recommended",
+                    text: "المقترحات",
                   ),
                   InkWell(
                       onTap: () {},
                       child: const Text(
-                        "See All",
+                        "إظهار الكل",
                         style: TextStyle(fontSize: 14, color: primaryColer),
                       ))
                 ],
@@ -80,19 +80,19 @@ class HomeBody extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   const CustomSubTitle(
-                    text: "Most Popular",
+                    text: "الأكثر شيوعا",
                   ),
                   InkWell(
                       onTap: () {},
                       child: const Text(
-                        "See All",
+                        "إظهار الكل",
                         style: TextStyle(fontSize: 14, color: primaryColer),
                       ))
                 ],
               )),
           const VirticalSpace(1),
           SizedBox(
-            height: SizeConfig.defaultSize! * 32,
+            height: SizeConfig.defaultSize! * 29,
             child: ListView.builder(
               itemCount: 4,
               scrollDirection: Axis.horizontal,
