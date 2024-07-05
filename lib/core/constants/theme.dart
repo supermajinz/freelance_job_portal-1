@@ -21,6 +21,7 @@ ThemeData themeEn = ThemeData(
         bodySmall: TextStyle(color: Colors.grey, fontSize: 12)));
 ThemeData themeAr = ThemeData(
     fontFamily: "Roboto",
+    colorSchemeSeed: Colors.blue,
     textTheme: const TextTheme(
         headlineLarge: TextStyle(
             fontSize: 24, fontWeight: FontWeight.bold, color: Colors.black),
