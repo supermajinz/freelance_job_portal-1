@@ -22,7 +22,8 @@ class Homescreen extends StatelessWidget {
             return Scaffold(
               body: state.currentPage,
               bottomNavigationBar: Container(
-                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
+                padding:
+                    const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
                 color: Theme.of(context).primaryColor,
                 child: NavigationView(
                   backgroundColor: Theme.of(context).primaryColor,
