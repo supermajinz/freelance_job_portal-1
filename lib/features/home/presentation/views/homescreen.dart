@@ -21,76 +21,80 @@ class Homescreen extends StatelessWidget {
           if (state is PageLoaded) {
             return Scaffold(
               body: state.currentPage,
-              bottomNavigationBar: NavigationView(
-                backgroundColor: Theme.of(context).primaryColor,
-                curve: Curves.fastEaseInToSlowEaseOut,
+              bottomNavigationBar: Container(
+                padding: EdgeInsets.symmetric(vertical: 10, horizontal: 5),
                 color: Theme.of(context).primaryColor,
-                borderTopColor: primaryColer,
-                onChangePage: (index) {
-                  context.read<NavigationBloc>().add(PageTapped(index));
-                },
-                items: [
-                  ItemNavigationView(
-                    childAfter: const Icon(
-                      IconlyBold.home,
-                      color: primaryColer,
-                      size: 30,
+                child: NavigationView(
+                  backgroundColor: Theme.of(context).primaryColor,
+                  curve: Curves.fastEaseInToSlowEaseOut,
+                  color: Theme.of(context).primaryColor,
+                  borderTopColor: Theme.of(context).primaryColor,
+                  onChangePage: (index) {
+                    context.read<NavigationBloc>().add(PageTapped(index));
+                  },
+                  items: [
+                    ItemNavigationView(
+                      childAfter: const Icon(
+                        IconlyBold.home,
+                        color: primaryColer,
+                        size: 30,
+                      ),
+                      childBefore: const Icon(
+                        IconlyBold.home,
+                        color: Colors.white,
+                        size: 30,
+                      ),
                     ),
-                    childBefore: const Icon(
-                      IconlyBold.home,
-                      color: Colors.white,
-                      size: 30,
+                    ItemNavigationView(
+                      childAfter: const Icon(
+                        IconlyBold.chat,
+                        color: primaryColer,
+                        size: 30,
+                      ),
+                      childBefore: const Icon(
+                        IconlyBold.chat,
+                        color: Colors.white,
+                        size: 30,
+                      ),
                     ),
-                  ),
-                  ItemNavigationView(
-                    childAfter: const Icon(
-                      IconlyBold.chat,
-                      color: primaryColer,
-                      size: 30,
+                    ItemNavigationView(
+                      childAfter: const Icon(
+                        IconlyBold.search,
+                        color: primaryColer,
+                        size: 30,
+                      ),
+                      childBefore: const Icon(
+                        IconlyBold.search,
+                        color: Colors.white,
+                        size: 30,
+                      ),
                     ),
-                    childBefore: const Icon(
-                      IconlyBold.chat,
-                      color: Colors.white,
-                      size: 30,
+                    ItemNavigationView(
+                      childAfter: const Icon(
+                        IconlyBold.bag,
+                        color: primaryColer,
+                        size: 30,
+                      ),
+                      childBefore: const Icon(
+                        IconlyBold.bag,
+                        color: Colors.white,
+                        size: 30,
+                      ),
                     ),
-                  ),
-                  ItemNavigationView(
-                    childAfter: const Icon(
-                      IconlyBold.search,
-                      color: primaryColer,
-                      size: 30,
+                    ItemNavigationView(
+                      childAfter: const Icon(
+                        IconlyBold.profile,
+                        color: primaryColer,
+                        size: 30,
+                      ),
+                      childBefore: const Icon(
+                        IconlyBold.profile,
+                        color: Colors.white,
+                        size: 30,
+                      ),
                     ),
-                    childBefore: const Icon(
-                      IconlyBold.search,
-                      color: Colors.white,
-                      size: 30,
-                    ),
-                  ),
-                  ItemNavigationView(
-                    childAfter: const Icon(
-                      IconlyBold.bag,
-                      color: primaryColer,
-                      size: 30,
-                    ),
-                    childBefore: const Icon(
-                      IconlyBold.bag,
-                      color: Colors.white,
-                      size: 30,
-                    ),
-                  ),
-                  ItemNavigationView(
-                    childAfter: const Icon(
-                      IconlyBold.profile,
-                      color: primaryColer,
-                      size: 30,
-                    ),
-                    childBefore: const Icon(
-                      IconlyBold.profile,
-                      color: Colors.white,
-                      size: 30,
-                    ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             );
           }
