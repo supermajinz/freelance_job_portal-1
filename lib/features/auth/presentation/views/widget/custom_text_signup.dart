@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:freelance_job_portal/core/constants/colors.dart';
 
 class TextSignUp extends StatelessWidget {
   final String text1;
@@ -16,13 +15,18 @@ class TextSignUp extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        Text(text1),
+        Text(
+          text1,
+          style: Theme.of(context).textTheme.bodyLarge,
+        ),
         InkWell(
           onTap: onTap,
           child: Text(
             text2,
-            style: const TextStyle(
-                color: primaryColer, fontWeight: FontWeight.bold),
+            style: Theme.of(context)
+                .textTheme
+                .bodyLarge!
+                .copyWith(color: Colors.blueAccent),
           ),
         )
       ],

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:freelance_job_portal/core/utils/size_config.dart';
+import 'package:freelance_job_portal/core/widget/custom_subtitle_medium.dart';
 import 'package:freelance_job_portal/core/widget/space.dart';
 
 class CustomZzz extends StatelessWidget {
@@ -8,38 +9,38 @@ class CustomZzz extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding:  EdgeInsets.symmetric(horizontal: SizeConfig.defaultSize!*3, vertical: SizeConfig.defaultSize!*1.5),
-      margin: EdgeInsets.only(left: SizeConfig.defaultSize!*1.5, right:SizeConfig.defaultSize!*.5),
-      height: 180,
+      padding: EdgeInsets.symmetric(
+          horizontal: SizeConfig.defaultSize! * 3,
+          vertical: SizeConfig.defaultSize! * 1.5),
+      margin: EdgeInsets.only(
+          left: SizeConfig.defaultSize! * 1.5,
+          right: SizeConfig.defaultSize! * .5),
+      height: SizeConfig.defaultSize! * 19.2,
       decoration: BoxDecoration(
-          color: Colors.deepPurple, borderRadius: BorderRadius.circular(SizeConfig.defaultSize!*1)),
-      child:  Row(
+          color: Colors.deepPurple,
+          borderRadius: BorderRadius.circular(SizeConfig.defaultSize! * 1)),
+      child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Column(
             children: [
               SizedBox(
-                width: SizeConfig.defaultSize!*10,
-                child: const Text(
-                  "Number of projects completed",
-                  textAlign: TextAlign.center,
-                  maxLines: 3,
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold),
-                ),
+                width: SizeConfig.defaultSize! * 10.5,
+                child: Text("Number of projects completed",
+                    textAlign: TextAlign.center,
+                    maxLines: 3,
+                    style: Theme.of(context)
+                        .textTheme
+                        .titleMedium!
+                        .copyWith(color: Colors.white)),
               ),
               const VirticalSpace(1),
               CircleAvatar(
-                maxRadius: SizeConfig.defaultSize!*3,
+                maxRadius: SizeConfig.defaultSize! * 3,
                 backgroundColor: const Color.fromARGB(255, 69, 49, 100),
-                child: const Text(
-                  "17",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold),
+                child: const CustomSubTitleMedium(
+                  text: "17",
+                  color: Colors.white,
                 ),
               ),
             ],
@@ -47,27 +48,24 @@ class CustomZzz extends StatelessWidget {
           Column(
             children: [
               SizedBox(
-                width: 100,
+                width: SizeConfig.defaultSize! * 10.5,
                 child: Text(
                   "Percentage of projects delivered on deadline:",
                   textAlign: TextAlign.center,
                   maxLines: 3,
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold),
+                  style: Theme.of(context)
+                      .textTheme
+                      .titleMedium!
+                      .copyWith(color: Colors.white),
                 ),
               ),
-              VirticalSpace(1),
+              const VirticalSpace(1),
               CircleAvatar(
-                maxRadius: 30,
-                backgroundColor: Color.fromARGB(255, 69, 49, 100),
-                child: Text(
-                  "86%",
-                  style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold),
+                maxRadius: SizeConfig.defaultSize! * 3,
+                backgroundColor: const Color.fromARGB(255, 69, 49, 100),
+                child: const CustomSubTitleMedium(
+                  text: "86%",
+                  color: Colors.white,
                 ),
               ),
             ],

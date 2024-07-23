@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:freelance_job_portal/core/utils/size_config.dart';
+import 'package:freelance_job_portal/core/widget/custom_subtitle_medium.dart';
 
 class CustomTextFieldMony extends StatelessWidget {
   const CustomTextFieldMony(
@@ -20,24 +21,21 @@ class CustomTextFieldMony extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 40),
+      margin: EdgeInsets.symmetric(horizontal: SizeConfig.defaultSize! * 4),
       child: Row(
         children: [
           Container(
             alignment: Alignment.center,
-            height: 62,
-            width: 80,
+            height: SizeConfig.defaultSize! * 6.2,
+            width: SizeConfig.defaultSize! * 8,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.only(
                     bottomRight: Radius.circular(SizeConfig.defaultSize! * 10),
                     topRight: Radius.circular(SizeConfig.defaultSize! * 10)),
                 color: Theme.of(context).primaryColor),
-            child: const Text(
-              "SYP",
-              style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white),
+            child: const CustomSubTitleMedium(
+              text: "SYP",
+              color: Colors.white,
             ),
           ),
           Expanded(

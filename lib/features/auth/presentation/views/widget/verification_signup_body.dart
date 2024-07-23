@@ -58,14 +58,14 @@ class _VerificationSignupBodyState extends State<VerificationSignupBody> {
             const VirticalSpace(5),
             const Center(child: CustomAuthTitle(text: "Check Phone Number")),
             const VirticalSpace(4),
-             Center(child: CustomTitle(text: "Complete Sign Up")),
+            const Center(child: CustomTitle(text: "Complete Sign Up")),
             const VirticalSpace(2),
             Container(
               margin: EdgeInsets.symmetric(
                   horizontal: SizeConfig.defaultSize! * 1.5),
-              child: const Text(
+              child: Text(
                   "We have sent a code to your phone number,Please enter it below to complete signing up",
-                  style: TextStyle(fontSize: 18),
+                  style: Theme.of(context).textTheme.bodyLarge,
                   textAlign: TextAlign.center),
             ),
             const VirticalSpace(6),

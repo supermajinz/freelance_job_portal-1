@@ -6,8 +6,6 @@ class Saved extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: SafeArea(child: SavedBody()),
-    );
+    return const SavedBody();
   }
 }

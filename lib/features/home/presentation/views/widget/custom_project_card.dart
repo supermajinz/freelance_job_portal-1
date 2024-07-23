@@ -17,7 +17,7 @@ class CustomProjectCard extends StatelessWidget {
           padding: EdgeInsets.only(
               right: SizeConfig.defaultSize! * 1.2,
               top: SizeConfig.defaultSize! * 0.2),
-          height: SizeConfig.defaultSize! * 26,
+          height: SizeConfig.defaultSize! * 27,
           width: SizeConfig.defaultSize! * 35,
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -43,7 +43,7 @@ class CustomProjectCard extends StatelessWidget {
                 scrollDirection: Axis.horizontal,
                 itemCount: 5,
                 itemBuilder: (context, index) {
-                  return const CustomChoiceChip();
+                  return  CustomChoiceChip(color:  Theme.of(context).focusColor,);
                 },
               ),
             ),
@@ -79,6 +79,7 @@ class CustomProjectCard extends StatelessWidget {
                 ),
                 const HorizintalSpace(1),
                 Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const CustomSubTitleMedium(text: ' ميليسا الدمشقية '),
                     const VirticalSpace(1),
@@ -88,6 +89,7 @@ class CustomProjectCard extends StatelessWidget {
                           text: '٤.٦',
                           color: Colors.black,
                         ),
+                        const HorizintalSpace(.8),
                         Icon(
                           Icons.star,
                           color: Colors.yellow,

@@ -19,20 +19,24 @@ class CustomSearch extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding:  EdgeInsets.symmetric(vertical:SizeConfig.defaultSize!*1.5, horizontal: SizeConfig.defaultSize!*1),
+      padding: EdgeInsets.symmetric(
+          vertical: SizeConfig.defaultSize! * 1.5,
+          horizontal: SizeConfig.defaultSize! * 1),
       child: TextFormField(
         // controller: myController,
         onChanged: onChanged,
         decoration: InputDecoration(
-            contentPadding:
-                 EdgeInsets.symmetric(vertical: SizeConfig.defaultSize!*1, horizontal:SizeConfig.defaultSize!*3.5),
+            contentPadding: EdgeInsets.symmetric(
+                vertical: SizeConfig.defaultSize! * 1,
+                horizontal: SizeConfig.defaultSize! * 3.5),
             focusedBorder: OutlineInputBorder(
               borderSide: const BorderSide(color: Colors.blueGrey),
-              borderRadius: BorderRadius.circular(SizeConfig.defaultSize!*3),
+              borderRadius: BorderRadius.circular(SizeConfig.defaultSize! * 3),
             ),
             enabledBorder: OutlineInputBorder(
                 borderSide: const BorderSide(color: Colors.grey),
-                borderRadius: BorderRadius.circular(SizeConfig.defaultSize!*3)),
+                borderRadius:
+                    BorderRadius.circular(SizeConfig.defaultSize! * 3)),
             filled: true,
             fillColor: Colors.white,
             prefixIcon: IconButton(

@@ -22,10 +22,11 @@ class CustomDropdownSearch extends StatelessWidget {
         'Data Analysis',
         'Project Management',
       ],
-      dropdownDecoratorProps: const DropDownDecoratorProps(
+      dropdownDecoratorProps: DropDownDecoratorProps(
         dropdownSearchDecoration: InputDecoration(
           hintText: '',
-          border: OutlineInputBorder(),
+          hintStyle: Theme.of(context).textTheme.labelLarge,
+          border: const OutlineInputBorder(),
         ),
       ),
       popupProps: PopupProps.menu(

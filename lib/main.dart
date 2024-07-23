@@ -8,7 +8,8 @@ import 'package:freelance_job_portal/features/auth/presentation/view_models/bloc
 import 'package:freelance_job_portal/l10n/l10n.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-//TODO: لوغو التطبيق يظهر عتد 
+
+//TODO: لوغو التطبيق يظهر عتد
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   // final sharedPreferences = await SharedPreferences.getInstance;
@@ -19,10 +20,9 @@ void main() async {
         create: (context) => LocalizationBloc()..add(LoadSavedLocalization()),
       ),
       BlocProvider(
-        create: (context) => AuthBloc(
-          DependencyInjection.provideAuthRepo(),
-          DependencyInjection.provideAuthTokenService()
-        )..add(CheckAuthStatusEvent()),
+        create: (context) => AuthBloc(DependencyInjection.provideAuthRepo(),
+            DependencyInjection.provideAuthTokenService())
+          ..add(CheckAuthStatusEvent()),
       ),
     ],
     child: const FreelanceJob(),

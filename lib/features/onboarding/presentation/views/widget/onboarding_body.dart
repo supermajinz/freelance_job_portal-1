@@ -74,7 +74,7 @@ class _OnboardingBodyState extends State<OnboardingBody> {
                 GoRouter.of(context).push("/homescreen");
               },
               width: SizeConfig.defaultSize! * 25.5,
-              borderSide: const BorderSide(width: 1),
+              borderSide: const BorderSide(width: 1, color: Colors.grey),
               color: Colors.white,
               text: "الاستمرار كضيف",
               textcolor: Colors.black,

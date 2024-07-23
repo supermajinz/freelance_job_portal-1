@@ -7,7 +7,8 @@ class CustomTextFormChat extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MessageBar(replying: true,textFieldTextStyle: const TextStyle(fontSize: 20),
+    return MessageBar(
+      replying: true, textFieldTextStyle: const TextStyle(fontSize: 20),
       // ignore: avoid_print
       onSend: (_) => print(_),
       actions: [
@@ -20,7 +21,9 @@ class CustomTextFormChat extends StatelessWidget {
           onTap: () {},
         ),
         Padding(
-          padding:  EdgeInsets.only(left: SizeConfig.defaultSize!*.8, right: SizeConfig.defaultSize!*.8),
+          padding: EdgeInsets.only(
+              left: SizeConfig.defaultSize! * .8,
+              right: SizeConfig.defaultSize! * .8),
           child: InkWell(
             child: const Icon(
               Icons.camera_alt,

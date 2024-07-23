@@ -17,12 +17,13 @@ class DmsBodyCopy extends StatelessWidget {
             children: [
               const VirticalSpace(2),
               Container(
-                height:SizeConfig.defaultSize!*7,
+                height: SizeConfig.defaultSize! * 7,
                 decoration: const BoxDecoration(
                   border:
                       Border(bottom: BorderSide(width: 1, color: Colors.grey)),
                 ),
-                child: Row(crossAxisAlignment: CrossAxisAlignment.start,
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     IconButton(
                         onPressed: () {},
@@ -31,7 +32,7 @@ class DmsBodyCopy extends StatelessWidget {
                           size: 30,
                         )),
                     CircleAvatar(
-                      radius: SizeConfig.defaultSize!*3,
+                      radius: SizeConfig.defaultSize! * 3,
                       backgroundImage: const AssetImage(
                         "assets/images/pro.jpg",
                       ),
@@ -60,8 +61,8 @@ class DmsBodyCopy extends StatelessWidget {
               },
             ),
           ),
-         // const CustomTextFormChat()
-         // const CustomTextFormChat()
+          // const CustomTextFormChat()
+          // const CustomTextFormChat()
         ],
       ),
     );

@@ -23,9 +23,9 @@ class ForgetPasswordBody extends StatelessWidget {
         const VirticalSpace(2),
         Container(
           margin: EdgeInsets.symmetric(horizontal: SizeConfig.defaultSize! * 1),
-          child: const Text(
+          child: Text(
               "please Enter Your Phone Number To Recive A Verification Code",
-              style: TextStyle(fontSize: 18),
+              style: Theme.of(context).textTheme.bodyLarge,
               textAlign: TextAlign.center),
         ),
         const VirticalSpace(6),

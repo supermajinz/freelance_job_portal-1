@@ -10,7 +10,6 @@ class OnboardingView extends StatelessWidget {
     SizeConfig().init(context);
     return const Scaffold(
       body: SafeArea(child: OnboardingBody()),
-      
     );
   }
 }

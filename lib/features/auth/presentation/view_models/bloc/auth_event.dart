@@ -42,4 +42,5 @@ class VerifyEvent extends AuthEvent {
 class CheckAuthStatusEvent extends AuthEvent {}
 
 class LogoutEvent extends AuthEvent {}
-class ContinueAsGuestEvent extends AuthEvent{}
+
+class ContinueAsGuestEvent extends AuthEvent {}

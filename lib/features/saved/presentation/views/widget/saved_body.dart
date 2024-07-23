@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:freelance_job_portal/core/utils/size_config.dart';
+import 'package:freelance_job_portal/core/widget/custom_icon_back.dart';
+import 'package:freelance_job_portal/core/widget/custom_title.dart';
 import 'package:freelance_job_portal/core/widget/space.dart';
 import 'package:freelance_job_portal/features/home/presentation/views/widget/custom_project_card.dart';
-import 'package:freelance_job_portal/features/profile/presentation/views/widget/custom_profile_card.dart';
-import 'package:freelance_job_portal/features/saved/presentation/views/widget/custom_people.dart';
+import 'package:freelance_job_portal/features/saved/presentation/views/widget/custom_saved_card.dart';
+import 'package:go_router/go_router.dart';
 
 class SavedBody extends StatelessWidget {
   const SavedBody({super.key});
@@ -14,14 +16,22 @@ class SavedBody extends StatelessWidget {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          title: const Text('Saved items'),
+          title: const CustomTitle(text: "العناصر المحفوظة", white: true),
           centerTitle: true,
-          leading:
-              IconButton(onPressed: () {}, icon: const Icon(Icons.arrow_back)),
-          bottom: const TabBar(
+          backgroundColor: Theme.of(context).primaryColor,
+          leading: CustomIconBack(
+            onPressed: () {
+              GoRouter.of(context).pop();
+            },
+          ),
+          bottom: TabBar(
+              labelColor: Theme.of(context).canvasColor,
+              enableFeedback: true,
+              unselectedLabelColor: Theme.of(context).disabledColor,
+              unselectedLabelStyle: Theme.of(context).textTheme.bodyLarge,
               indicatorSize: TabBarIndicatorSize.tab,
-              labelStyle: TextStyle(fontSize: 20),
-              tabs: [
+              labelStyle: Theme.of(context).textTheme.titleMedium,
+              tabs: const [
                 Tab(
                   child: Text("People"),
                 ),
@@ -31,24 +41,38 @@ class SavedBody extends StatelessWidget {
               ]),
         ),
         body: Container(
-          margin: EdgeInsets.symmetric(
-              vertical: SizeConfig.defaultSize! * .5,
-              horizontal: SizeConfig.defaultSize! * .5),
+          margin: EdgeInsets.symmetric(horizontal: SizeConfig.defaultSize! * 1),
           child: TabBarView(children: [
-            ListView.separated(
-              separatorBuilder: (context, index) {
-                return const VirticalSpace(.5);
-              },
-              itemCount: 3,
-              itemBuilder: (context, index) {
-                return const CustomProfileCard();
-              },
+            ListView(
+              children: [
+                const VirticalSpace(1),
+                ListView.separated(
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  separatorBuilder: (context, index) {
+                    return const VirticalSpace(.5);
+                  },
+                  itemCount: 7,
+                  itemBuilder: (context, index) {
+                    return const CustomSavedCard(
+                      icon: Icons.bookmark_add,
+                    );
+                  },
+                ),
+              ],
             ),
-            ListView.builder(
-              itemCount: 3,
-              itemBuilder: (context, index) {
-                return const CustomProjectCard();
-              },
+            ListView(
+              children: [
+                const VirticalSpace(.5),
+                ListView.builder(
+                  physics: const NeverScrollableScrollPhysics(),
+                  shrinkWrap: true,
+                  itemCount: 3,
+                  itemBuilder: (context, index) {
+                    return const CustomProjectCard();
+                  },
+                ),
+              ],
             )
           ]),
         ),

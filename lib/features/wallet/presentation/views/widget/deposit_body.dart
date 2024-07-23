@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:freelance_job_portal/core/utils/size_config.dart';
+import 'package:freelance_job_portal/core/widget/custom_body_medium.dart';
 import 'package:freelance_job_portal/core/widget/custom_button_general.dart';
+import 'package:freelance_job_portal/core/widget/custom_sub_title.dart';
 import 'package:freelance_job_portal/core/widget/custom_text_form_general.dart';
 import 'package:freelance_job_portal/core/widget/space.dart';
 import 'package:freelance_job_portal/features/wallet/presentation/views/widget/custom_payment.dart';
@@ -17,13 +19,13 @@ class DepositBody extends StatelessWidget {
           margin: EdgeInsets.only(
               left: SizeConfig.defaultSize! * 1.7,
               right: SizeConfig.defaultSize! * 1.7,
+              bottom: SizeConfig.defaultSize! * 2,
               top: SizeConfig.defaultSize! * 3),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text(
-                "Choose Payment Method:",
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.w900),
+              const CustomSubTitle(
+                text: "Choose Payment Method:",
               ),
               const VirticalSpace(3),
               const Row(
@@ -44,28 +46,19 @@ class DepositBody extends StatelessWidget {
                 ],
               ),
               const VirticalSpace(4),
-              const Text(
-                "Send desired amount to the following address: ",
-                style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w200,
-                    color: Colors.black),
+              const CustomBody(
+                text: "Send desired amount to the following address: ",
               ),
-              const Text(
-                "XXXX-XXXX-XXXX-XXXX",
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w200),
+              const CustomBody(
+                text: "XXXX-XXXX-XXXX-XXXX",
+                color: Colors.grey,
               ),
-              const Text(
-                "and then enter the information below",
-                style: TextStyle(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w200,
-                    color: Colors.black),
+              const CustomBody(
+                text: "and then enter the information below",
               ),
               const VirticalSpace(2),
-              const Text(
-                "Amount:",
-                style: TextStyle(fontSize: 22, fontWeight: FontWeight.w900),
+              const CustomSubTitle(
+                text: "Amount:",
               ),
               const VirticalSpace(1),
               const CustomTextFieldMony(isNumber: true),
@@ -73,11 +66,12 @@ class DepositBody extends StatelessWidget {
               const CustomTextFormGeneral(
                   hinttext: "", lable: "Transaction ID", isNumber: false),
               const VirticalSpace(1),
-              const Text(
+              Text(
                 "Note: Your transaction will be processed shortly, thank you for your patience.",
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w200),
+                textAlign: TextAlign.start,
+                style: Theme.of(context).textTheme.bodyLarge,
               ),
-              const VirticalSpace(8),
+              const VirticalSpace(12),
               Center(
                 child: CustomButtonGeneral(
                     onPressed: () {},
@@ -85,7 +79,7 @@ class DepositBody extends StatelessWidget {
                     textcolor: Colors.white,
                     text: "Deposit",
                     borderSide: const BorderSide(width: 0),
-                    width: SizeConfig.defaultSize!*20),
+                    width: SizeConfig.defaultSize! * 20),
               )
             ],
           ),

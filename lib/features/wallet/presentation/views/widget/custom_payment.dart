@@ -18,13 +18,10 @@ class CustomPayment extends StatelessWidget {
             ),
             child: Image.asset(url, height: 50, width: 110, fit: BoxFit.fill)),
         const VirticalSpace(1),
-        Text(
-          text,
-          maxLines: 2,
-          textAlign: TextAlign.center,
-          style: const TextStyle(
-              fontSize: 18, fontWeight: FontWeight.w500, color: Colors.black),
-        ),
+        Text(text,
+            maxLines: 2,
+            textAlign: TextAlign.center,
+            style: Theme.of(context).textTheme.bodyLarge),
       ],
     );
   }

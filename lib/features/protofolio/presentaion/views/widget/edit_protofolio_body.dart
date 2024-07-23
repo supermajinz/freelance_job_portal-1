@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:freelance_job_portal/core/utils/size_config.dart';
+import 'package:freelance_job_portal/core/widget/custom_body_medium.dart';
 import 'package:freelance_job_portal/core/widget/custom_button_general.dart';
+import 'package:freelance_job_portal/core/widget/custom_sub_title.dart';
 import 'package:freelance_job_portal/core/widget/space.dart';
 import 'package:freelance_job_portal/features/profile/presentation/views/widget/custom_chip_button.dart';
 import 'package:freelance_job_portal/features/profile/presentation/views/widget/custom_dropdown_searsh.dart';
@@ -36,36 +38,34 @@ class EditProtofolioBody extends StatelessWidget {
                   lable: "Descripion",
                   isNumber: false),
               const VirticalSpace(5),
-              const Text(
-                "Images",
-                style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black),
+              const CustomSubTitle(
+                text: "Images",
               ),
               const VirticalSpace(2),
               SizedBox(
-                height: SizeConfig.defaultSize! * 21,
+                height: SizeConfig.defaultSize! * 18,
                 child: ListView.separated(
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (context, index) {
                       return Stack(
                         clipBehavior: Clip.none,
                         children: [
-                          Container(
-                            height: SizeConfig.defaultSize! * 20,
-                            width: SizeConfig.defaultSize! * 15,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.all(Radius.circular(
-                                    SizeConfig.defaultSize! * 1.6)),
-                                image: const DecorationImage(
-                                    fit: BoxFit.fill,
-                                    image:
-                                        AssetImage("assets/images/pro.jpg"))),
+                          AspectRatio(
+                            aspectRatio: 3.7 / 4,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.all(
+                                      Radius.circular(
+                                          SizeConfig.defaultSize! * 1.6)),
+                                  image: const DecorationImage(
+                                      fit: BoxFit.fill,
+                                      image:
+                                          AssetImage("assets/images/pro.jpg"))),
+                            ),
                           ),
                           Positioned(
-                            top: SizeConfig.defaultSize! * 17,
-                            right: SizeConfig.defaultSize! * 12,
+                            top: SizeConfig.defaultSize! * 14.5,
+                            right: SizeConfig.defaultSize! * 13,
                             child: IconButton(
                                 onPressed: () {}, icon: const Icon(Icons.edit)),
                           )
@@ -78,22 +78,14 @@ class EditProtofolioBody extends StatelessWidget {
                     itemCount: 5),
               ),
               const VirticalSpace(5),
-              const Text(
-                "Category",
-                style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black),
+              const CustomSubTitle(
+                text: "Category",
               ),
               const VirticalSpace(1.5),
               const CustomDropdownSearsh1(),
               const VirticalSpace(5),
-              const Text(
-                "Skills",
-                style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black),
+              const CustomSubTitle(
+                text: "Skills",
               ),
               const VirticalSpace(1.5),
               const CustomDropdownSearsh1(),
@@ -115,21 +107,15 @@ class EditProtofolioBody extends StatelessWidget {
               const VirticalSpace(5),
               const Row(
                 children: [
-                  Text(
-                    "Date",
-                    style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black),
+                  CustomSubTitle(
+                    text: "Date",
                   ),
                   HorizintalSpace(20),
                   Column(
                     children: [
                       CustomDate(),
-                      Text(
-                        "14/7/2022",
-                        style: TextStyle(
-                            color: Colors.black, fontWeight: FontWeight.bold),
+                      CustomBody(
+                        text: "14/7/2022",
                       )
                     ],
                   ),

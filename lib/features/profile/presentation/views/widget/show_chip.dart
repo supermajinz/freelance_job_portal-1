@@ -5,11 +5,11 @@ class ShowChip extends StatelessWidget {
   const ShowChip({super.key});
   @override
   Widget build(BuildContext context) {
-    List<int> items = List.generate(10, (i) => i);
+    List<int> items = List.generate(4, (i) => i);
 
     return Wrap(
       direction: Axis.horizontal,
-      children: items.map((i) => const CustomChoiceChip()).toList(),
+      children: items.map((i) =>  CustomChoiceChip(color:  Theme.of(context).focusColor,)).toList(),
     );
   }
 }

@@ -33,11 +33,13 @@ final class AuthAuthenticated extends AuthState {
   final String accessToken;
   final String refreshToken;
 
-  const AuthAuthenticated({required this.accessToken, required this.refreshToken});
-  
+  const AuthAuthenticated(
+      {required this.accessToken, required this.refreshToken});
+
   @override
-  List<Object> get props => [accessToken,refreshToken];
+  List<Object> get props => [accessToken, refreshToken];
 }
+
 final class AuthInvalidCode extends AuthState {
   final String message;
 
@@ -46,7 +48,9 @@ final class AuthInvalidCode extends AuthState {
   @override
   List<Object> get props => [message];
 }
-class AuthUnauthenticated extends AuthState {}
-class AuthLoggedOut extends AuthState {}
-class AuthGuest extends AuthState{}
 
+class AuthUnauthenticated extends AuthState {}
+
+class AuthLoggedOut extends AuthState {}
+
+class AuthGuest extends AuthState {}

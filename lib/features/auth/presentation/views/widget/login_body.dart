@@ -81,7 +81,9 @@ class _LoginBodyState extends State<LoginBody> {
               },
             ),
             Container(
-              margin: const EdgeInsets.only(right: 25),
+              margin: EdgeInsets.only(
+                  right: SizeConfig.defaultSize! * 2.5,
+                  left: SizeConfig.defaultSize! * 2.5),
               child: InkWell(
                 onTap: () {
                   GoRouter.of(context).push("/forgetpassword");

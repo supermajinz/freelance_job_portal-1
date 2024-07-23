@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:freelance_job_portal/core/utils/size_config.dart';
+import 'package:freelance_job_portal/core/widget/custom_subtitle_medium.dart';
 
 class CustomButtonGeneral extends StatelessWidget {
   const CustomButtonGeneral(
@@ -22,16 +23,17 @@ class CustomButtonGeneral extends StatelessWidget {
     return SizedBox(
       width: width,
       child: MaterialButton(
-        onPressed: onPressed,
-        color: color,
-        shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(SizeConfig.defaultSize!*2.5), side: borderSide),
-        padding:  EdgeInsets.symmetric(vertical: SizeConfig.defaultSize!*.8),
-        child: Text(
-          text,
-          style: TextStyle(color: textcolor, fontSize: 20),
-        ),
-      ),
+          onPressed: onPressed,
+          color: color,
+          shape: RoundedRectangleBorder(
+              borderRadius:
+                  BorderRadius.circular(SizeConfig.defaultSize! * 2.5),
+              side: borderSide),
+          padding: EdgeInsets.symmetric(vertical: SizeConfig.defaultSize! * .8),
+          child: CustomSubTitleMedium(
+            text: text,
+            color: textcolor,
+          )),
     );
   }
 }

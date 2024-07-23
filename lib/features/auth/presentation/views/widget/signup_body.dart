@@ -60,7 +60,7 @@ class _SignupBodyState extends State<SignupBody> {
                 const VirticalSpace(5),
                 const Center(child: CustomAuthTitle(text: "Sign Up")),
                 const VirticalSpace(4),
-                Center(child: CustomTitle(text: "Welcom Back")),
+                const Center(child: CustomTitle(text: "Welcom Back")),
                 const VirticalSpace(2),
                 const Center(
                   child: CustomBody(
@@ -152,7 +152,7 @@ class _SignupBodyState extends State<SignupBody> {
                   text1: "Already have an account? ",
                   text2: "Log in",
                   onTap: () {
-                    GoRouter.of(context).push("/");
+                    GoRouter.of(context).push("/login");
                   },
                 )
               ],

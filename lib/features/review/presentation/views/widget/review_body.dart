@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:freelance_job_portal/core/utils/size_config.dart';
 import 'package:freelance_job_portal/core/widget/custom_button_general.dart';
+import 'package:freelance_job_portal/core/widget/custom_sub_title.dart';
 import 'package:freelance_job_portal/core/widget/custom_text_form_general.dart';
+import 'package:freelance_job_portal/core/widget/custom_title.dart';
 import 'package:freelance_job_portal/core/widget/space.dart';
 import 'package:freelance_job_portal/features/review/presentation/views/widget/custom_rating.dart';
 
@@ -20,51 +22,31 @@ class ReviewBody extends StatelessWidget {
           child: Column(
             children: [
               const Center(
-                child: Text(
-                  "Review Ahmad",
-                  style: TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black),
+                child: CustomTitle(
+                  text: "Review Ahmad",
                 ),
               ),
               const VirticalSpace(5),
-              const Text(
-                "Overrall rating",
-                style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black),
+              const CustomSubTitle(
+                text: "Overrall rating",
               ),
               const VirticalSpace(1),
               const CustomRating(),
               const VirticalSpace(3),
-              const Text(
-                "Proficieny rating",
-                style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black),
+              const CustomSubTitle(
+                text: "Proficieny rating",
               ),
               const VirticalSpace(1),
               const CustomRating(),
               const VirticalSpace(3),
-              const Text(
-                "Communication rating",
-                style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black),
+              const CustomSubTitle(
+                text: "Communication rating",
               ),
               const VirticalSpace(1),
               const CustomRating(),
               const VirticalSpace(3),
-              const Text(
-                "Quality rating",
-                style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black),
+              const CustomSubTitle(
+                text: "Quality rating",
               ),
               const VirticalSpace(1),
               const CustomRating(),

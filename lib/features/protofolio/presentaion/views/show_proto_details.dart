@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:freelance_job_portal/core/widget/custom_icon_back.dart';
+import 'package:freelance_job_portal/core/widget/custom_title.dart';
 import 'package:freelance_job_portal/features/protofolio/presentaion/views/widget/show_proto_details_body.dart';
+import 'package:go_router/go_router.dart';
 
 class ShowProtoDetails extends StatelessWidget {
   const ShowProtoDetails({super.key});
@@ -8,14 +11,17 @@ class ShowProtoDetails extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-            onPressed: () {},
-            icon: Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
-                    border: Border.all(width: 1)),
-                child: const Icon(Icons.arrow_back, size: 25))),
-      ),
+          title: const CustomTitle(
+            text: 'Protofolio Details',
+            white: true,
+          ),
+          centerTitle: true,
+          backgroundColor: Theme.of(context).primaryColor,
+          leading: CustomIconBack(
+            onPressed: () {
+              GoRouter.of(context).pop();
+            },
+          )),
       body: const SafeArea(child: ShowProtoDetailsBody()),
     );
   }

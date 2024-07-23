@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:freelance_job_portal/core/utils/size_config.dart';
 import 'package:freelance_job_portal/core/widget/custom_button_general.dart';
+import 'package:freelance_job_portal/core/widget/custom_sub_title.dart';
 import 'package:freelance_job_portal/core/widget/space.dart';
 import 'package:freelance_job_portal/features/home/presentation/views/widget/custom_choice_chip.dart';
 import 'package:freelance_job_portal/features/home/presentation/views/widget/custom_project_card.dart';
@@ -11,7 +12,6 @@ import 'package:freelance_job_portal/features/profile/presentation/views/widget/
 import 'package:freelance_job_portal/features/profile/presentation/views/widget/custom_zzz.dart';
 import 'package:go_router/go_router.dart';
 import 'package:rating_summary/rating_summary.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ProfileBody extends StatelessWidget {
   const ProfileBody({super.key});
@@ -26,11 +26,13 @@ class ProfileBody extends StatelessWidget {
             ClipPath(
                 clipper: WaveClipperTwo(),
                 child: Container(
-                  height: SizeConfig.defaultSize! * 25,
-                  color: Colors.deepOrange,
+                  height: SizeConfig.defaultSize! * 22,
+                  color: Theme.of(context).primaryColorLight,
                 )),
             Positioned(
-                top: SizeConfig.defaultSize! * 15,
+                top: SizeConfig.defaultSize! * 12,
+                right: SizeConfig.defaultSize! * .5,
+                left: SizeConfig.defaultSize! * .5,
                 child: InkWell(
                     onTap: () {
                       showModalBottomSheet(
@@ -51,7 +53,13 @@ class ProfileBody extends StatelessWidget {
                                     scrollDirection: Axis.vertical,
                                     itemCount: 2,
                                     itemBuilder: (context, index) {
-                                      return const CustomProfileCard();
+                                      return CustomProfileCard(
+                                        icon: Icons.edit,
+                                        onPressed: () {
+                                          GoRouter.of(context)
+                                              .push('/editprofile');
+                                        },
+                                      );
                                     },
                                   ),
                                 ),
@@ -74,8 +82,13 @@ class ProfileBody extends StatelessWidget {
                     },
                     child: Container(
                         margin: EdgeInsets.symmetric(
-                            horizontal: SizeConfig.defaultSize! * 2),
-                        child: const CustomProfileCard()))),
+                            horizontal: SizeConfig.defaultSize! * 1),
+                        child: CustomProfileCard(
+                          icon: Icons.edit,
+                          onPressed: () {
+                            GoRouter.of(context).push('/editprofile');
+                          },
+                        )))),
           ],
         ),
         Container(
@@ -85,104 +98,61 @@ class ProfileBody extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  AppLocalizations.of(context)!.desc_title,
-                  style: const TextStyle(
-                      fontSize: 20, fontWeight: FontWeight.bold),
-                ),
-                const VirticalSpace(.5),
+                const CustomSubTitle(text: "الوصف"),
+                const VirticalSpace(1),
                 SizedBox(
                   height: SizeConfig.defaultSize! * 7,
-                  child: const Text(
-                    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce fermentum lacus metus. Vivamus faucibus ullamcorper velit, id facilisis lacus tempus....",
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 3,
-                    style: TextStyle(
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.grey),
+                  child: Container(
+                    margin: EdgeInsets.only(left: SizeConfig.defaultSize! * 2),
+                    child: Text(
+                      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce fermentum lacus metus. Vivamus faucibus ullamcorper velit, id facilisis lacus tempus....",
+                      overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.start,
+                      maxLines: 3,
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyLarge!
+                          .copyWith(color: Colors.grey),
+                    ),
                   ),
-                ),
-                InkWell(
-                  onTap: () {},
-                  child: const Text(
-                    "show more",
-                    style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        decoration: TextDecoration.underline),
-                  ),
-                ),
-                const VirticalSpace(4),
-                SizedBox(
-                  height: SizeConfig.defaultSize! * 21,
-                  child: ListView.separated(
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) {
-                        return Container(
-                          height: SizeConfig.defaultSize! * 20,
-                          width: SizeConfig.defaultSize! * 15,
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.all(Radius.circular(
-                                  SizeConfig.defaultSize! * 1.6)),
-                              image: const DecorationImage(
-                                  fit: BoxFit.fill,
-                                  image: AssetImage("assets/images/pro.jpg"))),
-                        );
-                      },
-                      separatorBuilder: (context, index) {
-                        return const HorizintalSpace(1);
-                      },
-                      itemCount: 5),
-                ),
-                const VirticalSpace(5),
-                const Text(
-                  "Skils",
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
                 ),
                 const VirticalSpace(1),
+                InkWell(
+                  onTap: () {},
+                  child: Text("show more",
+                      style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                          fontWeight: FontWeight.bold,
+                          decoration: TextDecoration.underline)),
+                ),
+                const VirticalSpace(4),
+                const CustomSubTitle(
+                  text: "المهارات",
+                ),
+                const VirticalSpace(.5),
                 SizedBox(
                   height: SizeConfig.defaultSize! * 5,
                   child: ListView.separated(
                     separatorBuilder: (context, index) {
                       return const HorizintalSpace(0.3);
                     },
-                    itemCount: 3,
+                    itemCount: 5,
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (context, index) {
-                      return const CustomChoiceChip();
+                      return CustomChoiceChip(
+                        color: Theme.of(context).focusColor,
+                      );
                     },
                   ),
                 ),
                 const VirticalSpace(4),
-                const Text(
-                  "Portfolio",
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                const CustomSubTitle(
+                  text: "Portfolio",
                 ),
                 const VirticalSpace(1.5),
-                SizedBox(
-                  height: SizeConfig.defaultSize! * 38.5,
-                  child: GridView.builder(
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            mainAxisSpacing: 20,
-                            crossAxisSpacing: 20),
-                    itemCount: 5,
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) {
-                      return InkWell(
-                          onTap: () {
-                            GoRouter.of(context).push("/showprotodetails");
-                          },
-                          child: const CustomProtofolioCard());
-                    },
-                  ),
-                ),
-                const VirticalSpace(3),
-                const Text(
-                  "Projects completed",
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                const CustomProtofolioCard(),
+                const VirticalSpace(4),
+                const CustomSubTitle(
+                  text: "Projects completed",
                 ),
                 const VirticalSpace(0.5),
                 SizedBox(
@@ -201,10 +171,8 @@ class ProfileBody extends StatelessWidget {
                 const VirticalSpace(5),
                 const CustomZzz(),
                 const VirticalSpace(5),
-                const Text(
-                  "Ratings and reviews",
-                  textAlign: TextAlign.start,
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                const CustomSubTitle(
+                  text: "Ratings and reviews",
                 ),
                 const VirticalSpace(4),
                 Container(
@@ -224,6 +192,8 @@ class ProfileBody extends StatelessWidget {
                 SizedBox(
                   height: SizeConfig.defaultSize! * 40,
                   child: ListView.separated(
+                    shrinkWrap: true,
+                    physics: const AlwaysScrollableScrollPhysics(),
                     separatorBuilder: (context, index) {
                       return const Divider();
                     },

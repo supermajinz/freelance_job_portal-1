@@ -17,6 +17,7 @@ class DependencyInjection {
       authTokenService: authTokenService,
     );
   }
+
   static AuthRepo provideAuthRepo() {
     final apiService = provideApiService();
     final authTokenService = provideAuthTokenService();

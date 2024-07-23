@@ -15,13 +15,15 @@ class ChatBodyCopy extends StatelessWidget {
         const VirticalSpace(2),
         const CustomSearch(title: "Hinted search text"),
         Container(
-          margin:  EdgeInsets.symmetric(horizontal: SizeConfig.defaultSize!*.5),
-          height: SizeConfig.defaultSize!*62,
+          margin:
+              EdgeInsets.symmetric(horizontal: SizeConfig.defaultSize! * .5),
+          height: SizeConfig.defaultSize! * 62,
           color: Theme.of(context).cardColor,
           child: ListView.separated(
             separatorBuilder: (context, index) {
               return Container(
-                  margin:  EdgeInsets.symmetric(horizontal: SizeConfig.defaultSize!*1),
+                  margin: EdgeInsets.symmetric(
+                      horizontal: SizeConfig.defaultSize! * 1),
                   child: const Divider());
             },
             shrinkWrap: true,

@@ -27,7 +27,8 @@ class ChatMessage extends Equatable {
       timestamp: DateTime.parse(json['timestamp']),
     );
   }
- 
+
   @override
-  List<Object?> get props => [id, senderId,recipientId,isSender, content, timestamp];
+  List<Object?> get props =>
+      [id, senderId, recipientId, isSender, content, timestamp];
 }

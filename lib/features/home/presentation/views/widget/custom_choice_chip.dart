@@ -3,14 +3,15 @@ import 'package:freelance_job_portal/core/utils/size_config.dart';
 import 'package:freelance_job_portal/core/widget/custom_label.dart';
 
 class CustomChoiceChip extends StatelessWidget {
-  const CustomChoiceChip({super.key});
+  const CustomChoiceChip({super.key, required this.color});
+  final Color color;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(right: SizeConfig.defaultSize! * 1),
       child: ChoiceChip(
-        selectedColor: const Color.fromARGB(255, 237, 232, 238),
+        selectedColor:color,
         label: const CustomLabel(text: "Laravel"),
         selected: true,
         shape: RoundedRectangleBorder(

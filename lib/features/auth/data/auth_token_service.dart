@@ -1,4 +1,3 @@
-
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class AuthTokenService {
@@ -15,6 +14,7 @@ class AuthTokenService {
   Future<void> deleteToken(String key) async {
     await _storage.delete(key: key);
   }
+
   Future<bool> isAuthenticated() async {
     final accessToken = await getToken('access_token');
     return accessToken != null;

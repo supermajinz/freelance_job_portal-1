@@ -33,61 +33,61 @@ class _DmsBodyState extends State<DmsBody> {
 
   @override
   Widget build(BuildContext context) {
-  //   return SafeArea(
-  //     child: Column(
-  //       children: [
-  //         Column(
-  //           children: [
-  //             const VirticalSpace(2),
-  //             Container(
-  //               height:SizeConfig.defaultSize!*7,
-  //               decoration: const BoxDecoration(
-  //                 border:
-  //                     Border(bottom: BorderSide(width: 1, color: Colors.grey)),
-  //               ),
-  //               child: Row(crossAxisAlignment: CrossAxisAlignment.start,
-  //                 children: [
-  //                   IconButton(
-  //                       onPressed: () {},
-  //                       icon: const Icon(
-  //                         Icons.arrow_back,
-  //                         size: 30,
-  //                       )),
-  //                   CircleAvatar(
-  //                     radius: SizeConfig.defaultSize!*3,
-  //                     backgroundImage: const AssetImage(
-  //                       "assets/images/pro.jpg",
-  //                     ),
-  //                   ),
-  //                   const HorizintalSpace(1),
-  //                   const Text(
-  //                     "Xabi Alonso",
-  //                     style: TextStyle(fontSize: 18),
-  //                   ),
-  //                 ],
-  //               ),
-  //             ),
-  //           ],
-  //         ),
-  //         Expanded(
-  //           child: ListView.builder(
-  //             itemCount: chat.length,
-  //             itemBuilder: (context, index) {
-  //               return BubbleSpecialThree(
-  //                 isSender: false,
-  //                 text: chat[index].toString(),
-  //                 color: const Color(0xFF1B97F3),
-  //                 tail: true,
-  //                 textStyle: const TextStyle(color: Colors.white, fontSize: 16),
-  //               );
-  //             },
-  //           ),
-  //         ),
-  //         const CustomTextFormChat()
-  //       ],
-  //     ),
-  //   );
-  // }
+    //   return SafeArea(
+    //     child: Column(
+    //       children: [
+    //         Column(
+    //           children: [
+    //             const VirticalSpace(2),
+    //             Container(
+    //               height:SizeConfig.defaultSize!*7,
+    //               decoration: const BoxDecoration(
+    //                 border:
+    //                     Border(bottom: BorderSide(width: 1, color: Colors.grey)),
+    //               ),
+    //               child: Row(crossAxisAlignment: CrossAxisAlignment.start,
+    //                 children: [
+    //                   IconButton(
+    //                       onPressed: () {},
+    //                       icon: const Icon(
+    //                         Icons.arrow_back,
+    //                         size: 30,
+    //                       )),
+    //                   CircleAvatar(
+    //                     radius: SizeConfig.defaultSize!*3,
+    //                     backgroundImage: const AssetImage(
+    //                       "assets/images/pro.jpg",
+    //                     ),
+    //                   ),
+    //                   const HorizintalSpace(1),
+    //                   const Text(
+    //                     "Xabi Alonso",
+    //                     style: TextStyle(fontSize: 18),
+    //                   ),
+    //                 ],
+    //               ),
+    //             ),
+    //           ],
+    //         ),
+    //         Expanded(
+    //           child: ListView.builder(
+    //             itemCount: chat.length,
+    //             itemBuilder: (context, index) {
+    //               return BubbleSpecialThree(
+    //                 isSender: false,
+    //                 text: chat[index].toString(),
+    //                 color: const Color(0xFF1B97F3),
+    //                 tail: true,
+    //                 textStyle: const TextStyle(color: Colors.white, fontSize: 16),
+    //               );
+    //             },
+    //           ),
+    //         ),
+    //         const CustomTextFormChat()
+    //       ],
+    //     ),
+    //   );
+    // }
     return BlocConsumer<ChatBloc, ChatState>(
       listener: (context, state) {
         if (state is ChatMessageReceived) {
@@ -155,7 +155,7 @@ class _DmsBodyState extends State<DmsBody> {
                     },
                   ),
                 ),
-                 CustomTextFormChat(
+                CustomTextFormChat(
                   controller: _messageController,
                   onSend: _sendMessage,
                 )
@@ -167,21 +167,22 @@ class _DmsBodyState extends State<DmsBody> {
     );
   }
 
-   _sendMessage() {
+  _sendMessage() {
     if (_messageController.text.isNotEmpty) {
       context.read<ChatBloc>().add(SendMessageEvent(_messageController.text));
       _messageController.clear();
     }
   }
+
   void _scrollToBottom() {
-  WidgetsBinding.instance.addPostFrameCallback((_) {
-    if (_scrollController.hasClients) {
-      _scrollController.animateTo(
-        _scrollController.position.maxScrollExtent,
-        duration: const Duration(milliseconds: 300),
-        curve: Curves.easeOut,
-      );
-    }
-  });
-}
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (_scrollController.hasClients) {
+        _scrollController.animateTo(
+          _scrollController.position.maxScrollExtent,
+          duration: const Duration(milliseconds: 300),
+          curve: Curves.easeOut,
+        );
+      }
+    });
+  }
 }

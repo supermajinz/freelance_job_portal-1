@@ -40,10 +40,8 @@ class ServerFailure extends Failure {
       default:
         {
           print(dioException.error);
-                    print(dioException.message);
-                              print(dioException.toString());
-
-
+          print(dioException.message);
+          print(dioException.toString());
 
           return ServerFailure(errMessage: 'Oops, something went wrong');
         }

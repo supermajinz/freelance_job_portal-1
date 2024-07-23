@@ -19,11 +19,12 @@ class PageViewItem extends StatelessWidget {
           padding: EdgeInsets.symmetric(
               horizontal: SizeConfig.defaultSize! * 2,
               vertical: SizeConfig.defaultSize! * 4),
-          child: Text(
-            disc,
-            textAlign: TextAlign.center,
-            style: const TextStyle(fontSize: 18, color: Colors.grey),
-          ),
+          child: Text(disc,
+              textAlign: TextAlign.center,
+              style: Theme.of(context)
+                  .textTheme
+                  .bodyLarge!
+                  .copyWith(color: Colors.grey)),
         )
       ],
     );

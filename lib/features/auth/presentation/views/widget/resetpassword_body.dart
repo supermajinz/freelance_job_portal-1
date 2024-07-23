@@ -26,8 +26,9 @@ class ResetpasswordBody extends StatelessWidget {
         const VirticalSpace(2),
         Container(
           margin: EdgeInsets.symmetric(horizontal: SizeConfig.defaultSize! * 1),
-          child: const Text("please Enter New Password",
-              style: TextStyle(fontSize: 18), textAlign: TextAlign.center),
+          child: Text("please Enter New Password",
+              style: Theme.of(context).textTheme.bodyLarge,
+              textAlign: TextAlign.center),
         ),
         const VirticalSpace(6),
         CustomTextForm(

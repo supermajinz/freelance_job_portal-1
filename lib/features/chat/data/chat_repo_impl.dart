@@ -12,7 +12,6 @@ class ChatRepoImpl implements ChatRepo {
   late StompClient stompClient;
   final _messageController = StreamController<ChatMessage>.broadcast();
 
-  
   @override
   Future<Either<Failure, void>> connect(String url) async {
     try {
@@ -53,15 +52,14 @@ class ChatRepoImpl implements ChatRepo {
   //   }
   // }
 
-  void onConnect(StompFrame p1) {
-  }
-  
+  void onConnect(StompFrame p1) {}
+
   @override
   Future<Either<Failure, void>> disconnect() {
     // TODO: implement disconnect
     throw UnimplementedError();
   }
-  
+
   @override
   Future<Either<Failure, void>> sendMessage(String message) {
     // TODO: implement sendMessage

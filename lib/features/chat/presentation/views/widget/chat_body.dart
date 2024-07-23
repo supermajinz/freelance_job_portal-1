@@ -11,17 +11,20 @@ class ChatBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView(
+      shrinkWrap: true,
       children: [
-        const VirticalSpace(2),
+        const VirticalSpace(1),
         const CustomSearch(title: "Hinted search text"),
         Container(
-          margin:  EdgeInsets.symmetric(horizontal: SizeConfig.defaultSize!*.5),
-          height: SizeConfig.defaultSize!*62,
+          margin:
+              EdgeInsets.symmetric(horizontal: SizeConfig.defaultSize! * .7),
+          height: SizeConfig.defaultSize! * 61,
           color: Theme.of(context).cardColor,
           child: ListView.separated(
             separatorBuilder: (context, index) {
               return Container(
-                  margin:  EdgeInsets.symmetric(horizontal: SizeConfig.defaultSize!*1),
+                  margin: EdgeInsets.symmetric(
+                      horizontal: SizeConfig.defaultSize! * 1),
                   child: const Divider());
             },
             shrinkWrap: true,

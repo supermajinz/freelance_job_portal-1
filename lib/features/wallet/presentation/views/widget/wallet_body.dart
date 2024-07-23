@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:freelance_job_portal/core/constants/colors.dart';
 import 'package:freelance_job_portal/core/utils/size_config.dart';
+import 'package:freelance_job_portal/core/widget/custom_body_medium.dart';
 import 'package:freelance_job_portal/core/widget/custom_button_general.dart';
+import 'package:freelance_job_portal/core/widget/custom_sub_title.dart';
+import 'package:freelance_job_portal/core/widget/custom_subtitle_medium.dart';
 import 'package:freelance_job_portal/core/widget/space.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconly/iconly.dart';
@@ -16,7 +19,7 @@ class WalletBody extends StatelessWidget {
       margin: EdgeInsets.only(
           left: SizeConfig.defaultSize! * 2,
           right: SizeConfig.defaultSize! * 2,
-          top: SizeConfig.defaultSize! * 6),
+          top: SizeConfig.defaultSize! * 4),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -33,19 +36,20 @@ class WalletBody extends StatelessWidget {
                 const HorizintalSpace(1),
                 const Column(
                   children: [
-                    Text(
-                      "Balance:",
-                      style:
-                          TextStyle(fontSize: 25, fontWeight: FontWeight.w900),
+                    CustomSubTitle(
+                      text: "Balance:",
                     ),
-                    Text(
-                      "SYP 20,000,000",
-                      style: TextStyle(fontSize: 20),
+                    CustomSubTitleMedium(
+                      text: "SYP 20,000,000",
+                      color: Colors.grey,
                     ),
-                    Text("Withheld Funds:",
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.w900)),
-                    Text("SYP 7,500,000", style: TextStyle(fontSize: 18)),
+                    CustomSubTitle(
+                      text: "Withheld Funds:",
+                    ),
+                    CustomSubTitleMedium(
+                      text: "SYP 7,500,000",
+                      color: Colors.grey,
+                    ),
                   ],
                 )
               ],
@@ -76,13 +80,12 @@ class WalletBody extends StatelessWidget {
             ],
           ),
           const VirticalSpace(3),
-          const Text(
-            "Transaction History:",
-            style: TextStyle(fontSize: 25, fontWeight: FontWeight.w900),
+          const CustomSubTitle(
+            text: "Transaction History:",
           ),
           const VirticalSpace(1),
           SizedBox(
-            height: SizeConfig.defaultSize! * 39.8,
+            height: SizeConfig.defaultSize! * 44.3,
             child: ListView.separated(
                 itemBuilder: (context, index) {
                   return const Column(
@@ -90,50 +93,28 @@ class WalletBody extends StatelessWidget {
                     children: [
                       Wrap(
                         children: [
-                          Text(
-                            "SYP 5,000,000 ",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold),
+                          CustomBody(text: "SYP 5,000,000 "),
+                          CustomBody(
+                            text: "has been sent to ",
+                            color: Colors.grey,
                           ),
-                          Text(
-                            "has been sent to ",
-                            style: TextStyle(
-                              fontSize: 18,
-                            ),
+                          CustomBody(
+                            text: "Ahmad Murad ",
                           ),
-                          Text(
-                            "Ahmad Murad ",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold),
+                          CustomBody(
+                            text: "for ",
+                            color: Colors.grey,
                           ),
-                          Text(
-                            "for ",
-                            style: TextStyle(fontSize: 18),
-                          ),
-                          Text(
-                            "Order Management App",
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold),
+                          CustomBody(
+                            text: "Order Management App",
                           )
                         ],
                       ),
-                      Text(
-                        "Date: 12/2/2024",
-                        style: TextStyle(
-                          fontSize: 16,
-                        ),
+                      CustomBody(
+                        text: "Date: 12/2/2024",
                       ),
-                      Text(
-                        "Transaction ID: 94786746873743876",
-                        style: TextStyle(
-                          fontSize: 16,
-                        ),
+                      CustomBody(
+                        text: "Transaction ID: 94786746873743876",
                       ),
                     ],
                   );

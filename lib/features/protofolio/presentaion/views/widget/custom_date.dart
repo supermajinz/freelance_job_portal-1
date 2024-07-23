@@ -20,6 +20,9 @@ class _CustomDateState extends State<CustomDate> {
   Widget build(BuildContext context) {
     return IconButton(
         onPressed: _showDatePicker,
-        icon: const Icon(Icons.date_range_outlined,size: 30,));
+        icon: const Icon(
+          Icons.date_range_outlined,
+          size: 35,
+        ));
   }
 }

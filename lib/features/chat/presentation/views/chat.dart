@@ -6,14 +6,8 @@ class Chat extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Chats'),
-        centerTitle: true,
-        leading:
-            IconButton(onPressed: () {}, icon: const Icon(Icons.arrow_back)),
-      ),
-      body: const SafeArea(child: ChatBody()),
+    return const Scaffold(
+      body: SafeArea(child: ChatBody()),
     );
   }
 }

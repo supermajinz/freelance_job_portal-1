@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:freelance_job_portal/core/widget/custom_icon_back.dart';
 import 'package:freelance_job_portal/features/review/presentation/views/widget/review_body.dart';
+import 'package:go_router/go_router.dart';
 
 class Review extends StatelessWidget {
   const Review({super.key});
@@ -8,14 +10,12 @@ class Review extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        leading: IconButton(
-            onPressed: () {},
-            icon: Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(5),
-                    border: Border.all(width: 1)),
-                child: const Icon(Icons.arrow_back, size: 25))),
-      ),
+          backgroundColor: Theme.of(context).primaryColor,
+          leading: CustomIconBack(
+            onPressed: () {
+              GoRouter.of(context).pop();
+            },
+          )),
       body: const SafeArea(child: ReviewBody()),
     );
   }

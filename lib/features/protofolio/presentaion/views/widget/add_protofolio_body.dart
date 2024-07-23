@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:freelance_job_portal/core/utils/size_config.dart';
+import 'package:freelance_job_portal/core/widget/custom_body_medium.dart';
 import 'package:freelance_job_portal/core/widget/custom_button_general.dart';
+import 'package:freelance_job_portal/core/widget/custom_sub_title.dart';
 import 'package:freelance_job_portal/core/widget/custom_text_form_general.dart';
 import 'package:freelance_job_portal/core/widget/space.dart';
 import 'package:freelance_job_portal/features/profile/presentation/views/widget/add_descriptor_images.dart';
@@ -30,32 +32,20 @@ class AddProtofolioBody extends StatelessWidget {
               const CustomTextFormGeneral(
                   hinttext: "", lable: "Discripion", isNumber: false),
               const VirticalSpace(5),
-              const Text(
-                "Images",
-                style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black),
+              const CustomSubTitle(
+                text: "Images",
               ),
               const VirticalSpace(2),
               const AddDescriptorImages(),
               const VirticalSpace(7),
-              const Text(
-                "Category",
-                style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black),
+              const CustomSubTitle(
+                text: "Category",
               ),
               const VirticalSpace(1.5),
               const CustomDropdownSearsh1(),
               const VirticalSpace(5),
-              const Text(
-                "Skills",
-                style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black),
+              const CustomSubTitle(
+                text: "Skills",
               ),
               const VirticalSpace(1.5),
               const CustomDropdownSearsh1(),
@@ -77,21 +67,15 @@ class AddProtofolioBody extends StatelessWidget {
               const VirticalSpace(5),
               const Row(
                 children: [
-                  Text(
-                    "Date",
-                    style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black),
+                  CustomSubTitle(
+                    text: "Date",
                   ),
                   HorizintalSpace(20),
                   Column(
                     children: [
                       CustomDate(),
-                      Text(
-                        "14/7/2022",
-                        style: TextStyle(
-                            color: Colors.black, fontWeight: FontWeight.bold),
+                      CustomBody(
+                        text: "14/7/2022",
                       )
                     ],
                   ),

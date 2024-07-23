@@ -47,7 +47,7 @@ class _VerificationCodeBodyState extends State<VerificationCodeBody> {
             const VirticalSpace(5),
             const Center(child: CustomAuthTitle(text: "Verification Code")),
             const VirticalSpace(4),
-             Center(
+            const Center(
               child: CustomTitle(
                 text: "Check Code",
               ),
@@ -56,8 +56,9 @@ class _VerificationCodeBodyState extends State<VerificationCodeBody> {
             Container(
               margin:
                   EdgeInsets.symmetric(horizontal: SizeConfig.defaultSize! * 1),
-              child: const Text("please Enter The Digit Code",
-                  style: TextStyle(fontSize: 18), textAlign: TextAlign.center),
+              child: Text("please Enter The Digit Code",
+                  style: Theme.of(context).textTheme.bodyLarge,
+                  textAlign: TextAlign.center),
             ),
             const VirticalSpace(6),
             OtpTextFieldVer(

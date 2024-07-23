@@ -33,7 +33,7 @@ ThemeData themeAr = ThemeData(
           color: Colors.black, fontSize: 16, fontWeight: FontWeight.w200),
       labelLarge: TextStyle(
           color: Color.fromARGB(255, 82, 82, 82),
-          fontSize: 12,
+          fontSize: 14,
           fontWeight: FontWeight.w100),
     ));
 

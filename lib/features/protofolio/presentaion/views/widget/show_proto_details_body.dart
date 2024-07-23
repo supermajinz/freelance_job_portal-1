@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:freelance_job_portal/core/utils/size_config.dart';
+import 'package:freelance_job_portal/core/widget/custom_body_medium.dart';
+import 'package:freelance_job_portal/core/widget/custom_label.dart';
+import 'package:freelance_job_portal/core/widget/custom_sub_title.dart';
 import 'package:freelance_job_portal/core/widget/space.dart';
-import 'package:freelance_job_portal/features/profile/presentation/views/widget/custom_protofolio_card.dart';
+import 'package:freelance_job_portal/features/profile/presentation/views/widget/custom_list_view_image.dart';
 import 'package:freelance_job_portal/features/profile/presentation/views/widget/edit_text_form.dart';
 import 'package:freelance_job_portal/features/profile/presentation/views/widget/show_chip.dart';
 
@@ -21,59 +24,41 @@ class ShowProtoDetailsBody extends StatelessWidget {
             children: [
               const VirticalSpace(1),
               const Center(
-                child: Text(
-                  "Order Management App",
-                  style: TextStyle(
-                      fontSize: 22,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black),
+                child: CustomSubTitle(
+                  text: "Order Management App",
                 ),
               ),
               const VirticalSpace(2),
-              const Text(
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce fermentum lacus metus. Vivamus faucibus ullamcorper velit, id facilisis lacus tempus.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce fermentum lacus metus. Vivamus faucibus ullamcorper velit, id facilisis lacus tempus.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce fermentum lacus metus. Vivamus faucibus ullamcorper velit, id facilisis lacus tempus.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce fermentum lacus metus. Vivamus faucibus ullamcorper velit, id facilisis lacus tempus.",
-                textAlign: TextAlign.center,
-                style: TextStyle(fontSize: 18, color: Colors.grey),
-              ),
+              Text(
+                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce fermentum lacus metus. Vivamus faucibus ullamcorper velit, id facilisis lacus tempus.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce fermentum lacus metus. Vivamus faucibus ullamcorper velit, id facilisis lacus tempus.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce fermentum lacus metus. Vivamus faucibus ullamcorper velit, id facilisis lacus tempus.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce fermentum lacus metus. Vivamus faucibus ullamcorper velit, id facilisis lacus tempus.",
+                  textAlign: TextAlign.center,
+                  style: Theme.of(context).textTheme.bodyLarge),
               const VirticalSpace(4),
-              SizedBox(
-                height: SizeConfig.defaultSize! * 38.5,
-                child: GridView.builder(
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      mainAxisSpacing: 20,
-                      crossAxisSpacing: 20),
-                  itemCount: 5,
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) {
-                    return const CustomProtofolioCard();
-                  },
-                ),
-              ),
-              const VirticalSpace(4),
-              const Text(
-                "Skills Used",
-                style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.black),
+            ],
+          ),
+        ),
+        CustomListViewImage(),
+        const VirticalSpace(4),
+        Padding(
+          padding: EdgeInsets.symmetric(
+              horizontal: SizeConfig.defaultSize! * 1.5,
+              vertical: SizeConfig.defaultSize! * 2),
+          child: Column(crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const CustomSubTitle(
+                text: "Skills Used",
               ),
               const VirticalSpace(2),
               const ShowChip(),
               const VirticalSpace(5),
               const Row(
                 children: [
-                  Text(
-                    "Date",
-                    style: TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black),
+                  CustomSubTitle(
+                    text: "Date",
                   ),
-                  HorizintalSpace(20),
-                  Text(
-                    "14/7/2022",
-                    style: TextStyle(fontSize: 16, color: Colors.black),
+                  HorizintalSpace(19),
+                  CustomBody(
+                    text: "14/7/2022",
                   ),
                 ],
               ),
@@ -88,11 +73,9 @@ class ShowProtoDetailsBody extends StatelessWidget {
                           IconButton(
                               onPressed: () {},
                               icon: const Icon(Icons.visibility_outlined)),
-                          const Text(
-                            "3000",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black),
+                          const CustomLabel(
+                            text: "3000",
+                            color: Colors.black,
                           )
                         ],
                       ),
@@ -102,11 +85,9 @@ class ShowProtoDetailsBody extends StatelessWidget {
                           IconButton(
                               onPressed: () {},
                               icon: const Icon(Icons.favorite)),
-                          const Text(
-                            "5000",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                color: Colors.black),
+                          const CustomLabel(
+                            text: "5000",
+                            color: Colors.black,
                           )
                         ],
                       )
@@ -122,7 +103,7 @@ class ShowProtoDetailsBody extends StatelessWidget {
                   isNumber: false),
             ],
           ),
-        )
+        ),
       ],
     );
   }

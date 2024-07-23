@@ -72,7 +72,7 @@ class AuthRepoImpl implements AuthRepo {
       return Left(e);
     }
   }
-  
+
   @override
   Future<Either<Failure, bool>> logout() async {
     try {
@@ -86,6 +86,4 @@ class AuthRepoImpl implements AuthRepo {
       return Left(e);
     }
   }
- 
-  
 }
