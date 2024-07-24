@@ -16,8 +16,6 @@ class ChatBody extends StatelessWidget {
         const VirticalSpace(1),
         const CustomSearch(title: "Hinted search text"),
         Container(
-          margin:
-              EdgeInsets.symmetric(horizontal: SizeConfig.defaultSize! * .7),
           height: SizeConfig.defaultSize! * 61,
           color: Theme.of(context).cardColor,
           child: ListView.separated(

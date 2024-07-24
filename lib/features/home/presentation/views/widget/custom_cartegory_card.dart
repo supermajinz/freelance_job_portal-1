@@ -12,12 +12,10 @@ class CustomCartegoryCard extends StatelessWidget {
       children: [
         Container(
           padding: EdgeInsets.all(SizeConfig.defaultSize! * 0.7),
-          height: SizeConfig.defaultSize! * 8.5,
-          width: SizeConfig.defaultSize! * 8.5,
           decoration: BoxDecoration(
             color: Colors.deepPurpleAccent,
-            borderRadius:
-                BorderRadius.all(Radius.circular(SizeConfig.defaultSize! * 1)),
+            borderRadius: BorderRadius.all(
+                Radius.circular(SizeConfig.defaultSize! * 1)),
           ),
           child: Image.asset("assets/images/ux.png",
               height: SizeConfig.defaultSize! * 6,

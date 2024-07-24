@@ -43,28 +43,28 @@ class CustomProfileCard extends StatelessWidget {
               ),
             ),
             const HorizintalSpace(1),
-            const Column(
+             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                CustomSubTitleMedium(
+                const CustomSubTitleMedium(
                   text: "أحمد مراد",
                 ),
-                VirticalSpace(.5),
-                CustomBody(
+                const VirticalSpace(.5),
+                const CustomBody(
                   text: "مطور تطبيقات موبايل",
                 ),
-                VirticalSpace(0.2),
+                const VirticalSpace(0.2),
                 Row(
                   children: [
-                    CustomLabel(
+                    const CustomLabel(
                       text: "4.6",
                       color: Colors.black,
                     ),
-                    HorizintalSpace(0.5),
+                    const HorizintalSpace(0.5),
                     Icon(
                       Icons.star,
                       color: Colors.yellow,
-                      size: 20,
+                      size: SizeConfig.defaultSize! * 2,
                     )
                   ],
                 )
@@ -75,7 +75,7 @@ class CustomProfileCard extends StatelessWidget {
                 onPressed: onPressed,
                 icon: Icon(
                   icon,
-                  size: 25,
+                  size: SizeConfig.defaultSize! * 2.5,
                   color: Colors.black,
                 ))
           ],
@@ -117,7 +117,7 @@ class _ImageGalleryScreenState extends State<ImageGalleryScreen> {
               right: 0,
               left: 0,
               top: 0,
-              bottom: 450,
+              bottom: SizeConfig.defaultSize! * 45,
               child: PhotoViewGallery.builder(
                 itemCount: imageUrls.length,
                 builder: (context, index) {
@@ -130,9 +130,6 @@ class _ImageGalleryScreenState extends State<ImageGalleryScreen> {
                   );
                 },
                 scrollPhysics: const BouncingScrollPhysics(),
-                // backgroundDecoration: const BoxDecoration(
-                //   color: Colors.transparent,
-                // ),
                 pageController: _pageController,
                 enableRotation: true,
                 onPageChanged: (index) {
@@ -141,34 +138,35 @@ class _ImageGalleryScreenState extends State<ImageGalleryScreen> {
               ),
             ),
             Positioned(
-              top: 25,
-              right: 10,
+              top: SizeConfig.defaultSize! * 2.5,
+              right: SizeConfig.defaultSize! * 1,
               child: IconButton(
                 icon: const Icon(Icons.arrow_back, color: Colors.white),
                 onPressed: () => Navigator.of(context).pop(),
               ),
             ),
             Positioned(
-              top: 340,
-              left: 10,
+              top: SizeConfig.defaultSize! * 35,
+              left: SizeConfig.defaultSize! * 1,
               child: Container(
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(50),
+                    borderRadius:
+                        BorderRadius.circular(SizeConfig.defaultSize! * 5),
                     color: Colors.green),
                 child: IconButton(
-                  icon: const Icon(
+                  icon: Icon(
                     Icons.chat,
                     color: Colors.white,
-                    size: 25,
+                    size: SizeConfig.defaultSize! * 2.5,
                   ),
                   onPressed: () {},
                 ),
               ),
             ),
-            const Positioned(
-              top: 320,
+            Positioned(
+              top: SizeConfig.defaultSize! * 32,
               right: 30,
-              child: Center(
+              child: const Center(
                 child: Text(
                   'أحمد مراد',
                   style: TextStyle(
@@ -180,7 +178,7 @@ class _ImageGalleryScreenState extends State<ImageGalleryScreen> {
               ),
             ),
             Positioned(
-              top: 20,
+              top: SizeConfig.defaultSize! * 2,
               left: 0,
               right: 0,
               child: Center(
@@ -191,18 +189,20 @@ class _ImageGalleryScreenState extends State<ImageGalleryScreen> {
                     activeDotDecoration: DotDecoration(
                       width: MediaQuery.of(context).size.width /
                           (imageUrls.length + 1),
-                      height: 3,
+                      height: SizeConfig.defaultSize! * .3,
                       color: Colors.white,
-                      borderRadius: BorderRadius.circular(24),
+                      borderRadius:
+                          BorderRadius.circular(SizeConfig.defaultSize! * 2.4),
                     ),
                     dotDecoration: DotDecoration(
                       width: MediaQuery.of(context).size.width /
                           (imageUrls.length + 1),
-                      height: 3,
+                      height: SizeConfig.defaultSize! * .3,
                       color: Colors.grey,
-                      borderRadius: BorderRadius.circular(16),
+                      borderRadius:
+                          BorderRadius.circular(SizeConfig.defaultSize! * 1.6),
                     ),
-                    spacing: 5,
+                    spacing: SizeConfig.defaultSize! * .5,
                   ),
                 ),
               ),

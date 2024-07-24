@@ -45,7 +45,7 @@ class ProfileBody extends StatelessWidget {
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 SizedBox(
-                                  height: 350,
+                                  height: SizeConfig.defaultSize! * 35,
                                   child: ListView.separated(
                                     separatorBuilder: (context, index) {
                                       return const VirticalSpace(1);

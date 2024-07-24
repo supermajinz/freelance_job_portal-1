@@ -11,49 +11,54 @@ class CustomProjectCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-        //margin: EdgeInsets.all(SizeConfig.defaultSize! * 0.7),
-        child: Container(
-      padding: EdgeInsets.only(
-          right: SizeConfig.defaultSize! * 1.2,
-          top: SizeConfig.defaultSize! * 0.2),
-      height: SizeConfig.defaultSize! * 27,
-      width: SizeConfig.defaultSize! * 35,
-      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Row(
-          children: [
-            const CustomSubTitleMedium(text: 'برنامج إدارة طلبات'),
-            const Spacer(),
-            const CustomLabel(
-              text: '1d',
+    return AspectRatio(
+      aspectRatio: 5.5 / 4,
+      child: Card(
+          child: Container(
+        padding: EdgeInsets.only(top: SizeConfig.defaultSize! * 0.2),
+        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+          Padding(
+            padding: EdgeInsets.only(right: SizeConfig.defaultSize! * 1.2),
+            child: Row(
+              children: [
+                const CustomSubTitleMedium(text: 'برنامج إدارة طلبات'),
+                const Spacer(),
+                const CustomLabel(
+                  text: '1d',
+                ),
+                IconButton(
+                    onPressed: () {},
+                    icon: const Icon(Icons.bookmark_add_outlined))
+              ],
             ),
-            IconButton(
-                onPressed: () {}, icon: const Icon(Icons.bookmark_add_outlined))
-          ],
-        ),
-        const CustomBody(
-            text:
-                'نريد برنامج كامل لمتابعة الطلبات من أجل شركتنا يرجى التقدم فقط إن كنت تريد العمل ضمن دمشق'),
-        const VirticalSpace(1),
-        SizedBox(
-          height: SizeConfig.defaultSize! * 4,
-          child: ListView.separated(
-            separatorBuilder: (context, index) {
-              return const HorizintalSpace(.5);
-            },
-            scrollDirection: Axis.horizontal,
-            itemCount: 5,
-            itemBuilder: (context, index) {
-              return CustomChoiceChip(
-                color: Theme.of(context).focusColor,
-              );
-            },
           ),
-        ),
-        const VirticalSpace(0.5),
-        Container(
-          margin: EdgeInsets.only(right: SizeConfig.defaultSize! * 1.2),
-          child: const Row(
+          Padding(
+            padding: EdgeInsets.only(right: SizeConfig.defaultSize! * 1.2),
+            child: const CustomBody(
+                text:
+                    'نريد برنامج كامل لمتابعة الطلبات من أجل شركتنا يرجى التقدم فقط إن كنت تريد العمل ضمن دمشق'),
+          ),
+          const VirticalSpace(1),
+          Padding(
+            padding: EdgeInsets.only(right: SizeConfig.defaultSize! * 1.2),
+            child: SizedBox(
+              height: SizeConfig.defaultSize! * 4,
+              child: ListView.separated(
+                separatorBuilder: (context, index) {
+                  return const HorizintalSpace(.5);
+                },
+                scrollDirection: Axis.horizontal,
+                itemCount: 5,
+                itemBuilder: (context, index) {
+                  return CustomChoiceChip(
+                    color: Theme.of(context).focusColor,
+                  );
+                },
+              ),
+            ),
+          ),
+          const VirticalSpace(1),
+          const Row(
             mainAxisAlignment: MainAxisAlignment.spaceAround,
             children: [
               CustomBody(
@@ -70,41 +75,44 @@ class CustomProjectCard extends StatelessWidget {
               )
             ],
           ),
-        ),
-        const VirticalSpace(2),
-        Row(
-          children: [
-            CircleAvatar(
-              maxRadius: SizeConfig.defaultSize! * 3,
-              backgroundImage: const AssetImage(
-                "assets/images/pro.jpg",
-              ),
-            ),
-            const HorizintalSpace(1),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
+          const VirticalSpace(2),
+          Padding(
+            padding: EdgeInsets.only(right: SizeConfig.defaultSize! * 1.2),
+            child: Row(
               children: [
-                const CustomSubTitleMedium(text: ' ميليسا الدمشقية '),
-                const VirticalSpace(1),
-                Row(
+                CircleAvatar(
+                  maxRadius: SizeConfig.defaultSize! * 3,
+                  backgroundImage: const AssetImage(
+                    "assets/images/pro.jpg",
+                  ),
+                ),
+                const HorizintalSpace(1),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    const CustomLabel(
-                      text: '٤.٦',
-                      color: Colors.black,
-                    ),
-                    const HorizintalSpace(.8),
-                    Icon(
-                      Icons.star,
-                      color: Colors.yellow,
-                      size: SizeConfig.defaultSize! * 2,
+                    const CustomSubTitleMedium(text: ' ميليسا الدمشقية '),
+                    const VirticalSpace(1),
+                    Row(
+                      children: [
+                        const CustomLabel(
+                          text: '٤.٦',
+                          color: Colors.black,
+                        ),
+                        const HorizintalSpace(.8),
+                        Icon(
+                          Icons.star,
+                          color: Colors.yellow,
+                          size: SizeConfig.defaultSize! * 2,
+                        )
+                      ],
                     )
                   ],
-                )
+                ),
               ],
             ),
-          ],
-        ),
-      ]),
-    ));
+          ),
+        ]),
+      )),
+    );
   }
 }
