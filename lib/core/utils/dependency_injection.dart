@@ -3,7 +3,7 @@ import 'package:freelance_job_portal/features/auth/data/auth_repo.dart';
 import 'package:freelance_job_portal/features/auth/data/auth_repo_impl.dart';
 import 'package:freelance_job_portal/features/auth/data/auth_token_service.dart';
 import 'package:freelance_job_portal/features/chat/data/chat_repo.dart';
-import 'package:freelance_job_portal/features/chat/data/chat_repo_impl.dart';
+import 'package:freelance_job_portal/features/chat/data/ChatService.dart';
 
 class DependencyInjection {
   static AuthTokenService provideAuthTokenService() {
