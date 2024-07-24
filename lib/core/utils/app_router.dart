@@ -10,6 +10,7 @@ import 'package:freelance_job_portal/features/chat/presentation/views/chat.dart'
 import 'package:freelance_job_portal/features/chat/presentation/views/dms.dart';
 import 'package:freelance_job_portal/features/home/presentation/views/home.dart';
 import 'package:freelance_job_portal/features/home/presentation/views/homescreen.dart';
+import 'package:freelance_job_portal/features/home/presentation/views/widget/skills.dart';
 import 'package:freelance_job_portal/features/my_project/presentation/views/my_project.dart';
 import 'package:freelance_job_portal/features/my_project/presentation/views/project_status_details.dart';
 import 'package:freelance_job_portal/features/notifications/presentation/views/notifications.dart';
@@ -81,6 +82,10 @@ abstract class AppRouter {
     GoRoute(
       path: '/home',
       builder: (context, state) => const Home(),
+    ),
+    GoRoute(
+      path: '/skills',
+      builder: (context, state) => const Skills(),
     ),
     GoRoute(
       path: '/homescreen',

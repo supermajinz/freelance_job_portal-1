@@ -5,11 +5,11 @@ import 'package:freelance_job_portal/core/widget/custom_button_general.dart';
 import 'package:freelance_job_portal/core/widget/custom_edit_meony_general.dart';
 import 'package:freelance_job_portal/core/widget/custom_sub_title.dart';
 import 'package:freelance_job_portal/core/widget/space.dart';
-import 'package:freelance_job_portal/features/profile/presentation/views/widget/custom_Chip_button.dart';
 import 'package:freelance_job_portal/features/profile/presentation/views/widget/custom_dropdown_searsh.dart';
 import 'package:freelance_job_portal/features/profile/presentation/views/widget/edit_text_form.dart';
 import 'package:freelance_job_portal/features/profile/presentation/views/widget/show_chip.dart';
 import 'package:freelance_job_portal/features/protofolio/presentaion/views/widget/custom_date.dart';
+import '../../../../profile/presentation/views/widget/custom_show_chip_button.dart';
 
 class EditProjectBody extends StatelessWidget {
   const EditProjectBody({super.key});
@@ -79,18 +79,7 @@ class EditProjectBody extends StatelessWidget {
             const VirticalSpace(1.5),
             const CustomDropdownSearsh1(),
             const VirticalSpace(2),
-            SizedBox(
-              height: SizeConfig.defaultSize! * 10,
-              child: ListView.separated(
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (context, index) {
-                    return const CustomChipButton();
-                  },
-                  separatorBuilder: (context, index) {
-                    return const HorizintalSpace(1);
-                  },
-                  itemCount: 4),
-            ),
+            const CustomShowChipButton(),
             const VirticalSpace(2),
             const ShowChip(),
             const VirticalSpace(7),

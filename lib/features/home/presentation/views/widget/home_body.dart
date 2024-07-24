@@ -37,7 +37,10 @@ class HomeBody extends StatelessWidget {
               itemCount: 8,
               itemBuilder: (context, index) {
                 return InkWell(
-                    onTap: () {}, child: const CustomCartegoryCard());
+                    onTap: () {
+                      GoRouter.of(context).push("/skills");
+                    },
+                    child: const CustomCartegoryCard());
               },
             ),
           ),
