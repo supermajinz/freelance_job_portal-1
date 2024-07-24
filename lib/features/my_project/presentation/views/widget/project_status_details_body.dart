@@ -4,7 +4,7 @@ import 'package:freelance_job_portal/core/widget/space.dart';
 import 'package:freelance_job_portal/features/my_project/presentation/views/widget/custom_body_status_details.dart';
 import 'package:freelance_job_portal/features/my_project/presentation/views/widget/custom_info_details_status.dart';
 import 'package:freelance_job_portal/features/my_project/presentation/views/widget/custom_timeline.dart';
-import 'package:freelance_job_portal/features/projects/presentation/views/widget/custom_offer.dart';
+import 'package:freelance_job_portal/features/offers/presentation/views/widget/custom_offer.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../../core/widget/custom_body_medium.dart';
 import '../../../../../core/widget/custom_button_general.dart';

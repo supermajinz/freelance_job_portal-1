@@ -4,7 +4,7 @@ import 'package:freelance_job_portal/core/widget/custom_label.dart';
 import 'package:freelance_job_portal/core/widget/custom_sub_title.dart';
 import 'package:freelance_job_portal/core/widget/space.dart';
 import 'package:freelance_job_portal/features/home/presentation/views/widget/custom_cartegory_card.dart';
-import 'package:freelance_job_portal/features/home/presentation/views/widget/custom_project_card.dart';
+import 'package:freelance_job_portal/features/projects/presentation/views/widget/custom_project_card.dart';
 import 'package:go_router/go_router.dart';
 
 class HomeBody extends StatelessWidget {

@@ -3,7 +3,7 @@ import 'package:freelance_job_portal/core/utils/size_config.dart';
 import 'package:freelance_job_portal/core/widget/custom_icon_back.dart';
 import 'package:freelance_job_portal/core/widget/custom_title.dart';
 import 'package:freelance_job_portal/core/widget/space.dart';
-import 'package:freelance_job_portal/features/home/presentation/views/widget/custom_project_card.dart';
+import 'package:freelance_job_portal/features/projects/presentation/views/widget/custom_project_card.dart';
 import 'package:freelance_job_portal/features/saved/presentation/views/widget/custom_saved_card.dart';
 import 'package:go_router/go_router.dart';
 

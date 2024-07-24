@@ -14,7 +14,7 @@ class CustomChipButton extends StatelessWidget {
       selected: true,
       shape: RoundedRectangleBorder(
           borderRadius:
-              BorderRadius.all(Radius.circular(SizeConfig.defaultSize! * 3))),
+              BorderRadius.all(Radius.circular(SizeConfig.defaultSize! * 1))),
       showCheckmark: false,
       labelPadding: EdgeInsets.all(SizeConfig.defaultSize! * .5),
       padding: EdgeInsets.all(SizeConfig.defaultSize! * .5),

@@ -46,11 +46,16 @@ class CustomProjectStatus extends StatelessWidget {
             const VirticalSpace(1),
             SizedBox(
               height: SizeConfig.defaultSize! * 4,
-              child: ListView.builder(
+              child: ListView.separated(
+                separatorBuilder: (context, index) {
+                  return const HorizintalSpace(.5);
+                },
                 scrollDirection: Axis.horizontal,
                 itemCount: 5,
                 itemBuilder: (context, index) {
-                  return  CustomChoiceChip(color:  Theme.of(context).focusColor,);
+                  return CustomChoiceChip(
+                    color: Theme.of(context).focusColor,
+                  );
                 },
               ),
             ),

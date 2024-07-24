@@ -6,8 +6,8 @@ import 'package:freelance_job_portal/core/widget/custom_text_form_general.dart';
 import 'package:freelance_job_portal/core/widget/space.dart';
 import 'package:freelance_job_portal/features/profile/presentation/views/widget/add_edit_proto.dart';
 import 'package:freelance_job_portal/features/profile/presentation/views/widget/add_photo_profile.dart';
-import 'package:freelance_job_portal/features/profile/presentation/views/widget/custom_Chip_button.dart';
 import 'package:freelance_job_portal/features/profile/presentation/views/widget/custom_dropdown_searsh.dart';
+import 'package:freelance_job_portal/features/profile/presentation/views/widget/custom_show_chip_button.dart';
 import 'package:freelance_job_portal/features/profile/presentation/views/widget/show_chip.dart';
 import 'package:go_router/go_router.dart';
 
@@ -56,18 +56,7 @@ class CreateProfileBody extends StatelessWidget {
               const VirticalSpace(1.5),
               const CustomDropdownSearsh1(),
               const VirticalSpace(2),
-              SizedBox(
-                height: SizeConfig.defaultSize! * 10,
-                child: ListView.separated(
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) {
-                      return const CustomChipButton();
-                    },
-                    separatorBuilder: (context, index) {
-                      return const HorizintalSpace(1);
-                    },
-                    itemCount: 4),
-              ),
+            const CustomShowChipButton(),
               const VirticalSpace(2),
               const ShowChip(),
               const VirticalSpace(4),

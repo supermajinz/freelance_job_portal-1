@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:freelance_job_portal/core/utils/size_config.dart';
 import 'package:freelance_job_portal/core/widget/space.dart';
-import 'package:freelance_job_portal/features/home/presentation/views/widget/custom_project_card.dart';
+import 'package:freelance_job_portal/features/projects/presentation/views/widget/custom_project_card.dart';
 import 'package:freelance_job_portal/features/searsh/presentation/views/widget/custom_chip_searsh.dart';
 import 'package:go_router/go_router.dart';
 

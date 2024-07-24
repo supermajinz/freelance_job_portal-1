@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:freelance_job_portal/core/utils/size_config.dart';
 import 'package:freelance_job_portal/core/widget/space.dart';
 import 'package:freelance_job_portal/features/projects/presentation/views/widget/custom_chip_project.dart';
-import 'package:freelance_job_portal/features/projects/presentation/views/widget/custom_offer.dart';
+import 'package:freelance_job_portal/features/offers/presentation/views/widget/custom_offer.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../../core/widget/custom_body_medium.dart';
 import '../../../../../core/widget/custom_button_general.dart';

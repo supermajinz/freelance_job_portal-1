@@ -4,12 +4,12 @@ import 'package:freelance_job_portal/core/utils/size_config.dart';
 import 'package:freelance_job_portal/core/widget/custom_button_general.dart';
 import 'package:freelance_job_portal/core/widget/custom_sub_title.dart';
 import 'package:freelance_job_portal/core/widget/space.dart';
-import 'package:freelance_job_portal/features/home/presentation/views/widget/custom_choice_chip.dart';
-import 'package:freelance_job_portal/features/home/presentation/views/widget/custom_project_card.dart';
+import 'package:freelance_job_portal/features/projects/presentation/views/widget/custom_project_card.dart';
 import 'package:freelance_job_portal/features/profile/presentation/views/widget/custom_profile_card.dart';
 import 'package:freelance_job_portal/features/profile/presentation/views/widget/custom_protofolio_card.dart';
 import 'package:freelance_job_portal/features/profile/presentation/views/widget/custom_review_card.dart';
 import 'package:freelance_job_portal/features/profile/presentation/views/widget/custom_zzz.dart';
+import 'package:freelance_job_portal/features/profile/presentation/views/widget/show_chip.dart';
 import 'package:go_router/go_router.dart';
 import 'package:rating_summary/rating_summary.dart';
 
@@ -129,21 +129,7 @@ class ProfileBody extends StatelessWidget {
                   text: "المهارات",
                 ),
                 const VirticalSpace(.5),
-                SizedBox(
-                  height: SizeConfig.defaultSize! * 5,
-                  child: ListView.separated(
-                    separatorBuilder: (context, index) {
-                      return const HorizintalSpace(0.3);
-                    },
-                    itemCount: 5,
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) {
-                      return CustomChoiceChip(
-                        color: Theme.of(context).focusColor,
-                      );
-                    },
-                  ),
-                ),
+               const ShowChip(),
                 const VirticalSpace(4),
                 const CustomSubTitle(
                   text: "Portfolio",

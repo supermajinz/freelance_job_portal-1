@@ -8,18 +8,15 @@ class CustomChoiceChip extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.only(right: SizeConfig.defaultSize! * 1),
-      child: ChoiceChip(
-        selectedColor:color,
-        label: const CustomLabel(text: "Laravel"),
-        selected: true,
-        shape: RoundedRectangleBorder(
-            borderRadius:
-                BorderRadius.all(Radius.circular(SizeConfig.defaultSize! * 3))),
-        showCheckmark: false,
-        visualDensity: VisualDensity.compact,
-      ),
+    return ChoiceChip(
+      selectedColor: color,
+      label: const CustomLabel(text: "Laravel"),
+      selected: true,
+      shape: RoundedRectangleBorder(
+          borderRadius:
+              BorderRadius.all(Radius.circular(SizeConfig.defaultSize! * 1))),
+      showCheckmark: false,
+      visualDensity: VisualDensity.compact,
     );
   }
 }
