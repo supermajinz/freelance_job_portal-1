@@ -7,6 +7,7 @@ import 'package:freelance_job_portal/core/widget/space.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import '../../../../../core/widget/custom_title.dart';
 
 class CustomProfileCard extends StatelessWidget {
   const CustomProfileCard({super.key, this.icon, this.onPressed});
@@ -43,7 +44,7 @@ class CustomProfileCard extends StatelessWidget {
               ),
             ),
             const HorizintalSpace(1),
-             Column(
+            Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const CustomSubTitleMedium(
@@ -124,7 +125,9 @@ class _ImageGalleryScreenState extends State<ImageGalleryScreen> {
                   return PhotoViewGalleryPageOptions(
                     imageProvider: AssetImage(imageUrls[index]),
                     minScale: PhotoViewComputedScale.covered,
-                    maxScale: PhotoViewComputedScale.covered * 1.5,
+                    maxScale: PhotoViewComputedScale.covered *
+                        SizeConfig.defaultSize! *
+                        .15,
                     heroAttributes:
                         PhotoViewHeroAttributes(tag: imageUrls[index]),
                   );
@@ -165,15 +168,11 @@ class _ImageGalleryScreenState extends State<ImageGalleryScreen> {
             ),
             Positioned(
               top: SizeConfig.defaultSize! * 32,
-              right: 30,
+              right: SizeConfig.defaultSize! * 3,
               child: const Center(
-                child: Text(
-                  'أحمد مراد',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                  ),
+                child: CustomTitle(
+                  text: 'أحمد مراد',
+                  white: true,
                 ),
               ),
             ),

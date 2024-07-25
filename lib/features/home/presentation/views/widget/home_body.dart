@@ -26,8 +26,7 @@ class HomeBody extends StatelessWidget {
                 text: "التصنيفات",
               )),
           const VirticalSpace(2),
-          AspectRatio(
-            aspectRatio: 10 / 7,
+          SizedBox(height: SizeConfig.defaultSize! * 29,
             child: GridView.builder(
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,

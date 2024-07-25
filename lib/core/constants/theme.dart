@@ -33,7 +33,9 @@ ThemeData themeAr = ThemeData(
          // fontSize: 20,
            fontWeight: FontWeight.w700, color: Colors.black),
       bodyLarge: TextStyle(
-          color: Colors.black, fontSize: 16, fontWeight: FontWeight.w200),
+          color: Colors.black, 
+        //  fontSize: 16, 
+          fontWeight: FontWeight.w200),
       labelLarge: TextStyle(
           color: Color.fromARGB(255, 82, 82, 82),
          // fontSize: 14,

@@ -14,8 +14,8 @@ class AddDescriptorImages extends StatelessWidget {
             decoration: const BoxDecoration(
               color: Color.fromARGB(255, 206, 202, 202),
             ),
-            height: 170,
-            width: 130,
+            height: SizeConfig.defaultSize! * 17,
+            width: SizeConfig.defaultSize! * 13,
             child: const Placeholder(
               strokeWidth: 1,
               color: Colors.white,
@@ -51,9 +51,9 @@ class AddDescriptorImages extends StatelessWidget {
               color: Colors.white,
               child: IconButton(
                   onPressed: () {},
-                  icon: const Icon(
+                  icon: Icon(
                     Icons.add_a_photo_outlined,
-                    size: 40,
+                    size: SizeConfig.defaultSize! * 4,
                   )),
             ),
           ),

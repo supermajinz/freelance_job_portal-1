@@ -26,7 +26,7 @@ class CustomTextFieldMony extends StatelessWidget {
         children: [
           Container(
             alignment: Alignment.center,
-            height: SizeConfig.defaultSize! * 6.2,
+            height: SizeConfig.defaultSize! * 5.6,
             width: SizeConfig.defaultSize! * 8,
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.only(

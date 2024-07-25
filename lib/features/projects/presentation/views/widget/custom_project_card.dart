@@ -12,11 +12,12 @@ class CustomProjectCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AspectRatio(
-      aspectRatio: 5.5 / 4,
+      aspectRatio: SizeConfig.defaultSize! * 1.2 / SizeConfig.defaultSize! * 1,
       child: Card(
           child: Container(
         padding: EdgeInsets.only(top: SizeConfig.defaultSize! * 0.2),
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        child: Column(mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start, children: [
           Padding(
             padding: EdgeInsets.only(right: SizeConfig.defaultSize! * 1.2),
             child: Row(

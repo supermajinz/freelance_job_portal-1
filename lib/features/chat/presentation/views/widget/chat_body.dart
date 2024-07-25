@@ -22,7 +22,7 @@ class ChatBody extends StatelessWidget {
             separatorBuilder: (context, index) {
               return Container(
                   margin: EdgeInsets.symmetric(
-                      horizontal: SizeConfig.defaultSize! * 1),
+                      horizontal: SizeConfig.defaultSize! * 2),
                   child: const Divider());
             },
             shrinkWrap: true,

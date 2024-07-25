@@ -27,10 +27,11 @@ class SavedBody extends StatelessWidget {
           bottom: TabBar(
               labelColor: Theme.of(context).canvasColor,
               enableFeedback: true,
+              indicatorWeight: SizeConfig.defaultSize! * .5,
               unselectedLabelColor: Theme.of(context).disabledColor,
               unselectedLabelStyle: Theme.of(context).textTheme.bodyLarge,
               indicatorSize: TabBarIndicatorSize.tab,
-              labelStyle: Theme.of(context).textTheme.titleMedium,
+              labelStyle: Theme.of(context).textTheme.titleLarge,
               tabs: const [
                 Tab(
                   child: Text("People"),
