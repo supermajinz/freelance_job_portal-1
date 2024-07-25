@@ -23,8 +23,11 @@ class Skills extends StatelessWidget {
                 GoRouter.of(context).pop();
               },
             )),
-        body: Container(alignment: Alignment.topCenter,
-          padding: EdgeInsets.symmetric(horizontal:  SizeConfig.defaultSize! * 1,vertical:SizeConfig.defaultSize! * 2 ),
+        body: Container(
+          alignment: Alignment.topCenter,
+          padding: EdgeInsets.symmetric(
+              horizontal: SizeConfig.defaultSize! * 1,
+              vertical: SizeConfig.defaultSize! * 2),
           child: const ShowChip(),
         ));
   }

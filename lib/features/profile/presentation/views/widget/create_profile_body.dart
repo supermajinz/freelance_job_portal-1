@@ -56,7 +56,7 @@ class CreateProfileBody extends StatelessWidget {
               const VirticalSpace(1.5),
               const CustomDropdownSearsh1(),
               const VirticalSpace(2),
-            const CustomShowChipButton(),
+              const CustomShowChipButton(),
               const VirticalSpace(2),
               const ShowChip(),
               const VirticalSpace(4),

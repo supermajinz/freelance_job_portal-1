@@ -129,7 +129,7 @@ class ProfileBody extends StatelessWidget {
                   text: "المهارات",
                 ),
                 const VirticalSpace(.5),
-               const ShowChip(),
+                const ShowChip(),
                 const VirticalSpace(4),
                 const CustomSubTitle(
                   text: "Portfolio",

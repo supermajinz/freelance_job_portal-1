@@ -29,7 +29,3 @@ class OfferDetails extends StatelessWidget {
     );
   }
 }
-
-
-
-

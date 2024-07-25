@@ -43,7 +43,8 @@ class ShowProtoDetailsBody extends StatelessWidget {
           padding: EdgeInsets.symmetric(
               horizontal: SizeConfig.defaultSize! * 1.5,
               vertical: SizeConfig.defaultSize! * 2),
-          child: Column(crossAxisAlignment: CrossAxisAlignment.start,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const CustomSubTitle(
                 text: "Skills Used",

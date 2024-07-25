@@ -9,7 +9,8 @@ class CustomChipProject extends StatelessWidget {
     List<int> items = List.generate(4, (i) => i);
 
     return Wrap(
-      runSpacing: SizeConfig.defaultSize! * .5,spacing: SizeConfig.defaultSize! * .5,
+      runSpacing: SizeConfig.defaultSize! * .5,
+      spacing: SizeConfig.defaultSize! * .5,
       direction: Axis.horizontal,
       children: items
           .map((i) => const CustomChoiceChip(

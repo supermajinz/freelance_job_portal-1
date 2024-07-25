@@ -30,7 +30,10 @@ class _AddPhotoProfileState extends State<AddPhotoProfile> {
           ClipOval(
             child: image != null
                 ? Image.file(
-                    image!,height: 160,width: 160,fit: BoxFit.cover,
+                    image!,
+                    height: 160,
+                    width: 160,
+                    fit: BoxFit.cover,
                   )
                 : CircleAvatar(
                     backgroundColor: const Color.fromARGB(255, 240, 225, 180),

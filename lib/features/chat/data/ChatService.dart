@@ -38,7 +38,7 @@ class ChatService {
 
   Future<void> connect() async {
     if (!_isConnected) {
-      await _initializeStompClient(); 
+      await _initializeStompClient();
       _stompClient.activate();
     }
   }
@@ -144,12 +144,11 @@ class ChatService {
     );
   }
 
- void _handleMessage(StompFrame frame) {
+  void _handleMessage(StompFrame frame) {
     try {
       final Map<String, dynamic> jsonMessage = json.decode(frame.body!);
       final message = Message.fromJson(jsonMessage);
       print('Received message: ${message.content} from ${message.senderId}');
-      
     } catch (e) {
       print('Error parsing message: $e');
     }

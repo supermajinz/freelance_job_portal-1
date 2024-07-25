@@ -179,7 +179,7 @@ abstract class AppRouter {
       path: '/showprojectdetails',
       builder: (context, state) => const ShowProjectDetails(),
     ),
-     GoRoute(
+    GoRoute(
       path: '/searsh',
       builder: (context, state) => const Searsh(),
     ),
@@ -187,7 +187,7 @@ abstract class AppRouter {
       path: '/sort',
       builder: (context, state) => const Sort(),
     ),
-     GoRoute(
+    GoRoute(
       path: '/projectstatusdetails',
       builder: (context, state) => const ProjectStatusDetails(),
     ),

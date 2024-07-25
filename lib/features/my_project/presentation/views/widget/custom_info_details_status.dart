@@ -11,8 +11,7 @@ class CustomInfoDetailsStatus extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.symmetric(
-          horizontal: SizeConfig.defaultSize! * .5),
+      margin: EdgeInsets.symmetric(horizontal: SizeConfig.defaultSize! * .5),
       padding: EdgeInsets.all(SizeConfig.defaultSize! * 1),
       decoration: BoxDecoration(
         color: Theme.of(context).hintColor,
@@ -27,14 +26,13 @@ class CustomInfoDetailsStatus extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Padding(
-                padding: EdgeInsets.only(
-                    top: SizeConfig.defaultSize! * .5),
+                padding: EdgeInsets.only(top: SizeConfig.defaultSize! * .5),
                 child: CircleAvatar(
                   radius: SizeConfig.defaultSize! * 5,
                   backgroundImage: const AssetImage(
                     "assets/images/pro.jpg",
                   ),
-    ),
+                ),
               ),
               const HorizintalSpace(.5),
               Column(
@@ -45,16 +43,16 @@ class CustomInfoDetailsStatus extends StatelessWidget {
                     color: Colors.white,
                   ),
                   Padding(
-                    padding: EdgeInsets.only(
-                        right: SizeConfig.defaultSize! * .5),
+                    padding:
+                        EdgeInsets.only(right: SizeConfig.defaultSize! * .5),
                     child: const CustomBody(
                       text: "مطور تطبيقات موبايل",
                       color: Colors.white,
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(
-                        right: SizeConfig.defaultSize! * .5),
+                    padding:
+                        EdgeInsets.only(right: SizeConfig.defaultSize! * .5),
                     child: const CustomBody(
                       text: "13 مشروع مكتمل",
                       color: Colors.white,

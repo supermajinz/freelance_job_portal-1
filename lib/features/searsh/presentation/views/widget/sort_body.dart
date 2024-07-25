@@ -16,8 +16,10 @@ class SortBody extends StatelessWidget {
     return ListView(
       children: [
         Padding(
-          padding:  EdgeInsets.symmetric(horizontal: SizeConfig.defaultSize!*1),
-          child: Column(crossAxisAlignment: CrossAxisAlignment.start,
+          padding:
+              EdgeInsets.symmetric(horizontal: SizeConfig.defaultSize! * 1),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const VirticalSpace(2),
               const CustomSubTitle(

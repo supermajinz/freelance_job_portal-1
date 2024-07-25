@@ -14,8 +14,8 @@ class CustomCartegoryCard extends StatelessWidget {
           padding: EdgeInsets.all(SizeConfig.defaultSize! * 0.7),
           decoration: BoxDecoration(
             color: Colors.deepPurpleAccent,
-            borderRadius: BorderRadius.all(
-                Radius.circular(SizeConfig.defaultSize! * 1)),
+            borderRadius:
+                BorderRadius.all(Radius.circular(SizeConfig.defaultSize! * 1)),
           ),
           child: Image.asset("assets/images/ux.png",
               height: SizeConfig.defaultSize! * 6,
