@@ -24,7 +24,7 @@ class ShowProjectDetails extends StatelessWidget {
               GoRouter.of(context).pop();
             },
           )),
-      body: const SafeArea(child: ShowProjectDetailsBody()),
+      body: const SafeArea(child: ShowProjectDetailsBody(projectId: 1)),
     );
   }
 }

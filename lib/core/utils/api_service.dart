@@ -13,10 +13,12 @@ class ApiService {
         _authTokenService = authTokenService {
     _dio.interceptors.add(InterceptorsWrapper(
       onRequest: (options, handler) async {
-        final token = await _authTokenService.getToken('access_token');
-        if (token != null) {
-          options.headers['Authorization'] = 'Bearer $token';
-        }
+        const token =
+            "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIwOTg2NDExNjIwIiwiaWF0IjoxNzIyNjE4MjM3LCJleHAiOjE3MjI3MDQ2Mzd9.d5N1OUXlGu8wsZuI1VPrGaBpL0BvZuUlUKe4-uxXQ9k";
+        // final token = await _authTokenService.getToken('access_token');
+        //if (token != null) {
+        options.headers['Authorization'] = 'Bearer $token';
+        // }
         return handler.next(options);
       },
       onError: (DioException error, handler) async {
@@ -65,6 +67,19 @@ class ApiService {
       String endpoint, Map<String, dynamic> data) async {
     try {
       final response = await _dio.put(endpoint, data: data);
+      return response.data;
+    } on DioException catch (e) {
+      print('DioException: ${e.message}');
+      print('Response data: ${e.response?.data}');
+      print('Response statusCode: ${e.response?.statusCode}');
+      throw ServerFailure.fromDioException(e);
+    }
+  }
+
+  Future<Map<String, dynamic>> patch(
+      String endpoint, Map<String, dynamic> data) async {
+    try {
+      final response = await _dio.patch(endpoint, data: data);
       return response.data;
     } on DioException catch (e) {
       print('DioException: ${e.message}');

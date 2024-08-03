@@ -54,6 +54,7 @@ class CustomProjectStatus extends StatelessWidget {
                 itemCount: 5,
                 itemBuilder: (context, index) {
                   return CustomChoiceChip(
+                    text: "Laravel",
                     color: Theme.of(context).focusColor,
                   );
                 },

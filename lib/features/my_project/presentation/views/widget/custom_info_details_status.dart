@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import '../../../../../core/utils/size_config.dart';
 import '../../../../../core/widget/custom_body_medium.dart';
 import '../../../../../core/widget/custom_label.dart';
@@ -75,6 +76,15 @@ class CustomInfoDetailsStatus extends StatelessWidget {
                   ),
                 ],
               ),
+              const HorizintalSpace(9),
+              IconButton(
+                  onPressed: () {
+                    GoRouter.of(context).push("/editproject");
+                  },
+                  icon: const Icon(
+                    Icons.edit,
+                    color: Colors.white,
+                  ))
             ],
           )
         ],

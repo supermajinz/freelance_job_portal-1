@@ -5,7 +5,7 @@ import 'package:freelance_job_portal/core/widget/custom_subtitle_medium.dart';
 class CustomTextFormGeneral extends StatelessWidget {
   final String hinttext;
   final String lable;
-  //final TextEditingController? mycontroller;
+  final TextEditingController? mycontroller;
   final bool isNumber;
   final bool? obs;
   final void Function()? onTapicon;
@@ -13,7 +13,7 @@ class CustomTextFormGeneral extends StatelessWidget {
       {super.key,
       required this.hinttext,
       required this.lable,
-      // this.mycontroller,
+      this.mycontroller,
       required this.isNumber,
       this.obs,
       this.onTapicon});
@@ -21,12 +21,13 @@ class CustomTextFormGeneral extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      minLines: 1, maxLines: 5,
+      minLines: 1,
+      maxLines: 5,
       keyboardType: isNumber
           ? const TextInputType.numberWithOptions(decimal: true)
           : TextInputType.text,
       obscureText: obs == null || obs == false ? false : true,
-      //controller: mycontroller,
+      controller: mycontroller,
       decoration: InputDecoration(
           alignLabelWithHint: true,
           hintText: hinttext,
@@ -41,7 +42,7 @@ class CustomTextFormGeneral extends StatelessWidget {
               child: CustomSubTitleMedium(text: lable)),
           isDense: true,
           floatingLabelAlignment: FloatingLabelAlignment.start,
-          border: OutlineInputBorder(
+          border: const OutlineInputBorder(
               // borderRadius:
               //     BorderRadius.circular(SizeConfig.defaultSize! * 10)
               )),

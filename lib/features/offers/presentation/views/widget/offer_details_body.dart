@@ -10,6 +10,7 @@ import 'package:freelance_job_portal/core/widget/custom_sub_title.dart';
 import 'package:freelance_job_portal/core/widget/custom_subtitle_medium.dart';
 import 'package:freelance_job_portal/core/widget/space.dart';
 import 'package:freelance_job_portal/features/profile/presentation/views/widget/show_chip.dart';
+import 'package:go_router/go_router.dart';
 
 class OfferDetailsBody extends StatelessWidget {
   const OfferDetailsBody({super.key});
@@ -162,10 +163,12 @@ class OfferDetailsBody extends StatelessWidget {
                           ),
                           const HorizintalSpace(8),
                           IconButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                GoRouter.of(context).push('/editoffer');
+                              },
                               icon: const Icon(
-                                Icons.chat_outlined,
-                                size: 30,
+                                Icons.edit,
+                                size: 25,
                                 color: Colors.white,
                               ))
                         ],

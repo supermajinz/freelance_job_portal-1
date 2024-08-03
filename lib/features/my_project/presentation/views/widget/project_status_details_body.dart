@@ -160,7 +160,9 @@ class _ShowProjectDetailsBodyState extends State<ProjectStatusDetailsBody>
                             const VirticalSpace(2),
                             Center(
                               child: CustomButtonGeneral(
-                                onPressed: () {},
+                                onPressed: () {
+                                  GoRouter.of(context).push("/createoffer");
+                                },
                                 color: Colors.white,
                                 textcolor: Colors.black,
                                 text: "Apply",

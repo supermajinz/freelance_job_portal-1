@@ -15,7 +15,7 @@ class CustomMessageCard extends StatelessWidget {
           maxLines: 1,
           style: Theme.of(context)
               .textTheme
-              .labelLarge!
+              .bodyLarge!
               .copyWith(overflow: TextOverflow.ellipsis)),
       leading: CircleAvatar(
           radius: SizeConfig.defaultSize! * 3,

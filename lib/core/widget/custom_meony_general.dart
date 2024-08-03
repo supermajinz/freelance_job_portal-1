@@ -5,14 +5,13 @@ import 'package:freelance_job_portal/core/widget/custom_subtitle_medium.dart';
 class CustomMeonyGeneral extends StatelessWidget {
   const CustomMeonyGeneral(
       {super.key,
-
-      // this.mycontroller,
+      this.mycontroller,
       this.valid,
       required this.isNumber,
       this.obs,
       this.onTapicon});
 
-  //final TextEditingController? mycontroller;
+  final TextEditingController? mycontroller;
   final String? Function(String?)? valid;
   final bool isNumber;
   final bool? obs;
@@ -45,7 +44,7 @@ class CustomMeonyGeneral extends StatelessWidget {
                   : TextInputType.text,
               obscureText: obs == null || obs == false ? false : true,
               validator: valid,
-              // controller: mycontroller,
+              controller: mycontroller,
               decoration: InputDecoration(
                   focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.only(

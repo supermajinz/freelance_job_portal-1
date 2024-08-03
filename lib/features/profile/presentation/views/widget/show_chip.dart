@@ -14,6 +14,7 @@ class ShowChip extends StatelessWidget {
       runSpacing: SizeConfig.defaultSize! * .5,
       children: items
           .map((i) => CustomChoiceChip(
+                text: "Laravel",
                 color: Theme.of(context).focusColor,
               ))
           .toList(),

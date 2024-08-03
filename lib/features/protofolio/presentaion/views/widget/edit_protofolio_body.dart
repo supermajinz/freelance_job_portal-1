@@ -26,14 +26,14 @@ class EditProtofolioBody extends StatelessWidget {
             children: [
               const VirticalSpace(2),
               const EditTextForm(
-                  initvalue: "Order Management App",
+                  // initvalue: "Order Management App",
                   hinttext: "",
                   lable: "Protofolio Name",
                   isNumber: false),
               const VirticalSpace(2),
               const EditTextForm(
-                  initvalue:
-                      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce fermentum lacus metus. Vivamus faucibus ullamcorper velit, id facilisis lacus tempus.....",
+                  // initvalue:
+                  // "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce fermentum lacus metus. Vivamus faucibus ullamcorper velit, id facilisis lacus tempus.....",
                   hinttext: "",
                   lable: "Descripion",
                   isNumber: false),
@@ -112,7 +112,7 @@ class EditProtofolioBody extends StatelessWidget {
               ),
               const VirticalSpace(5),
               const EditTextForm(
-                  initvalue: "https://docs.google.com/d/10qgrbMt3I",
+                  // initvalue: "https://docs.google.com/d/10qgrbMt3I",
                   hinttext: "",
                   lable: "Link",
                   isNumber: false),

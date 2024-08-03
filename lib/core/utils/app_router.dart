@@ -85,7 +85,10 @@ abstract class AppRouter {
     ),
     GoRoute(
       path: '/skills',
-      builder: (context, state) => const Skills(),
+      builder: (context, state) {
+        final categoryId = state.extra as int;
+        return Skill(categoryId: categoryId);
+      },
     ),
     GoRoute(
       path: '/homescreen',

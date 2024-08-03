@@ -22,7 +22,7 @@ class CreateProject extends StatelessWidget {
               GoRouter.of(context).pop();
             },
           )),
-      body: const SafeArea(child: CreateprojectBody()),
+      body: const SafeArea(child: CreateProjectBody()),
     );
   }
 }

@@ -9,13 +9,14 @@ class CustomEditMeonyGeneral extends StatelessWidget {
       required this.isNumber,
       this.obs,
       this.onTapicon,
-      required this.initVal});
+      //required this.initVal,
+      this.mycontroller});
 
-  //final TextEditingController? mycontroller;
+  final TextEditingController? mycontroller;
   final String? Function(String?)? valid;
   final bool isNumber;
   final bool? obs;
-  final String initVal;
+  //final String initVal;
   final void Function()? onTapicon;
 
   @override
@@ -40,13 +41,13 @@ class CustomEditMeonyGeneral extends StatelessWidget {
           ),
           Expanded(
             child: TextFormField(
-              initialValue: initVal,
+              //initialValue: initVal,
               keyboardType: isNumber
                   ? const TextInputType.numberWithOptions(decimal: true)
                   : TextInputType.text,
               obscureText: obs == null || obs == false ? false : true,
               validator: valid,
-              // controller: mycontroller,
+              controller: mycontroller,
               decoration: InputDecoration(
                   focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.only(

@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:freelance_job_portal/core/utils/size_config.dart';
 //import 'package:flutter_svg/flutter_svg.dart';
 import 'package:freelance_job_portal/core/widget/space.dart';
+import 'package:freelance_job_portal/features/home/data/model/caregories/caregories.dart';
 
 class CustomCartegoryCard extends StatelessWidget {
-  const CustomCartegoryCard({super.key});
+  const CustomCartegoryCard({super.key, required this.cat});
+  final Categories cat;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +28,7 @@ class CustomCartegoryCard extends StatelessWidget {
         SizedBox(
           width: SizeConfig.defaultSize! * 12,
           child: Text(
-            "أعمال وخدمات استشارية",
+            cat.name!,
             textAlign: TextAlign.center,
             maxLines: 3,
             style: Theme.of(context).textTheme.labelLarge,

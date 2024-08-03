@@ -68,7 +68,9 @@ class CustomBodyStatusDetails extends StatelessWidget {
           const VirticalSpace(3),
           const CustomSubTitleMedium(text: "Skills Required:"),
           const VirticalSpace(1),
-          const CustomChipProject(),
+          const CustomChipProject(
+            text: 'laravel',
+          ),
           const VirticalSpace(3),
         ],
       ),

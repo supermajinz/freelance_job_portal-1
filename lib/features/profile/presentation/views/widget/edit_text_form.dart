@@ -10,11 +10,12 @@ class EditTextForm extends StatelessWidget {
       required this.isNumber,
       this.obs,
       this.onTapicon,
-      required this.initvalue});
+      // required this.initvalue,
+      this.mycontroller});
   final String hinttext;
   final String lable;
-  final String initvalue;
-  //final TextEditingController? mycontroller;
+  // final String initvalue;
+  final TextEditingController? mycontroller;
   final bool isNumber;
   final bool? obs;
   final void Function()? onTapicon;
@@ -22,13 +23,14 @@ class EditTextForm extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
-      initialValue: initvalue,
-      minLines: 1, maxLines: 5,
+      //initialValue: initvalue,
+      minLines: 1,
+      maxLines: 5,
       keyboardType: isNumber
           ? const TextInputType.numberWithOptions(decimal: true)
           : TextInputType.text,
       obscureText: obs == null || obs == false ? false : true,
-      //controller: mycontroller,
+      controller: mycontroller,
       decoration: InputDecoration(
           hintText: hinttext,
           hintStyle: Theme.of(context).textTheme.labelLarge,

@@ -12,7 +12,11 @@ class CustomShowChipButton extends StatelessWidget {
       spacing: SizeConfig.defaultSize! * 1,
       direction: Axis.horizontal,
       runSpacing: SizeConfig.defaultSize! * .5,
-      children: items.map((i) => const CustomChipButton()).toList(),
+      children: items
+          .map((i) => const CustomChipButton(
+                text: "Fluter developer",
+              ))
+          .toList(),
     );
   }
 }

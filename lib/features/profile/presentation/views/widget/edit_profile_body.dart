@@ -42,7 +42,7 @@ class EditProfileBody extends StatelessWidget {
                 children: [
                   Expanded(
                     child: EditTextForm(
-                        initvalue: "Ahmad",
+                        //initvalue: "Ahmad",
                         hinttext: "",
                         lable: "First Name",
                         isNumber: false),
@@ -50,7 +50,7 @@ class EditProfileBody extends StatelessWidget {
                   HorizintalSpace(.5),
                   Expanded(
                     child: EditTextForm(
-                        initvalue: "Murad",
+                        // initvalue: "Murad",
                         hinttext: "",
                         lable: "Last Name",
                         isNumber: false),
@@ -59,8 +59,8 @@ class EditProfileBody extends StatelessWidget {
               ),
               const VirticalSpace(2),
               const EditTextForm(
-                  initvalue:
-                      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce fermentum lacus metus. Vivamus faucibus ullamcorper velit, id facilisis lacus tempus.....",
+                  //initvalue:
+                  // "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce fermentum lacus metus. Vivamus faucibus ullamcorper velit, id facilisis lacus tempus.....",
                   hinttext: "",
                   lable: "Descripion",
                   isNumber: false),
