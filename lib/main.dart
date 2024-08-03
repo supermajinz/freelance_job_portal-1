@@ -21,8 +21,7 @@ void main() async {
       ),
       BlocProvider(
         create: (context) => AuthBloc(DependencyInjection.provideAuthRepo(),
-            DependencyInjection.provideAuthTokenService())
-          ..add(CheckAuthStatusEvent()),
+           )..add(CheckAuthStatusEvent()),
       ),
     ],
     child: const FreelanceJob(),

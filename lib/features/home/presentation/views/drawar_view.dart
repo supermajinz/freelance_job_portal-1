@@ -12,9 +12,10 @@ class DrawarView extends StatelessWidget {
     return Scaffold(
       body: BlocListener<AuthBloc, AuthState>(
         listener: (context, state) {
-          if (state is AuthLoggedOut) {
+          if (state is AuthUnauthenticated) {
             GoRouter.of(context).push("/");
           }
+          
         },
         child: const Scaffold(
           body: Home(),

@@ -105,4 +105,8 @@ class ClientProfile extends Equatable {
       userDto,
     ];
   }
+  @override
+  String toString() {
+    return 'ClientProfile(id: $id, bio: $bio, userId: $userId, rate: $rate, jobTitleDto: $jobTitleDto, photoDtOs: $photoDtOs, skillDtOs: $skillDtOs, userDto: $userDto)';
+  }
 }

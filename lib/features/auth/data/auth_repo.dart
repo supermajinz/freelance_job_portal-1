@@ -9,4 +9,6 @@ abstract class AuthRepo {
   // Future<Either<Failure,String>> changePassword(String oldPassword,newPassword,confirmPassword);
   Future<Either<Failure, bool>> refreshToken();
   Future<Either<Failure, bool>> logout();
+  Future<Either<Failure, User>> getUser();
+  Future<Either<Failure, int>> getUserId();
 }

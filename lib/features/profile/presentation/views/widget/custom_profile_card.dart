@@ -1,16 +1,27 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:photo_view/photo_view.dart';
+import 'package:photo_view/photo_view_gallery.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+
 import 'package:freelance_job_portal/core/utils/size_config.dart';
 import 'package:freelance_job_portal/core/widget/custom_body_medium.dart';
 import 'package:freelance_job_portal/core/widget/custom_label.dart';
 import 'package:freelance_job_portal/core/widget/custom_subtitle_medium.dart';
 import 'package:freelance_job_portal/core/widget/space.dart';
-import 'package:photo_view/photo_view.dart';
-import 'package:photo_view/photo_view_gallery.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+
 import '../../../../../core/widget/custom_title.dart';
 
 class CustomProfileCard extends StatelessWidget {
-  const CustomProfileCard({super.key, this.icon, this.onPressed});
+  final String firstName;
+  final String lastName;
+  const CustomProfileCard({
+    super.key,
+    required this.firstName,
+    required this.lastName,
+    this.icon,
+    this.onPressed,
+  });
 
   final IconData? icon;
   final void Function()? onPressed;
@@ -47,8 +58,8 @@ class CustomProfileCard extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const CustomSubTitleMedium(
-                  text: "أحمد مراد",
+                 CustomSubTitleMedium(
+                  text: "$firstName $lastName",
                 ),
                 const VirticalSpace(.5),
                 const CustomBody(

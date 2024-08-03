@@ -29,15 +29,15 @@ final class AuthCodeSent extends AuthState {
   List<Object> get props => [message];
 }
 
-final class AuthAuthenticated extends AuthState {
-  final String accessToken;
-  final String refreshToken;
+final class AuthVerified extends AuthState {}
 
+final class AuthAuthenticated extends AuthState {
+  final int id;
   const AuthAuthenticated(
-      {required this.accessToken, required this.refreshToken});
+      {required this.id});
 
   @override
-  List<Object> get props => [accessToken, refreshToken];
+  List<Object> get props => [id];
 }
 
 final class AuthInvalidCode extends AuthState {

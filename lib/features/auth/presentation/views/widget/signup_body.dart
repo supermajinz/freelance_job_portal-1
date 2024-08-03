@@ -134,7 +134,6 @@ class _SignupBodyState extends State<SignupBody> {
                           lastname: _lastNameController.text,
                           phone: _phoneController.text,
                           email: _emailController.text,
-                          role: 'WORKER', //TODO: Worker?
                         );
                         context.read<AuthBloc>().add(RegisterEvent(
                               user: user,

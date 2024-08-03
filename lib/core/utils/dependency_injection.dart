@@ -4,6 +4,8 @@ import 'package:freelance_job_portal/features/auth/data/auth_repo_impl.dart';
 import 'package:freelance_job_portal/features/auth/data/auth_token_service.dart';
 import 'package:freelance_job_portal/features/chat/data/chat_repo.dart';
 import 'package:freelance_job_portal/features/chat/data/ChatService.dart';
+import 'package:freelance_job_portal/features/profile/data/profile_repo.dart';
+import 'package:freelance_job_portal/features/profile/data/client_profile_repo_impl.dart';
 
 class DependencyInjection {
   static AuthTokenService provideAuthTokenService() {
@@ -22,6 +24,11 @@ class DependencyInjection {
     final apiService = provideApiService();
     final authTokenService = provideAuthTokenService();
     return AuthRepoImpl(apiService, authTokenService);
+  }
+
+  static ProfileRepo provideProfileRepo() {
+    final apiService = provideApiService();
+    return ClientProfileRepoImpl(apiService: apiService);
   }
 //    ChatRepo provideChatRepo(String chatUrl) {
 //     return ChatRepoImpl(chatUrl);

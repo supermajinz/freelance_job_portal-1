@@ -3,7 +3,8 @@ import 'package:freelance_job_portal/core/errors/failures.dart';
 import 'package:freelance_job_portal/features/profile/data/models/profile/client_profile.dart';
 
 abstract class ProfileRepo {
-  Future<Either<Failure, ClientProfile>> getProfile(int id);
+  Future<Either<Failure, List<ClientProfile>>> getUserProfiles(int userId);
+  Future<Either<Failure, ClientProfile>> getProfile(int userId, int profileId);
   Future<Either<Failure, Map<String, dynamic>>> createProfile(
       Map<String, dynamic> profileData);
   Future<Either<Failure, Map<String, dynamic>>> editProfile();

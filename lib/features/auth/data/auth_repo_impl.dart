@@ -86,4 +86,25 @@ class AuthRepoImpl implements AuthRepo {
       return Left(e);
     }
   }
+
+  @override
+  Future<Either<Failure, User>> getUser() async {
+    try {
+      final response = await _apiService.get('auditor/current-user');
+      return Right(User.fromJson(response));
+    } on ServerFailure catch (e) {
+      return Left(e);
+    }
+  }
+
+  @override
+  Future<Either<Failure, int>> getUserId() async {
+    try {
+      final response = await _apiService.get('auditor/current-auditor-id');
+      print(response);
+      return right(response['data']);
+    } on ServerFailure catch (e) {
+      return Left(e);
+    }
+  }
 }
