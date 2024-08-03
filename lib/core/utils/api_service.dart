@@ -37,6 +37,9 @@ class ApiService {
   Future<Map<String, dynamic>> get(String endpoint) async {
     try {
       final response = await _dio.get(endpoint);
+      if (response.data is int) {
+        return {'data': response.data};
+      }
       return response.data;
     } on DioException catch (e) {
       print('DioException: ${e.message}');

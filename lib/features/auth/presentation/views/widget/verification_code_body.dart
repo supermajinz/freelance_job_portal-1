@@ -28,7 +28,7 @@ class _VerificationCodeBodyState extends State<VerificationCodeBody> {
   Widget build(BuildContext context) {
     return BlocConsumer<AuthBloc, AuthState>(
       listener: (context, state) {
-        if (state is AuthAuthenticated) {
+        if (state is AuthVerified) {
           GoRouter.of(context).push("/homescreen");
         } else if (state is AuthError) {
           ScaffoldMessenger.of(context)

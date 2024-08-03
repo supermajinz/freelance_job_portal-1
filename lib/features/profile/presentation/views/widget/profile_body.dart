@@ -1,21 +1,43 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
+import 'package:go_router/go_router.dart';
+import 'package:rating_summary/rating_summary.dart';
+
 import 'package:freelance_job_portal/core/utils/size_config.dart';
 import 'package:freelance_job_portal/core/widget/custom_button_general.dart';
 import 'package:freelance_job_portal/core/widget/custom_sub_title.dart';
 import 'package:freelance_job_portal/core/widget/space.dart';
-import 'package:freelance_job_portal/features/projects/presentation/views/widget/custom_project_card.dart';
+import 'package:freelance_job_portal/features/profile/data/models/profile/client_profile.dart';
+import 'package:freelance_job_portal/features/profile/presentation/view_models/bloc/profile_bloc.dart';
 import 'package:freelance_job_portal/features/profile/presentation/views/widget/custom_profile_card.dart';
 import 'package:freelance_job_portal/features/profile/presentation/views/widget/custom_protofolio_card.dart';
 import 'package:freelance_job_portal/features/profile/presentation/views/widget/custom_review_card.dart';
 import 'package:freelance_job_portal/features/profile/presentation/views/widget/custom_zzz.dart';
 import 'package:freelance_job_portal/features/profile/presentation/views/widget/show_chip.dart';
-import 'package:go_router/go_router.dart';
-import 'package:rating_summary/rating_summary.dart';
+import 'package:freelance_job_portal/features/projects/presentation/views/widget/custom_project_card.dart';
 
-class ProfileBody extends StatelessWidget {
-  const ProfileBody({super.key});
+class ProfileBody extends StatefulWidget {
+  final List<ClientProfile> clientProfiles;
+  const ProfileBody({
+    super.key,
+    required this.clientProfiles,
+  });
 
+  @override
+  State<ProfileBody> createState() => _ProfileBodyState();
+}
+
+class _ProfileBodyState extends State<ProfileBody> {
+  late ClientProfile currentProfile;
+  @override
+  void initState() {
+    super.initState();
+    currentProfile = widget.clientProfiles[0];
+  }
+
+ 
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -53,7 +75,9 @@ class ProfileBody extends StatelessWidget {
                                     scrollDirection: Axis.vertical,
                                     itemCount: 2,
                                     itemBuilder: (context, index) {
-                                      return CustomProfileCard(
+                                      return CustomProfileCard(  //TODO: on clicked changes current profile.
+                                        firstName: widget.clientProfiles[1].jobTitleDto!.title!,
+                                        lastName: currentProfile.userDto!.lastname!,
                                         icon: Icons.edit,
                                         onPressed: () {
                                           GoRouter.of(context)
@@ -84,6 +108,8 @@ class ProfileBody extends StatelessWidget {
                         margin: EdgeInsets.symmetric(
                             horizontal: SizeConfig.defaultSize! * 1),
                         child: CustomProfileCard(
+                          firstName: currentProfile.userDto!.firstname!,
+                          lastName: currentProfile.userDto!.lastname!,
                           icon: Icons.edit,
                           onPressed: () {
                             GoRouter.of(context).push('/editprofile');

@@ -8,7 +8,14 @@ sealed class ProfileEvent extends Equatable {
 }
 
 class ShowProfile extends ProfileEvent {
-  final int id;
+  final int userId;
+  final int profileId;
 
-  const ShowProfile({required this.id});
+  const ShowProfile({required this.userId,required this.profileId});
+}
+
+class GetProfiles extends ProfileEvent {
+  final int userId;
+
+  const GetProfiles(this.userId);
 }
