@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
+import 'package:freelance_job_portal/features/projects/data/model/project_model/project_model.dart';
 import 'package:go_router/go_router.dart';
 import 'package:rating_summary/rating_summary.dart';
 
@@ -37,7 +38,6 @@ class _ProfileBodyState extends State<ProfileBody> {
     currentProfile = widget.clientProfiles[0];
   }
 
- 
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -75,9 +75,12 @@ class _ProfileBodyState extends State<ProfileBody> {
                                     scrollDirection: Axis.vertical,
                                     itemCount: 2,
                                     itemBuilder: (context, index) {
-                                      return CustomProfileCard(  //TODO: on clicked changes current profile.
-                                        firstName: widget.clientProfiles[1].jobTitleDto!.title!,
-                                        lastName: currentProfile.userDto!.lastname!,
+                                      return CustomProfileCard(
+                                        //TODO: on clicked changes current profile.
+                                        firstName: widget.clientProfiles[1]
+                                            .jobTitleDto!.title!,
+                                        lastName:
+                                            currentProfile.userDto!.lastname!,
                                         icon: Icons.edit,
                                         onPressed: () {
                                           GoRouter.of(context)
@@ -176,7 +179,7 @@ class _ProfileBodyState extends State<ProfileBody> {
                     itemCount: 3,
                     scrollDirection: Axis.horizontal,
                     itemBuilder: (context, index) {
-                      return const CustomProjectCard();
+                      return CustomProjectCard(project: ProjectModel());
                     },
                   ),
                 ),

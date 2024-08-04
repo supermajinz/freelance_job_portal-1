@@ -6,6 +6,8 @@ import 'package:freelance_job_portal/core/widget/custom_sub_title.dart';
 import 'package:freelance_job_portal/core/widget/space.dart';
 import 'package:freelance_job_portal/features/home/presentation/view_models/home_bloc/home_bloc.dart';
 import 'package:freelance_job_portal/features/home/presentation/views/widget/custom_cartegory_card.dart';
+import 'package:freelance_job_portal/features/projects/data/model/project_model/project_model.dart';
+import 'package:freelance_job_portal/features/projects/presentation/view_models/bloc/project_bloc.dart';
 import 'package:freelance_job_portal/features/projects/presentation/views/widget/custom_project_card.dart';
 import 'package:go_router/go_router.dart';
 
@@ -31,6 +33,7 @@ class HomeBody extends StatelessWidget {
           BlocBuilder<HomeBloc, HomeState>(
             builder: (context, state) {
               if (state is HomeLoaded) {
+                
                 return SizedBox(
                   height: SizeConfig.defaultSize! * 29,
                   child: GridView.builder(
@@ -93,9 +96,9 @@ class HomeBody extends StatelessWidget {
               itemBuilder: (context, index) {
                 return InkWell(
                     onTap: () {
-                      GoRouter.of(context).push('/showprojectdetails');
+                      GoRouter.of(context).push('/showprojectdetails', extra: ProjectModel(id: 1).id);
                     },
-                    child: const CustomProjectCard());
+                    child: CustomProjectCard(project: ProjectModel()));
               },
             ),
           ),
@@ -128,9 +131,9 @@ class HomeBody extends StatelessWidget {
               itemBuilder: (context, index) {
                 return InkWell(
                     onTap: () {
-                      GoRouter.of(context).push('/showprojectdetails');
+                      GoRouter.of(context).push('/showprojectdetails', extra: 1);
                     },
-                    child: const CustomProjectCard());
+                    child: CustomProjectCard(project: ProjectModel(),));
               },
             ),
           ),

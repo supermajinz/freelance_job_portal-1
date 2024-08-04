@@ -21,6 +21,7 @@ import 'package:freelance_job_portal/features/onboarding/presentation/views/onbo
 import 'package:freelance_job_portal/features/profile/presentation/views/create_profile.dart';
 import 'package:freelance_job_portal/features/profile/presentation/views/edit_profile.dart';
 import 'package:freelance_job_portal/features/profile/presentation/views/profile.dart';
+import 'package:freelance_job_portal/features/projects/data/model/project_model/project_model.dart';
 import 'package:freelance_job_portal/features/projects/presentation/views/create_project.dart';
 import 'package:freelance_job_portal/features/projects/presentation/views/edit_project.dart';
 import 'package:freelance_job_portal/features/projects/presentation/views/show_project_details.dart';
@@ -128,7 +129,7 @@ abstract class AppRouter {
     ),
     GoRoute(
       path: '/showprotodetails',
-      builder: (context, state) => const ShowProtoDetails(),
+      builder: (context, state) => ShowProtoDetails(),
     ),
     GoRoute(
       path: '/chat',
@@ -164,7 +165,9 @@ abstract class AppRouter {
     ),
     GoRoute(
       path: '/editoffer',
-      builder: (context, state) => const EditOffer(),
+      builder: (context, state) => const EditOffer(
+        offerId: 1,
+      ),
     ),
     GoRoute(
       path: '/offerdetails',
@@ -176,11 +179,13 @@ abstract class AppRouter {
     ),
     GoRoute(
       path: '/editproject',
-      builder: (context, state) => const EditProject(),
+      builder: (context, state) => EditProject(projectModel: state.extra as ProjectModel),
     ),
     GoRoute(
       path: '/showprojectdetails',
-      builder: (context, state) => const ShowProjectDetails(),
+      builder: (context, state) {
+        return ShowProjectDetails(projectId: state.extra as int);
+      },
     ),
     GoRoute(
       path: '/searsh',

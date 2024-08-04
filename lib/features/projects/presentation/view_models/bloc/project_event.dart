@@ -29,3 +29,9 @@ class UpdateProject extends ProjectEvent {
   @override
   List<Object> get props => [projectId, project];
 }
+
+class FetchOffersByProject extends ProjectEvent {
+  // حدث جديد لطلب العروض
+  final int projectId;
+  const FetchOffersByProject(this.projectId);
+}

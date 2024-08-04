@@ -11,7 +11,7 @@ class ShowProfile extends ProfileEvent {
   final int userId;
   final int profileId;
 
-  const ShowProfile({required this.userId,required this.profileId});
+  const ShowProfile({required this.userId, required this.profileId});
 }
 
 class GetProfiles extends ProfileEvent {

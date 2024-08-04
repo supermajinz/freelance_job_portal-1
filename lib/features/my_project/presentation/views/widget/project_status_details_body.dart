@@ -146,7 +146,7 @@ class _ShowProjectDetailsBodyState extends State<ProjectStatusDetailsBody>
                                               GoRouter.of(context)
                                                   .push("/offerdetails");
                                             },
-                                            child: const CustomOffer(),
+                                           // child: const CustomOffer(),
                                           );
                                         },
                                         separatorBuilder: (context, index) {
@@ -161,7 +161,7 @@ class _ShowProjectDetailsBodyState extends State<ProjectStatusDetailsBody>
                             Center(
                               child: CustomButtonGeneral(
                                 onPressed: () {
-                                  GoRouter.of(context).push("/createoffer");
+                                 // GoRouter.of(context).push("/createoffer");
                                 },
                                 color: Colors.white,
                                 textcolor: Colors.black,

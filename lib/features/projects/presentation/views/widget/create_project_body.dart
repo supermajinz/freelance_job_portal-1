@@ -1,6 +1,9 @@
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:freelance_job_portal/features/home/data/model/caregories/caregories.dart';
+import 'package:freelance_job_portal/features/home/presentation/view_models/home_bloc/home_bloc.dart';
+import 'package:go_router/go_router.dart';
 import '../../../../../core/utils/size_config.dart';
 import '../../../../../core/widget/custom_button_general.dart';
 import '../../../../../core/widget/custom_label.dart';
@@ -25,7 +28,7 @@ class _CreateProjectBodyState extends State<CreateProjectBody> {
   final _minBudgetController = TextEditingController();
   final _maxBudgetController = TextEditingController();
   final _expectedDurationController = TextEditingController();
-  final List<int> _selectedCategoryIds = [];
+  final List<Categories> _selectedCategories = [];
   final List<int> _selectedSkillIds = [];
 
   @override
@@ -105,21 +108,21 @@ class _CreateProjectBodyState extends State<CreateProjectBody> {
                 const VirticalSpace(1.5),
                 CustomDropdownSearchCategories(
                   onChanged: (value) {
-                    if (value != null &&
-                        !_selectedCategoryIds.contains(value)) {
+                    if (value != null && !_selectedCategories.contains(value)) {
                       setState(() {
-                        _selectedCategoryIds.add(value);
+                        _selectedCategories.add(value);
                       });
                     }
                   },
                 ),
                 const VirticalSpace(2),
                 CustomShowChipButton(
-                  projectItems:
-                      _selectedCategoryIds.map((id) => id.toString()).toList(),
+                  projectItems: _selectedCategories.map((e) => e.name).toList(),
                   onDelete: (category) {
                     setState(() {
-                      _selectedCategoryIds.remove(int.parse(category));
+                      _selectedCategories.removeWhere(
+                        (element) => element.name == category,
+                      );
                     });
                   },
                 ),
@@ -155,7 +158,16 @@ class _CreateProjectBodyState extends State<CreateProjectBody> {
                             const SnackBar(
                                 content: Text('Project created successfully')),
                           );
+                  
+                          GoRouter.of(context).pushReplacement(
+                              '/showprojectdetails',
+                              extra: state.project.id);
                           // Navigate back or to project details
+                        } else if (state is CreateProjectLoading) {
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                                content: Text('جاري إنشاء المشروع.')),
+                          );
                         } else if (state is ProjectError) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(content: Text(state.message)),
@@ -175,8 +187,11 @@ class _CreateProjectBodyState extends State<CreateProjectBody> {
                                     int.parse(_expectedDurationController.text),
                                 clientProfileId:
                                     1, // Assuming a default value, replace with actual client profile ID
+                                // GlobalData.instance.currentUser.clientProfile.id, // Assuming a default value, replace with actual client profile ID
                                 projectSkillIds: _selectedSkillIds,
-                                projectCategoriesIds: _selectedCategoryIds,
+                                projectCategoriesIds: _selectedCategories
+                                    .map((e) => e.id)
+                                    .toList(),
                               );
                               context.read<ProjectBloc>().add(
                                     CreateProjectSubmitted(project: project),
@@ -185,7 +200,7 @@ class _CreateProjectBodyState extends State<CreateProjectBody> {
                           },
                           color: Theme.of(context).primaryColor,
                           textcolor: Colors.white,
-                          text: state is ProjectLoading
+                          text: state is CreateProjectLoading
                               ? "Creating..."
                               : "Create",
                           borderSide: const BorderSide(),
@@ -205,31 +220,39 @@ class _CreateProjectBodyState extends State<CreateProjectBody> {
 }
 
 class CustomDropdownSearchCategories extends StatelessWidget {
-  final Function(int?) onChanged;
+  final Function(Categories?) onChanged;
 
   const CustomDropdownSearchCategories({super.key, required this.onChanged});
 
   @override
   Widget build(BuildContext context) {
-    return DropdownSearch<int>(
-      items: const [1, 2, 3, 4], // قم بتغيير هذه إلى معرفات الفئات الفعلية
-      dropdownDecoratorProps: DropDownDecoratorProps(
-        dropdownSearchDecoration: InputDecoration(
-          hintText: '',
-          hintStyle: Theme.of(context).textTheme.labelLarge,
-          border: const OutlineInputBorder(),
-        ),
-      ),
-      popupProps: PopupProps.menu(
-        showSearchBox: true,
-        itemBuilder: (context, item, isSelected) {
-          return ListTile(
-            title: Text(
-                'Category $item'), // قم بتغيير هذا لعرض أسماء الفئات الفعلية
-          );
-        },
-      ),
-      onChanged: onChanged,
+    return BlocBuilder<HomeBloc, HomeState>(
+      builder: (context, state) {
+        if (state is! HomeLoaded) {
+          return const CircularProgressIndicator();
+        }
+        return DropdownSearch<Categories>(
+          items: state.categories, // قم بتغيير هذه إلى معرفات الفئات الفعلية
+          itemAsString: (item) => item.name,
+          dropdownDecoratorProps: DropDownDecoratorProps(
+            dropdownSearchDecoration: InputDecoration(
+              hintText: '',
+              hintStyle: Theme.of(context).textTheme.labelLarge,
+              border: const OutlineInputBorder(),
+            ),
+          ),
+          popupProps: PopupProps.menu(
+            showSearchBox: true,
+            itemBuilder: (context, item, isSelected) {
+              return ListTile(
+                title:
+                    Text(item.name), // قم بتغيير هذا لعرض أسماء الفئات الفعلية
+              );
+            },
+          ),
+          onChanged: onChanged,
+        );
+      },
     );
   }
 }

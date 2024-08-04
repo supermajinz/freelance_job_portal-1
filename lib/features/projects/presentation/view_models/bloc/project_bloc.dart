@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:dartz/dartz.dart';
 import 'package:equatable/equatable.dart';
 import '../../../../../core/errors/failures.dart';
+import '../../../../offers/data/model/offers_model/offers_model.dart';
 import '../../../data/model/create_project_model.dart';
 import '../../../data/model/edit_project_model.dart';
 import '../../../data/model/project_model/project_model.dart';
@@ -12,12 +13,13 @@ part 'project_state.dart';
 class ProjectBloc extends Bloc<ProjectEvent, ProjectState> {
   final ProjectRepo repo;
   ProjectBloc(this.repo) : super(ProjectInitial()) {
-    on<FetchProjectDetails>((event, emit) {});
+    on<FetchProjectDetails>(_onFetchProjectDetails);
     on<CreateProjectSubmitted>(_onCreateProjectSubmitted);
     on<UpdateProject>(_onUpdateProject);
+    on<FetchOffersByProject>(_onFetchOffersByProject); // إضافة الحدث الجديد
   }
 
-  Future<void> onFetchProjectDetails(
+  Future<void> _onFetchProjectDetails(
       FetchProjectDetails event, Emitter<ProjectState> emit) async {
     emit(ProjectLoading());
     final result = await repo.getProjectDetails(event.projectId);
@@ -33,7 +35,7 @@ class ProjectBloc extends Bloc<ProjectEvent, ProjectState> {
     CreateProjectSubmitted event,
     Emitter<ProjectState> emit,
   ) async {
-    emit(ProjectLoading());
+    emit(CreateProjectLoading());
     final result = await repo.createProject(event.project);
     result.fold(
       (failure) => emit(ProjectError(failure.errMessage)),
@@ -51,5 +53,14 @@ class ProjectBloc extends Bloc<ProjectEvent, ProjectState> {
       (failure) => emit(ProjectError(failure.errMessage)),
       (project) => emit(EditProjectSuccess(project: project)),
     );
+  }
+
+  Future<void> _onFetchOffersByProject(
+      FetchOffersByProject event, Emitter<ProjectState> emit) async {
+    // تنفيذ الحدث الجديد
+    emit(ProjectLoading());
+    final result = await repo.getOffersByProject(event.projectId);
+    result.fold((failure) => emit(ProjectError(failure.errMessage)),
+        (offers) => emit(OffersLoaded(offers)));
   }
 }

@@ -7,6 +7,8 @@ import 'package:freelance_job_portal/features/projects/presentation/views/widget
 import 'package:freelance_job_portal/features/saved/presentation/views/widget/custom_saved_card.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../projects/data/model/project_model/project_model.dart';
+
 class SavedBody extends StatelessWidget {
   const SavedBody({super.key});
 
@@ -70,7 +72,7 @@ class SavedBody extends StatelessWidget {
                   shrinkWrap: true,
                   itemCount: 3,
                   itemBuilder: (context, index) {
-                    return const CustomProjectCard();
+                    return CustomProjectCard(project: ProjectModel());
                   },
                 ),
               ],

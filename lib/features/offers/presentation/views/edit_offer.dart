@@ -6,7 +6,8 @@ import 'package:freelance_job_portal/features/offers/presentation/views/widget/e
 import 'package:go_router/go_router.dart';
 
 class EditOffer extends StatelessWidget {
-  const EditOffer({super.key});
+  final int offerId;
+  const EditOffer({super.key, required this.offerId});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +26,7 @@ class EditOffer extends StatelessWidget {
           },
         ),
       ),
-      body: const SafeArea(child: EditOfferBody()),
+      body: SafeArea(child: EditOfferBody(offerId: offerId)),
     );
   }
 }

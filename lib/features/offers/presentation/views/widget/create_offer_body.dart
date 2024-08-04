@@ -85,6 +85,7 @@ class _CreateOfferBodyState extends State<CreateOfferBody> {
                                 "workerId": 1,
                                 "projectId": 1
                               };
+                              print("offer data: $offerData");
 
                               context
                                   .read<OfferBloc>()

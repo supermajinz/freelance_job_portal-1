@@ -35,7 +35,8 @@ class ClientProfileRepoImpl implements ProfileRepo {
   }
 
   @override
-  Future<Either<Failure, List<ClientProfile>>> getUserProfiles(int userId) async {
+  Future<Either<Failure, List<ClientProfile>>> getUserProfiles(
+      int userId) async {
     try {
       final response = await _apiService.get('clientProfiles/$userId');
 
@@ -56,8 +57,9 @@ class ClientProfileRepoImpl implements ProfileRepo {
     }
   }
 
-@override
-  Future<Either<Failure, ClientProfile>> getProfile(int userId, int profileId) async {
+  @override
+  Future<Either<Failure, ClientProfile>> getProfile(
+      int userId, int profileId) async {
     final profilesResult = await getUserProfiles(userId);
 
     return profilesResult.fold(

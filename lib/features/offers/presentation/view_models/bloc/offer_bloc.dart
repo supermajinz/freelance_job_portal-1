@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:freelance_job_portal/features/offers/data/repo/offer_repo.dart';
 import '../../../data/model/offer_model/offer_model.dart';
+import '../../../data/model/offers_model/offers_model.dart';
 
 part 'offer_event.dart';
 part 'offer_state.dart';
@@ -11,7 +12,6 @@ class OfferBloc extends Bloc<OfferEvent, OfferState> {
   OfferBloc(this.repo) : super(OfferInitial()) {
     on<CreateOffer>(_onCreateOffer);
     on<UpdateOffer>(_onUpdateOffer);
-   
   }
 
   Future<void> _onCreateOffer(
@@ -27,7 +27,9 @@ class OfferBloc extends Bloc<OfferEvent, OfferState> {
   }
 
   Future<void> _onUpdateOffer(
-      UpdateOffer event, Emitter<OfferState> emit) async {
+    UpdateOffer event,
+    Emitter<OfferState> emit,
+  ) async {
     emit(OfferLoading());
     final result = await repo.updateOffer(event.offerId, event.offerData);
     result.fold(
@@ -36,14 +38,3 @@ class OfferBloc extends Bloc<OfferEvent, OfferState> {
     );
   }
 }
-  //on<FetchOfferDetails>(_onFetchOfferDetails);
-  // Future<void> _onFetchOfferDetails(FetchOfferDetails event, Emitter<OfferState> emit) async {
-  //   emit(OfferLoading());
-  //   final result = await repo.fetchOfferDetails(event.offerId);
-  //   result.fold(
-  //     (failure) => emit(OfferFaliure(failure.errMessage)),
-  //     (offer) => emit(OfferSuccess(offer)),
-  //   );
-  // }
-
-

@@ -23,8 +23,9 @@ void main() async {
         create: (context) => LocalizationBloc()..add(LoadSavedLocalization()),
       ),
       BlocProvider(
-        create: (context) => AuthBloc(DependencyInjection.provideAuthRepo(),
-           )..add(CheckAuthStatusEvent()),
+        create: (context) => AuthBloc(
+          DependencyInjection.provideAuthRepo(),
+        )..add(CheckAuthStatusEvent()),
       ),
       BlocProvider<ProjectBloc>(
           create: (context) =>

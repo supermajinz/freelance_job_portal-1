@@ -35,7 +35,7 @@ class ProfileGetError extends ProfileState {
 class ProfileNoProfiles extends ProfileState {}
 
 class ProfilesLoaded extends ProfileState {
- final List<ClientProfile> profiles;
+  final List<ClientProfile> profiles;
 
   const ProfilesLoaded(this.profiles);
 }

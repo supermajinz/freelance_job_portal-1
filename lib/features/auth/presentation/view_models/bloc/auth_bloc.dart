@@ -58,7 +58,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       CheckAuthStatusEvent event, Emitter<AuthState> emit) async {
     emit(AuthLoading());
     final result = await _authRepo.getUserId();
-    result.fold((failure)=>emit(AuthUnauthenticated()), (userId)=>emit(AuthAuthenticated(id: userId)));
+    result.fold((failure) => emit(AuthUnauthenticated()),
+        (userId) => emit(AuthAuthenticated(id: userId)));
   }
 
   FutureOr<void> logoutEvent(LogoutEvent event, Emitter<AuthState> emit) async {

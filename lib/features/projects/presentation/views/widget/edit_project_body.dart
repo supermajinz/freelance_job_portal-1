@@ -7,23 +7,39 @@ import 'package:freelance_job_portal/core/widget/custom_edit_meony_general.dart'
 import 'package:freelance_job_portal/core/widget/custom_sub_title.dart';
 import 'package:freelance_job_portal/core/widget/space.dart';
 import 'package:freelance_job_portal/features/profile/presentation/views/widget/edit_text_form.dart';
+import 'package:freelance_job_portal/features/projects/data/model/project_model/project_model.dart';
 import 'package:freelance_job_portal/features/projects/presentation/view_models/bloc/project_bloc.dart';
 import '../../../../profile/presentation/views/widget/custom_chip_button.dart';
 import '../../../data/model/edit_project_model.dart';
 
 class EditProjectBody extends StatefulWidget {
-  const EditProjectBody({super.key});
+  const EditProjectBody({super.key, required this.projectModel});
+  final ProjectModel projectModel;
 
   @override
   State<EditProjectBody> createState() => _EditProjectBodyState();
 }
 
 class _EditProjectBodyState extends State<EditProjectBody> {
-  final TextEditingController titleController = TextEditingController();
-  final TextEditingController descriptionController = TextEditingController();
-  final TextEditingController minBudgetController = TextEditingController();
-  final TextEditingController maxBudgetController = TextEditingController();
-  final TextEditingController durationController = TextEditingController();
+  late final TextEditingController titleController;
+  late final TextEditingController descriptionController;
+  late final TextEditingController minBudgetController;
+  late final TextEditingController maxBudgetController;
+  late final TextEditingController durationController;
+
+  @override
+  void initState() {
+    titleController = TextEditingController(text: widget.projectModel.name);
+    descriptionController =
+        TextEditingController(text: widget.projectModel.description);
+    minBudgetController =
+        TextEditingController(text: widget.projectModel.minBudget.toString());
+    maxBudgetController =
+        TextEditingController(text: widget.projectModel.maxBudget.toString());
+    durationController = TextEditingController(
+        text: widget.projectModel.expectedDuration.toString());
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +56,6 @@ class _EditProjectBodyState extends State<EditProjectBody> {
             EditTextForm(
                 onTapicon: () {},
                 mycontroller: titleController,
-                //initvalue: "Excited to work with you!",
                 hinttext: "",
                 lable: "Title",
                 isNumber: false),
@@ -48,8 +63,6 @@ class _EditProjectBodyState extends State<EditProjectBody> {
             EditTextForm(
                 onTapicon: () {},
                 mycontroller: descriptionController,
-                //  initvalue:
-                // "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce fermentum lacus metus. Vivamus faucibus ullamcorper velit, id facilisis lacus tempus.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce fermentum lacus metus. Vivamus faucibus ullamcorper velit, id facilisis lacus tempus.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce fermentum lacus metus. Vivamus faucibus ullamcorper velit, id facilisis lacus tempus.",
                 hinttext: "",
                 lable: "Discripion",
                 isNumber: false),
@@ -91,7 +104,6 @@ class _EditProjectBodyState extends State<EditProjectBody> {
             EditTextForm(
               onTapicon: () {},
               mycontroller: durationController,
-              // initvalue: "10",
               hinttext: "",
               lable: "Duration",
               isNumber: true,

@@ -5,9 +5,11 @@ import 'package:freelance_job_portal/core/widget/custom_label.dart';
 import 'package:freelance_job_portal/core/widget/custom_subtitle_medium.dart';
 import 'package:freelance_job_portal/core/widget/space.dart';
 import 'package:freelance_job_portal/features/home/presentation/views/widget/custom_choice_chip.dart';
+import 'package:freelance_job_portal/features/projects/data/model/project_model/project_model.dart';
 
 class CustomProjectCard extends StatelessWidget {
-  const CustomProjectCard({super.key});
+  const CustomProjectCard({super.key, required this.project});
+  final ProjectModel project;
 
   @override
   Widget build(BuildContext context) {

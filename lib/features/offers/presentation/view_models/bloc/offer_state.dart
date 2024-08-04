@@ -12,7 +12,7 @@ final class OfferInitial extends OfferState {}
 final class OfferLoading extends OfferState {}
 
 final class OfferSuccess extends OfferState {
-  final OfferModel offer;
+  final OffersModel offer;
 
   const OfferSuccess(this.offer);
 
