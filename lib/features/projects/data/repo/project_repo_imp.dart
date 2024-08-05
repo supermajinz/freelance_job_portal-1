@@ -39,7 +39,7 @@ class ProjectRepoImp implements ProjectRepo {
         "ExpectedDuration": project.expectedDuration,
         "clientProfileId": project.clientProfileId,
         "projectSkillIds": project.projectSkillIds,
-        "projectCategoriesIds": project.projectCategoriesIds,
+        "projectCategoriesIds": project.projectCategory,
       });
       return Right(ProjectModel.fromJson(response));
     } catch (e) {

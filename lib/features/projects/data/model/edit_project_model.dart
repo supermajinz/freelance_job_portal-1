@@ -8,7 +8,7 @@ class EditProjectModel extends Equatable {
   final int? expectedDuration;
   final String? status;
   final List<int>? projectSkillIds;
-  final List<int>? projectCategoriesIds;
+  final int? projectCategoriesIds;
 
   const EditProjectModel({
     this.name,
@@ -30,7 +30,7 @@ class EditProjectModel extends Equatable {
       expectedDuration: json['ExpectedDuration'] as int?,
       status: json['status'] as String?,
       projectSkillIds: json['projectSkillIds'] as List<int>?,
-      projectCategoriesIds: json['projectCategoriesIds'] as List<int>?,
+      projectCategoriesIds: json['projectCategoriesIds'] as int?,
     );
   }
 

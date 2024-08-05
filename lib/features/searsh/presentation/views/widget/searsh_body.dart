@@ -55,7 +55,7 @@ class SearshBody extends StatelessWidget {
           itemCount: 4,
           scrollDirection: Axis.vertical,
           itemBuilder: (context, index) {
-            return CustomProjectCard(project: ProjectModel());
+            return const CustomProjectCard(project: ProjectModel());
           },
         ),
       ),
