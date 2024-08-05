@@ -143,10 +143,11 @@ class _EditProjectBodyState extends State<EditProjectBody> {
             ),
             const VirticalSpace(2),
             CustomShowChipButton(
-              projectItems: skills.map((id) => id.toString()).toList(),
-              onDelete: (skill) {
+              projectItems:
+              skills.map((skill) => skill.name).toList(),
+              onDelete: (name) {
                 setState(() {
-                  skills.remove(skill);
+                  skills.removeWhere((element) => element.name == name);
                 });
               },
             ),
@@ -255,6 +256,8 @@ class CustomDropdownSearchSkills extends StatelessWidget {
         return DropdownSearch<Skills>(
           items: state.skillsByCategory[category?.id] ?? [],
           // قم بتغيير هذه إلى معرفات المهارات الفعلية
+          // itemAsString: (item) => item.name,
+          itemAsString: (item) => "",
           dropdownDecoratorProps: DropDownDecoratorProps(
             dropdownSearchDecoration: InputDecoration(
               hintText: '',
@@ -267,7 +270,7 @@ class CustomDropdownSearchSkills extends StatelessWidget {
             itemBuilder: (context, item, isSelected) {
               return ListTile(
                 title: Text(
-                    item.name!), // قم بتغيير هذا لعرض أسماء المهارات الفعلية
+                    item.name), // قم بتغيير هذا لعرض أسماء المهارات الفعلية
               );
             },
           ),

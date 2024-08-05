@@ -14,7 +14,7 @@ class ApiService {
     _dio.interceptors.add(InterceptorsWrapper(
       onRequest: (options, handler) async {
         const token =
-            "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIwOTg2NDExNjIxIiwiaWF0IjoxNzIyODc1NjQ5LCJleHAiOjE3MjI5NjIwNDl9.co43J9rwNWne3SLjPI5I5yrmAdlkP_p1ggSPqyHdV0U";
+            "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIwOTEyMzEyMzQ1IiwiaWF0IjoxNzIyODg2NDMxLCJleHAiOjE3MjI5NzI4MzF9.wGa1nEnt1d2M0HS3znXTxUeX5YsVR8VQ9WFFHu2AWjM";
         // final token = await _authTokenService.getToken('access_token');
         //if (token != null) {
         options.headers['Authorization'] = 'Bearer $token';
@@ -36,10 +36,12 @@ class ApiService {
 
   Future<Map<String, dynamic>> get(String endpoint) async {
     try {
+      print("performing get request: $endpoint");
       final response = await _dio.get(endpoint);
       if (response.data is int) {
         return {'data': response.data};
       }
+      print("get request $endpoint response: ${response.data}");
       return response.data;
     } on DioException catch (e) {
       print('DioException: ${e.message}');
@@ -52,6 +54,7 @@ class ApiService {
   Future<Map<String, dynamic>> post(
       String endpoint, Map<String, dynamic> data) async {
     try {
+      print("performing post request: $endpoint");
       final response = await _dio.post(endpoint, data: data);
       if (response.data is String) {
         // If the response is a string, wrap it in a Map
