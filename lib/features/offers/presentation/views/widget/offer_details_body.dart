@@ -11,8 +11,8 @@ import 'package:freelance_job_portal/core/widget/custom_sub_title.dart';
 import 'package:freelance_job_portal/core/widget/custom_subtitle_medium.dart';
 import 'package:freelance_job_portal/core/widget/space.dart';
 import 'package:freelance_job_portal/features/offers/presentation/view_models/bloc/offer_bloc.dart';
-import 'package:freelance_job_portal/features/profile/presentation/views/widget/show_chip.dart';
 import 'package:go_router/go_router.dart';
+import '../../../../projects/presentation/views/widget/custom_chip_project.dart';
 import '../../../data/model/offers_model/offers_model.dart';
 
 class OfferDetailsBody extends StatelessWidget {
@@ -93,6 +93,7 @@ class OfferDetailsBody extends StatelessWidget {
                           ),
                           const VirticalSpace(4),
                           Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               const CustomSubTitleMedium(text: "Delivery Time"),
                               CustomContainer(
@@ -200,7 +201,7 @@ class OfferDetailsBody extends StatelessWidget {
                                       children: [
                                         Icon(Icons.edit),
                                         CustomBody(
-                                          text: "تعديل المشروع",
+                                          text: "تعديل العرض",
                                         ),
                                       ],
                                     )),
@@ -215,7 +216,7 @@ class OfferDetailsBody extends StatelessWidget {
                                           color: Colors.red,
                                         ),
                                         CustomBody(
-                                          text: "حذف المشروع",
+                                          text: "حذف العرض",
                                           color: Colors.red,
                                         ),
                                       ],
@@ -225,7 +226,15 @@ class OfferDetailsBody extends StatelessWidget {
                           ],
                         ),
                         const VirticalSpace(2),
-                        const ShowChip()
+                        Wrap(
+                          spacing: SizeConfig.defaultSize! * 1,
+                          runSpacing: SizeConfig.defaultSize! * .5,
+                          children: [
+                            for (var skill in offer.worker!.skillDtOs ?? [])
+                              CustomChipProject(
+                                  text: skill.name ?? 'Unknown Skill'),
+                          ],
+                        ),
                       ],
                     ),
                   )

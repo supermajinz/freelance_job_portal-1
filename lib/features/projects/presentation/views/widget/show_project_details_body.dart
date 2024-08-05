@@ -264,10 +264,10 @@ class _ShowProjectDetailsBodyState extends State<ShowProjectDetailsBody> {
               physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               itemBuilder: (context, index) {
-                // OffersModel offer;
+                
                 return InkWell(
                     onTap: () {
-                      GoRouter.of(context).push("/offerdetails");
+                      GoRouter.of(context).push("/offerdetails",extra: state.offers[index]);
                     },
                     child: CustomOffer(offer: state.offers[index]));
               },
