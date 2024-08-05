@@ -96,7 +96,7 @@ class HomeBody extends StatelessWidget {
               itemBuilder: (context, index) {
                 return InkWell(
                     onTap: () {
-                      GoRouter.of(context).push('/showprojectdetails', extra: ProjectModel(id: 1));
+                      GoRouter.of(context).push('/showprojectdetails', extra: ProjectModel(id: 1).id);
                     },
                     child: CustomProjectCard(project: ProjectModel()));
               },
@@ -131,9 +131,9 @@ class HomeBody extends StatelessWidget {
               itemBuilder: (context, index) {
                 return InkWell(
                     onTap: () {
-                      GoRouter.of(context).push('/showprojectdetails', extra: ProjectModel());
+                      GoRouter.of(context).push('/showprojectdetails', extra: 1);
                     },
-                    child: CustomProjectCard(project: ProjectModel()));
+                    child: CustomProjectCard(project: ProjectModel(),));
               },
             ),
           ),

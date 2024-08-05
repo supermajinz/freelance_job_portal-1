@@ -2,10 +2,7 @@ import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freelance_job_portal/features/home/data/model/caregories/caregories.dart';
-import 'package:freelance_job_portal/features/home/data/model/skills/skills.dart';
 import 'package:freelance_job_portal/features/home/presentation/view_models/home_bloc/home_bloc.dart';
-import 'package:freelance_job_portal/features/home/presentation/views/widget/skills.dart';
-import 'package:freelance_job_portal/features/profile/data/models/profile/skill_dt_o.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../../core/utils/size_config.dart';
 import '../../../../../core/widget/custom_button_general.dart';
@@ -31,8 +28,8 @@ class _CreateProjectBodyState extends State<CreateProjectBody> {
   final _minBudgetController = TextEditingController();
   final _maxBudgetController = TextEditingController();
   final _expectedDurationController = TextEditingController();
-  Categories? _selectedCategory;
-  final List<Skills> _selectedSkills = [];
+  final List<Categories> _selectedCategories = [];
+  final List<int> _selectedSkillIds = [];
 
   @override
   Widget build(BuildContext context) {
@@ -111,34 +108,32 @@ class _CreateProjectBodyState extends State<CreateProjectBody> {
                 const VirticalSpace(1.5),
                 CustomDropdownSearchCategories(
                   onChanged: (value) {
-                    if (value != null) {
+                    if (value != null && !_selectedCategories.contains(value)) {
                       setState(() {
-                        _selectedCategory = value;
-                        _selectedSkills.clear();
+                        _selectedCategories.add(value);
                       });
                     }
                   },
                 ),
-                // const VirticalSpace(2),
-                // CustomShowChipButton(
-                //   projectItems: _selectedCategory.map((e) => e.name).toList(),
-                //   onDelete: (category) {
-                //     setState(() {
-                //       _selectedCategory.removeWhere(
-                //         (element) => element.name == category,
-                //       );
-                //     });
-                //   },
-                // ),
+                const VirticalSpace(2),
+                CustomShowChipButton(
+                  projectItems: _selectedCategories.map((e) => e.name).toList(),
+                  onDelete: (category) {
+                    setState(() {
+                      _selectedCategories.removeWhere(
+                        (element) => element.name == category,
+                      );
+                    });
+                  },
+                ),
                 const VirticalSpace(5),
                 const CustomSubTitle(text: "Skills"),
                 const VirticalSpace(1.5),
                 CustomDropdownSearchSkills(
-                  category: _selectedCategory,
                   onChanged: (value) {
-                    if (value != null && !_selectedSkills.contains(value)) {
+                    if (value != null && !_selectedSkillIds.contains(value)) {
                       setState(() {
-                        _selectedSkills.add(value);
+                        _selectedSkillIds.add(value);
                       });
                     }
                   },
@@ -146,10 +141,10 @@ class _CreateProjectBodyState extends State<CreateProjectBody> {
                 const VirticalSpace(2),
                 CustomShowChipButton(
                   projectItems:
-                  _selectedSkills.map((id) => id.toString()).toList(),
+                      _selectedSkillIds.map((id) => id.toString()).toList(),
                   onDelete: (skill) {
                     setState(() {
-                      _selectedSkills.remove(skill);
+                      _selectedSkillIds.remove(int.parse(skill));
                     });
                   },
                 ),
@@ -163,7 +158,7 @@ class _CreateProjectBodyState extends State<CreateProjectBody> {
                             const SnackBar(
                                 content: Text('Project created successfully')),
                           );
-
+                  
                           GoRouter.of(context).pushReplacement(
                               '/showprojectdetails',
                               extra: state.project.id);
@@ -182,29 +177,28 @@ class _CreateProjectBodyState extends State<CreateProjectBody> {
                       builder: (context, state) {
                         return CustomButtonGeneral(
                           onPressed: () {
-                            if (_formKey.currentState!.validate() && _selectedCategory != null) {
+                            if (_formKey.currentState!.validate()) {
                               final project = CreateProjectModel(
                                 name: _titleController.text,
                                 description: _descriptionController.text,
                                 minBudget: int.parse(_minBudgetController.text),
                                 maxBudget: int.parse(_maxBudgetController.text),
                                 expectedDuration:
-                                int.parse(_expectedDurationController.text),
+                                    int.parse(_expectedDurationController.text),
                                 clientProfileId:
-                                1,
-                                // Assuming a default value, replace with actual client profile ID
+                                    1, // Assuming a default value, replace with actual client profile ID
                                 // GlobalData.instance.currentUser.clientProfile.id, // Assuming a default value, replace with actual client profile ID
-                                projectSkillIds: _selectedSkills.map((e) => e.id!).toList(),
-                                projectCategory: _selectedCategory?.id,
+                                projectSkillIds: _selectedSkillIds,
+                                projectCategoriesIds: _selectedCategories
+                                    .map((e) => e.id)
+                                    .toList(),
                               );
                               context.read<ProjectBloc>().add(
-                                CreateProjectSubmitted(project: project),
-                              );
+                                    CreateProjectSubmitted(project: project),
+                                  );
                             }
                           },
-                          color: Theme
-                              .of(context)
-                              .primaryColor,
+                          color: Theme.of(context).primaryColor,
                           textcolor: Colors.white,
                           text: state is CreateProjectLoading
                               ? "Creating..."
@@ -238,16 +232,12 @@ class CustomDropdownSearchCategories extends StatelessWidget {
           return const CircularProgressIndicator();
         }
         return DropdownSearch<Categories>(
-          items: state.categories,
-          // قم بتغيير هذه إلى معرفات الفئات الفعلية
+          items: state.categories, // قم بتغيير هذه إلى معرفات الفئات الفعلية
           itemAsString: (item) => item.name,
           dropdownDecoratorProps: DropDownDecoratorProps(
             dropdownSearchDecoration: InputDecoration(
               hintText: '',
-              hintStyle: Theme
-                  .of(context)
-                  .textTheme
-                  .labelLarge,
+              hintStyle: Theme.of(context).textTheme.labelLarge,
               border: const OutlineInputBorder(),
             ),
           ),
@@ -256,7 +246,7 @@ class CustomDropdownSearchCategories extends StatelessWidget {
             itemBuilder: (context, item, isSelected) {
               return ListTile(
                 title:
-                Text(item.name), // قم بتغيير هذا لعرض أسماء الفئات الفعلية
+                    Text(item.name), // قم بتغيير هذا لعرض أسماء الفئات الفعلية
               );
             },
           ),
@@ -268,42 +258,31 @@ class CustomDropdownSearchCategories extends StatelessWidget {
 }
 
 class CustomDropdownSearchSkills extends StatelessWidget {
-  final Function(Skills?) onChanged;
-  final Categories? category;
+  final Function(int?) onChanged;
 
-  const CustomDropdownSearchSkills({super.key, required this.onChanged, required this.category});
+  const CustomDropdownSearchSkills({super.key, required this.onChanged});
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<HomeBloc, HomeState>(
-      builder: (context, state) {
-        if (state is! HomeLoaded) {
-          return const CircularProgressIndicator();
-        }
-        return DropdownSearch<Skills>(
-          items: state.skillsByCategory[category?.id]??[],
-          // قم بتغيير هذه إلى معرفات المهارات الفعلية
-          dropdownDecoratorProps: DropDownDecoratorProps(
-            dropdownSearchDecoration: InputDecoration(
-              hintText: '',
-              hintStyle: Theme
-                  .of(context)
-                  .textTheme
-                  .labelLarge,
-              border: const OutlineInputBorder(),
-            ),
-          ),
-          popupProps: PopupProps.menu(
-            showSearchBox: true,
-            itemBuilder: (context, item, isSelected) {
-              return ListTile(
-                title: Text(item.name!), // قم بتغيير هذا لعرض أسماء المهارات الفعلية
-              );
-            },
-          ),
-          onChanged: onChanged,
-        );
-      },
+    return DropdownSearch<int>(
+      items: const [1, 2, 3, 4], // قم بتغيير هذه إلى معرفات المهارات الفعلية
+      dropdownDecoratorProps: DropDownDecoratorProps(
+        dropdownSearchDecoration: InputDecoration(
+          hintText: '',
+          hintStyle: Theme.of(context).textTheme.labelLarge,
+          border: const OutlineInputBorder(),
+        ),
+      ),
+      popupProps: PopupProps.menu(
+        showSearchBox: true,
+        itemBuilder: (context, item, isSelected) {
+          return ListTile(
+            title: Text(
+                'Skill $item'), // قم بتغيير هذا لعرض أسماء المهارات الفعلية
+          );
+        },
+      ),
+      onChanged: onChanged,
     );
   }
 }
@@ -314,7 +293,6 @@ class CustomShowChipButton extends StatelessWidget {
 
   const CustomShowChipButton(
       {super.key, required this.projectItems, required this.onDelete});
-
   @override
   Widget build(BuildContext context) {
     return Wrap(
@@ -323,7 +301,7 @@ class CustomShowChipButton extends StatelessWidget {
       runSpacing: SizeConfig.defaultSize! * .5,
       children: projectItems
           .map((item) =>
-          CustomChipButton(onDeleted: () => onDelete(item), text: item))
+              CustomChipButton(onDeleted: () => onDelete(item), text: item))
           .toList(),
     );
   }
@@ -331,10 +309,8 @@ class CustomShowChipButton extends StatelessWidget {
 
 class CustomChipButton extends StatelessWidget {
   const CustomChipButton({super.key, this.onDeleted, required this.text});
-
   final void Function()? onDeleted;
   final String text;
-
   @override
   Widget build(BuildContext context) {
     return InputChip(
@@ -345,7 +321,7 @@ class CustomChipButton extends StatelessWidget {
       selected: true,
       shape: RoundedRectangleBorder(
           borderRadius:
-          BorderRadius.all(Radius.circular(SizeConfig.defaultSize! * 3))),
+              BorderRadius.all(Radius.circular(SizeConfig.defaultSize! * 3))),
       showCheckmark: false,
       labelPadding: EdgeInsets.all(SizeConfig.defaultSize! * .5),
       padding: EdgeInsets.all(SizeConfig.defaultSize! * .5),

@@ -8,7 +8,7 @@ class CreateProjectModel extends Equatable {
   final int? expectedDuration;
   final int? clientProfileId;
   final List<int>? projectSkillIds;
-  final int? projectCategory;
+  final List<int>? projectCategoriesIds;
 
   const CreateProjectModel({
     this.name,
@@ -18,7 +18,7 @@ class CreateProjectModel extends Equatable {
     this.expectedDuration,
     this.clientProfileId,
     this.projectSkillIds,
-    this.projectCategory,
+    this.projectCategoriesIds,
   });
 
   factory CreateProjectModel.fromJson(Map<String, dynamic> json) =>
@@ -30,7 +30,7 @@ class CreateProjectModel extends Equatable {
         expectedDuration: json['ExpectedDuration'] as int?,
         clientProfileId: json['clientProfileId'] as int?,
         projectSkillIds: json['projectSkillIds'] as List<int>?,
-        projectCategory: json['projectCategoriesIds'] as int?,
+        projectCategoriesIds: json['projectCategoriesIds'] as List<int>?,
       );
 
   Map<String, dynamic> toJson() => {
@@ -41,7 +41,7 @@ class CreateProjectModel extends Equatable {
         'ExpectedDuration': expectedDuration,
         'clientProfileId': clientProfileId,
         'projectSkillIds': projectSkillIds,
-        'projectCategoriesIds': projectCategory,
+        'projectCategoriesIds': projectCategoriesIds,
       };
 
   @override
@@ -54,7 +54,7 @@ class CreateProjectModel extends Equatable {
       expectedDuration,
       clientProfileId,
       projectSkillIds,
-      projectCategory,
+      projectCategoriesIds,
     ];
   }
 }
