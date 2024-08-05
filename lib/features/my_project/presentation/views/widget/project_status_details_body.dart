@@ -146,11 +146,7 @@ class _ShowProjectDetailsBodyState extends State<ProjectStatusDetailsBody>
                                               GoRouter.of(context)
                                                   .push("/offerdetails");
                                             },
-<<<<<<< HEAD
-                                            // child: const CustomOffer(),
-=======
                                            // child: const CustomOffer(),
->>>>>>> c17aaecf2b0fcfb04115103d45cd839bcaa27f6f
                                           );
                                         },
                                         separatorBuilder: (context, index) {
@@ -165,11 +161,7 @@ class _ShowProjectDetailsBodyState extends State<ProjectStatusDetailsBody>
                             Center(
                               child: CustomButtonGeneral(
                                 onPressed: () {
-<<<<<<< HEAD
                                   // GoRouter.of(context).push("/createoffer");
-=======
-                                 // GoRouter.of(context).push("/createoffer");
->>>>>>> c17aaecf2b0fcfb04115103d45cd839bcaa27f6f
                                 },
                                 color: Colors.white,
                                 textcolor: Colors.black,

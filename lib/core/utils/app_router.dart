@@ -179,21 +179,12 @@ abstract class AppRouter {
     ),
     GoRoute(
       path: '/editproject',
-<<<<<<< HEAD
-      builder: (context, state) =>
-          EditProject(projectModel: state.extra as ProjectModel),
-=======
       builder: (context, state) => EditProject(projectModel: state.extra as ProjectModel),
->>>>>>> c17aaecf2b0fcfb04115103d45cd839bcaa27f6f
     ),
     GoRoute(
       path: '/showprojectdetails',
       builder: (context, state) {
-<<<<<<< HEAD
-        return ShowProjectDetails(project: state.extra as ProjectModel);
-=======
         return ShowProjectDetails(projectId: state.extra as int);
->>>>>>> c17aaecf2b0fcfb04115103d45cd839bcaa27f6f
       },
     ),
     GoRoute(

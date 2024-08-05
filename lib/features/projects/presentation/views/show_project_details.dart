@@ -7,14 +7,9 @@ import 'package:freelance_job_portal/features/projects/presentation/views/widget
 import 'package:go_router/go_router.dart';
 
 class ShowProjectDetails extends StatelessWidget {
-<<<<<<< HEAD
-  const ShowProjectDetails({super.key, required this.project});
-  final ProjectModel project;
-=======
   const ShowProjectDetails({super.key, required this.projectId});
 
   final int projectId;
->>>>>>> c17aaecf2b0fcfb04115103d45cd839bcaa27f6f
 
   @override
   Widget build(BuildContext context) {
@@ -33,11 +28,7 @@ class ShowProjectDetails extends StatelessWidget {
               GoRouter.of(context).pop();
             },
           )),
-<<<<<<< HEAD
-      body: SafeArea(child: ShowProjectDetailsBody(project: project)),
-=======
       body: SafeArea(child: ShowProjectDetailsBody(projectId: projectId)),
->>>>>>> c17aaecf2b0fcfb04115103d45cd839bcaa27f6f
     );
   }
 }

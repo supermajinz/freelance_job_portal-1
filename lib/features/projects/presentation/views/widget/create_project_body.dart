@@ -167,10 +167,7 @@ class _CreateProjectBodyState extends State<CreateProjectBody> {
                           GoRouter.of(context).pushReplacement(
                               '/showprojectdetails',
                               extra: state.project.id);
-<<<<<<< HEAD
-=======
                           // Navigate back or to project details
->>>>>>> c17aaecf2b0fcfb04115103d45cd839bcaa27f6f
                         } else if (state is CreateProjectLoading) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(

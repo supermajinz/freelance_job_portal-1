@@ -76,10 +76,7 @@ class ProjectRepoImp implements ProjectRepo {
   @override
   Future<Either<Failure, List<OffersModel>>> getOffersByProject(
       int projectId) async {
-<<<<<<< HEAD
-=======
     // تنفيذ التابع الجديد
->>>>>>> c17aaecf2b0fcfb04115103d45cd839bcaa27f6f
     try {
       final response = await _apiService.get('offers/byProject/$projectId');
       final offers =
@@ -93,8 +90,6 @@ class ProjectRepoImp implements ProjectRepo {
       return left(ServerFailure(errMessage: e.toString()));
     }
   }
-<<<<<<< HEAD
-
   @override
   Future<Either<Failure, Unit>> deleteProject(int projectId) async {
     try {
@@ -108,8 +103,6 @@ class ProjectRepoImp implements ProjectRepo {
       return left(ServerFailure(errMessage: e.toString()));
     }
   }
-=======
->>>>>>> c17aaecf2b0fcfb04115103d45cd839bcaa27f6f
 }
 
 //@override

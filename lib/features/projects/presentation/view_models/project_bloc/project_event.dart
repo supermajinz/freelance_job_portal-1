@@ -30,7 +30,6 @@ class UpdateProject extends ProjectEvent {
   List<Object> get props => [projectId, project];
 }
 
-<<<<<<< HEAD:lib/features/projects/presentation/view_models/project_bloc/project_event.dart
 class DeleteProject extends ProjectEvent {
   final int projectId;
 
@@ -38,10 +37,4 @@ class DeleteProject extends ProjectEvent {
 
   @override
   List<Object> get props => [projectId];
-=======
-class FetchOffersByProject extends ProjectEvent {
-  // حدث جديد لطلب العروض
-  final int projectId;
-  const FetchOffersByProject(this.projectId);
->>>>>>> c17aaecf2b0fcfb04115103d45cd839bcaa27f6f:lib/features/projects/presentation/view_models/bloc/project_event.dart
 }

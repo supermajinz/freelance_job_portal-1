@@ -14,15 +14,12 @@ import '../../../../../core/widget/custom_meony.dart';
 import '../../../../../core/widget/custom_sub_title.dart';
 import '../../../../../core/widget/custom_subtitle_medium.dart';
 import '../../../data/model/project_model/project_model.dart';
-<<<<<<< HEAD
 import '../../view_models/offer_by_project/offer_by_project_bloc.dart';
-=======
->>>>>>> c17aaecf2b0fcfb04115103d45cd839bcaa27f6f
 
 class ShowProjectDetailsBody extends StatefulWidget {
-  final ProjectModel project;
+  final int projectId;
 
-  const ShowProjectDetailsBody({super.key, required this.project});
+  const ShowProjectDetailsBody({super.key, required this.projectId});
 
   @override
   // ignore: library_private_types_in_public_api
@@ -36,11 +33,7 @@ class _ShowProjectDetailsBodyState extends State<ShowProjectDetailsBody> {
   @override
   void initState() {
     super.initState();
-<<<<<<< HEAD
-    // context.read<ProjectBloc>().add(FetchProjectDetails(widget.project));
-=======
     context.read<ProjectBloc>().add(FetchProjectDetails(widget.projectId));
->>>>>>> c17aaecf2b0fcfb04115103d45cd839bcaa27f6f
   }
 
   @override
@@ -54,13 +47,9 @@ class _ShowProjectDetailsBodyState extends State<ShowProjectDetailsBody> {
       showOffers = !showOffers;
     });
     if (showOffers) {
-<<<<<<< HEAD
       context
           .read<OfferByProjectBloc>()
           .add(FetchOffersByProject(widget.projectId));
-=======
-      context.read<ProjectBloc>().add(FetchOffersByProject(widget.projectId));
->>>>>>> c17aaecf2b0fcfb04115103d45cd839bcaa27f6f
     }
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _scrollController.animateTo(
@@ -80,53 +69,45 @@ class _ShowProjectDetailsBodyState extends State<ShowProjectDetailsBody> {
 
   @override
   Widget build(BuildContext context) {
-<<<<<<< HEAD
     return BlocConsumer<ProjectBloc, ProjectState>(
       listener: (context, state) {
         if (state is ProjectDelet) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text('تم حذف المشروع بنجاح')),
           );
-           GoRouter.of(context).pop();
+          GoRouter.of(context).pop();
         }
       },
-      builder: (context, state) {
-        return SingleChildScrollView(
-=======
-    return BlocBuilder<ProjectBloc, ProjectState>(
       builder: (context, state) {
         if (state is ProjectLoading || state is ProjectInitial) {
           return const Center(child: CircularProgressIndicator());
         } else if (state is ProjectLoaded) {
           final project = state.project;
           return SingleChildScrollView(
->>>>>>> c17aaecf2b0fcfb04115103d45cd839bcaa27f6f
             controller: _scrollController,
             child: Column(
               children: [
                 const VirticalSpace(4),
                 Stack(
                   children: [
-                    _buildProjectDetailsContainer(context, widget.project),
-                    _buildClientInfoContainer(context, widget.project),
+                    _buildProjectDetailsContainer(context, state.project),
+                    _buildClientInfoContainer(context, state.project),
                   ],
                 ),
               ],
             ),
           );
-<<<<<<< HEAD
-=======
         } else if (state is ProjectError) {
           return Center(child: Text('Error: ${state.message}'));
         } else {
           return const Center(child: CircularProgressIndicator());
         }
->>>>>>> c17aaecf2b0fcfb04115103d45cd839bcaa27f6f
       },
     );
   }
 
-  Widget _buildProjectDetailsContainer(BuildContext context, ProjectModel project) {
+  Widget _buildProjectDetailsContainer(
+      BuildContext context, ProjectModel project) {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: SizeConfig.defaultSize! * .5),
       decoration: BoxDecoration(
@@ -213,35 +194,13 @@ class _ShowProjectDetailsBodyState extends State<ShowProjectDetailsBody> {
     );
   }
 
-<<<<<<< HEAD
   Widget _buildprojectTime(ProjectModel project) {
-=======
-  Widget _buildprojectTime(dynamic project) {
     return Row(
       children: [
         const Expanded(child: CustomSubTitleMedium(text: "Delivery Time:")),
         Expanded(
           child: CustomContainer(
             text: project.expectedDuration?.toString() ?? 'N/A',
-          ),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildProjectPrice(dynamic project) {
->>>>>>> c17aaecf2b0fcfb04115103d45cd839bcaa27f6f
-    return Row(
-      children: [
-        const Expanded(child: CustomSubTitleMedium(text: "Delivery Time:")),
-        Expanded(
-<<<<<<< HEAD
-          child: CustomContainer(
-            text: project.expectedDuration?.toString() ?? 'N/A',
-=======
-          child: CustomMeony(
-            text:"${project.minBudget?.toString() ?? 'N/A'}  _  ${project.maxBudget?.toString() ?? 'N/A'}" ,
->>>>>>> c17aaecf2b0fcfb04115103d45cd839bcaa27f6f
           ),
         ),
       ],
@@ -300,15 +259,9 @@ class _ShowProjectDetailsBodyState extends State<ShowProjectDetailsBody> {
     return AnimatedCrossFade(
       duration: const Duration(milliseconds: 800),
       firstChild: Container(),
-<<<<<<< HEAD
-      secondChild: BlocBuilder<OfferByProjectBloc, OfferByProjectState>(
-        builder: (context, state) {
-          if (state is OfferByProjectLoaded) {
-=======
       secondChild: BlocBuilder<ProjectBloc, ProjectState>(
         builder: (context, state) {
           if (state is OffersLoaded) {
->>>>>>> c17aaecf2b0fcfb04115103d45cd839bcaa27f6f
             return ListView.separated(
               physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
@@ -324,11 +277,9 @@ class _ShowProjectDetailsBodyState extends State<ShowProjectDetailsBody> {
               },
               itemCount: state.offers.length,
             );
-<<<<<<< HEAD
           } else if (state is OfferByProjectFaliure) {
-=======
+            return Center(child: Text('Error: }'));
           } else if (state is ProjectError) {
->>>>>>> c17aaecf2b0fcfb04115103d45cd839bcaa27f6f
             return Center(child: Text('Error: ${state.message}'));
           } else {
             return const Center(child: CircularProgressIndicator());
@@ -358,141 +309,112 @@ class _ShowProjectDetailsBodyState extends State<ShowProjectDetailsBody> {
 
   Widget _buildClientInfoContainer(BuildContext context, ProjectModel project) {
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: SizeConfig.defaultSize! * .5),
-      padding: EdgeInsets.all(SizeConfig.defaultSize! * 1),
-      decoration: BoxDecoration(
-        color: Theme.of(context).hintColor,
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(SizeConfig.defaultSize! * 4),
-          topRight: Radius.circular(SizeConfig.defaultSize! * 4),
-        ),
-      ),
-      child: Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: EdgeInsets.only(top: SizeConfig.defaultSize! * .5),
-            child: CircleAvatar(
-              radius: SizeConfig.defaultSize! * 5,
-<<<<<<< HEAD
-              backgroundImage: NetworkImage(
-                  'http://10.0.2.2:8080/api/v1/file/photo/${project.client!.photoDtOs![1].photo}'),
-=======
-              backgroundImage: const AssetImage("assets/images/pro.jpg"),
->>>>>>> c17aaecf2b0fcfb04115103d45cd839bcaa27f6f
-            ),
+        margin: EdgeInsets.symmetric(horizontal: SizeConfig.defaultSize! * .5),
+        padding: EdgeInsets.all(SizeConfig.defaultSize! * 1),
+        decoration: BoxDecoration(
+          color: Theme.of(context).hintColor,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(SizeConfig.defaultSize! * 4),
+            topRight: Radius.circular(SizeConfig.defaultSize! * 4),
           ),
-          const HorizintalSpace(.5),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              CustomSubTitleMedium(
-                text:
-                    "${project.client?.userDto?.firstname ?? 'Unknown'} ${project.client?.userDto?.lastname ?? ''}",
-                color: Colors.white,
+        ),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: EdgeInsets.only(top: SizeConfig.defaultSize! * .5),
+              child: CircleAvatar(
+                radius: SizeConfig.defaultSize! * 5,
+                backgroundImage: const AssetImage("assets/images/pro.jpg"),
               ),
-              Padding(
-                padding: EdgeInsets.only(right: SizeConfig.defaultSize! * .5),
-                child: CustomBody(
-                  text: project.client?.jobTitleDto?.title ?? 'No job title',
+            ),
+            const HorizintalSpace(.5),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                CustomSubTitleMedium(
+                  text:
+                      "${project.client?.userDto?.firstname ?? 'Unknown'} ${project.client?.userDto?.lastname ?? ''}",
                   color: Colors.white,
                 ),
-              ),
-              Padding(
-                padding: EdgeInsets.only(right: SizeConfig.defaultSize! * .8),
-                child: const CustomBody(
-                  text: "13 مشروع مكتمل",
-                  color: Colors.white,
-                ),
-              ),
-              const VirticalSpace(0.2),
-              Row(
-                children: [
-                  CustomLabel(
-                    text: project.client?.rate.toString() ?? 'N/A',
+                Padding(
+                  padding: EdgeInsets.only(right: SizeConfig.defaultSize! * .5),
+                  child: CustomBody(
+                    text: project.client?.jobTitleDto?.title ?? 'No job title',
                     color: Colors.white,
                   ),
-                  const HorizintalSpace(0.5),
-                  const Icon(
-                    Icons.star,
-                    color: Colors.yellow,
-                    size: 20,
+                ),
+                Padding(
+                  padding: EdgeInsets.only(right: SizeConfig.defaultSize! * .8),
+                  child: const CustomBody(
+                    text: "13 مشروع مكتمل",
+                    color: Colors.white,
                   ),
-                ],
-              ),
-            ],
-          ),
-          const Spacer(),
-          PopupMenuButton(
-            position: PopupMenuPosition.under,
-            constraints: const BoxConstraints(maxHeight: 150),
-            elevation: 10,
-            iconColor: Colors.white,
-            iconSize: 25,
-<<<<<<< HEAD
-            onSelected: (value) {
-              if (value == 'edit') {
-                GoRouter.of(context).push("/editproject", extra: project);
-              } else if (value == 'delete') {
-                _deleteProject();
-              }
-            },
-            itemBuilder: (context) => [
-              const PopupMenuItem(
-                  value: "edit",
-                  child: Row(
-=======
-            itemBuilder: (context) => [
-              PopupMenuItem(
-                  onTap: () {
-                    GoRouter.of(context).push("/editproject", extra: project);
-                  },
-                  child: const Row(
->>>>>>> c17aaecf2b0fcfb04115103d45cd839bcaa27f6f
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Icon(Icons.edit),
-                      CustomBody(
-                        text: "تعديل المشروع",
-                      ),
-                    ],
-                  )),
-              const PopupMenuItem(
-<<<<<<< HEAD
-                  value: "delete",
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Icon(
-                        Icons.delete,
-                        color: Colors.red,
-                      ),
-                      CustomBody(
-                        text: "حذف المشروع",
-                        color: Colors.red,
-                      ),
-                    ],
-                  )),
-=======
-                  child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Icon(
-                    Icons.delete,
-                    color: Colors.red,
-                  ),
-                  CustomBody(
-                    text: "حذف المشروع",
-                    color: Colors.red,
-                  ),
-                ],
-              )),
->>>>>>> c17aaecf2b0fcfb04115103d45cd839bcaa27f6f
-            ],
-          )
-        ],
-      ),
-    );
+                ),
+                const VirticalSpace(0.2),
+                Row(
+                  children: [
+                    CustomLabel(
+                      text: project.client?.rate.toString() ?? 'N/A',
+                      color: Colors.white,
+                    ),
+                    const HorizintalSpace(0.5),
+                    const Icon(
+                      Icons.star,
+                      color: Colors.yellow,
+                      size: 20,
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            const Spacer(),
+            PopupMenuButton(
+              position: PopupMenuPosition.under,
+              constraints: const BoxConstraints(maxHeight: 150),
+              elevation: 10,
+              iconColor: Colors.white,
+              iconSize: 25,
+              onSelected: (value) {
+                if (value == 'edit') {
+                  GoRouter.of(context).push("/editproject", extra: project);
+                } else if (value == 'delete') {
+                  _deleteProject();
+                }
+              },
+              itemBuilder: (context) => [
+                PopupMenuItem(
+                    onTap: () {
+                      GoRouter.of(context).push("/editproject", extra: project);
+                    },
+                    child: const Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Icon(Icons.edit),
+                        CustomBody(
+                          text: "تعديل المشروع",
+                        ),
+                      ],
+                    )),
+                const PopupMenuItem(
+                    value: "delete",
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Icon(
+                          Icons.delete,
+                          color: Colors.red,
+                        ),
+                        CustomBody(
+                          text: "حذف المشروع",
+                          color: Colors.red,
+                        ),
+                      ],
+                    )),
+              ],
+            ),
+          ],
+        ));
   }
 
   Widget buildClientImage(dynamic project) {
