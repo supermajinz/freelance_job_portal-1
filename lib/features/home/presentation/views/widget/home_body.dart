@@ -7,7 +7,11 @@ import 'package:freelance_job_portal/core/widget/space.dart';
 import 'package:freelance_job_portal/features/home/presentation/view_models/home_bloc/home_bloc.dart';
 import 'package:freelance_job_portal/features/home/presentation/views/widget/custom_cartegory_card.dart';
 import 'package:freelance_job_portal/features/projects/data/model/project_model/project_model.dart';
+<<<<<<< HEAD
 import 'package:freelance_job_portal/features/projects/presentation/view_models/project_bloc/project_bloc.dart';
+=======
+import 'package:freelance_job_portal/features/projects/presentation/view_models/bloc/project_bloc.dart';
+>>>>>>> c17aaecf2b0fcfb04115103d45cd839bcaa27f6f
 import 'package:freelance_job_portal/features/projects/presentation/views/widget/custom_project_card.dart';
 import 'package:go_router/go_router.dart';
 
@@ -33,6 +37,7 @@ class HomeBody extends StatelessWidget {
           BlocBuilder<HomeBloc, HomeState>(
             builder: (context, state) {
               if (state is HomeLoaded) {
+                
                 return SizedBox(
                   height: SizeConfig.defaultSize! * 29,
                   child: GridView.builder(

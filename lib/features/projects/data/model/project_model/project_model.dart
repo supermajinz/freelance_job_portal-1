@@ -15,7 +15,7 @@ class ProjectModel extends Equatable {
   final String? description;
   final int? minBudget;
   final int? maxBudget;
-  final dynamic expectedDuration;
+  final int? expectedDuration;
   final String? status;
   final DateTime? createDate;
   final Client? client;
@@ -44,7 +44,7 @@ class ProjectModel extends Equatable {
         description: json['description'] as String?,
         minBudget: json['minBudget'] as int?,
         maxBudget: json['maxBudget'] as int?,
-        expectedDuration: json['ExpectedDuration'] as dynamic,
+        expectedDuration: json['ExpectedDuration'] as int?,
         status: json['status'] as String?,
         createDate: json['createDate'] == null
             ? null

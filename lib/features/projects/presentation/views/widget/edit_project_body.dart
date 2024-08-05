@@ -10,10 +10,17 @@ import 'package:freelance_job_portal/features/home/data/model/caregories/caregor
 import 'package:freelance_job_portal/features/profile/presentation/views/widget/edit_text_form.dart';
 import 'package:freelance_job_portal/features/projects/data/model/project_model/project_category.dart';
 import 'package:freelance_job_portal/features/projects/data/model/project_model/project_model.dart';
+<<<<<<< HEAD
 import '../../../../../core/widget/custom_label.dart';
 import '../../../../home/data/model/skills/skills.dart';
 import '../../../../home/presentation/view_models/home_bloc/home_bloc.dart';
 import 'package:freelance_job_portal/features/projects/presentation/view_models/project_bloc/project_bloc.dart';
+=======
+import 'package:freelance_job_portal/features/projects/presentation/view_models/bloc/project_bloc.dart';
+import '../../../../../core/widget/custom_label.dart';
+import '../../../../home/data/model/skills/skills.dart';
+import '../../../../home/presentation/view_models/home_bloc/home_bloc.dart';
+>>>>>>> c17aaecf2b0fcfb04115103d45cd839bcaa27f6f
 import '../../../../profile/presentation/views/widget/custom_chip_button.dart';
 import '../../../data/model/edit_project_model.dart';
 

@@ -14,7 +14,10 @@ import '../../../../../core/widget/custom_meony.dart';
 import '../../../../../core/widget/custom_sub_title.dart';
 import '../../../../../core/widget/custom_subtitle_medium.dart';
 import '../../../data/model/project_model/project_model.dart';
+<<<<<<< HEAD
 import '../../view_models/offer_by_project/offer_by_project_bloc.dart';
+=======
+>>>>>>> c17aaecf2b0fcfb04115103d45cd839bcaa27f6f
 
 class ShowProjectDetailsBody extends StatefulWidget {
   final ProjectModel project;
@@ -33,7 +36,11 @@ class _ShowProjectDetailsBodyState extends State<ShowProjectDetailsBody> {
   @override
   void initState() {
     super.initState();
+<<<<<<< HEAD
     // context.read<ProjectBloc>().add(FetchProjectDetails(widget.project));
+=======
+    context.read<ProjectBloc>().add(FetchProjectDetails(widget.projectId));
+>>>>>>> c17aaecf2b0fcfb04115103d45cd839bcaa27f6f
   }
 
   @override
@@ -47,9 +54,13 @@ class _ShowProjectDetailsBodyState extends State<ShowProjectDetailsBody> {
       showOffers = !showOffers;
     });
     if (showOffers) {
+<<<<<<< HEAD
       context
           .read<OfferByProjectBloc>()
           .add(FetchOffersByProject(widget.projectId));
+=======
+      context.read<ProjectBloc>().add(FetchOffersByProject(widget.projectId));
+>>>>>>> c17aaecf2b0fcfb04115103d45cd839bcaa27f6f
     }
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _scrollController.animateTo(
@@ -69,6 +80,7 @@ class _ShowProjectDetailsBodyState extends State<ShowProjectDetailsBody> {
 
   @override
   Widget build(BuildContext context) {
+<<<<<<< HEAD
     return BlocConsumer<ProjectBloc, ProjectState>(
       listener: (context, state) {
         if (state is ProjectDelet) {
@@ -80,6 +92,15 @@ class _ShowProjectDetailsBodyState extends State<ShowProjectDetailsBody> {
       },
       builder: (context, state) {
         return SingleChildScrollView(
+=======
+    return BlocBuilder<ProjectBloc, ProjectState>(
+      builder: (context, state) {
+        if (state is ProjectLoading || state is ProjectInitial) {
+          return const Center(child: CircularProgressIndicator());
+        } else if (state is ProjectLoaded) {
+          final project = state.project;
+          return SingleChildScrollView(
+>>>>>>> c17aaecf2b0fcfb04115103d45cd839bcaa27f6f
             controller: _scrollController,
             child: Column(
               children: [
@@ -93,6 +114,14 @@ class _ShowProjectDetailsBodyState extends State<ShowProjectDetailsBody> {
               ],
             ),
           );
+<<<<<<< HEAD
+=======
+        } else if (state is ProjectError) {
+          return Center(child: Text('Error: ${state.message}'));
+        } else {
+          return const Center(child: CircularProgressIndicator());
+        }
+>>>>>>> c17aaecf2b0fcfb04115103d45cd839bcaa27f6f
       },
     );
   }
@@ -184,13 +213,35 @@ class _ShowProjectDetailsBodyState extends State<ShowProjectDetailsBody> {
     );
   }
 
+<<<<<<< HEAD
   Widget _buildprojectTime(ProjectModel project) {
+=======
+  Widget _buildprojectTime(dynamic project) {
     return Row(
       children: [
         const Expanded(child: CustomSubTitleMedium(text: "Delivery Time:")),
         Expanded(
           child: CustomContainer(
             text: project.expectedDuration?.toString() ?? 'N/A',
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildProjectPrice(dynamic project) {
+>>>>>>> c17aaecf2b0fcfb04115103d45cd839bcaa27f6f
+    return Row(
+      children: [
+        const Expanded(child: CustomSubTitleMedium(text: "Delivery Time:")),
+        Expanded(
+<<<<<<< HEAD
+          child: CustomContainer(
+            text: project.expectedDuration?.toString() ?? 'N/A',
+=======
+          child: CustomMeony(
+            text:"${project.minBudget?.toString() ?? 'N/A'}  _  ${project.maxBudget?.toString() ?? 'N/A'}" ,
+>>>>>>> c17aaecf2b0fcfb04115103d45cd839bcaa27f6f
           ),
         ),
       ],
@@ -249,9 +300,15 @@ class _ShowProjectDetailsBodyState extends State<ShowProjectDetailsBody> {
     return AnimatedCrossFade(
       duration: const Duration(milliseconds: 800),
       firstChild: Container(),
+<<<<<<< HEAD
       secondChild: BlocBuilder<OfferByProjectBloc, OfferByProjectState>(
         builder: (context, state) {
           if (state is OfferByProjectLoaded) {
+=======
+      secondChild: BlocBuilder<ProjectBloc, ProjectState>(
+        builder: (context, state) {
+          if (state is OffersLoaded) {
+>>>>>>> c17aaecf2b0fcfb04115103d45cd839bcaa27f6f
             return ListView.separated(
               physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
@@ -267,7 +324,11 @@ class _ShowProjectDetailsBodyState extends State<ShowProjectDetailsBody> {
               },
               itemCount: state.offers.length,
             );
+<<<<<<< HEAD
           } else if (state is OfferByProjectFaliure) {
+=======
+          } else if (state is ProjectError) {
+>>>>>>> c17aaecf2b0fcfb04115103d45cd839bcaa27f6f
             return Center(child: Text('Error: ${state.message}'));
           } else {
             return const Center(child: CircularProgressIndicator());
@@ -313,8 +374,12 @@ class _ShowProjectDetailsBodyState extends State<ShowProjectDetailsBody> {
             padding: EdgeInsets.only(top: SizeConfig.defaultSize! * .5),
             child: CircleAvatar(
               radius: SizeConfig.defaultSize! * 5,
+<<<<<<< HEAD
               backgroundImage: NetworkImage(
                   'http://10.0.2.2:8080/api/v1/file/photo/${project.client!.photoDtOs![1].photo}'),
+=======
+              backgroundImage: const AssetImage("assets/images/pro.jpg"),
+>>>>>>> c17aaecf2b0fcfb04115103d45cd839bcaa27f6f
             ),
           ),
           const HorizintalSpace(.5),
@@ -364,6 +429,7 @@ class _ShowProjectDetailsBodyState extends State<ShowProjectDetailsBody> {
             elevation: 10,
             iconColor: Colors.white,
             iconSize: 25,
+<<<<<<< HEAD
             onSelected: (value) {
               if (value == 'edit') {
                 GoRouter.of(context).push("/editproject", extra: project);
@@ -375,6 +441,14 @@ class _ShowProjectDetailsBodyState extends State<ShowProjectDetailsBody> {
               const PopupMenuItem(
                   value: "edit",
                   child: Row(
+=======
+            itemBuilder: (context) => [
+              PopupMenuItem(
+                  onTap: () {
+                    GoRouter.of(context).push("/editproject", extra: project);
+                  },
+                  child: const Row(
+>>>>>>> c17aaecf2b0fcfb04115103d45cd839bcaa27f6f
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Icon(Icons.edit),
@@ -384,6 +458,7 @@ class _ShowProjectDetailsBodyState extends State<ShowProjectDetailsBody> {
                     ],
                   )),
               const PopupMenuItem(
+<<<<<<< HEAD
                   value: "delete",
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -398,6 +473,21 @@ class _ShowProjectDetailsBodyState extends State<ShowProjectDetailsBody> {
                       ),
                     ],
                   )),
+=======
+                  child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Icon(
+                    Icons.delete,
+                    color: Colors.red,
+                  ),
+                  CustomBody(
+                    text: "حذف المشروع",
+                    color: Colors.red,
+                  ),
+                ],
+              )),
+>>>>>>> c17aaecf2b0fcfb04115103d45cd839bcaa27f6f
             ],
           )
         ],

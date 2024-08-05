@@ -11,6 +11,10 @@ abstract class ProjectRepo {
       CreateProjectModel project);
   Future<Either<Failure, EditProjectModel>> updateProject(
       EditProjectModel editProjectModel, int projectId);
+<<<<<<< HEAD
   Future<Either<Failure, List<OffersModel>>> getOffersByProject(int projectId);
   Future<Either<Failure, Unit>> deleteProject(int projectId);
+=======
+ Future<Either<Failure, List<OffersModel>>> getOffersByProject(int projectId);
+>>>>>>> c17aaecf2b0fcfb04115103d45cd839bcaa27f6f
 }
