@@ -34,7 +34,7 @@ class HomeRepoImpl implements HomeRepo {
     try {
       var data = await apiService.get('skill/$categoryId');
       List<Skills> skill = [];
-      for (var item in data['clientProfiles']['body']) {
+      for (var item in data['skills']['body']) {
         skill.add(Skills.fromJson(item));
       }
       return right(skill);

@@ -6,6 +6,7 @@ import 'package:freelance_job_portal/features/projects/data/model/edit_project_m
 import 'package:freelance_job_portal/features/projects/data/model/project_model/project_model.dart';
 import 'package:freelance_job_portal/features/projects/data/repo/project_repo.dart';
 import '../../../../core/utils/api_service.dart';
+import '../../../offers/data/model/offers_model/offers_model.dart';
 
 class ProjectRepoImp implements ProjectRepo {
   final ApiService _apiService;
@@ -27,7 +28,7 @@ class ProjectRepoImp implements ProjectRepo {
   }
 
   @override
-  Future<Either<Failure, CreateProjectModel>> createProject(
+  Future<Either<Failure, ProjectModel>> createProject(
       CreateProjectModel project) async {
     try {
       final response = await _apiService.post('projects', {
@@ -38,9 +39,9 @@ class ProjectRepoImp implements ProjectRepo {
         "ExpectedDuration": project.expectedDuration,
         "clientProfileId": project.clientProfileId,
         "projectSkillIds": project.projectSkillIds,
-        "projectCategoriesIds": project.projectCategoriesIds,
+        "projectCategoriesIds": project.projectCategory,
       });
-      return Right(CreateProjectModel.fromJson(response));
+      return Right(ProjectModel.fromJson(response));
     } catch (e) {
       if (e is DioException) {
         return left(ServerFailure.fromDioException(e));
@@ -71,18 +72,38 @@ class ProjectRepoImp implements ProjectRepo {
       return left(ServerFailure(errMessage: e.toString()));
     }
   }
-}
 
-// {
-//         "name": project.name,
-//         "description": project.description,
-//         "minBudget": project.minBudget,
-//         "maxBudget": project.maxBudget,
-//         "ExpectedDuration": project.expectedDuration,
-//         "clientProfileId": project.clientProfileId,
-//         "projectSkillIds": project.projectSkillIds,
-//         "projectCategoriesIds": project.projectCategoriesIds,
-//       }
+  @override
+  Future<Either<Failure, List<OffersModel>>> getOffersByProject(
+      int projectId) async {
+    try {
+      final response = await _apiService.get('offers/byProject/$projectId');
+      final offers =
+          (response as List).map((json) => OffersModel.fromJson(json)).toList();
+      print("offers: $offers");
+      return Right(offers);
+    } catch (e) {
+      if (e is DioException) {
+        return left(ServerFailure.fromDioException(e));
+      }
+      return left(ServerFailure(errMessage: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, Unit>> deleteProject(int projectId) async {
+    try {
+     
+      await _apiService.delete('projects/$projectId');
+      return const Right(unit);
+    } catch (e) {
+      if (e is DioException) {
+        return left(ServerFailure.fromDioException(e));
+      }
+      return left(ServerFailure(errMessage: e.toString()));
+    }
+  }
+}
 
 //@override
 // Future<Either<Failure, List<String>>> getCategories() async {

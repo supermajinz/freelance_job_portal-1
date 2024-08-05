@@ -58,7 +58,7 @@ class CustomProfileCard extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                 CustomSubTitleMedium(
+                CustomSubTitleMedium(
                   text: "$firstName $lastName",
                 ),
                 const VirticalSpace(.5),

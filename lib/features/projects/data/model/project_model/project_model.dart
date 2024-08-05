@@ -1,11 +1,16 @@
+import 'dart:typed_data';
+
 import 'package:equatable/equatable.dart';
+import 'package:freelance_job_portal/features/home/data/model/caregories/caregories.dart';
+import 'package:freelance_job_portal/features/home/data/model/skills/skills.dart';
+import 'package:freelance_job_portal/features/offers/data/model/offer_model/worker.dart';
 
 import 'client.dart';
 import 'project_category.dart';
 import 'project_skill.dart';
 
 class ProjectModel extends Equatable {
-  final int? id;
+  final int id;
   final String? name;
   final String? description;
   final int? minBudget;
@@ -14,27 +19,27 @@ class ProjectModel extends Equatable {
   final String? status;
   final DateTime? createDate;
   final Client? client;
-  final dynamic worker;
-  final List<ProjectCategory>? projectCategories;
-  final List<ProjectSkill>? projectSkill;
+  final Worker? worker;
+  final Categories projectCategory;
+  final List<Skills>? projectSkill;
 
   const ProjectModel({
-    this.id,
-    this.name,
-    this.description,
-    this.minBudget,
-    this.maxBudget,
-    this.expectedDuration,
-    this.status,
+    this.id = 1,
+    this.name = "Project name",
+    this.description = "Project Description",
+    this.minBudget = 100000,
+    this.maxBudget = 800000,
+    this.expectedDuration = 60,
+    this.status = "open",
     this.createDate,
     this.client,
     this.worker,
-    this.projectCategories,
+    this.projectCategory = const Categories(id: 1, name: "name"),
     this.projectSkill,
   });
 
   factory ProjectModel.fromJson(Map<String, dynamic> json) => ProjectModel(
-        id: json['id'] as int?,
+        id: json['id'] as int,
         name: json['name'] as String?,
         description: json['description'] as String?,
         minBudget: json['minBudget'] as int?,
@@ -48,11 +53,9 @@ class ProjectModel extends Equatable {
             ? null
             : Client.fromJson(json['client'] as Map<String, dynamic>),
         worker: json['worker'] as dynamic,
-        projectCategories: (json['projectCategories'] as List<dynamic>?)
-            ?.map((e) => ProjectCategory.fromJson(e as Map<String, dynamic>))
-            .toList(),
+        projectCategory: Categories.fromJson(json['projectCategories'] as Map<String, dynamic>),
         projectSkill: (json['projectSkill'] as List<dynamic>?)
-            ?.map((e) => ProjectSkill.fromJson(e as Map<String, dynamic>))
+            ?.map((e) => Skills.fromJson(e as Map<String, dynamic>))
             .toList(),
       );
 
@@ -67,7 +70,7 @@ class ProjectModel extends Equatable {
         'createDate': createDate?.toIso8601String(),
         'client': client?.toJson(),
         'worker': worker,
-        'projectCategories': projectCategories?.map((e) => e.toJson()).toList(),
+        'projectCategories': projectCategory?.map((e) => e.toJson()).toList(),
         'projectSkill': projectSkill?.map((e) => e.toJson()).toList(),
       };
 
@@ -84,7 +87,7 @@ class ProjectModel extends Equatable {
       createDate,
       client,
       worker,
-      projectCategories,
+      projectCategory,
       projectSkill,
     ];
   }

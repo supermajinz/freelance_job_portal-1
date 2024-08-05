@@ -79,7 +79,7 @@ class CustomInfoDetailsStatus extends StatelessWidget {
               const HorizintalSpace(9),
               IconButton(
                   onPressed: () {
-                    GoRouter.of(context).push("/editproject");
+                    // GoRouter.of(context).push("/editproject");
                   },
                   icon: const Icon(
                     Icons.edit,

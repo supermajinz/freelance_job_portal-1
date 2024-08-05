@@ -1,31 +1,33 @@
 import 'package:equatable/equatable.dart';
 
+import 'category_dto.dart';
 import 'job_title_dto.dart';
-import 'photo_dt_o.dart';
 import 'user_dto.dart';
 
-class Client extends Equatable {
+class Worker extends Equatable {
   final int? id;
   final String? bio;
   final int? userId;
   final double? rate;
   final JobTitleDto? jobTitleDto;
-  final List<PhotoDtO>? photoDtOs;
+  final CategoryDto? categoryDto;
+  final List<dynamic>? photoDtOs;
   final List<dynamic>? skillDtOs;
   final UserDto? userDto;
 
-  const Client({
+  const Worker({
     this.id,
     this.bio,
     this.userId,
     this.rate,
     this.jobTitleDto,
+    this.categoryDto,
     this.photoDtOs,
     this.skillDtOs,
     this.userDto,
   });
 
-  factory Client.fromJson(Map<String, dynamic> json) => Client(
+  factory Worker.fromJson(Map<String, dynamic> json) => Worker(
         id: json['id'] as int?,
         bio: json['bio'] as String?,
         userId: json['userId'] as int?,
@@ -33,9 +35,10 @@ class Client extends Equatable {
         jobTitleDto: json['jobTitleDTO'] == null
             ? null
             : JobTitleDto.fromJson(json['jobTitleDTO'] as Map<String, dynamic>),
-        photoDtOs: (json['photoDTOs'] as List<dynamic>?)
-            ?.map((e) => PhotoDtO.fromJson(e as Map<String, dynamic>))
-            .toList(),
+        categoryDto: json['categoryDTO'] == null
+            ? null
+            : CategoryDto.fromJson(json['categoryDTO'] as Map<String, dynamic>),
+        photoDtOs: json['photoDTOs'] as List<dynamic>?,
         skillDtOs: json['skillDTOs'] as List<dynamic>?,
         userDto: json['userDTO'] == null
             ? null
@@ -48,7 +51,8 @@ class Client extends Equatable {
         'userId': userId,
         'rate': rate,
         'jobTitleDTO': jobTitleDto?.toJson(),
-        'photoDTOs': photoDtOs?.map((e) => e.toJson()).toList(),
+        'categoryDTO': categoryDto?.toJson(),
+        'photoDTOs': photoDtOs,
         'skillDTOs': skillDtOs,
         'userDTO': userDto?.toJson(),
       };
@@ -61,6 +65,7 @@ class Client extends Equatable {
       userId,
       rate,
       jobTitleDto,
+      categoryDto,
       photoDtOs,
       skillDtOs,
       userDto,

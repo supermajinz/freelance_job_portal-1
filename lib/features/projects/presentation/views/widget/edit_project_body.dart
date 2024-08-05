@@ -6,24 +6,49 @@ import 'package:freelance_job_portal/core/widget/custom_button_general.dart';
 import 'package:freelance_job_portal/core/widget/custom_edit_meony_general.dart';
 import 'package:freelance_job_portal/core/widget/custom_sub_title.dart';
 import 'package:freelance_job_portal/core/widget/space.dart';
+import 'package:freelance_job_portal/features/home/data/model/caregories/caregories.dart';
 import 'package:freelance_job_portal/features/profile/presentation/views/widget/edit_text_form.dart';
-import 'package:freelance_job_portal/features/projects/presentation/view_models/bloc/project_bloc.dart';
+import 'package:freelance_job_portal/features/projects/data/model/project_model/project_category.dart';
+import 'package:freelance_job_portal/features/projects/data/model/project_model/project_model.dart';
+import '../../../../../core/widget/custom_label.dart';
+import '../../../../home/data/model/skills/skills.dart';
+import '../../../../home/presentation/view_models/home_bloc/home_bloc.dart';
+import 'package:freelance_job_portal/features/projects/presentation/view_models/project_bloc/project_bloc.dart';
 import '../../../../profile/presentation/views/widget/custom_chip_button.dart';
 import '../../../data/model/edit_project_model.dart';
 
 class EditProjectBody extends StatefulWidget {
-  const EditProjectBody({super.key});
+  const EditProjectBody({super.key, required this.projectModel});
+  final ProjectModel projectModel;
 
   @override
   State<EditProjectBody> createState() => _EditProjectBodyState();
 }
 
 class _EditProjectBodyState extends State<EditProjectBody> {
-  final TextEditingController titleController = TextEditingController();
-  final TextEditingController descriptionController = TextEditingController();
-  final TextEditingController minBudgetController = TextEditingController();
-  final TextEditingController maxBudgetController = TextEditingController();
-  final TextEditingController durationController = TextEditingController();
+  late final TextEditingController titleController;
+  late final TextEditingController descriptionController;
+  late final TextEditingController minBudgetController;
+  late final TextEditingController maxBudgetController;
+  late final TextEditingController durationController;
+  late Categories category;
+  late final List<Skills> skills;
+
+  @override
+  void initState() {
+    titleController = TextEditingController(text: widget.projectModel.name);
+    descriptionController =
+        TextEditingController(text: widget.projectModel.description);
+    minBudgetController =
+        TextEditingController(text: widget.projectModel.minBudget.toString());
+    maxBudgetController =
+        TextEditingController(text: widget.projectModel.maxBudget.toString());
+    durationController = TextEditingController(
+        text: widget.projectModel.expectedDuration.toString());
+    category = widget.projectModel.projectCategory;
+    skills = widget.projectModel.projectSkill??[];
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +65,6 @@ class _EditProjectBodyState extends State<EditProjectBody> {
             EditTextForm(
                 onTapicon: () {},
                 mycontroller: titleController,
-                //initvalue: "Excited to work with you!",
                 hinttext: "",
                 lable: "Title",
                 isNumber: false),
@@ -48,8 +72,6 @@ class _EditProjectBodyState extends State<EditProjectBody> {
             EditTextForm(
                 onTapicon: () {},
                 mycontroller: descriptionController,
-                //  initvalue:
-                // "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce fermentum lacus metus. Vivamus faucibus ullamcorper velit, id facilisis lacus tempus.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce fermentum lacus metus. Vivamus faucibus ullamcorper velit, id facilisis lacus tempus.Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce fermentum lacus metus. Vivamus faucibus ullamcorper velit, id facilisis lacus tempus.",
                 hinttext: "",
                 lable: "Discripion",
                 isNumber: false),
@@ -91,7 +113,6 @@ class _EditProjectBodyState extends State<EditProjectBody> {
             EditTextForm(
               onTapicon: () {},
               mycontroller: durationController,
-              // initvalue: "10",
               hinttext: "",
               lable: "Duration",
               isNumber: true,
@@ -99,13 +120,39 @@ class _EditProjectBodyState extends State<EditProjectBody> {
             const VirticalSpace(5),
             const CustomSubTitle(text: "Category"),
             const VirticalSpace(1.5),
-            const CustomDropdownSearsh1(),
+            CustomDropdownSearchCategories(
+              onChanged: (value) {
+                if (value != null) {
+                  setState(() {
+                    category = value;
+                    skills.clear();
+                  });
+                }
+              },
+            ),
             const VirticalSpace(5),
             const CustomSubTitle(text: "Skills"),
             const VirticalSpace(1.5),
-            const CustomDropdownSearsh1(),
+            CustomDropdownSearchSkills(
+              category: category,
+              onChanged: (value) {
+                if (value != null && !skills.contains(value)) {
+                  setState(() {
+                    skills.add(value);
+                  });
+                }
+              },
+            ),
             const VirticalSpace(2),
-            const CustomShowChipButton(),
+            CustomShowChipButton(
+              projectItems:
+              skills.map((id) => id.toString()).toList(),
+              onDelete: (skill) {
+                setState(() {
+                  skills.remove(skill);
+                });
+              },
+            ),
             const VirticalSpace(7),
             Builder(builder: (context) {
               return BlocConsumer<ProjectBloc, ProjectState>(
@@ -131,9 +178,8 @@ class _EditProjectBodyState extends State<EditProjectBody> {
                           minBudget: int.parse(minBudgetController.text),
                           maxBudget: int.parse(maxBudgetController.text),
                           expectedDuration: int.parse(durationController.text),
-                          status: "close",
-                          projectSkillIds: const [1, 2],
-                          projectCategoriesIds: const [1],
+                          projectSkillIds: skills.map((e)=>e.id).toList(),
+                          projectCategoriesIds: category.id,
                         );
                         context
                             .read<ProjectBloc>()
@@ -156,71 +202,131 @@ class _EditProjectBodyState extends State<EditProjectBody> {
   }
 }
 
-class CustomDropdownSearsh1 extends StatelessWidget {
-  const CustomDropdownSearsh1({super.key});
+class CustomDropdownSearchCategories extends StatelessWidget {
+  final Function(Categories?) onChanged;
+
+  const CustomDropdownSearchCategories({super.key, required this.onChanged});
 
   @override
   Widget build(BuildContext context) {
-    return const CustomDropdownSearch();
+    return BlocBuilder<HomeBloc, HomeState>(
+      builder: (context, state) {
+        if (state is! HomeLoaded) {
+          return const CircularProgressIndicator();
+        }
+        return DropdownSearch<Categories>(
+          items: state.categories,
+          // قم بتغيير هذه إلى معرفات الفئات الفعلية
+          itemAsString: (item) => item.name,
+          dropdownDecoratorProps: DropDownDecoratorProps(
+            dropdownSearchDecoration: InputDecoration(
+              hintText: '',
+              hintStyle: Theme
+                  .of(context)
+                  .textTheme
+                  .labelLarge,
+              border: const OutlineInputBorder(),
+            ),
+          ),
+          popupProps: PopupProps.menu(
+            showSearchBox: true,
+            itemBuilder: (context, item, isSelected) {
+              return ListTile(
+                title:
+                Text(item.name), // قم بتغيير هذا لعرض أسماء الفئات الفعلية
+              );
+            },
+          ),
+          onChanged: onChanged,
+        );
+      },
+    );
   }
 }
 
-class CustomDropdownSearch extends StatelessWidget {
-  const CustomDropdownSearch({super.key});
+class CustomDropdownSearchSkills extends StatelessWidget {
+  final Function(Skills?) onChanged;
+  final Categories? category;
+
+  const CustomDropdownSearchSkills({super.key, required this.onChanged, required this.category});
 
   @override
   Widget build(BuildContext context) {
-    return DropdownSearch<String>(
-      items: const [
-        'Design',
-        'Software Development',
-        'Data Analysis',
-        'Project Management',
-      ],
-      dropdownDecoratorProps: DropDownDecoratorProps(
-        dropdownSearchDecoration: InputDecoration(
-          hintText: '',
-          hintStyle: Theme.of(context).textTheme.labelLarge,
-          border: const OutlineInputBorder(),
-        ),
-      ),
-      popupProps: PopupProps.menu(
-        showSearchBox: true,
-        searchFieldProps: const TextFieldProps(
-          decoration: InputDecoration(
-            border: OutlineInputBorder(),
+    return BlocBuilder<HomeBloc, HomeState>(
+      builder: (context, state) {
+        if (state is! HomeLoaded) {
+          return const CircularProgressIndicator();
+        }
+        return DropdownSearch<Skills>(
+          items: state.skillsByCategory[category?.id]??[],
+          // قم بتغيير هذه إلى معرفات المهارات الفعلية
+          dropdownDecoratorProps: DropDownDecoratorProps(
+            dropdownSearchDecoration: InputDecoration(
+              hintText: '',
+              hintStyle: Theme
+                  .of(context)
+                  .textTheme
+                  .labelLarge,
+              border: const OutlineInputBorder(),
+            ),
           ),
-        ),
-        itemBuilder: (context, item, isSelected) {
-          return ListTile(
-            title: Text(item),
-          );
-        },
-      ),
-      onChanged: (value) {
-        // print('Selected: $value');
+          popupProps: PopupProps.menu(
+            showSearchBox: true,
+            itemBuilder: (context, item, isSelected) {
+              return ListTile(
+                title: Text(item.name!), // قم بتغيير هذا لعرض أسماء المهارات الفعلية
+              );
+            },
+          ),
+          onChanged: onChanged,
+        );
       },
-      // selectedItem: null,
-      selectedItem: "Software Development",
     );
   }
 }
 
 class CustomShowChipButton extends StatelessWidget {
-  const CustomShowChipButton({super.key});
+  final List<String> projectItems;
+  final Function(String) onDelete;
+
+  const CustomShowChipButton(
+      {super.key, required this.projectItems, required this.onDelete});
+
   @override
   Widget build(BuildContext context) {
-    List<int> items = List.generate(5, (i) => i);
-
     return Wrap(
       spacing: SizeConfig.defaultSize! * 1,
       direction: Axis.horizontal,
       runSpacing: SizeConfig.defaultSize! * .5,
-      children: items
-          .map((i) => const CustomChipButton(
-                text: "Fluter developer",
-              ))
+      children: projectItems
+          .map((item) =>
+          CustomChipButton(onDeleted: () => onDelete(item), text: item))
           .toList(),
     );
   }
 }
+
+class CustomChipButton extends StatelessWidget {
+  const CustomChipButton({super.key, this.onDeleted, required this.text});
+
+  final void Function()? onDeleted;
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return InputChip(
+      deleteIcon: const Icon(Icons.cancel_outlined),
+      onDeleted: onDeleted,
+      selectedColor: const Color.fromARGB(255, 200, 225, 245),
+      label: CustomLabel(text: text),
+      selected: true,
+      shape: RoundedRectangleBorder(
+          borderRadius:
+          BorderRadius.all(Radius.circular(SizeConfig.defaultSize! * 3))),
+      showCheckmark: false,
+      labelPadding: EdgeInsets.all(SizeConfig.defaultSize! * .5),
+      padding: EdgeInsets.all(SizeConfig.defaultSize! * .5),
+    );
+  }
+}
+

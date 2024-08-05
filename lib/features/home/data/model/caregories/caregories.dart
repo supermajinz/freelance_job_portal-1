@@ -1,15 +1,15 @@
 import 'package:equatable/equatable.dart';
 
 class Categories extends Equatable {
-  final int? id;
-  final String? name;
+  final int id;
+  final String name;
   final dynamic photoPath;
 
-  const Categories({this.id, this.name, this.photoPath});
+  const Categories({required this.id, required this.name, this.photoPath});
 
   factory Categories.fromJson(Map<String, dynamic> json) => Categories(
-        id: json['id'] as int?,
-        name: json['name'] as String?,
+        id: json['id'] as int,
+        name: json['name'] as String,
         photoPath: json['photoPath'] as dynamic,
       );
 

@@ -25,12 +25,3 @@ class UpdateOffer extends OfferEvent {
   @override
   List<Object> get props => [offerId, offerData];
 }
-
-// class FetchOfferDetails extends OfferEvent {
-//   final int offerId;
-
-//   const FetchOfferDetails(this.offerId);
-
-//   @override
-//   List<Object> get props => [offerId];
-// }

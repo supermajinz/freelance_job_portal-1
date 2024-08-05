@@ -12,12 +12,13 @@ part 'project_state.dart';
 class ProjectBloc extends Bloc<ProjectEvent, ProjectState> {
   final ProjectRepo repo;
   ProjectBloc(this.repo) : super(ProjectInitial()) {
-    on<FetchProjectDetails>((event, emit) {});
+    on<FetchProjectDetails>(_onFetchProjectDetails);
     on<CreateProjectSubmitted>(_onCreateProjectSubmitted);
     on<UpdateProject>(_onUpdateProject);
+    on<DeleteProject>(_onDeleteProject);
   }
 
-  Future<void> onFetchProjectDetails(
+  Future<void> _onFetchProjectDetails(
       FetchProjectDetails event, Emitter<ProjectState> emit) async {
     emit(ProjectLoading());
     final result = await repo.getProjectDetails(event.projectId);
@@ -33,7 +34,7 @@ class ProjectBloc extends Bloc<ProjectEvent, ProjectState> {
     CreateProjectSubmitted event,
     Emitter<ProjectState> emit,
   ) async {
-    emit(ProjectLoading());
+    emit(CreateProjectLoading());
     final result = await repo.createProject(event.project);
     result.fold(
       (failure) => emit(ProjectError(failure.errMessage)),
@@ -50,6 +51,16 @@ class ProjectBloc extends Bloc<ProjectEvent, ProjectState> {
     result.fold(
       (failure) => emit(ProjectError(failure.errMessage)),
       (project) => emit(EditProjectSuccess(project: project)),
+    );
+  }
+
+  Future<void> _onDeleteProject(
+      DeleteProject event, Emitter<ProjectState> emit) async {
+    final result = await repo.deleteProject(event.projectId);
+    result.fold(
+      (failure) => emit(ProjectError(failure.errMessage)),
+      
+      (_) => emit(ProjectDelet()),
     );
   }
 }

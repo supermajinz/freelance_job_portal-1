@@ -7,7 +7,8 @@ import 'package:freelance_job_portal/core/utils/dependency_injection.dart';
 import 'package:freelance_job_portal/features/auth/presentation/view_models/bloc/auth_bloc.dart';
 import 'package:freelance_job_portal/features/home/presentation/view_models/home_bloc/home_bloc.dart';
 import 'package:freelance_job_portal/features/offers/presentation/view_models/bloc/offer_bloc.dart';
-import 'package:freelance_job_portal/features/projects/presentation/view_models/bloc/project_bloc.dart';
+import 'package:freelance_job_portal/features/projects/presentation/view_models/offer_by_project/offer_by_project_bloc.dart';
+import 'package:freelance_job_portal/features/projects/presentation/view_models/project_bloc/project_bloc.dart';
 import 'package:freelance_job_portal/l10n/l10n.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -23,8 +24,9 @@ void main() async {
         create: (context) => LocalizationBloc()..add(LoadSavedLocalization()),
       ),
       BlocProvider(
-        create: (context) => AuthBloc(DependencyInjection.provideAuthRepo(),
-           )..add(CheckAuthStatusEvent()),
+        create: (context) => AuthBloc(
+          DependencyInjection.provideAuthRepo(),
+        )..add(CheckAuthStatusEvent()),
       ),
       BlocProvider<ProjectBloc>(
           create: (context) =>
@@ -34,6 +36,10 @@ void main() async {
             ..add(FetchCategories())),
       BlocProvider(
         create: (context) => OfferBloc(DependencyInjection.provideOfferRepo()),
+      ),
+      BlocProvider(
+        create: (context) =>
+            OfferByProjectBloc(DependencyInjection.provideProjectRepo()),
       ),
     ],
     child: const FreelanceJob(),

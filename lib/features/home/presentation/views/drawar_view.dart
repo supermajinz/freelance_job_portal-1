@@ -15,7 +15,6 @@ class DrawarView extends StatelessWidget {
           if (state is AuthUnauthenticated) {
             GoRouter.of(context).push("/");
           }
-          
         },
         child: const Scaffold(
           body: Home(),

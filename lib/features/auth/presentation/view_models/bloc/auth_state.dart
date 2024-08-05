@@ -33,8 +33,7 @@ final class AuthVerified extends AuthState {}
 
 final class AuthAuthenticated extends AuthState {
   final int id;
-  const AuthAuthenticated(
-      {required this.id});
+  const AuthAuthenticated({required this.id});
 
   @override
   List<Object> get props => [id];

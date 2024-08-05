@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:freelance_job_portal/core/utils/size_config.dart';
 import 'package:freelance_job_portal/core/widget/space.dart';
+import 'package:freelance_job_portal/features/projects/data/model/project_model/project_model.dart';
 import 'package:freelance_job_portal/features/projects/presentation/views/widget/custom_project_card.dart';
 import 'package:freelance_job_portal/features/searsh/presentation/views/widget/custom_chip_searsh.dart';
 import 'package:go_router/go_router.dart';
@@ -54,7 +55,7 @@ class SearshBody extends StatelessWidget {
           itemCount: 4,
           scrollDirection: Axis.vertical,
           itemBuilder: (context, index) {
-            return const CustomProjectCard();
+            return const CustomProjectCard(project: ProjectModel());
           },
         ),
       ),

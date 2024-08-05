@@ -27,10 +27,10 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         Map<int, List<Skills>> skillsByCategory = {};
         for (var category in categories) {
           final skillsResult =
-              await homeRepo.fetchSkillsByCategory(category.id!);
+              await homeRepo.fetchSkillsByCategory(category.id);
           skillsResult.fold(
             (failure) => emit(HomeFailure(failure.errMessage)),
-            (skills) => skillsByCategory[category.id!] = skills,
+            (skills) => skillsByCategory[category.id] = skills,
           );
         }
         emit(HomeLoaded(
@@ -43,11 +43,18 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     FetchSkillsByCategoryEvent event,
     Emitter<HomeState> emit,
   ) async {
+    // event.search
+    // event.minBudget
     emit(HomeLoading());
     final results = await homeRepo.fetchSkillsByCategory(event.categoryId);
     results.fold(
       (failure) => emit(HomeFailure(failure.errMessage)),
       (skills) {
+        // emit(ProjectLoaded(
+        //   projects: skills,
+        //   filters: [
+        //   ]
+        // ));
         if (state is HomeLoaded) {
           final loadedState = state as HomeLoaded;
           final updatedSkillsByCategory =

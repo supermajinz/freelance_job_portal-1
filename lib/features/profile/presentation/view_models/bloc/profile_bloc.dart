@@ -22,14 +22,14 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   FutureOr<void> showProfile(
       ShowProfile event, Emitter<ProfileState> emit) async {
     emit(ProfileLoading());
-    final result = await _profileRepo.getProfile(event.userId,event.profileId);
-     result.fold(
-       (failure) => emit(ProfileGetError(errorMessage: failure.errMessage)),
+    final result = await _profileRepo.getProfile(event.userId, event.profileId);
+    result.fold(
+        (failure) => emit(ProfileGetError(errorMessage: failure.errMessage)),
         (profile) {
-       print('we are in bloc');
-       print(profile.toString());
-       emit(ProfileGetSuccess(myProfile: profile));
-     });
+      print('we are in bloc');
+      print(profile.toString());
+      emit(ProfileGetSuccess(myProfile: profile));
+    });
   }
 
   FutureOr<void> getProfiles(

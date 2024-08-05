@@ -52,6 +52,7 @@ class DependencyInjection {
     final apiService = provideApiService();
     return OfferRepoImpl(apiService);
   }
+
 //    ChatRepo provideChatRepo(String chatUrl) {
 //     return ChatRepoImpl(chatUrl);
 //   }

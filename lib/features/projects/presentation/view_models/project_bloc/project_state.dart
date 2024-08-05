@@ -11,8 +11,10 @@ class ProjectInitial extends ProjectState {}
 
 class ProjectLoading extends ProjectState {}
 
+class CreateProjectLoading extends ProjectState {}
+
 class CreateProjectSuccess extends ProjectState {
-  final CreateProjectModel project;
+  final ProjectModel project;
 
   const CreateProjectSuccess({required this.project});
 
@@ -34,6 +36,10 @@ class ProjectLoaded extends ProjectState {
   const ProjectLoaded(this.project);
   @override
   List<Object> get props => [project];
+}
+class ProjectDelet extends ProjectState {
+  
+  
 }
 
 class ProjectError extends ProjectState {
