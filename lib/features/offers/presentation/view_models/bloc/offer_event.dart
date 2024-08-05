@@ -25,3 +25,12 @@ class UpdateOffer extends OfferEvent {
   @override
   List<Object> get props => [offerId, offerData];
 }
+
+class DeleteOffer extends OfferEvent {
+  final int offerId;
+
+  const DeleteOffer(this.offerId);
+
+  @override
+  List<Object> get props => [offerId];
+}

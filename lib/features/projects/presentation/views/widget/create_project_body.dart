@@ -146,7 +146,7 @@ class _CreateProjectBodyState extends State<CreateProjectBody> {
                 const VirticalSpace(2),
                 CustomShowChipButton(
                   projectItems:
-                  _selectedSkills.map((id) => id.toString()).toList(),
+                      _selectedSkills.map((id) => id.toString()).toList(),
                   onDelete: (skill) {
                     setState(() {
                       _selectedSkills.remove(skill);
@@ -182,29 +182,28 @@ class _CreateProjectBodyState extends State<CreateProjectBody> {
                       builder: (context, state) {
                         return CustomButtonGeneral(
                           onPressed: () {
-                            if (_formKey.currentState!.validate() && _selectedCategory != null) {
+                            if (_formKey.currentState!.validate() &&
+                                _selectedCategory != null) {
                               final project = CreateProjectModel(
                                 name: _titleController.text,
                                 description: _descriptionController.text,
                                 minBudget: int.parse(_minBudgetController.text),
                                 maxBudget: int.parse(_maxBudgetController.text),
                                 expectedDuration:
-                                int.parse(_expectedDurationController.text),
-                                clientProfileId:
-                                1,
+                                    int.parse(_expectedDurationController.text),
+                                clientProfileId: 1,
                                 // Assuming a default value, replace with actual client profile ID
                                 // GlobalData.instance.currentUser.clientProfile.id, // Assuming a default value, replace with actual client profile ID
-                                projectSkillIds: _selectedSkills.map((e) => e.id!).toList(),
+                                projectSkillIds:
+                                    _selectedSkills.map((e) => e.id).toList(),
                                 projectCategory: _selectedCategory?.id,
                               );
                               context.read<ProjectBloc>().add(
-                                CreateProjectSubmitted(project: project),
-                              );
+                                    CreateProjectSubmitted(project: project),
+                                  );
                             }
                           },
-                          color: Theme
-                              .of(context)
-                              .primaryColor,
+                          color: Theme.of(context).primaryColor,
                           textcolor: Colors.white,
                           text: state is CreateProjectLoading
                               ? "Creating..."
@@ -244,10 +243,7 @@ class CustomDropdownSearchCategories extends StatelessWidget {
           dropdownDecoratorProps: DropDownDecoratorProps(
             dropdownSearchDecoration: InputDecoration(
               hintText: '',
-              hintStyle: Theme
-                  .of(context)
-                  .textTheme
-                  .labelLarge,
+              hintStyle: Theme.of(context).textTheme.labelLarge,
               border: const OutlineInputBorder(),
             ),
           ),
@@ -256,7 +252,7 @@ class CustomDropdownSearchCategories extends StatelessWidget {
             itemBuilder: (context, item, isSelected) {
               return ListTile(
                 title:
-                Text(item.name), // قم بتغيير هذا لعرض أسماء الفئات الفعلية
+                    Text(item.name), // قم بتغيير هذا لعرض أسماء الفئات الفعلية
               );
             },
           ),
@@ -271,7 +267,8 @@ class CustomDropdownSearchSkills extends StatelessWidget {
   final Function(Skills?) onChanged;
   final Categories? category;
 
-  const CustomDropdownSearchSkills({super.key, required this.onChanged, required this.category});
+  const CustomDropdownSearchSkills(
+      {super.key, required this.onChanged, required this.category});
 
   @override
   Widget build(BuildContext context) {
@@ -281,15 +278,13 @@ class CustomDropdownSearchSkills extends StatelessWidget {
           return const CircularProgressIndicator();
         }
         return DropdownSearch<Skills>(
-          items: state.skillsByCategory[category?.id]??[],
+          items: state.skillsByCategory[category?.id] ?? [],
+           itemAsString: (item) => item.name!,
           // قم بتغيير هذه إلى معرفات المهارات الفعلية
           dropdownDecoratorProps: DropDownDecoratorProps(
             dropdownSearchDecoration: InputDecoration(
               hintText: '',
-              hintStyle: Theme
-                  .of(context)
-                  .textTheme
-                  .labelLarge,
+              hintStyle: Theme.of(context).textTheme.labelLarge,
               border: const OutlineInputBorder(),
             ),
           ),
@@ -297,7 +292,8 @@ class CustomDropdownSearchSkills extends StatelessWidget {
             showSearchBox: true,
             itemBuilder: (context, item, isSelected) {
               return ListTile(
-                title: Text(item.name!), // قم بتغيير هذا لعرض أسماء المهارات الفعلية
+                title: Text(
+                    item.name!), // قم بتغيير هذا لعرض أسماء المهارات الفعلية
               );
             },
           ),
@@ -323,7 +319,7 @@ class CustomShowChipButton extends StatelessWidget {
       runSpacing: SizeConfig.defaultSize! * .5,
       children: projectItems
           .map((item) =>
-          CustomChipButton(onDeleted: () => onDelete(item), text: item))
+              CustomChipButton(onDeleted: () => onDelete(item), text: item))
           .toList(),
     );
   }
@@ -345,7 +341,7 @@ class CustomChipButton extends StatelessWidget {
       selected: true,
       shape: RoundedRectangleBorder(
           borderRadius:
-          BorderRadius.all(Radius.circular(SizeConfig.defaultSize! * 3))),
+              BorderRadius.all(Radius.circular(SizeConfig.defaultSize! * 3))),
       showCheckmark: false,
       labelPadding: EdgeInsets.all(SizeConfig.defaultSize! * .5),
       padding: EdgeInsets.all(SizeConfig.defaultSize! * .5),

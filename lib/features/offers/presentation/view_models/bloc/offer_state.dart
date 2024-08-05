@@ -20,6 +20,8 @@ final class OfferSuccess extends OfferState {
   List<Object> get props => [offer];
 }
 
+final class OfferDeleteSuccess extends OfferState {}
+
 final class OfferFaliure extends OfferState {
   final String errMessage;
 

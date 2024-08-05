@@ -33,7 +33,6 @@ class HomeBody extends StatelessWidget {
           BlocBuilder<HomeBloc, HomeState>(
             builder: (context, state) {
               if (state is HomeLoaded) {
-                
                 return SizedBox(
                   height: SizeConfig.defaultSize! * 29,
                   child: GridView.builder(
@@ -51,7 +50,7 @@ class HomeBody extends StatelessWidget {
                             context
                                 .read<HomeBloc>()
                                 .homeRepo
-                                .fetchSkillsByCategory(category.id!);
+                                .fetchSkillsByCategory(category.id);
                             GoRouter.of(context)
                                 .push("/skills", extra: category.id);
                           },
@@ -96,7 +95,8 @@ class HomeBody extends StatelessWidget {
               itemBuilder: (context, index) {
                 return InkWell(
                     onTap: () {
-                      GoRouter.of(context).push('/showprojectdetails', extra: ProjectModel(id: 1));
+                      GoRouter.of(context).push('/showprojectdetails',
+                          extra: ProjectModel(id: 1).id);
                     },
                     child: CustomProjectCard(project: ProjectModel()));
               },
@@ -131,7 +131,8 @@ class HomeBody extends StatelessWidget {
               itemBuilder: (context, index) {
                 return InkWell(
                     onTap: () {
-                      GoRouter.of(context).push('/showprojectdetails', extra: ProjectModel());
+                      GoRouter.of(context)
+                          .push('/showprojectdetails', extra: ProjectModel());
                     },
                     child: CustomProjectCard(project: ProjectModel()));
               },

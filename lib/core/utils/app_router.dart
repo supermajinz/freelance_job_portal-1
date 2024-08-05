@@ -14,6 +14,7 @@ import 'package:freelance_job_portal/features/home/presentation/views/widget/ski
 import 'package:freelance_job_portal/features/my_project/presentation/views/my_project.dart';
 import 'package:freelance_job_portal/features/my_project/presentation/views/project_status_details.dart';
 import 'package:freelance_job_portal/features/notifications/presentation/views/notifications.dart';
+import 'package:freelance_job_portal/features/offers/data/model/offers_model/offers_model.dart';
 import 'package:freelance_job_portal/features/offers/presentation/views/create_offer.dart';
 import 'package:freelance_job_portal/features/offers/presentation/views/edit_offer.dart';
 import 'package:freelance_job_portal/features/offers/presentation/views/offer_details.dart';
@@ -129,7 +130,7 @@ abstract class AppRouter {
     ),
     GoRoute(
       path: '/showprotodetails',
-      builder: (context, state) => ShowProtoDetails(),
+      builder: (context, state) => const ShowProtoDetails(),
     ),
     GoRoute(
       path: '/chat',
@@ -171,7 +172,7 @@ abstract class AppRouter {
     ),
     GoRoute(
       path: '/offerdetails',
-      builder: (context, state) => const OfferDetails(),
+      builder: (context, state) =>  OfferDetails(offer: state.extra as OffersModel,),
     ),
     GoRoute(
       path: '/createproject',
@@ -179,7 +180,8 @@ abstract class AppRouter {
     ),
     GoRoute(
       path: '/editproject',
-      builder: (context, state) => EditProject(projectModel: state.extra as ProjectModel),
+      builder: (context, state) =>
+          EditProject(projectModel: state.extra as ProjectModel),
     ),
     GoRoute(
       path: '/showprojectdetails',

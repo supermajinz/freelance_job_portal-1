@@ -5,8 +5,7 @@ class Categories extends Equatable {
   final String name;
   final dynamic photoPath;
 
-
-  const Categories({required this.id,required this.name, this.photoPath});
+  const Categories({required this.id, required this.name, this.photoPath});
 
   factory Categories.fromJson(Map<String, dynamic> json) => Categories(
         id: json['id'] as int,

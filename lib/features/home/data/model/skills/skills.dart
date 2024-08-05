@@ -6,7 +6,8 @@ class Skills extends Equatable {
   final int? categoryId;
   final String? categoryName;
 
-  const Skills({required this.id, this.name, this.categoryId, this.categoryName});
+  const Skills(
+      {required this.id, this.name, this.categoryId, this.categoryName});
 
   factory Skills.fromJson(Map<String, dynamic> json) => Skills(
         id: json['id'] as int,

@@ -8,12 +8,10 @@ import 'package:freelance_job_portal/core/widget/custom_sub_title.dart';
 import 'package:freelance_job_portal/core/widget/space.dart';
 import 'package:freelance_job_portal/features/home/data/model/caregories/caregories.dart';
 import 'package:freelance_job_portal/features/profile/presentation/views/widget/edit_text_form.dart';
-import 'package:freelance_job_portal/features/projects/data/model/project_model/project_category.dart';
 import 'package:freelance_job_portal/features/projects/data/model/project_model/project_model.dart';
 import '../../../../../core/widget/custom_label.dart';
 import '../../../../home/data/model/skills/skills.dart';
 import '../../../../home/presentation/view_models/home_bloc/home_bloc.dart';
-import '../../../../profile/presentation/views/widget/custom_chip_button.dart';
 import '../../../data/model/edit_project_model.dart';
 import '../../view_models/project_bloc/project_bloc.dart';
 
@@ -45,8 +43,8 @@ class _EditProjectBodyState extends State<EditProjectBody> {
         TextEditingController(text: widget.projectModel.maxBudget.toString());
     durationController = TextEditingController(
         text: widget.projectModel.expectedDuration.toString());
-    category = widget.projectModel.projectCategory;
-    skills = widget.projectModel.projectSkill??[];
+    //category = widget.projectModel.projectCategory;
+    //skills = widget.projectModel.projectSkill ?? [];
     super.initState();
   }
 
@@ -145,8 +143,7 @@ class _EditProjectBodyState extends State<EditProjectBody> {
             ),
             const VirticalSpace(2),
             CustomShowChipButton(
-              projectItems:
-              skills.map((id) => id.toString()).toList(),
+              projectItems: skills.map((id) => id.toString()).toList(),
               onDelete: (skill) {
                 setState(() {
                   skills.remove(skill);
@@ -178,7 +175,7 @@ class _EditProjectBodyState extends State<EditProjectBody> {
                           minBudget: int.parse(minBudgetController.text),
                           maxBudget: int.parse(maxBudgetController.text),
                           expectedDuration: int.parse(durationController.text),
-                          projectSkillIds: skills.map((e)=>e.id).toList(),
+                          projectSkillIds: skills.map((e) => e.id).toList(),
                           projectCategoriesIds: category.id,
                         );
                         context
@@ -221,10 +218,7 @@ class CustomDropdownSearchCategories extends StatelessWidget {
           dropdownDecoratorProps: DropDownDecoratorProps(
             dropdownSearchDecoration: InputDecoration(
               hintText: '',
-              hintStyle: Theme
-                  .of(context)
-                  .textTheme
-                  .labelLarge,
+              hintStyle: Theme.of(context).textTheme.labelLarge,
               border: const OutlineInputBorder(),
             ),
           ),
@@ -233,7 +227,7 @@ class CustomDropdownSearchCategories extends StatelessWidget {
             itemBuilder: (context, item, isSelected) {
               return ListTile(
                 title:
-                Text(item.name), // قم بتغيير هذا لعرض أسماء الفئات الفعلية
+                    Text(item.name), // قم بتغيير هذا لعرض أسماء الفئات الفعلية
               );
             },
           ),
@@ -248,7 +242,8 @@ class CustomDropdownSearchSkills extends StatelessWidget {
   final Function(Skills?) onChanged;
   final Categories? category;
 
-  const CustomDropdownSearchSkills({super.key, required this.onChanged, required this.category});
+  const CustomDropdownSearchSkills(
+      {super.key, required this.onChanged, required this.category});
 
   @override
   Widget build(BuildContext context) {
@@ -258,15 +253,12 @@ class CustomDropdownSearchSkills extends StatelessWidget {
           return const CircularProgressIndicator();
         }
         return DropdownSearch<Skills>(
-          items: state.skillsByCategory[category?.id]??[],
+          items: state.skillsByCategory[category?.id] ?? [],
           // قم بتغيير هذه إلى معرفات المهارات الفعلية
           dropdownDecoratorProps: DropDownDecoratorProps(
             dropdownSearchDecoration: InputDecoration(
               hintText: '',
-              hintStyle: Theme
-                  .of(context)
-                  .textTheme
-                  .labelLarge,
+              hintStyle: Theme.of(context).textTheme.labelLarge,
               border: const OutlineInputBorder(),
             ),
           ),
@@ -274,7 +266,8 @@ class CustomDropdownSearchSkills extends StatelessWidget {
             showSearchBox: true,
             itemBuilder: (context, item, isSelected) {
               return ListTile(
-                title: Text(item.name!), // قم بتغيير هذا لعرض أسماء المهارات الفعلية
+                title: Text(
+                    item.name!), // قم بتغيير هذا لعرض أسماء المهارات الفعلية
               );
             },
           ),
@@ -300,7 +293,7 @@ class CustomShowChipButton extends StatelessWidget {
       runSpacing: SizeConfig.defaultSize! * .5,
       children: projectItems
           .map((item) =>
-          CustomChipButton(onDeleted: () => onDelete(item), text: item))
+              CustomChipButton(onDeleted: () => onDelete(item), text: item))
           .toList(),
     );
   }
@@ -322,11 +315,10 @@ class CustomChipButton extends StatelessWidget {
       selected: true,
       shape: RoundedRectangleBorder(
           borderRadius:
-          BorderRadius.all(Radius.circular(SizeConfig.defaultSize! * 3))),
+              BorderRadius.all(Radius.circular(SizeConfig.defaultSize! * 3))),
       showCheckmark: false,
       labelPadding: EdgeInsets.all(SizeConfig.defaultSize! * .5),
       padding: EdgeInsets.all(SizeConfig.defaultSize! * .5),
     );
   }
 }
-

@@ -146,7 +146,7 @@ class _ShowProjectDetailsBodyState extends State<ProjectStatusDetailsBody>
                                               GoRouter.of(context)
                                                   .push("/offerdetails");
                                             },
-                                           // child: const CustomOffer(),
+                                            // child: const CustomOffer(),
                                           );
                                         },
                                         separatorBuilder: (context, index) {

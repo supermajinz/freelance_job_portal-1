@@ -13,8 +13,7 @@ class CustomOffer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: SizeConfig.defaultSize! * 21,
-      padding: EdgeInsets.all(SizeConfig.defaultSize! * 1),
+      padding: EdgeInsets.all(SizeConfig.defaultSize! * 1.5),
       decoration: BoxDecoration(
         color: Theme.of(context).unselectedWidgetColor,
         borderRadius: BorderRadius.circular(SizeConfig.defaultSize! * 1),
@@ -25,16 +24,13 @@ class CustomOffer extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Padding(
-                padding: EdgeInsets.only(top: SizeConfig.defaultSize! * .5),
-                child: CircleAvatar(
-                  radius: SizeConfig.defaultSize! * 4,
-                  backgroundImage: const AssetImage(
-                    "assets/images/pro.jpg",
-                  ),
+              CircleAvatar(
+                radius: SizeConfig.defaultSize! * 4,
+                backgroundImage: const AssetImage(
+                  "assets/images/pro.jpg",
                 ),
               ),
-              const HorizintalSpace(.5),
+              const HorizintalSpace(1),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -68,10 +64,7 @@ class CustomOffer extends StatelessWidget {
                   ),
                 ],
               ),
-              Padding(
-                padding: EdgeInsets.only(top: SizeConfig.defaultSize! * .5),
-                child: const HorizintalSpace(10),
-              ),
+              const Spacer(),
               const CustomLabel(
                 text: "1d",
                 color: Colors.white,

@@ -10,7 +10,6 @@ sealed class ProjectState extends Equatable {
 class ProjectInitial extends ProjectState {}
 
 class ProjectLoading extends ProjectState {}
-class CreateProjectLoading extends ProjectState {}
 
 class CreateProjectLoading extends ProjectState {}
 
@@ -32,24 +31,14 @@ class EditProjectSuccess extends ProjectState {
   List<Object> get props => [project];
 }
 
-
 class ProjectLoaded extends ProjectState {
   final ProjectModel project;
   const ProjectLoaded(this.project);
   @override
   List<Object> get props => [project];
 }
-class ProjectDelet extends ProjectState {
-  
-  
-}
 
-class OffersLoaded extends ProjectState { // حالة جديدة للعروض
-  final List<OffersModel> offers;
-  const OffersLoaded(this.offers);
-  @override
-  List<Object> get props => [offers];
-}
+class ProjectDelet extends ProjectState {}
 
 class ProjectError extends ProjectState {
   final String message;

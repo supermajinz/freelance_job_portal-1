@@ -2,7 +2,6 @@ import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:freelance_job_portal/core/errors/failures.dart';
 import 'package:freelance_job_portal/core/utils/api_service.dart';
-import 'package:freelance_job_portal/features/offers/data/model/offer_model/offer_model.dart';
 import 'package:freelance_job_portal/features/offers/data/repo/offer_repo.dart';
 
 import '../model/offers_model/offers_model.dart';
@@ -41,6 +40,19 @@ class OfferRepoImpl implements OfferRepo {
         return Left(ServerFailure.fromDioException(e));
       }
       return Left(ServerFailure(errMessage: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, Unit>> deleteOffer(int offerId) async {
+    try {
+      await _apiService.delete('offers/$offerId');
+      return const Right(unit);
+    } catch (e) {
+      if (e is DioException) {
+        return left(ServerFailure.fromDioException(e));
+      }
+      return left(ServerFailure(errMessage: e.toString()));
     }
   }
 }

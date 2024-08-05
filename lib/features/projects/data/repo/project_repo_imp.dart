@@ -78,11 +78,12 @@ class ProjectRepoImp implements ProjectRepo {
       int projectId) async {
     // تنفيذ التابع الجديد
     try {
-      final response = await _apiService.get('offers/byProject/$projectId');
-      final offers =
-          (response as List).map((json) => OffersModel.fromJson(json)).toList();
-      print("offers: $offers");
-      return Right(offers);
+      var data = await _apiService.get('offers/byProject/$projectId');
+      List<OffersModel> offer = [];
+      for (var item in data['offers']) {
+        offer.add(OffersModel.fromJson(item));
+      }
+      return Right(offer);
     } catch (e) {
       if (e is DioException) {
         return left(ServerFailure.fromDioException(e));
@@ -90,10 +91,10 @@ class ProjectRepoImp implements ProjectRepo {
       return left(ServerFailure(errMessage: e.toString()));
     }
   }
+
   @override
   Future<Either<Failure, Unit>> deleteProject(int projectId) async {
     try {
-     
       await _apiService.delete('projects/$projectId');
       return const Right(unit);
     } catch (e) {

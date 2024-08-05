@@ -64,7 +64,6 @@ class _ShowProjectDetailsBodyState extends State<ShowProjectDetailsBody> {
 
   void _deleteProject() {
     context.read<ProjectBloc>().add(DeleteProject(widget.projectId));
-    GoRouter.of(context).pop();
   }
 
   @override
@@ -82,7 +81,6 @@ class _ShowProjectDetailsBodyState extends State<ShowProjectDetailsBody> {
         if (state is ProjectLoading || state is ProjectInitial) {
           return const Center(child: CircularProgressIndicator());
         } else if (state is ProjectLoaded) {
-          final project = state.project;
           return SingleChildScrollView(
             controller: _scrollController,
             child: Column(
@@ -259,13 +257,14 @@ class _ShowProjectDetailsBodyState extends State<ShowProjectDetailsBody> {
     return AnimatedCrossFade(
       duration: const Duration(milliseconds: 800),
       firstChild: Container(),
-      secondChild: BlocBuilder<ProjectBloc, ProjectState>(
+      secondChild: BlocBuilder<OfferByProjectBloc, OfferByProjectState>(
         builder: (context, state) {
-          if (state is OffersLoaded) {
+          if (state is OfferByProjectLoaded) {
             return ListView.separated(
               physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               itemBuilder: (context, index) {
+                // OffersModel offer;
                 return InkWell(
                     onTap: () {
                       GoRouter.of(context).push("/offerdetails");
@@ -278,9 +277,7 @@ class _ShowProjectDetailsBodyState extends State<ShowProjectDetailsBody> {
               itemCount: state.offers.length,
             );
           } else if (state is OfferByProjectFaliure) {
-            return Center(child: Text('Error: }'));
-          } else if (state is ProjectError) {
-            return Center(child: Text('Error: ${state.message}'));
+            return Center(child: Text("'Error: ${state.message}"));
           } else {
             return const Center(child: CircularProgressIndicator());
           }
@@ -383,11 +380,9 @@ class _ShowProjectDetailsBodyState extends State<ShowProjectDetailsBody> {
                 }
               },
               itemBuilder: (context) => [
-                PopupMenuItem(
-                    onTap: () {
-                      GoRouter.of(context).push("/editproject", extra: project);
-                    },
-                    child: const Row(
+                const PopupMenuItem(
+                    value: 'edit',
+                    child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
                         Icon(Icons.edit),

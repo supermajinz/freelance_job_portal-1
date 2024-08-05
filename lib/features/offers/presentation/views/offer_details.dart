@@ -5,9 +5,11 @@ import 'package:freelance_job_portal/core/widget/custom_title.dart';
 import 'package:freelance_job_portal/features/offers/presentation/views/widget/offer_details_body.dart';
 import 'package:go_router/go_router.dart';
 
-class OfferDetails extends StatelessWidget {
-  const OfferDetails({super.key});
+import '../../data/model/offers_model/offers_model.dart';
 
+class OfferDetails extends StatelessWidget {
+  const OfferDetails({super.key, required this.offer});
+  final OffersModel offer;
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -25,7 +27,10 @@ class OfferDetails extends StatelessWidget {
           },
         ),
       ),
-      body: const SafeArea(child: OfferDetailsBody()),
+      body: SafeArea(
+          child: OfferDetailsBody(
+        offer: offer,
+      )),
     );
   }
 }
