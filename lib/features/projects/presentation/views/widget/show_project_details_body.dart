@@ -16,9 +16,9 @@ import '../../../../../core/widget/custom_subtitle_medium.dart';
 import '../../../data/model/project_model/project_model.dart';
 
 class ShowProjectDetailsBody extends StatefulWidget {
-  final int projectId;
+  final ProjectModel project;
 
-  const ShowProjectDetailsBody({super.key, required this.projectId});
+  const ShowProjectDetailsBody({super.key, required this.project});
 
   @override
   _ShowProjectDetailsBodyState createState() => _ShowProjectDetailsBodyState();
@@ -31,7 +31,7 @@ class _ShowProjectDetailsBodyState extends State<ShowProjectDetailsBody> {
   @override
   void initState() {
     super.initState();
-    context.read<ProjectBloc>().add(FetchProjectDetails(widget.projectId));
+    // context.read<ProjectBloc>().add(FetchProjectDetails(widget.project));
   }
 
   @override
@@ -45,7 +45,7 @@ class _ShowProjectDetailsBodyState extends State<ShowProjectDetailsBody> {
       showOffers = !showOffers;
     });
     if (showOffers) {
-      context.read<ProjectBloc>().add(FetchOffersByProject(widget.projectId));
+      context.read<ProjectBloc>().add(FetchOffersByProject(widget.project.id));
     }
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _scrollController.animateTo(
@@ -62,34 +62,25 @@ class _ShowProjectDetailsBodyState extends State<ShowProjectDetailsBody> {
   Widget build(BuildContext context) {
     return BlocBuilder<ProjectBloc, ProjectState>(
       builder: (context, state) {
-        if (state is ProjectLoading || state is ProjectInitial) {
-          return const Center(child: CircularProgressIndicator());
-        } else if (state is ProjectLoaded) {
-          final project = state.project;
-          return SingleChildScrollView(
+        return SingleChildScrollView(
             controller: _scrollController,
             child: Column(
               children: [
                 const VirticalSpace(3),
                 Stack(
                   children: [
-                    _buildProjectDetailsContainer(context, project),
-                    _buildClientInfoContainer(context, project),
+                    _buildProjectDetailsContainer(context, widget.project),
+                    _buildClientInfoContainer(context, widget.project),
                   ],
                 ),
               ],
             ),
           );
-        } else if (state is ProjectError) {
-          return Center(child: Text('Error: ${state.message}'));
-        } else {
-          return const Center(child: CircularProgressIndicator());
-        }
       },
     );
   }
 
-  Widget _buildProjectDetailsContainer(BuildContext context, dynamic project) {
+  Widget _buildProjectDetailsContainer(BuildContext context, ProjectModel project) {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: SizeConfig.defaultSize! * .5),
       decoration: BoxDecoration(
@@ -127,7 +118,7 @@ class _ShowProjectDetailsBodyState extends State<ShowProjectDetailsBody> {
     );
   }
 
-  Widget _buildProjectHeader(BuildContext context, dynamic project) {
+  Widget _buildProjectHeader(BuildContext context, ProjectModel project) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -143,7 +134,7 @@ class _ShowProjectDetailsBodyState extends State<ShowProjectDetailsBody> {
     );
   }
 
-  Widget _buildProjectDescription(BuildContext context, dynamic project) {
+  Widget _buildProjectDescription(BuildContext context, ProjectModel project) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -176,7 +167,7 @@ class _ShowProjectDetailsBodyState extends State<ShowProjectDetailsBody> {
     );
   }
 
-  Widget _buildprojectTime(dynamic project) {
+  Widget _buildprojectTime(ProjectModel project) {
     return Row(
       children: [
         const Expanded(child: CustomSubTitleMedium(text: "Delivery Time:")),
@@ -189,7 +180,7 @@ class _ShowProjectDetailsBodyState extends State<ShowProjectDetailsBody> {
     );
   }
 
-  Widget _buildProjectPrice(dynamic project) {
+  Widget _buildProjectPrice(ProjectModel project) {
     return Row(
       children: [
         const Expanded(child: CustomSubTitleMedium(text: "Price:")),
@@ -202,7 +193,7 @@ class _ShowProjectDetailsBodyState extends State<ShowProjectDetailsBody> {
     );
   }
 
-  Widget _buildProjectSkills(dynamic project) {
+  Widget _buildProjectSkills(ProjectModel project) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [

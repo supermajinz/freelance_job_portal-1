@@ -184,7 +184,7 @@ abstract class AppRouter {
     GoRoute(
       path: '/showprojectdetails',
       builder: (context, state) {
-        return ShowProjectDetails(projectId: state.extra as int);
+        return ShowProjectDetails(project: state.extra as ProjectModel);
       },
     ),
     GoRoute(
