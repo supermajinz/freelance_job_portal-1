@@ -36,10 +36,12 @@ class ApiService {
 
   Future<Map<String, dynamic>> get(String endpoint) async {
     try {
+      print("performing get request: $endpoint");
       final response = await _dio.get(endpoint);
       if (response.data is int) {
         return {'data': response.data};
       }
+      print("get request $endpoint response: ${response.data}");
       return response.data;
     } on DioException catch (e) {
       print('DioException: ${e.message}');
@@ -52,6 +54,7 @@ class ApiService {
   Future<Map<String, dynamic>> post(
       String endpoint, Map<String, dynamic> data) async {
     try {
+      print("performing post request: $endpoint");
       final response = await _dio.post(endpoint, data: data);
       if (response.data is String) {
         // If the response is a string, wrap it in a Map

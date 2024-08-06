@@ -2,29 +2,22 @@ import 'package:equatable/equatable.dart';
 
 class Skills extends Equatable {
   final int id;
-  final String? name;
-  final int? categoryId;
-  final String? categoryName;
+  final String name;
 
-  const Skills(
-      {required this.id, this.name, this.categoryId, this.categoryName});
+  const Skills({required this.id, required this.name});
 
   factory Skills.fromJson(Map<String, dynamic> json) => Skills(
         id: json['id'] as int,
-        name: json['name'] as String?,
-        categoryId: json['categoryId'] as int?,
-        categoryName: json['categoryName'] as String?,
+        name: json['name'] as String,
       );
 
   Map<String, dynamic> toJson() => {
         'id': id,
         'name': name,
-        'categoryId': categoryId,
-        'categoryName': categoryName,
       };
 
   @override
-  List<Object?> get props => [id, name, categoryId, categoryName];
+  List<Object?> get props => [id, name];
 }
 // class Skills {
 //     Skills({
