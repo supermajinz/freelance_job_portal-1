@@ -50,7 +50,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           emit(AuthError(error: failure.errMessage));
         }
       },
-      (tokens) => emit(AuthVerified()),
+      (tokens) {
+        emit(AuthVerified());
+        add(CheckAuthStatusEvent());
+      },
     );
   }
 

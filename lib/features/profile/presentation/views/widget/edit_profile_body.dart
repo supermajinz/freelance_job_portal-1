@@ -119,7 +119,7 @@ class EditProfileBody extends StatelessWidget {
               const VirticalSpace(2),
               const CustomShowChipButton(),
               const VirticalSpace(2),
-              const ShowChip(),
+             // const ShowChip(), TODO
               const VirticalSpace(4),
               AddEditProto(
                 text: "Edit Protofolio Project",

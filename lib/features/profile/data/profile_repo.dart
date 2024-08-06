@@ -5,7 +5,7 @@ import 'package:freelance_job_portal/features/profile/data/models/profile/client
 abstract class ProfileRepo {
   Future<Either<Failure, List<ClientProfile>>> getUserProfiles(int userId);
   Future<Either<Failure, ClientProfile>> getProfile(int userId, int profileId);
-  Future<Either<Failure, Map<String, dynamic>>> createProfile(
+  Future<Either<Failure,ClientProfile>> createProfile(
       Map<String, dynamic> profileData);
   Future<Either<Failure, Map<String, dynamic>>> editProfile();
   Future<Either<Failure, String>> addPhoto(Map<String, dynamic> photoData);

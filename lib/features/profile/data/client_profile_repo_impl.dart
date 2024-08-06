@@ -10,22 +10,40 @@ class ClientProfileRepoImpl implements ProfileRepo {
   ClientProfileRepoImpl({required ApiService apiService})
       : _apiService = apiService;
   @override
-  Future<Either<Failure, String>> addPhoto(Map<String, dynamic> photoData) {
-    // TODO: implement addPhoto
-    throw UnimplementedError();
+  Future<Either<Failure, String>> addPhoto(
+      Map<String, dynamic> photoData) async {
+    try {
+      final response =
+          await _apiService.post('clientProfiles/add-photo', photoData);
+      return Right(response['message']);
+    } catch (e) {
+      return Left(ServerFailure(
+          errMessage: 'Failed to fetch create profile: ${e.toString()}'));
+    }
   }
 
   @override
-  Future<Either<Failure, String>> addSkill(Map<String, dynamic> skillData) {
-    // TODO: implement addSkill
-    throw UnimplementedError();
+  Future<Either<Failure, String>> addSkill(Map<String, dynamic> skillData) async {
+    try {
+      final response =
+          await _apiService.post('clientProfiles/add-skill', skillData);
+      return Right(response['message']);
+    } catch (e) {
+      return Left(ServerFailure(
+          errMessage: 'Failed to fetch create profile: ${e.toString()}'));
+    }
   }
 
   @override
-  Future<Either<Failure, Map<String, dynamic>>> createProfile(
-      Map<String, dynamic> profileData) {
-    // TODO: implement createProfile
-    throw UnimplementedError();
+  Future<Either<Failure, ClientProfile>> createProfile(
+      Map<String, dynamic> profileData) async {
+    try {
+      final response = await _apiService.post('clientProfiles', profileData);
+      return Right(ClientProfile.fromMap(response));
+    } catch (e) {
+      return Left(ServerFailure(
+          errMessage: 'Failed to fetch create profile: ${e.toString()}'));
+    }
   }
 
   @override

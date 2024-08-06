@@ -2,8 +2,11 @@ import 'package:freelance_job_portal/core/utils/api_service.dart';
 import 'package:freelance_job_portal/features/auth/data/auth_repo.dart';
 import 'package:freelance_job_portal/features/auth/data/auth_repo_impl.dart';
 import 'package:freelance_job_portal/features/auth/data/auth_token_service.dart';
+import 'package:freelance_job_portal/features/categories%20and%20skills/category_skill_repo.dart';
+import 'package:freelance_job_portal/features/categories%20and%20skills/category_skill_repo_impl.dart';
 import 'package:freelance_job_portal/features/chat/data/chat_repo.dart';
 import 'package:freelance_job_portal/features/chat/data/ChatService.dart';
+import 'package:freelance_job_portal/features/photo/photo_repo_impl.dart';
 import 'package:freelance_job_portal/features/profile/data/profile_repo.dart';
 import 'package:freelance_job_portal/features/profile/data/client_profile_repo_impl.dart';
 import 'package:freelance_job_portal/features/home/data/repo/home_repo.dart';
@@ -22,7 +25,7 @@ class DependencyInjection {
   static ApiService provideApiService() {
     final authTokenService = provideAuthTokenService();
     return ApiService(
-      baseUrl: 'http://10.0.2.2:8080/api/v1/',
+      baseUrl: 'http://localhost:8080/api/v1/',
       authTokenService: authTokenService,
     );
   }
@@ -53,7 +56,17 @@ class DependencyInjection {
     return OfferRepoImpl(apiService);
   }
 
+
+  static CategorySkillRepo provideCsRepo() {
+    final apiService = provideApiService();
+    return CategorySkillRepoImpl(apiService);
+  }
+
 //    ChatRepo provideChatRepo(String chatUrl) {
 //     return ChatRepoImpl(chatUrl);
 //   }
+  static PhotoRepoImpl providePhotoRepo() {
+    final apiService = provideApiService();
+    return PhotoRepoImpl(apiService);
+  }
 }

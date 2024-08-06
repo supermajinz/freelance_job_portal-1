@@ -92,7 +92,7 @@ class EditProtofolioBody extends StatelessWidget {
               const VirticalSpace(2),
               const CustomShowChipButton(),
               const VirticalSpace(2),
-              const ShowChip(),
+            //  const ShowChip(), //TODO
               const VirticalSpace(5),
               const Row(
                 children: [

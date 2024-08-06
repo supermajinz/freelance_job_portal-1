@@ -13,12 +13,10 @@ class ApiService {
         _authTokenService = authTokenService {
     _dio.interceptors.add(InterceptorsWrapper(
       onRequest: (options, handler) async {
-        const token =
-            "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIwOTg2NDExNjIwIiwiaWF0IjoxNzIyOTMzMjg0LCJleHAiOjE3MjMwMTk2ODR9.3vMkplOXTDrhH59kXDCeGV7dmIQ3SwHAXidkjttH89k";
-        // final token = await _authTokenService.getToken('access_token');
-        //if (token != null) {
-        options.headers['Authorization'] = 'Bearer $token';
-        // }
+        final token = await _authTokenService.getToken('access_token');
+        if (token != null) {
+          options.headers['Authorization'] = 'Bearer $token';
+        }
         return handler.next(options);
       },
       onError: (DioException error, handler) async {
@@ -139,5 +137,34 @@ class ApiService {
       queryParameters: requestOptions.queryParameters,
       options: options,
     );
+  }
+
+  Future<Map<String, dynamic>> postFormData(
+      String endpoint, FormData formData) async {
+    try {
+     // print('Attempting to post to endpoint: $endpoint');
+      //print('FormData: ${formData.fields}, ${formData.files}');
+      //print('Base URL: ${_dio.options.baseUrl}');
+
+      final response = await _dio.post(endpoint, data: formData);
+      //print('API raw response: ${response.data}');
+      return response.data;
+    } on DioException catch (e) {
+      //print('DioException in postFormData: ${e.type}');
+      print('DioException message: ${e.message}');
+      print('DioException response: ${e.response?.data}');
+
+      if (e.response != null && e.response!.data is Map<String, dynamic>) {
+        return e.response!.data;
+      }
+
+      return {
+        'error': 'DioException',
+        'message': e.message ?? 'Unknown error occurred'
+      };
+    } catch (e) {
+      print('Unexpected error in postFormData: $e');
+      return {'error': 'UnexpectedError', 'message': e.toString()};
+    }
   }
 }
