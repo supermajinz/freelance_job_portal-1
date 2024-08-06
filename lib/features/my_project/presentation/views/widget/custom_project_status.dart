@@ -6,9 +6,11 @@ import 'package:freelance_job_portal/core/widget/custom_subtitle_medium.dart';
 import 'package:freelance_job_portal/core/widget/space.dart';
 import 'package:freelance_job_portal/features/home/presentation/views/widget/custom_choice_chip.dart';
 import 'package:freelance_job_portal/features/my_project/presentation/views/widget/custom_timeline.dart';
+import 'package:freelance_job_portal/features/projects/data/model/project_model/project_model.dart';
 
 class CustomProjectStatus extends StatelessWidget {
-  const CustomProjectStatus({super.key});
+  const CustomProjectStatus({super.key, required this.projectModel});
+  final ProjectModel projectModel;
 
   @override
   Widget build(BuildContext context) {

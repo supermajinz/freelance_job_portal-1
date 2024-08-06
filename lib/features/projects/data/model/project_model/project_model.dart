@@ -11,11 +11,12 @@ class ProjectModel extends Equatable {
   final int minBudget;
   final int maxBudget;
   final int expectedDuration;
+  final int offerCount;
   final String status;
   final DateTime? createDate;
   final Client? client;
   final dynamic worker;
-  final List<Categories> projectCategories;
+ final Categories? projectCategory;
   final List<Skills> projectSkill;
 
   const ProjectModel({
@@ -25,11 +26,12 @@ class ProjectModel extends Equatable {
     this.minBudget = 1000000,
     this.maxBudget = 7000000,
     this.expectedDuration = 50,
+    this.offerCount=0,
     this.status = "open",
     this.createDate,
     this.client,
     this.worker,
-    this.projectCategories = const [],
+    this.projectCategory,
     this.projectSkill = const [],
   });
 
@@ -39,17 +41,16 @@ class ProjectModel extends Equatable {
         description: json['description'] as String,
         minBudget: json['minBudget'] as int,
         maxBudget: json['maxBudget'] as int,
-        expectedDuration: json['ExpectedDuration'] as int,
+        expectedDuration: json['ExpectedDuration'] ?? 50,
+        offerCount: json['offerCount'] as int,
         status: json['status'] as String,
         createDate: json['createDate'] == null
             ? DateTime.now()
             : DateTime.parse(json['createDate'] as String),
         client: Client.fromJson(json['client'] as Map<String, dynamic>),
         worker: json['worker'] as dynamic,
-        projectCategories: (json['projectCategories'] as List<dynamic>)
-            .map((e) => Categories.fromJson(e as Map<String, dynamic>))
-            .toList(),
-        projectSkill: (json['projectSkill'] as List<dynamic>)
+         projectCategory: Categories.fromJson(json["projectCategory"] as Map<String, dynamic>),
+        projectSkill: ((json['projectSkill'] ?? []) as List<dynamic>)
             .map((e) => Skills.fromJson(e as Map<String, dynamic>))
             .toList(),
       );
@@ -61,11 +62,12 @@ class ProjectModel extends Equatable {
         'minBudget': minBudget,
         'maxBudget': maxBudget,
         'ExpectedDuration': expectedDuration,
+        'offerCount':offerCount,
         'status': status,
         'createDate': createDate?.toIso8601String(),
         'client': client?.toJson(),
         'worker': worker,
-        'projectCategories': projectCategories.map((e) => e.toJson()).toList(),
+        'projectCategory':projectCategory?.toJson(),
         'projectSkill': projectSkill.map((e) => e.toJson()).toList(),
       };
 
@@ -78,11 +80,12 @@ class ProjectModel extends Equatable {
       minBudget,
       maxBudget,
       expectedDuration,
+      offerCount,
       status,
       createDate,
       client,
       worker,
-      projectCategories,
+      projectCategory,
       projectSkill,
     ];
   }

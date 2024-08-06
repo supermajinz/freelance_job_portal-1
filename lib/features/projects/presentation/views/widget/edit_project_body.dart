@@ -29,7 +29,7 @@ class _EditProjectBodyState extends State<EditProjectBody> {
   late final TextEditingController minBudgetController;
   late final TextEditingController maxBudgetController;
   late final TextEditingController durationController;
-  late Categories category;
+  late Categories? category;
   late final List<Skills> skills;
 
   @override
@@ -43,8 +43,8 @@ class _EditProjectBodyState extends State<EditProjectBody> {
         TextEditingController(text: widget.projectModel.maxBudget.toString());
     durationController = TextEditingController(
         text: widget.projectModel.expectedDuration.toString());
-    //category = widget.projectModel.projectCategory;
-    //skills = widget.projectModel.projectSkill ?? [];
+   category = widget.projectModel.projectCategory;
+    skills = widget.projectModel.projectSkill;
     super.initState();
   }
 
@@ -177,7 +177,7 @@ class _EditProjectBodyState extends State<EditProjectBody> {
                           maxBudget: int.parse(maxBudgetController.text),
                           expectedDuration: int.parse(durationController.text),
                           projectSkillIds: skills.map((e) => e.id).toList(),
-                          projectCategoriesIds: category.id,
+                          projectCategoriesIds: category?.id,
                         );
                         context
                             .read<ProjectBloc>()

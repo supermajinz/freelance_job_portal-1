@@ -11,11 +11,14 @@ class MyProjectRepoImpl implements MyProjectRepo {
 
   MyProjectRepoImpl(this._apiService);
   @override
-  Future<Either<Failure, ProjectModel>> getMyProject() async {
+  Future<Either<Failure, List<ProjectModel>>> getMyProject(int userId) async {
     try {
-      final response = await _apiService.get('');
-      final project = ProjectModel.fromJson(response);
-      return Right(project);
+      var data = await _apiService.get('projects/byUser/$userId');
+      List<ProjectModel> projects = [];
+      for (var item in data['projects']) {
+        projects.add(ProjectModel.fromJson(item));
+      }
+      return Right(projects);
     } catch (e) {
       if (e is DioException) {
         return left(ServerFailure.fromDioException(e));

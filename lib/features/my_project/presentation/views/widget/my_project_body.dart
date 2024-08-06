@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:freelance_job_portal/core/utils/size_config.dart';
-import 'package:freelance_job_portal/features/my_project/presentation/views/widget/custom_project_status.dart';
 import 'package:go_router/go_router.dart';
 
 class MyProjectBody extends StatelessWidget {
@@ -18,7 +17,8 @@ class MyProjectBody extends StatelessWidget {
                 onTap: () {
                   GoRouter.of(context).push("/projectstatusdetails");
                 },
-                child: const CustomProjectStatus()));
+                //child: const CustomProjectStatus()
+                ));
       },
     );
   }

@@ -28,7 +28,7 @@ class CustomCartegoryCard extends StatelessWidget {
         SizedBox(
           width: SizeConfig.defaultSize! * 12,
           child: Text(
-            cat.name!,
+            cat.name,
             textAlign: TextAlign.center,
             maxLines: 3,
             style: Theme.of(context).textTheme.labelLarge,

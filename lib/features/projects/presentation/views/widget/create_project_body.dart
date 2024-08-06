@@ -4,8 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freelance_job_portal/features/home/data/model/caregories/caregories.dart';
 import 'package:freelance_job_portal/features/home/data/model/skills/skills.dart';
 import 'package:freelance_job_portal/features/home/presentation/view_models/home_bloc/home_bloc.dart';
-import 'package:freelance_job_portal/features/home/presentation/views/widget/skills.dart';
-import 'package:freelance_job_portal/features/profile/data/models/profile/skill_dt_o.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../../core/utils/size_config.dart';
 import '../../../../../core/widget/custom_button_general.dart';
@@ -149,7 +147,8 @@ class _CreateProjectBodyState extends State<CreateProjectBody> {
                       _selectedSkills.map((skill) => skill.name).toList(),
                   onDelete: (name) {
                     setState(() {
-                      _selectedSkills.removeWhere((element) => element.name == name);
+                      _selectedSkills
+                          .removeWhere((element) => element.name == name);
                     });
                   },
                 ),
@@ -180,10 +179,12 @@ class _CreateProjectBodyState extends State<CreateProjectBody> {
                         }
                       },
                       builder: (context, state) {
+                       // final authSate = context.read<AuthBloc>().state;
                         return CustomButtonGeneral(
                           onPressed: () {
                             if (_formKey.currentState!.validate() &&
                                 _selectedCategory != null) {
+                              
                               final project = CreateProjectModel(
                                 name: _titleController.text,
                                 description: _descriptionController.text,
@@ -293,7 +294,8 @@ class CustomDropdownSearchSkills extends StatelessWidget {
             showSearchBox: true,
             itemBuilder: (context, item, isSelected) {
               return ListTile(
-                title: Text(item.name), // قم بتغيير هذا لعرض أسماء المهارات الفعلية
+                title: Text(
+                    item.name), // قم بتغيير هذا لعرض أسماء المهارات الفعلية
               );
             },
           ),

@@ -6,3 +6,8 @@ sealed class MyProjectEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
+
+class FetchMyProject extends MyProjectEvent {
+  final int userId;
+  const FetchMyProject(this.userId);
+}

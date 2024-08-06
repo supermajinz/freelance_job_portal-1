@@ -131,7 +131,7 @@ class _ShowProjectDetailsBodyState extends State<ShowProjectDetailsBody> {
             const VirticalSpace(3),
             _buildProjectSkills(project),
             const VirticalSpace(5),
-            _buildOffersToggle(),
+            _buildOffersToggle(project),
             const VirticalSpace(2),
             _buildOffersList(),
             const VirticalSpace(2),
@@ -148,11 +148,11 @@ class _ShowProjectDetailsBodyState extends State<ShowProjectDetailsBody> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         const Icon(Icons.laptop),
-        CustomSubTitle(text: project.name ?? 'No Name'),
+        CustomSubTitle(text: project.name),
         Column(
           children: [
             const CustomLabel(text: "1d", color: Colors.black),
-            CustomLabel(text: project.status ?? 'Unknown', color: Colors.black),
+            CustomLabel(text: project.status, color: Colors.black),
           ],
         )
       ],
@@ -167,7 +167,7 @@ class _ShowProjectDetailsBodyState extends State<ShowProjectDetailsBody> {
         Padding(
           padding: EdgeInsets.symmetric(vertical: SizeConfig.defaultSize! * .5),
           child: Text(
-            project.description ?? 'No description available',
+            project.description,
             textAlign: TextAlign.start,
             maxLines: 5,
             overflow: TextOverflow.ellipsis,
@@ -198,7 +198,7 @@ class _ShowProjectDetailsBodyState extends State<ShowProjectDetailsBody> {
         const Expanded(child: CustomSubTitleMedium(text: "Delivery Time:")),
         Expanded(
           child: CustomContainer(
-            text: project.expectedDuration?.toString() ?? 'N/A',
+            text: project.expectedDuration.toString(),
           ),
         ),
       ],
@@ -212,7 +212,7 @@ class _ShowProjectDetailsBodyState extends State<ShowProjectDetailsBody> {
         const CustomSubTitleMedium(text: "Price:"),
         CustomMeony(
           text:
-              "${project.minBudget?.toString() ?? 'N/A'}  _  ${project.maxBudget?.toString() ?? 'N/A'}",
+              "${project.minBudget.toString()}  _  ${project.maxBudget.toString()}",
         ),
       ],
     );
@@ -228,15 +228,15 @@ class _ShowProjectDetailsBodyState extends State<ShowProjectDetailsBody> {
           spacing: SizeConfig.defaultSize! * 1,
           runSpacing: SizeConfig.defaultSize! * .5,
           children: [
-            for (var skill in project.projectSkill ?? [])
-              CustomChipProject(text: skill.name ?? 'Unknown Skill'),
+            for (var skill in project.projectSkill)
+              CustomChipProject(text: skill.name),
           ],
         ),
       ],
     );
   }
 
-  Widget _buildOffersToggle() {
+  Widget _buildOffersToggle(ProjectModel project) {
     return InkWell(
       onTap: _toggleOffers,
       child: Container(
@@ -248,7 +248,7 @@ class _ShowProjectDetailsBodyState extends State<ShowProjectDetailsBody> {
           border: Border.all(width: 1, color: Theme.of(context).primaryColor),
           borderRadius: BorderRadius.circular(SizeConfig.defaultSize! * 2),
         ),
-        child: const CustomBody(text: "Offers: 2"),
+        child:  CustomBody(text: "Offers: ${project.offerCount}"),
       ),
     );
   }
