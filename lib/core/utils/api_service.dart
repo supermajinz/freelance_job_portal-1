@@ -13,10 +13,12 @@ class ApiService {
         _authTokenService = authTokenService {
     _dio.interceptors.add(InterceptorsWrapper(
       onRequest: (options, handler) async {
-        final token = await _authTokenService.getToken('access_token');
-        if (token != null) {
+        const token =
+            "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIwOTg2NDExNjI0IiwiaWF0IjoxNzIzMTQzMzE2LCJleHAiOjE3MjMyMjk3MTZ9.tfW5e-HB2EKwzjrjf_L1PY6NbL_JLdEYvpkm9qxoRXY";
+       // final token = await _authTokenService.getToken('access_token');
+        //if (token != null) {
           options.headers['Authorization'] = 'Bearer $token';
-        }
+       // }
         return handler.next(options);
       },
       onError: (DioException error, handler) async {
@@ -180,7 +182,7 @@ class ApiService {
       print('api service delete: $data');
       final response = await _dio.delete(endpoint, data: data);
       //final response = await _dio
-        //  .delete(endpoint, data: {"clientProfileId": 102, "skillId": 2});
+      //  .delete(endpoint, data: {"clientProfileId": 102, "skillId": 2});
       print('delete response${response.toString()}');
       if (response.data is String) {
         // If the response is a string, wrap it in a Map
