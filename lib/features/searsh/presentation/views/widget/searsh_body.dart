@@ -41,6 +41,8 @@ class _SearshBodyState extends State<SearshBody> {
             ...filters,
             if (searchController.text.isNotEmpty)
               "search": searchController.text,
+            "sortBy": _currentSortType,
+            "sortDes": !_isAscending,
             //sort
           },
         ));
@@ -111,15 +113,15 @@ class _SearshBodyState extends State<SearshBody> {
                   itemBuilder: (BuildContext context) =>
                       <PopupMenuEntry<SortType>>[
                     const PopupMenuItem<SortType>(
-                      value: SortType.budget,
+                      value: SortType.Budget,
                       child: Text('ترتيب حسب الميزانية'),
                     ),
                     const PopupMenuItem<SortType>(
-                      value: SortType.offers,
+                      value: SortType.NoOfOffers,
                       child: Text('ترتيب حسب عدد العروض'),
                     ),
                     const PopupMenuItem<SortType>(
-                      value: SortType.duration,
+                      value: SortType.Duration,
                       child: Text('ترتيب حسب المدة'),
                     ),
                   ],
@@ -197,9 +199,14 @@ class _SearshBodyState extends State<SearshBody> {
   }
 }
 
-enum SortType { budget, offers, duration }
+enum SortType {
+  Budget,
+  NoOfOffers,
+  Duration,
+  CreateDate,
+}
 
-SortType _currentSortType = SortType.budget;
+SortType _currentSortType = SortType.Budget;
 bool _isAscending = true;
 
 // add sort
@@ -238,12 +245,14 @@ Icon _getSortIcon() {
 String _getSortDescription() {
   String direction = _isAscending ? 'الأكثر' : 'الأقل';
   switch (_currentSortType) {
-    case SortType.budget:
+    case SortType.Budget:
       return '$direction ميزانية';
-    case SortType.offers:
+    case SortType.NoOfOffers:
       return '$direction عدد عروض';
-    case SortType.duration:
+    case SortType.Duration:
       return '$direction مدة';
+    case SortType.CreateDate:
+      return '$direction تاريخ الأنشاء';
     default:
       return 'ترتيب $direction';
   }
