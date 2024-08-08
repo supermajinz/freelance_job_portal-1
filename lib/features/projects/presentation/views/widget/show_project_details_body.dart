@@ -13,6 +13,7 @@ import '../../../../../core/widget/custom_label.dart';
 import '../../../../../core/widget/custom_meony.dart';
 import '../../../../../core/widget/custom_sub_title.dart';
 import '../../../../../core/widget/custom_subtitle_medium.dart';
+import '../../../../auth/presentation/view_models/bloc/auth_bloc.dart';
 import '../../../data/model/project_model/project_model.dart';
 import '../../view_models/offer_by_project/offer_by_project_bloc.dart';
 
@@ -94,7 +95,11 @@ class _ShowProjectDetailsBodyState extends State<ShowProjectDetailsBody> {
   }
 
   Widget _buildProjectDetailsContainer(
+    
       BuildContext context, ProjectModel project) {
+         final clientId = (context.read<AuthBloc>().state
+                                as AuthAuthenticated)
+                            .id;
     return Container(
       margin: EdgeInsets.symmetric(horizontal: SizeConfig.defaultSize! * .5),
       decoration: BoxDecoration(
@@ -124,6 +129,7 @@ class _ShowProjectDetailsBodyState extends State<ShowProjectDetailsBody> {
             const VirticalSpace(2),
             _buildOffersList(),
             const VirticalSpace(2),
+            if(project.client!.userId!=clientId)
             _buildApplyButton(context, project),
             const VirticalSpace(2),
           ],
@@ -276,6 +282,7 @@ class _ShowProjectDetailsBodyState extends State<ShowProjectDetailsBody> {
           showOffers ? CrossFadeState.showSecond : CrossFadeState.showFirst,
     );
   }
+
 
   Widget _buildApplyButton(BuildContext context, ProjectModel project) {
     return Center(
