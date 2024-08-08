@@ -30,6 +30,17 @@ class CreateClientProfileEvent extends ProfileEvent {
   List<Object> get props => [description, jobTitleId];
 }
 
+class EditClientProfileEvent extends ProfileEvent {
+  final String description;
+  final int jobTitleId;
+  final int profileId;
+
+  const EditClientProfileEvent(this.profileId,
+      {required this.description, required this.jobTitleId});
+  @override
+  List<Object> get props => [description, jobTitleId];
+}
+
 class AddPhotoToClientProfileEvent extends ProfileEvent {
   final int clientProfileId;
   final int photoId;
@@ -42,4 +53,24 @@ class AddSkillToClientProfileEvent extends ProfileEvent {
   final int skillId;
 
   const AddSkillToClientProfileEvent(this.clientProfileId, this.skillId);
+}
+
+class DeletePhotoToClientProfileEvent extends ProfileEvent {
+  final int clientProfileId;
+  final int photoId;
+
+  const DeletePhotoToClientProfileEvent(this.clientProfileId, this.photoId);
+}
+
+class DeleteSkillToClientProfileEvent extends ProfileEvent {
+  final int clientProfileId;
+  final int skillId;
+
+  const DeleteSkillToClientProfileEvent(this.clientProfileId, this.skillId);
+}
+
+class DeleteClientProfileEvent extends ProfileEvent {
+  final int profileId;
+
+  const DeleteClientProfileEvent(this.profileId);
 }

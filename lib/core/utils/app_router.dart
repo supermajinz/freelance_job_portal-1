@@ -19,6 +19,7 @@ import 'package:freelance_job_portal/features/offers/presentation/views/create_o
 import 'package:freelance_job_portal/features/offers/presentation/views/edit_offer.dart';
 import 'package:freelance_job_portal/features/offers/presentation/views/offer_details.dart';
 import 'package:freelance_job_portal/features/onboarding/presentation/views/onboarding_view.dart';
+import 'package:freelance_job_portal/features/profile/data/models/profile/client_profile.dart';
 import 'package:freelance_job_portal/features/profile/presentation/views/create_profile.dart';
 import 'package:freelance_job_portal/features/profile/presentation/views/edit_profile.dart';
 import 'package:freelance_job_portal/features/profile/presentation/views/profile.dart';
@@ -118,7 +119,7 @@ abstract class AppRouter {
     ),
     GoRoute(
       path: '/editprofile',
-      builder: (context, state) => const EditProfile(),
+      builder: (context, state) =>  EditProfile(profile: state.extra as ClientProfile),
     ),
     GoRoute(
       path: '/addprotofolio',

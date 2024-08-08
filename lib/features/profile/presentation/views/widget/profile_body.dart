@@ -90,10 +90,7 @@ class _ProfileBodyState extends State<ProfileBody> {
                                           //TODO: on clicked changes current profile.
                                           profile: widget.clientProfiles[index],
                                           icon: Icons.edit,
-                                          onPressed: () {
-                                            GoRouter.of(context)
-                                                .push('/editprofile');
-                                          },
+                                          onPressed: () {},
                                         ),
                                       );
                                     },
@@ -122,9 +119,7 @@ class _ProfileBodyState extends State<ProfileBody> {
                         child: CustomProfileCard(
                           profile: currentProfile,
                           icon: Icons.edit,
-                          onPressed: () {
-                            GoRouter.of(context).push('/editprofile');
-                          },
+                          onPressed: () {},
                         )))),
           ],
         ),
@@ -156,7 +151,7 @@ class _ProfileBodyState extends State<ProfileBody> {
                 const VirticalSpace(1),
                 InkWell(
                   onTap: () {},
-                  child: Text("",//TODO: show more?
+                  child: Text("", //TODO: show more?
                       style: Theme.of(context).textTheme.labelLarge!.copyWith(
                           fontWeight: FontWeight.bold,
                           decoration: TextDecoration.underline)),
@@ -166,7 +161,11 @@ class _ProfileBodyState extends State<ProfileBody> {
                   text: "المهارات",
                 ),
                 const VirticalSpace(.5),
-                currentProfile.skillDtOs!.isNotEmpty?   ShowChip(skills: currentProfile.skillDtOs!,) : const SizedBox(),
+                currentProfile.skillDtOs!.isNotEmpty
+                    ? ShowChip(
+                        skills: currentProfile.skillDtOs!,
+                      )
+                    : const SizedBox(),
                 const VirticalSpace(4),
                 const CustomSubTitle(
                   text: "Portfolio",

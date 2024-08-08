@@ -1,3 +1,4 @@
+import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freelance_job_portal/core/utils/dependency_injection.dart';
@@ -9,12 +10,16 @@ import 'package:freelance_job_portal/core/widget/space.dart';
 import 'package:freelance_job_portal/features/categories%20and%20skills/bloc/categories_skills_bloc.dart';
 import 'package:freelance_job_portal/features/categories%20and%20skills/models/categories/category.dart';
 import 'package:freelance_job_portal/features/categories%20and%20skills/models/job_title.dart';
+import 'package:freelance_job_portal/features/home/data/model/caregories/caregories.dart';
+import 'package:freelance_job_portal/features/home/data/model/skills/skills.dart';
 import 'package:freelance_job_portal/features/photo/bloc/image_bloc.dart';
 import 'package:freelance_job_portal/features/profile/presentation/view_models/bloc/profile_bloc.dart';
 import 'package:freelance_job_portal/features/profile/presentation/views/widget/add_edit_proto.dart';
 import 'package:freelance_job_portal/features/profile/presentation/views/widget/custom_dropdown_searsh.dart';
 import 'package:freelance_job_portal/features/profile/presentation/views/widget/custom_show_chip_button.dart';
+import 'package:freelance_job_portal/features/profile/presentation/views/widget/image_gallery_widget.dart';
 import 'package:freelance_job_portal/features/profile/presentation/views/widget/show_chip.dart';
+import 'package:freelance_job_portal/features/projects/presentation/views/widget/create_project_body.dart';
 import 'package:go_router/go_router.dart';
 
 import 'add_photo_profile1.dart';
@@ -28,9 +33,11 @@ class CreateProfileBody extends StatefulWidget {
 
 class _CreateProfileBodyState extends State<CreateProfileBody> {
   final _descriptionController = TextEditingController();
-  List<int>? _selectedSkillId = [1, 2];
-  int? _selectedPhotoId;
+  List<Skills> _selectedSkills = [];
+  int? _selectedProfilePhotoId;
+  List<int> _selectedGalleryPhotoIds = [];
   int? _selectedJobTitleId;
+  Categories? _selectedCategory;
 
   @override
   Widget build(BuildContext context) {
@@ -57,16 +64,16 @@ class _CreateProfileBodyState extends State<CreateProfileBody> {
                   create: (context) =>
                       ImageBloc(DependencyInjection.providePhotoRepo()),
                   child: AddPhotoProfile(
-                    onPhotoUploaded: (int e) {
+                    onPhotoUploaded: (int photoId) {
                       setState(() {
-                        _selectedPhotoId = e;
+                        _selectedProfilePhotoId = photoId;
                       });
-                      print('Uploaded Photo ID: $_selectedPhotoId');
+                      print(
+                          'Uploaded Profile Photo ID: $_selectedProfilePhotoId');
                     },
                   ),
                 ),
-                const VirticalSpace(5),
-                const VirticalSpace(2),
+                const VirticalSpace(7),
                 CustomTextFormGeneral(
                   mycontroller: _descriptionController,
                   hinttext: "",
@@ -74,124 +81,69 @@ class _CreateProfileBodyState extends State<CreateProfileBody> {
                   isNumber: false,
                 ),
                 const VirticalSpace(5),
+                const VirticalSpace(1.5),
+                const VirticalSpace(5),
+                BlocProvider(
+                  create: (context) =>
+                      ImageBloc(DependencyInjection.providePhotoRepo()),
+                  child: ImageGalleryWidget(
+                    onPhotoUploaded: (int photoId) {
+                      setState(() {
+                        _selectedGalleryPhotoIds.add(photoId);
+                      });
+                      print('Uploaded Gallery Photo ID: $photoId');
+                      print('All Gallery Photo IDs: $_selectedGalleryPhotoIds');
+                    },
+                  ),
+                ),
+                const VirticalSpace(5),
                 const CustomSubTitle(
                   text: "المسمى الوظيفي",
                 ),
                 const VirticalSpace(1.5),
-                BlocProvider(
-                  create: (context) =>
-                      CategoriesSkillsBloc(DependencyInjection.provideCsRepo())
-                        ..add(GetJobTitlesEvent()),
-                  child:
-                      BlocBuilder<CategoriesSkillsBloc, CategoriesSkillsState>(
-                    builder: (context, state) {
-                      if (state is CSLoading) {
-                        return Center(child: CircularProgressIndicator());
-                      } else if (state is CSError) {
-                        return Center(
-                          child: Text(state.err),
-                        );
-                      } else if (state is JobTitlesLoadedState ||
-                          state is JobTitleSelected) {
-                        List<JobTitle> jobTitles = [];
-                        int? selectedJobtitileId;
-
-                        if (state is JobTitlesLoadedState) {
-                          jobTitles = state.jobTitles;
-                        } else if (state is JobTitleSelected) {
-                          jobTitles = state.jobTitles;
-                          selectedJobtitileId = state.selectedJobTitleId;
-                          _selectedJobTitleId = selectedJobtitileId;
-                        }
-
-                        return Column(
-                          children: [
-                            CustomDropdownSearchJobTitle(
-                              cst: jobTitles,
-                              onJobTitleSelected: (int? selectedId) {
-                                if (selectedId != null) {
-                                  context
-                                      .read<CategoriesSkillsBloc>()
-                                      .add(JobTitleSelectedEvent(selectedId));
-                                }
-                              },
-                              initialSelectedId: selectedJobtitileId,
-                            ),
-                            if (selectedJobtitileId != null)
-                              Text(
-                                  "Selected job title ID: $selectedJobtitileId"),
-                          ],
-                        );
-                      } else {
-                        return Center(child: Text("Unexpected state"));
-                      }
-                    },
-                  ),
-                ),
+                DropDownSearchJobTitles(onChanged: (value) {
+                  setState(() {
+                    _selectedJobTitleId = value!.id;
+                  });
+                }),
                 const VirticalSpace(5),
                 const CustomSubTitle(
                   text: "التصنيف",
                 ),
                 const VirticalSpace(1.5),
-                BlocProvider(
-                  create: (context) =>
-                      CategoriesSkillsBloc(DependencyInjection.provideCsRepo())
-                        ..add(GetCategoriesEvent()),
-                  child:
-                      BlocBuilder<CategoriesSkillsBloc, CategoriesSkillsState>(
-                    builder: (context, state) {
-                      if (state is CSLoading) {
-                        return Center(child: CircularProgressIndicator());
-                      } else if (state is CSError) {
-                        return Center(
-                          child: Text(state.err),
-                        );
-                      } else if (state is CategoriesLoadedState ||
-                          state is CategorySelectedState) {
-                        List<Category> categories = [];
-                        int? selectedCategoryId;
-
-                        if (state is CategoriesLoadedState) {
-                          categories = state.categories;
-                          print('true');
-                        } else if (state is CategorySelectedState) {
-                          categories = state.categories;
-                          selectedCategoryId = state.selectedCategoryId;
-                        }
-
-                        return Column(
-                          children: [
-                            CustomDropdownSearchCategory(
-                              cst: categories,
-                              onCategorySelected: (int? selectedId) {
-                                if (selectedId != null) {
-                                  context
-                                      .read<CategoriesSkillsBloc>()
-                                      .add(CategorySelectedEvent(selectedId));
-                                  print("true2");
-                                }
-                              },
-                              initialSelectedId: selectedCategoryId,
-                            ),
-                            if (selectedCategoryId != null)
-                              Text("Selected category ID: $selectedCategoryId"),
-                            SizedBox(),
-                          ],
-                        );
-                      } else {
-                        return Center(child: Text("Unexpected state"));
-                      }
-                    },
-                  ),
-                ),
+                CustomDropdownSearchCategories(onChanged: (value) {
+                  if (value != null) {
+                    setState(() {
+                      _selectedCategory = value;
+                      _selectedSkills.clear();
+                    });
+                  }
+                }),
                 const VirticalSpace(5),
                 const CustomSubTitle(
-                  text: "Skills",
+                  text: "المهارات",
                 ),
-                const VirticalSpace(1.5),
-                const CustomShowChipButton(),
+                CustomDropdownSearchSkills(
+                  category: _selectedCategory,
+                  onChanged: (value) {
+                    if (value != null && !_selectedSkills.contains(value)) {
+                      setState(() {
+                        _selectedSkills.add(value);
+                      });
+                    }
+                  },
+                ),
                 const VirticalSpace(2),
-          //      const ShowChip(), TODO
+                CustomShowChipButton(
+                  projectItems:
+                      _selectedSkills.map((skill) => skill.name).toList(),
+                  onDelete: (name) {
+                    setState(() {
+                      _selectedSkills
+                          .removeWhere((element) => element.name == name);
+                    });
+                  },
+                ),
                 const VirticalSpace(4),
                 AddEditProto(
                   text: "Add Protofolio Project",
@@ -235,20 +187,28 @@ class _CreateProfileBodyState extends State<CreateProfileBody> {
 
   void _handleProfileCreated(
       BuildContext context, ClientProfileCreatedState state) {
-    // Add photo to profile
-    if (_selectedPhotoId != null) {
+    // Add profile photo to profile
+    if (_selectedProfilePhotoId != null) {
       context.read<ProfileBloc>().add(AddPhotoToClientProfileEvent(
             state.clientProfile.id!,
-            _selectedPhotoId!,
+            _selectedProfilePhotoId!,
+          ));
+    }
+
+    // Add gallery photos to profile
+    for (int photoId in _selectedGalleryPhotoIds) {
+      context.read<ProfileBloc>().add(AddPhotoToClientProfileEvent(
+            state.clientProfile.id!,
+            photoId,
           ));
     }
 
     // Add skills to profile
-    if (_selectedSkillId != null && _selectedSkillId!.isNotEmpty) {
-      context.read<ProfileBloc>().add(AddSkillToClientProfileEvent(
-            state.clientProfile.id!,
-            _selectedSkillId![0],
-          ));
+    if (_selectedSkills.isNotEmpty) {
+      for (var item in _selectedSkills) {
+        context.read<ProfileBloc>().add(
+            AddSkillToClientProfileEvent(state.clientProfile.id!, item.id));
+      }
     }
 
     // Show success message
@@ -257,7 +217,73 @@ class _CreateProfileBodyState extends State<CreateProfileBody> {
     );
 
     // Navigate to the next screen or perform any other action
-    // For example:
-     GoRouter.of(context).push('/homescreen');
+    GoRouter.of(context).push('/homescreen');
+  }
+}
+
+class CustomShowChipButton extends StatelessWidget {
+  final List<String> projectItems;
+  final Function(String) onDelete;
+
+  const CustomShowChipButton(
+      {super.key, required this.projectItems, required this.onDelete});
+
+  @override
+  Widget build(BuildContext context) {
+    return Wrap(
+      spacing: SizeConfig.defaultSize! * 1,
+      direction: Axis.horizontal,
+      runSpacing: SizeConfig.defaultSize! * .5,
+      children: projectItems
+          .map((item) =>
+              CustomChipButton(onDeleted: () => onDelete(item), text: item))
+          .toList(),
+    );
+  }
+}
+
+class DropDownSearchJobTitles extends StatelessWidget {
+  final Function(JobTitle?) onChanged;
+  final JobTitle? selectedJobTitle;
+  const DropDownSearchJobTitles(
+      {super.key, required this.onChanged, this.selectedJobTitle});
+
+  @override
+  Widget build(BuildContext context) {
+    final categoriesSkillsBloc =
+        CategoriesSkillsBloc(DependencyInjection.provideCsRepo());
+    categoriesSkillsBloc.add(GetJobTitlesEvent());
+
+    return BlocProvider(
+      create: (context) => categoriesSkillsBloc,
+      child: BlocBuilder<CategoriesSkillsBloc, CategoriesSkillsState>(
+        builder: (context, state) {
+          if (state is! JobTitlesLoadedState) {
+            return const CircularProgressIndicator();
+          }
+          return DropdownSearch<JobTitle>(
+            items: state.jobTitles,
+            itemAsString: (item) => item.title!,
+            dropdownDecoratorProps: DropDownDecoratorProps(
+              dropdownSearchDecoration: InputDecoration(
+                hintText: '',
+                hintStyle: Theme.of(context).textTheme.labelLarge,
+                border: const OutlineInputBorder(),
+              ),
+            ),
+            popupProps: PopupProps.menu(
+              showSearchBox: true,
+              itemBuilder: (context, item, isSelected) {
+                return ListTile(
+                  title: Text(item.title!),
+                );
+              },
+            ),
+            onChanged: onChanged,
+            selectedItem: selectedJobTitle,
+          );
+        },
+      ),
+    );
   }
 }

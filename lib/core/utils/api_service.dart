@@ -55,11 +55,13 @@ class ApiService {
       String endpoint, Map<String, dynamic> data) async {
     try {
       print("performing post request: $endpoint");
+      print('api service post: $data');
       final response = await _dio.post(endpoint, data: data);
       if (response.data is String) {
         // If the response is a string, wrap it in a Map
         return {'message': response.data};
       }
+
       return response.data;
     } on DioException catch (e) {
       print('DioException: ${e.message}');
@@ -144,7 +146,7 @@ class ApiService {
   Future<Map<String, dynamic>> postFormData(
       String endpoint, FormData formData) async {
     try {
-     // print('Attempting to post to endpoint: $endpoint');
+      // print('Attempting to post to endpoint: $endpoint');
       //print('FormData: ${formData.fields}, ${formData.files}');
       //print('Base URL: ${_dio.options.baseUrl}');
 
@@ -167,6 +169,42 @@ class ApiService {
     } catch (e) {
       print('Unexpected error in postFormData: $e');
       return {'error': 'UnexpectedError', 'message': e.toString()};
+    }
+  }
+
+  Future<Map<String, dynamic>> deletePost(
+      String endpoint, Map<String, dynamic> data) async {
+    try {
+      print('performing delete with body');
+      print("performing delete request: $endpoint");
+      print('api service delete: $data');
+      final response = await _dio.delete(endpoint, data: data);
+      //final response = await _dio
+        //  .delete(endpoint, data: {"clientProfileId": 102, "skillId": 2});
+      print('delete response${response.toString()}');
+      if (response.data is String) {
+        // If the response is a string, wrap it in a Map
+        return {'message': response.data};
+      }
+
+      return response.data;
+    } on DioException catch (e) {
+      print('DioException: ${e.message}');
+      print('Response data: ${e.response?.data}');
+      print('Response statusCode: ${e.response?.statusCode}');
+      throw ServerFailure.fromDioException(e);
+    }
+  }
+
+  Future<void> deleteNoResponse(String endpoint) async {
+    try {
+      final response = await _dio.delete(endpoint);
+      return response.data;
+    } on DioException catch (e) {
+      print('DioException: ${e.message}');
+      print('Response data: ${e.response?.data}');
+      print('Response statusCode: ${e.response?.statusCode}');
+      throw ServerFailure.fromDioException(e);
     }
   }
 }

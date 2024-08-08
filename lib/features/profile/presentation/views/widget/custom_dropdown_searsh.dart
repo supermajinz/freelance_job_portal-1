@@ -1,11 +1,13 @@
+
+
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
-import 'package:freelance_job_portal/features/categories%20and%20skills/models/categories/category.dart';
+//import 'package:freelance_job_portal/features/categories%20and%20skills/models/categories/category.dart';
 
 import 'package:freelance_job_portal/features/categories%20and%20skills/models/job_title.dart';
-import 'package:freelance_job_portal/features/categories%20and%20skills/models/skill.dart';
-
+//import 'package:freelance_job_portal/features/categories%20and%20skills/models/skill.dart';
+/*
 class CustomDropdownSearsh1 extends StatelessWidget {
   const CustomDropdownSearsh1({super.key});
 
@@ -14,6 +16,7 @@ class CustomDropdownSearsh1 extends StatelessWidget {
     return const CustomDropdownSearch();
   }
 }
+
 
 class CustomDropdownSearch extends StatelessWidget {
   const CustomDropdownSearch({
@@ -57,7 +60,7 @@ class CustomDropdownSearch extends StatelessWidget {
     );
   }
 }
-
+*/
 class CustomDropdownSearchJobTitle extends StatelessWidget {
   final List<JobTitle> cst;
   final Function(int?) onJobTitleSelected;
@@ -105,7 +108,7 @@ class CustomDropdownSearchJobTitle extends StatelessWidget {
     );
   }
 }
-
+/*
 class CustomDropdownSearchCategory extends StatelessWidget {
   final List<Category> cst;
   final Function(int?) onCategorySelected;
@@ -184,3 +187,4 @@ class CustomDropdownSearchSkill extends StatelessWidget {
     );
   }
 }
+*/

@@ -20,6 +20,10 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     on<CreateClientProfileEvent>(createClientProfile);
     on<AddPhotoToClientProfileEvent>(addPhotoToClientProfile);
     on<AddSkillToClientProfileEvent>(addSkillToClientProfile);
+    on<EditClientProfileEvent>(EditClientProfile);
+    on<DeletePhotoToClientProfileEvent>(DeletePhotoToClientProfile);
+    on<DeleteSkillToClientProfileEvent>(DeleteSkillToClientProfile);
+    on<DeleteClientProfileEvent>(_deleteClientProfile);
   }
 
   FutureOr<void> showProfile(
@@ -29,7 +33,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     result.fold(
         (failure) => emit(ProfileGetError(errorMessage: failure.errMessage)),
         (profile) {
-      print('we are in bloc');
+      //print('we are in bloc');
       print(profile.toString());
       emit(ProfileGetSuccess(myProfile: profile));
     });
@@ -94,6 +98,66 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
           'added skill clientProfileId: ${event.clientProfileId} skillId:  ${event.skillId}');
 
       emit(AddedPhotoToProfile(success));
+    });
+  }
+
+  FutureOr<void> EditClientProfile(
+      EditClientProfileEvent event, Emitter<ProfileState> emit) async {
+    emit(EditProfileLoading());
+    final result = await _profileRepo.editProfile({
+      "bio": event.description,
+      "jobTitleId": event.jobTitleId,
+    }, event.profileId);
+    result.fold(
+      (failure) => emit(EditProfileError(errorMessage: failure.errMessage)),
+      (clientProfile) {
+        print(clientProfile.toString());
+        emit(EditedClientProfileState(clientProfile: clientProfile));
+      },
+    );
+  }
+
+  FutureOr<void> DeletePhotoToClientProfile(
+      DeletePhotoToClientProfileEvent event, Emitter<ProfileState> emit) async {
+    emit(DeletePhotoToProfileLoading());
+    final result = await _profileRepo.deletePhoto({
+      "clientProfileId": event.clientProfileId,
+      "photoId": event.photoId,
+    });
+    result
+        .fold((failure) => emit(DeletePhotoToProfileError(failure.errMessage)),
+            (success) {
+      print(
+          'deleted photo clientProfileId: ${event.clientProfileId} skillId:  ${event.photoId}');
+
+      emit(DeletedPhotoToProfile(success));
+    });
+  }
+
+  FutureOr<void> DeleteSkillToClientProfile(
+      DeleteSkillToClientProfileEvent event, Emitter<ProfileState> emit) async {
+    emit(DeleteSkillToProfileLoading());
+    final result = await _profileRepo.deleteSkill({
+      "clientProfileId": event.clientProfileId,
+      "skillId": event.skillId,
+    });
+    result
+        .fold((failure) => emit(DeleteSkillToProfileError(failure.errMessage)),
+            (success) {
+      print(
+          'deleted skill clientProfileId: ${event.clientProfileId} skillId:  ${event.skillId}');
+
+      emit(DeletedSkillToProfile(success));
+    });
+  }
+
+  FutureOr<void> _deleteClientProfile(
+      DeleteClientProfileEvent event, Emitter<ProfileState> emit) async {
+    emit(ProfileLoading());
+    final result = await _profileRepo.deleteProfile(event.profileId);
+    result.fold((failure) => emit(DeleteClientProfileError(failure.errMessage)),
+        (_) {
+      emit(ClientProfileDeleted());
     });
   }
 }

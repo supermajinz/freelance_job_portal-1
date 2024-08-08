@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:freelance_job_portal/features/profile/data/models/profile/client_profile.dart';
+import 'package:go_router/go_router.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -29,7 +30,7 @@ class CustomProfileCard extends StatelessWidget {
   Widget build(BuildContext context) {
     String? profileImageUrl = profile.photoDtOs!.isNotEmpty
         ? "http://localhost:8080/api/v1/file/photo/${profile.photoDtOs![0].photo}"
-        : "assets/images/pro.jpg";
+        : null;
     return IntrinsicHeight(
       child: Container(
         padding: EdgeInsets.all(SizeConfig.defaultSize! * .8),
@@ -53,7 +54,7 @@ class CustomProfileCard extends StatelessWidget {
               },
               child: CircleAvatar(
                 radius: SizeConfig.defaultSize! * 5,
-                backgroundImage: NetworkImage(profileImageUrl),
+                backgroundImage: (profileImageUrl != null )? NetworkImage(profileImageUrl ):const AssetImage('assets/images/pro1.jpg') ,
               ),
             ),
             const HorizintalSpace(1),
@@ -87,7 +88,9 @@ class CustomProfileCard extends StatelessWidget {
             ),
             const Spacer(),
             IconButton(
-                onPressed: onPressed,
+                onPressed: (){
+                   GoRouter.of(context).push('/editprofile',extra: profile);
+                },
                 icon: Icon(
                   icon,
                   size: SizeConfig.defaultSize! * 2.5,

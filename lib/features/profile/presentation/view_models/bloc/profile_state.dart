@@ -64,6 +64,29 @@ class ProfileCreateError extends ProfileState {
         errorMessage,
       ];
 }
+class EditProfileLoading extends ProfileState {}
+
+class EditedClientProfileState extends ProfileState {
+  final ClientProfile clientProfile;
+  const EditedClientProfileState({
+    required this.clientProfile,
+  });
+  @override
+  List<Object> get props => [
+        clientProfile,
+      ];
+}
+
+class EditProfileError extends ProfileState {
+  final String errorMessage;
+  const EditProfileError({
+    required this.errorMessage,
+  });
+  @override
+  List<Object> get props => [
+        errorMessage,
+      ];
+}
 
 class AddPhotoToProfileLoading extends ProfileState {}
 
@@ -109,3 +132,55 @@ class AddSkillToProfileError extends ProfileState {
         errorMessage,
       ];
 }
+class DeleteSkillToProfileLoading extends ProfileState {}
+class DeleteSkillToProfileError extends ProfileState {
+  final String errorMessage;
+
+  const DeleteSkillToProfileError(this.errorMessage);
+  @override
+  List<Object> get props => [
+        errorMessage,
+      ];
+}
+class DeletePhotoToProfileLoading extends ProfileState {}
+
+class DeletePhotoToProfileError extends ProfileState {
+  final String errorMessage;
+
+  const DeletePhotoToProfileError(this.errorMessage);
+  @override
+  List<Object> get props => [
+        errorMessage,
+      ];
+}
+class DeletedSkillToProfile extends ProfileState {
+  final String successMessage;
+
+  const DeletedSkillToProfile(this.successMessage);
+
+  @override
+  List<Object> get props => [
+        successMessage,
+      ];
+}
+class DeletedPhotoToProfile extends ProfileState {
+  final String successMessage;
+
+  const DeletedPhotoToProfile(this.successMessage);
+
+  @override
+  List<Object> get props => [
+        successMessage,
+      ];
+}
+class ClientProfileDeleted extends ProfileState{}
+class DeleteClientProfileError extends ProfileState {
+  final String errorMessage;
+
+  const DeleteClientProfileError(this.errorMessage);
+  @override
+  List<Object> get props => [
+        errorMessage,
+      ];
+}
+

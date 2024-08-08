@@ -1,145 +1,323 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:freelance_job_portal/core/utils/dependency_injection.dart';
 import 'package:freelance_job_portal/core/utils/size_config.dart';
 import 'package:freelance_job_portal/core/widget/custom_button_general.dart';
 import 'package:freelance_job_portal/core/widget/custom_sub_title.dart';
 import 'package:freelance_job_portal/core/widget/space.dart';
+import 'package:freelance_job_portal/features/categories%20and%20skills/models/job_title.dart';
+import 'package:freelance_job_portal/features/home/data/model/caregories/caregories.dart';
+import 'package:freelance_job_portal/features/home/data/model/skills/skills.dart';
+import 'package:freelance_job_portal/features/photo/bloc/image_bloc.dart';
+import 'package:freelance_job_portal/features/profile/data/models/profile/client_profile.dart';
+import 'package:freelance_job_portal/features/profile/data/models/profile/photo_dt_o.dart';
+import 'package:freelance_job_portal/features/profile/presentation/view_models/bloc/profile_bloc.dart';
 import 'package:freelance_job_portal/features/profile/presentation/views/widget/add_edit_proto.dart';
-import 'package:freelance_job_portal/features/profile/presentation/views/widget/custom_dropdown_searsh.dart';
-import 'package:freelance_job_portal/features/profile/presentation/views/widget/custom_show_chip_button.dart';
-import 'package:freelance_job_portal/features/profile/presentation/views/widget/edit_photo_profile.dart';
+import 'package:freelance_job_portal/features/profile/presentation/views/widget/create_profile_body.dart';
+import 'package:freelance_job_portal/features/profile/presentation/views/widget/edit_image_gallery_widget.dart';
+import 'package:freelance_job_portal/features/profile/presentation/views/widget/edit_photo_profile_1.dart';
 import 'package:freelance_job_portal/features/profile/presentation/views/widget/edit_text_form.dart';
-import 'package:freelance_job_portal/features/profile/presentation/views/widget/show_chip.dart';
+import 'package:freelance_job_portal/features/projects/presentation/views/widget/create_project_body.dart';
 import 'package:go_router/go_router.dart';
 
-class EditProfileBody extends StatelessWidget {
-  const EditProfileBody({super.key});
+class EditProfileBody extends StatefulWidget {
+  final ClientProfile profile;
+  const EditProfileBody({super.key, required this.profile});
+
+  @override
+  State<EditProfileBody> createState() => _EditProfileBodyState();
+}
+
+class _EditProfileBodyState extends State<EditProfileBody> {
+  late final TextEditingController descriptionController;
+  Categories? category;
+  late final List<Skills> skills;
+  late JobTitle _selectedJobTitle;
+   PhotoDtO? selectedPhoto; //old photo if new one is selected
+  late List<String> selectedPhotos;
+  List<int> deletedPhotos = [];
+  List<int> addedPhotos = [];
+  int? newPhotoId;
+  List<int> deletedSkills = [];
+  List<int> addedSkills = [];
+  @override
+  void dispose() {
+    descriptionController.clear();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    descriptionController = TextEditingController(text: widget.profile.bio);
+    skills = widget.profile.skillDtOs!.map((skillDto) {
+      return Skills(
+        id: skillDto.id!,
+        name: skillDto.name!,
+      );
+    }).toList();
+
+    selectedPhotos = widget.profile.photoDtOs!
+        .map((e) => 'http://localhost:8080/api/v1/file/photo/${e.photo!}')
+        .toList();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
-      children: [
-        Container(
-          margin: EdgeInsets.symmetric(
-              horizontal: SizeConfig.defaultSize! * 1.5,
-              vertical: SizeConfig.defaultSize! * 2),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Stack(
-                clipBehavior: Clip.none,
-                children: [
-                  const EditPhotoProfile(),
-                  Positioned(
-                    top: SizeConfig.defaultSize! * 9,
-                    left: SizeConfig.defaultSize! * 9.5,
-                    child: IconButton(
-                        onPressed: () {}, icon: const Icon(Icons.edit)),
-                  )
-                ],
-              ),
-              const VirticalSpace(5),
-              const Row(
-                children: [
-                  Expanded(
-                    child: EditTextForm(
-                        //initvalue: "Ahmad",
-                        hinttext: "",
-                        lable: "First Name",
-                        isNumber: false),
+    _selectedJobTitle = JobTitle(
+      id: widget.profile.jobTitleDto!.id,
+      title: widget.profile.jobTitleDto!.title,
+    );
+   if (widget.profile.photoDtOs?.isNotEmpty == true &&
+        widget.profile.photoDtOs?[0] != null) {
+      selectedPhoto = widget.profile.photoDtOs![0];
+    }
+    return BlocListener<ProfileBloc, ProfileState>(
+      listener: (context, state) {
+        if (state is EditedClientProfileState) {
+          _handleProfileEdit(context, state);
+        } else if (state is EditProfileError) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Error: ${state.errorMessage}')),
+          );
+        } else if (state is DeletePhotoToProfileError ||
+            state is DeleteSkillToProfileError) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Error: error deleting')),
+          );
+        } else if (state is DeletedPhotoToProfile ||
+            state is DeletedSkillToProfile) {
+          setState(() {});
+          // Refresh the profile data or update the UI accordingly
+        }
+      },
+      child: ListView(
+        children: [
+          Container(
+            margin: EdgeInsets.symmetric(
+                horizontal: SizeConfig.defaultSize! * 1.5,
+                vertical: SizeConfig.defaultSize! * 2),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Stack(
+                  clipBehavior: Clip.none,
+                  children: [
+                    BlocProvider(
+                      create: (context) =>
+                          ImageBloc(DependencyInjection.providePhotoRepo()),
+                      child: EditPhotoProfile(
+                        onPhotoUploaded: (int e) {
+                          newPhotoId = e;
+                          print('upadted photo: new id $newPhotoId');
+                        },
+                        selectedPhoto: selectedPhoto,
+                      ),
+                    ),
+                  ],
+                ),
+                const VirticalSpace(5),
+                const VirticalSpace(2),
+                EditTextForm(
+                    mycontroller: descriptionController,
+                    hinttext: "",
+                    lable: "الوصف",
+                    isNumber: false),
+                const VirticalSpace(4),
+                const CustomSubTitle(
+                  text: "الصور",
+                ),
+                const VirticalSpace(2),
+                BlocProvider(
+                  create: (context) =>
+                      ImageBloc(DependencyInjection.providePhotoRepo()),
+                  child: EditImageGalleryWidget(
+                    onPhotoUploaded: (int e) {
+                      addedPhotos.add(e);
+                    },
+                    onPhotoDeleted: (int e) {
+                      deletedPhotos.add(e);
+                    },
+                    selectedPhotos: widget.profile.photoDtOs,
                   ),
-                  HorizintalSpace(.5),
-                  Expanded(
-                    child: EditTextForm(
-                        // initvalue: "Murad",
-                        hinttext: "",
-                        lable: "Last Name",
-                        isNumber: false),
-                  )
-                ],
-              ),
-              const VirticalSpace(2),
-              const EditTextForm(
-                  //initvalue:
-                  // "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce fermentum lacus metus. Vivamus faucibus ullamcorper velit, id facilisis lacus tempus.....",
-                  hinttext: "",
-                  lable: "Descripion",
-                  isNumber: false),
-              const VirticalSpace(4),
-              const CustomSubTitle(
-                text: "Edit Descriptor Images",
-              ),
-              const VirticalSpace(2),
-              SizedBox(
-                height: SizeConfig.defaultSize! * 18,
-                child: ListView.separated(
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) {
-                      return Stack(
-                        clipBehavior: Clip.none,
-                        children: [
-                          AspectRatio(
-                            aspectRatio: 3.7 / 4,
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.all(
-                                      Radius.circular(
-                                          SizeConfig.defaultSize! * 1.6)),
-                                  image: const DecorationImage(
-                                      fit: BoxFit.fill,
-                                      image:
-                                          AssetImage("assets/images/pro.jpg"))),
-                            ),
-                          ),
-                          Positioned(
-                            top: SizeConfig.defaultSize! * 14.5,
-                            right: SizeConfig.defaultSize! * 13,
-                            child: IconButton(
-                                onPressed: () {}, icon: const Icon(Icons.edit)),
-                          )
-                        ],
-                      );
-                    },
-                    separatorBuilder: (context, index) {
-                      return const HorizintalSpace(1);
-                    },
-                    itemCount: 5),
-              ),
-              const VirticalSpace(4),
-              const CustomSubTitle(
-                text: "Category",
-              ),
-              const VirticalSpace(1.5),
-              const CustomDropdownSearsh1(),
-              const VirticalSpace(5),
-              const CustomSubTitle(
-                text: "Skills",
-              ),
-              const VirticalSpace(1.5),
-              const CustomDropdownSearsh1(),
-              const VirticalSpace(2),
-              const CustomShowChipButton(),
-              const VirticalSpace(2),
-             // const ShowChip(), TODO
-              const VirticalSpace(4),
-              AddEditProto(
-                text: "Edit Protofolio Project",
-                onTap: () {
-                  GoRouter.of(context).push("/editprotofolio");
-                },
-              ),
-              const VirticalSpace(6),
-              Center(
-                  child: CustomButtonGeneral(
-                      onPressed: () {},
-                      color: Theme.of(context).primaryColor,
-                      textcolor: Colors.white,
-                      text: "Save",
-                      borderSide: const BorderSide(width: 0),
-                      width: SizeConfig.defaultSize! * 20)),
-            ],
-          ),
-        )
-      ],
+                ),
+                const VirticalSpace(5),
+                const CustomSubTitle(
+                  text: "المسمى الوظيفي",
+                ),
+                const VirticalSpace(2),
+                DropDownSearchJobTitles(
+                  onChanged: (value) {
+                    _selectedJobTitle = value!;
+                  },
+                  selectedJobTitle: _selectedJobTitle,
+                ),
+                const VirticalSpace(5),
+                const CustomSubTitle(
+                  text: "الصنف",
+                ),
+                const VirticalSpace(2),
+                CustomDropdownSearchCategories(
+                  onChanged: (value) {
+                    if (value != null) {
+                      setState(() {
+                        category = value;
+                        skills.clear();
+                      });
+                    }
+                  },
+                ),
+                const VirticalSpace(5),
+                const CustomSubTitle(
+                  text: "المهارات",
+                ),
+                const VirticalSpace(2),
+                CustomDropdownSearchSkills(
+                  category: category,
+                  onChanged: (value) {
+                    if (value != null && !skills.contains(value)) {
+                      setState(() {
+                        skills.add(value);
+                      });
+                      addedSkills.add(value.id);
+                    }
+                  },
+                ),
+                const VirticalSpace(2),
+                CustomShowChipButton(
+                  projectItems: skills.map((skill) => skill.name).toList(),
+                  onDelete: (name) {
+                    setState(() {
+                      // Find the skill to be deleted
+                      Skills skillToDelete =
+                          skills.firstWhere((element) => element.name == name);
+
+                      // Remove the skill from the skills list
+                      skills.removeWhere((element) => element.name == name);
+
+                      // Add the id of the deleted skill to deletedSkills list
+                      deletedSkills.add(skillToDelete.id);
+                    });
+                  },
+                ),
+                const VirticalSpace(2),
+                const VirticalSpace(5),
+                AddEditProto(
+                  text: "Edit Protofolio Project",
+                  onTap: () {
+                    GoRouter.of(context).push("/editprotofolio");
+                  },
+                ),
+                const VirticalSpace(6),
+                Center(
+                    child: CustomButtonGeneral(
+                        onPressed: () {
+                          print("""data:
+                            profile id: ${widget.profile.id!}
+                             NewselectedProfilePic:$newPhotoId
+                             ProfilePic to be deleted: ${selectedPhoto?.photo ?? ''}
+                             newBio: ${descriptionController.text}
+                             newJobTitle: ${_selectedJobTitle.title}
+                             AddedPhotos: ${addedPhotos.toString()}
+                             deletedPhotos: ${deletedPhotos.toString()}
+                             newCategory: $category
+                             newSkills: $addedSkills
+                             deletedSkills:$deletedSkills
+                              """);
+                          context.read<ProfileBloc>().add(
+                              EditClientProfileEvent(widget.profile.id!,
+                                  description: descriptionController.text,
+                                  jobTitleId: _selectedJobTitle.id!));
+                        },
+                        color: Theme.of(context).primaryColor,
+                        textcolor: Colors.white,
+                        text: "Save",
+                        borderSide: const BorderSide(width: 0),
+                        width: SizeConfig.defaultSize! * 20)),
+              ],
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
+  void _handleProfileEdit(BuildContext context, EditClientProfileState) {
+    if (newPhotoId != null) {
+      // Delete old
+      if (selectedPhoto != null) {
+        context.read<ProfileBloc>().add(DeletePhotoToClientProfileEvent(
+            widget.profile.id!, selectedPhoto!.id!));
+        print(
+            'widget deleted old profile pic with ${selectedPhoto.toString()}');
+      }
+      // Add new
+      if (newPhotoId != null) {
+        context
+            .read<ProfileBloc>()
+            .add(AddPhotoToClientProfileEvent(widget.profile.id!, newPhotoId!));
+        print('widget new photo $newPhotoId');
+      }
+    }
+    if (deletedSkills.isNotEmpty) {
+      for (int skillId in deletedSkills) {
+        context
+            .read<ProfileBloc>()
+            .add(DeleteSkillToClientProfileEvent(widget.profile.id!, skillId));
+      }
+      deletedSkills.clear();
+    }
+    if (deletedPhotos.isNotEmpty) {
+      for (int photoId in deletedPhotos) {
+        context
+            .read<ProfileBloc>()
+            .add(DeletePhotoToClientProfileEvent(widget.profile.id!, photoId));
+      }
+      deletedPhotos.clear();
+    }
+    if (addedSkills.isNotEmpty) {
+      for (int skillId in addedSkills) {
+        context
+            .read<ProfileBloc>()
+            .add(AddSkillToClientProfileEvent(widget.profile.id!, skillId));
+      }
+      addedSkills.clear();
+    }
+    if (addedPhotos.isNotEmpty) {
+      for (int photoId in addedPhotos) {
+        context
+            .read<ProfileBloc>()
+            .add(AddPhotoToClientProfileEvent(widget.profile.id!, photoId));
+      }
+      addedPhotos.clear();
+    }
+    // Show success message
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Profile edited successfully!')),
+    );
+
+    // Navigate to the next screen or perform any other action
+    GoRouter.of(context).push('/homescreen');
+  }
+}
+
+class CustomShowChipButton extends StatelessWidget {
+  final List<String> projectItems;
+  final Function(String) onDelete;
+
+  const CustomShowChipButton(
+      {super.key, required this.projectItems, required this.onDelete});
+
+  @override
+  Widget build(BuildContext context) {
+    return Wrap(
+      spacing: SizeConfig.defaultSize! * 1,
+      direction: Axis.horizontal,
+      runSpacing: SizeConfig.defaultSize! * .5,
+      children: projectItems
+          .map((item) =>
+              CustomChipButton(onDeleted: () => onDelete(item), text: item))
+          .toList(),
     );
   }
 }

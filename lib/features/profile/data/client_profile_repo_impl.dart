@@ -23,7 +23,8 @@ class ClientProfileRepoImpl implements ProfileRepo {
   }
 
   @override
-  Future<Either<Failure, String>> addSkill(Map<String, dynamic> skillData) async {
+  Future<Either<Failure, String>> addSkill(
+      Map<String, dynamic> skillData) async {
     try {
       final response =
           await _apiService.post('clientProfiles/add-skill', skillData);
@@ -47,9 +48,16 @@ class ClientProfileRepoImpl implements ProfileRepo {
   }
 
   @override
-  Future<Either<Failure, Map<String, dynamic>>> editProfile() {
-    // TODO: implement editProfile
-    throw UnimplementedError();
+  Future<Either<Failure, ClientProfile>> editProfile(
+      Map<String, dynamic> profileData, int profileId) async {
+    try {
+      final response =
+          await _apiService.put('clientProfiles/$profileId', profileData);
+      return Right(ClientProfile.fromMap(response));
+    } catch (e) {
+      return Left(ServerFailure(
+          errMessage: 'Failed to fetch create profile: ${e.toString()}'));
+    }
   }
 
   @override
@@ -99,7 +107,44 @@ class ClientProfileRepoImpl implements ProfileRepo {
       final profile = profiles.firstWhere((p) => p.id == profileId);
       return Right(profile);
     } catch (e) {
-      return Left(ServerFailure(errMessage: 'Profile not found'));
+      return Left(ServerFailure(errMessage: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, String>> deletePhoto(
+      Map<String, dynamic> photoData) async {
+    try {
+      print('repo: $photoData');
+
+      final response = await _apiService.deletePost(
+          'clientProfiles/delete-photo', photoData);
+      return Right(response['message']);
+    } catch (e) {
+      return Left(ServerFailure(errMessage: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, String>> deleteSkill(
+      Map<String, dynamic> skillData) async {
+    try {
+      print('repo: $skillData');
+      final response = await _apiService.deletePost(
+          'clientProfiles/delete-skill', skillData);
+      return Right(response['message']);
+    } catch (e) {
+      return Left(ServerFailure(errMessage:e.toString()));
+    }
+  }
+  
+  @override
+  Future<Either<Failure, void>> deleteProfile(int profileId)async {
+    try{
+       await _apiService.deleteNoResponse('clientProfiles/$profileId');
+      return const Right(null);
+    } catch (e) {
+      return Left(ServerFailure(errMessage: e.toString()));
     }
   }
 }
