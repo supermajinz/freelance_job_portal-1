@@ -7,11 +7,6 @@ sealed class ProjectEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class FetchProjectDetails extends ProjectEvent {
-  final int projectId;
-  const FetchProjectDetails(this.projectId);
-}
-
 class CreateProjectSubmitted extends ProjectEvent {
   final CreateProjectModel project;
 
@@ -37,4 +32,31 @@ class DeleteProject extends ProjectEvent {
 
   @override
   List<Object> get props => [projectId];
+}
+
+class CloseProject extends ProjectEvent {
+  final int projectId;
+
+  const CloseProject(this.projectId);
+
+  @override
+  List<Object> get props => [projectId];
+}
+
+class AcceptOffer extends ProjectEvent {
+  final int offerId;
+
+  const AcceptOffer(this.offerId);
+
+  @override
+  List<Object> get props => [offerId];
+}
+
+class RejectOffer extends ProjectEvent {
+  final int offerId;
+
+  const RejectOffer(this.offerId);
+
+  @override
+  List<Object> get props => [offerId];
 }

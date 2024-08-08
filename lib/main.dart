@@ -6,9 +6,12 @@ import 'package:freelance_job_portal/core/utils/app_router.dart';
 import 'package:freelance_job_portal/core/utils/dependency_injection.dart';
 import 'package:freelance_job_portal/features/auth/presentation/view_models/bloc/auth_bloc.dart';
 import 'package:freelance_job_portal/features/home/presentation/view_models/home_bloc/home_bloc.dart';
+import 'package:freelance_job_portal/features/home/presentation/view_models/nav_bar_bloc/nav_bar_bloc.dart';
+import 'package:freelance_job_portal/features/my_project/presentation/view_models/bloc/my_project_bloc.dart';
 import 'package:freelance_job_portal/features/offers/presentation/view_models/bloc/offer_bloc.dart';
 import 'package:freelance_job_portal/features/projects/presentation/view_models/offer_by_project/offer_by_project_bloc.dart';
 import 'package:freelance_job_portal/features/projects/presentation/view_models/project_bloc/project_bloc.dart';
+import 'package:freelance_job_portal/features/searsh/presentation/view_models/search_bloc/search_bloc.dart';
 import 'package:freelance_job_portal/l10n/l10n.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -22,6 +25,9 @@ void main() async {
     providers: [
       BlocProvider(
         create: (context) => LocalizationBloc()..add(LoadSavedLocalization()),
+      ),
+      BlocProvider(
+        create: (context) => NavigationBloc(),
       ),
       BlocProvider(
         create: (context) => AuthBloc(
@@ -41,6 +47,12 @@ void main() async {
         create: (context) =>
             OfferByProjectBloc(DependencyInjection.provideProjectRepo()),
       ),
+      BlocProvider(
+          create: (context) =>
+              MyProjectBloc(DependencyInjection.provideMyProjectRepo())),
+      BlocProvider(
+          create: (context) =>
+              SearchBloc(DependencyInjection.provideSearchRepo())),
     ],
     child: const FreelanceJob(),
   ));

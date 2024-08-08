@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:freelance_job_portal/core/utils/size_config.dart';
-import 'package:freelance_job_portal/core/widget/custom_label.dart';
 import 'package:timelines/timelines.dart';
 
+import '../../../../../core/utils/size_config.dart';
+import '../../../../../core/widget/custom_label.dart';
+
 class CustomTimeline extends StatelessWidget {
-  const CustomTimeline({super.key});
+  final int currentStatus;
+
+  const CustomTimeline({super.key, required this.currentStatus});
 
   @override
   Widget build(BuildContext context) {
@@ -59,14 +62,14 @@ class CustomTimeline extends StatelessWidget {
               }
             },
             indicatorBuilder: (context, index) {
-              return const DotIndicator(
-                color: Colors.blue,
+              return DotIndicator(
+                color: index <= currentStatus ? Colors.blue : const Color.fromARGB(255, 206, 204, 204),
               );
             },
             connectorBuilder: (context, index, type) {
-              return const SolidLineConnector(
+              return SolidLineConnector(
                 direction: Axis.horizontal,
-                color: Colors.blue,
+                color: index <= currentStatus ? Colors.blue : const Color.fromARGB(255, 206, 204, 204),
               );
             },
           ),

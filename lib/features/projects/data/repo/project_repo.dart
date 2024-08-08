@@ -6,11 +6,13 @@ import '../../../offers/data/model/offers_model/offers_model.dart';
 import '../model/create_project_model.dart';
 
 abstract class ProjectRepo {
-  Future<Either<Failure, ProjectModel>> getProjectDetails(int projectId);
   Future<Either<Failure, ProjectModel>> createProject(
       CreateProjectModel project);
-  Future<Either<Failure, EditProjectModel>> updateProject(
+  Future<Either<Failure, ProjectModel>> updateProject(
       EditProjectModel editProjectModel, int projectId);
   Future<Either<Failure, List<OffersModel>>> getOffersByProject(int projectId);
   Future<Either<Failure, Unit>> deleteProject(int projectId);
+  Future<Either<Failure, Unit>> closeProject(int projectId);
+  Future<Either<Failure, Unit>> acceptOffer(int offerId);
+  Future<Either<Failure, Unit>> rejectOffer(int offerId);
 }

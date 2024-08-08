@@ -30,7 +30,7 @@ class CreateProjectModel extends Equatable {
         expectedDuration: json['ExpectedDuration'] as int?,
         clientProfileId: json['clientProfileId'] as int?,
         projectSkillIds: json['projectSkillIds'] as List<int>?,
-        projectCategory: json['projectCategoriesIds'] as int?,
+        projectCategory: json['projectCategoryId'] as int?,
       );
 
   Map<String, dynamic> toJson() => {
@@ -41,7 +41,7 @@ class CreateProjectModel extends Equatable {
         'ExpectedDuration': expectedDuration,
         'clientProfileId': clientProfileId,
         'projectSkillIds': projectSkillIds,
-        'projectCategoriesIds': projectCategory,
+        'projectCategoryId': projectCategory,
       };
 
   @override

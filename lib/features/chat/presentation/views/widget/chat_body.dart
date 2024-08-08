@@ -10,11 +10,12 @@ class ChatBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController chatController = TextEditingController();
     return ListView(
       shrinkWrap: true,
       children: [
         const VirticalSpace(1),
-        const CustomSearch(title: "Hinted search text"),
+        CustomSearch(title: "Hinted search text", myController: chatController),
         Container(
           height: SizeConfig.defaultSize! * 61,
           color: Theme.of(context).cardColor,

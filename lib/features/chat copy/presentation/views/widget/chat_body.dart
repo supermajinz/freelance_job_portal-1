@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:freelance_job_portal/core/utils/size_config.dart';
-import 'package:freelance_job_portal/core/widget/custom_search.dart';
 import 'package:freelance_job_portal/core/widget/space.dart';
 import 'package:freelance_job_portal/features/chat/presentation/views/widget/custom_message_card.dart';
 import 'package:go_router/go_router.dart';
@@ -13,7 +12,7 @@ class ChatBodyCopy extends StatelessWidget {
     return ListView(
       children: [
         const VirticalSpace(2),
-        const CustomSearch(title: "Hinted search text"),
+        //const CustomSearch(title: "Hinted search text"),
         Container(
           margin:
               EdgeInsets.symmetric(horizontal: SizeConfig.defaultSize! * .5),

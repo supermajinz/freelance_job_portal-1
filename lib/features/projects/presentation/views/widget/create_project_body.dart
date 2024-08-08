@@ -1,6 +1,7 @@
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:freelance_job_portal/features/auth/presentation/view_models/bloc/auth_bloc.dart';
 import 'package:freelance_job_portal/features/home/data/model/caregories/caregories.dart';
 import 'package:freelance_job_portal/features/home/data/model/skills/skills.dart';
 import 'package:freelance_job_portal/features/home/presentation/view_models/home_bloc/home_bloc.dart';
@@ -179,12 +180,13 @@ class _CreateProjectBodyState extends State<CreateProjectBody> {
                         }
                       },
                       builder: (context, state) {
-                       // final authSate = context.read<AuthBloc>().state;
+                        final clientId = (context.read<AuthBloc>().state
+                                as AuthAuthenticated)
+                            .id;
                         return CustomButtonGeneral(
                           onPressed: () {
                             if (_formKey.currentState!.validate() &&
                                 _selectedCategory != null) {
-                              
                               final project = CreateProjectModel(
                                 name: _titleController.text,
                                 description: _descriptionController.text,
@@ -192,7 +194,7 @@ class _CreateProjectBodyState extends State<CreateProjectBody> {
                                 maxBudget: int.parse(_maxBudgetController.text),
                                 expectedDuration:
                                     int.parse(_expectedDurationController.text),
-                                clientProfileId: 1,
+                                clientProfileId: clientId,
                                 // Assuming a default value, replace with actual client profile ID
                                 // GlobalData.instance.currentUser.clientProfile.id, // Assuming a default value, replace with actual client profile ID
                                 projectSkillIds:

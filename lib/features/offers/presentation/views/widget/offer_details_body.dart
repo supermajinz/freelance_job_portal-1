@@ -12,6 +12,7 @@ import 'package:freelance_job_portal/core/widget/custom_subtitle_medium.dart';
 import 'package:freelance_job_portal/core/widget/space.dart';
 import 'package:freelance_job_portal/features/offers/presentation/view_models/bloc/offer_bloc.dart';
 import 'package:go_router/go_router.dart';
+import '../../../../projects/presentation/view_models/project_bloc/project_bloc.dart';
 import '../../../../projects/presentation/views/widget/custom_chip_project.dart';
 import '../../../data/model/offers_model/offers_model.dart';
 
@@ -34,7 +35,7 @@ class OfferDetailsBody extends StatelessWidget {
         child: SingleChildScrollView(
           child: Column(
             children: [
-              const VirticalSpace(3),
+              const VirticalSpace(10),
               Stack(
                 children: [
                   Container(
@@ -95,23 +96,72 @@ class OfferDetailsBody extends StatelessWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              const CustomSubTitleMedium(text: "Delivery Time"),
-                              CustomContainer(
-                                text: offer.deliveryTime?.toString() ?? 'N/A',
+                              const Expanded(
+                                  child: CustomSubTitleMedium(
+                                      text: "Delivery Time")),
+                              Expanded(
+                                child: CustomContainer(
+                                  text: offer.deliveryTime?.toString() ?? 'N/A',
+                                ),
                               )
                             ],
                           ),
                           const VirticalSpace(11),
-                          CustomButtonGeneral(
-                              onPressed: () {
-                                showBottomSheetOffer(context);
-                              },
-                              color: Colors.white,
-                              textcolor: Colors.black,
-                              text: "Accept Offer",
-                              borderSide: const BorderSide(
-                                  width: 1, color: Colors.grey),
-                              width: SizeConfig.defaultSize! * 20)
+                          BlocListener<ProjectBloc, ProjectState>(
+                            listener: (context, state) {
+                              if (state is OfferAccept) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                      content: Text('تم قبول العرض بنجاح')),
+                                );
+                              } else if (state is OfferReject) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                      content: Text('تم رفض العرض بنجاح')),
+                                );
+                              }
+                            },
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  flex: 7,
+                                  child: CustomButtonGeneral(
+                                      onPressed: () {
+                                        showBottomSheetOffer(
+                                          context,
+                                          () {
+                                            context
+                                                .read<ProjectBloc>()
+                                                .add(AcceptOffer(offer.id!));
+                                          },
+                                        );
+                                      },
+                                      color: const Color.fromARGB(
+                                          255, 86, 219, 155),
+                                      textcolor: Colors.white,
+                                      text: "قبول العرض",
+                                      borderSide: const BorderSide(width: 0),
+                                      width: SizeConfig.defaultSize! * 20),
+                                ),
+                                const Spacer(),
+                                Expanded(
+                                  flex: 7,
+                                  child: CustomButtonGeneral(
+                                      onPressed: () {
+                                        context
+                                            .read<ProjectBloc>()
+                                            .add(RejectOffer(offer.id!));
+                                      },
+                                      color: const Color.fromARGB(
+                                          255, 233, 105, 105),
+                                      textcolor: Colors.white,
+                                      text: "رفض العرض",
+                                      borderSide: const BorderSide(width: 0),
+                                      width: SizeConfig.defaultSize! * 20),
+                                )
+                              ],
+                            ),
+                          ),
                         ],
                       ),
                     ),

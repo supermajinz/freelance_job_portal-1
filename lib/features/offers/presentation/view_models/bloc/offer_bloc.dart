@@ -22,7 +22,9 @@ class OfferBloc extends Bloc<OfferEvent, OfferState> {
     final result = await repo.createOffer(event.offerData);
     result.fold(
       (failure) => emit(OfferFaliure(failure.errMessage)),
-      (offer) => emit(OfferSuccess(offer)),
+      (offer) {
+        emit(OfferSuccess(offer));
+      },
     );
   }
 
@@ -34,7 +36,12 @@ class OfferBloc extends Bloc<OfferEvent, OfferState> {
     final result = await repo.updateOffer(event.offerId, event.offerData);
     result.fold(
       (failure) => emit(OfferFaliure(failure.errMessage)),
-      (offer) => emit(OfferSuccess(offer)),
+      (offer) {
+        event.offer.message = offer.message;
+        event.offer.cost = offer.cost;
+        event.offer.deliveryTime = offer.deliveryTime;
+        emit(OfferSuccess(offer));
+      },
     );
   }
 

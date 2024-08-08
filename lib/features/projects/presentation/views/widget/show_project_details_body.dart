@@ -17,9 +17,9 @@ import '../../../data/model/project_model/project_model.dart';
 import '../../view_models/offer_by_project/offer_by_project_bloc.dart';
 
 class ShowProjectDetailsBody extends StatefulWidget {
-  final int projectId;
+  final ProjectModel project;
 
-  const ShowProjectDetailsBody({super.key, required this.projectId});
+  const ShowProjectDetailsBody({super.key, required this.project});
 
   @override
   // ignore: library_private_types_in_public_api
@@ -29,12 +29,6 @@ class ShowProjectDetailsBody extends StatefulWidget {
 class _ShowProjectDetailsBodyState extends State<ShowProjectDetailsBody> {
   bool showOffers = false;
   final ScrollController _scrollController = ScrollController();
-
-  @override
-  void initState() {
-    super.initState();
-    context.read<ProjectBloc>().add(FetchProjectDetails(widget.projectId));
-  }
 
   @override
   void dispose() {
@@ -49,7 +43,12 @@ class _ShowProjectDetailsBodyState extends State<ShowProjectDetailsBody> {
     if (showOffers) {
       context
           .read<OfferByProjectBloc>()
-          .add(FetchOffersByProject(widget.projectId));
+          .add(FetchOffersByProject(widget.project.id));
+      if (widget.project.offerCount == 0) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text('لا يوجد عروض على المشاريع')),
+        );
+      }
     }
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _scrollController.animateTo(
@@ -63,12 +62,12 @@ class _ShowProjectDetailsBodyState extends State<ShowProjectDetailsBody> {
   }
 
   void _deleteProject() {
-    context.read<ProjectBloc>().add(DeleteProject(widget.projectId));
+    context.read<ProjectBloc>().add(DeleteProject(widget.project.id));
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<ProjectBloc, ProjectState>(
+    return BlocListener<ProjectBloc, ProjectState>(
       listener: (context, state) {
         if (state is ProjectDelet) {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -77,30 +76,20 @@ class _ShowProjectDetailsBodyState extends State<ShowProjectDetailsBody> {
           GoRouter.of(context).pop();
         }
       },
-      builder: (context, state) {
-        if (state is ProjectLoading || state is ProjectInitial) {
-          return const Center(child: CircularProgressIndicator());
-        } else if (state is ProjectLoaded) {
-          return SingleChildScrollView(
-            controller: _scrollController,
-            child: Column(
+      child: SingleChildScrollView(
+        controller: _scrollController,
+        child: Column(
+          children: [
+            const VirticalSpace(4),
+            Stack(
               children: [
-                const VirticalSpace(4),
-                Stack(
-                  children: [
-                    _buildProjectDetailsContainer(context, state.project),
-                    _buildClientInfoContainer(context, state.project),
-                  ],
-                ),
+                _buildProjectDetailsContainer(context, widget.project),
+                _buildClientInfoContainer(context, widget.project),
               ],
             ),
-          );
-        } else if (state is ProjectError) {
-          return Center(child: Text('Error: ${state.message}'));
-        } else {
-          return const Center(child: CircularProgressIndicator());
-        }
-      },
+          ],
+        ),
+      ),
     );
   }
 
@@ -135,7 +124,7 @@ class _ShowProjectDetailsBodyState extends State<ShowProjectDetailsBody> {
             const VirticalSpace(2),
             _buildOffersList(),
             const VirticalSpace(2),
-            _buildApplyButton(context),
+            _buildApplyButton(context, project),
             const VirticalSpace(2),
           ],
         ),
@@ -248,7 +237,7 @@ class _ShowProjectDetailsBodyState extends State<ShowProjectDetailsBody> {
           border: Border.all(width: 1, color: Theme.of(context).primaryColor),
           borderRadius: BorderRadius.circular(SizeConfig.defaultSize! * 2),
         ),
-        child:  CustomBody(text: "Offers: ${project.offerCount}"),
+        child: CustomBody(text: "Offers: ${project.offerCount}"),
       ),
     );
   }
@@ -264,10 +253,10 @@ class _ShowProjectDetailsBodyState extends State<ShowProjectDetailsBody> {
               physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               itemBuilder: (context, index) {
-                
                 return InkWell(
                     onTap: () {
-                      GoRouter.of(context).push("/offerdetails",extra: state.offers[index]);
+                      GoRouter.of(context)
+                          .push("/offerdetails", extra: state.offers[index]);
                     },
                     child: CustomOffer(offer: state.offers[index]));
               },
@@ -288,11 +277,11 @@ class _ShowProjectDetailsBodyState extends State<ShowProjectDetailsBody> {
     );
   }
 
-  Widget _buildApplyButton(BuildContext context) {
+  Widget _buildApplyButton(BuildContext context, ProjectModel project) {
     return Center(
       child: CustomButtonGeneral(
         onPressed: () {
-          GoRouter.of(context).push("/createoffer");
+          GoRouter.of(context).push("/createoffer", extra: project);
         },
         color: Colors.white,
         textcolor: Colors.black,

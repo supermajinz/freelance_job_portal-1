@@ -4,11 +4,15 @@ import 'package:freelance_job_portal/core/widget/custom_title.dart';
 import 'package:freelance_job_portal/features/searsh/presentation/views/widget/sort_body.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../core/utils/size_config.dart';
+
 class Sort extends StatelessWidget {
-  const Sort({super.key});
+  const Sort({super.key, required this.filters});
+  final Map<String, dynamic> filters;
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return Scaffold(
       appBar: AppBar(
           title: const CustomTitle(
@@ -22,7 +26,7 @@ class Sort extends StatelessWidget {
               GoRouter.of(context).pop();
             },
           )),
-      body: const SafeArea(child: SortBody()),
+      body: SafeArea(child: SortBody(filters: filters)),
     );
   }
 }

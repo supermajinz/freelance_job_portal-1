@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:freelance_job_portal/core/utils/size_config.dart';
 import 'package:freelance_job_portal/core/widget/custom_subtitle_medium.dart';
 
@@ -23,6 +24,7 @@ class CustomTextFormGeneral extends StatelessWidget {
     return TextFormField(
       minLines: 1,
       maxLines: 5,
+      inputFormatters: [if (isNumber) FilteringTextInputFormatter.digitsOnly],
       keyboardType: isNumber
           ? const TextInputType.numberWithOptions(decimal: true)
           : TextInputType.text,

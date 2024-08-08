@@ -1,17 +1,15 @@
-import 'package:equatable/equatable.dart';
-
 import 'worker.dart';
 
-class OffersModel extends Equatable {
+class OffersModel {
   final int? id;
-  final String? message;
-  final int? cost;
-  final int? deliveryTime;
+  String? message;
+  int? cost;
+  int? deliveryTime;
   final String? status;
   final DateTime? createDate;
   final Worker? worker;
 
-  const OffersModel({
+  OffersModel({
     this.id,
     this.message,
     this.cost,
@@ -46,15 +44,26 @@ class OffersModel extends Equatable {
       };
 
   @override
-  List<Object?> get props {
-    return [
-      id,
-      message,
-      cost,
-      deliveryTime,
-      status,
-      createDate,
-      worker,
-    ];
+  bool operator ==(covariant OffersModel other) {
+    if (identical(this, other)) return true;
+
+    return other.id == id &&
+        other.message == message &&
+        other.cost == cost &&
+        other.deliveryTime == deliveryTime &&
+        other.status == status &&
+        other.createDate == createDate &&
+        other.worker == worker;
+  }
+
+  @override
+  int get hashCode {
+    return id.hashCode ^
+        message.hashCode ^
+        cost.hashCode ^
+        deliveryTime.hashCode ^
+        status.hashCode ^
+        createDate.hashCode ^
+        worker.hashCode;
   }
 }

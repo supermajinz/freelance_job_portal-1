@@ -10,8 +10,9 @@ abstract class NavigationEvent extends Equatable {
 
 class PageTapped extends NavigationEvent {
   final int index;
+  final dynamic args;
 
-  const PageTapped(this.index);
+  const PageTapped(this.index, {this.args});
 
   @override
   List<Object> get props => [index];

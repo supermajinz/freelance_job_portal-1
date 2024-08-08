@@ -14,7 +14,7 @@ class ApiService {
     _dio.interceptors.add(InterceptorsWrapper(
       onRequest: (options, handler) async {
         const token =
-            "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIwOTg2NDExNjIwIiwiaWF0IjoxNzIyOTMzMjg0LCJleHAiOjE3MjMwMTk2ODR9.3vMkplOXTDrhH59kXDCeGV7dmIQ3SwHAXidkjttH89k";
+            "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIwOTEyMzEyMzQ1IiwiaWF0IjoxNzIzMDU2MTQwLCJleHAiOjE3MjMxNDI1NDB9.ii9-OF2rJSZx5PxicdYZUbUbgpaG4hdwBmWqgm3H9UQ";
         // final token = await _authTokenService.getToken('access_token');
         //if (token != null) {
         options.headers['Authorization'] = 'Bearer $token';
@@ -34,10 +34,12 @@ class ApiService {
     ));
   }
 
-  Future<Map<String, dynamic>> get(String endpoint) async {
+  Future<Map<String, dynamic>> get(String endpoint,
+      {Map<String, dynamic>? params}) async {
     try {
-      print("performing get request: $endpoint");
-      final response = await _dio.get(endpoint);
+      print(
+          "performing get request: $endpoint${params != null ? " ,params: $params" : ""}");
+      final response = await _dio.get(endpoint, queryParameters: params);
       if (response.data is int) {
         return {'data': response.data};
       }

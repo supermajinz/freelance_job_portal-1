@@ -1,32 +1,36 @@
-import 'package:equatable/equatable.dart';
 import 'package:freelance_job_portal/features/home/data/model/caregories/caregories.dart';
 import 'package:freelance_job_portal/features/home/data/model/skills/skills.dart';
-
 import 'client.dart';
 
-class ProjectModel extends Equatable {
+class ProjectModel {
   final int id;
-  final String name;
-  final String description;
-  final int minBudget;
-  final int maxBudget;
-  final int expectedDuration;
-  final int offerCount;
+  String name;
+  String description;
+  int minBudget;
+  int maxBudget;
+  int expectedDuration;
+  int offerCount;
+  Categories? projectCategory;
+  List<Skills> projectSkill;
   final String status;
   final DateTime? createDate;
   final Client? client;
   final dynamic worker;
- final Categories? projectCategory;
-  final List<Skills> projectSkill;
+  static const projectStatuses = [
+    'open',
+    'inProgress',
+    'submitted',
+    'completed'
+  ];
 
-  const ProjectModel({
+  ProjectModel({
     this.id = 1,
     this.name = "Project Name",
     this.description = "Project Description",
     this.minBudget = 1000000,
     this.maxBudget = 7000000,
     this.expectedDuration = 50,
-    this.offerCount=0,
+    this.offerCount = 0,
     this.status = "open",
     this.createDate,
     this.client,
@@ -49,7 +53,8 @@ class ProjectModel extends Equatable {
             : DateTime.parse(json['createDate'] as String),
         client: Client.fromJson(json['client'] as Map<String, dynamic>),
         worker: json['worker'] as dynamic,
-         projectCategory: Categories.fromJson(json["projectCategory"] as Map<String, dynamic>),
+        projectCategory: Categories.fromJson(
+            json["projectCategory"] as Map<String, dynamic>),
         projectSkill: ((json['projectSkill'] ?? []) as List<dynamic>)
             .map((e) => Skills.fromJson(e as Map<String, dynamic>))
             .toList(),
@@ -62,31 +67,90 @@ class ProjectModel extends Equatable {
         'minBudget': minBudget,
         'maxBudget': maxBudget,
         'ExpectedDuration': expectedDuration,
-        'offerCount':offerCount,
+        'offerCount': offerCount,
         'status': status,
         'createDate': createDate?.toIso8601String(),
         'client': client?.toJson(),
         'worker': worker,
-        'projectCategory':projectCategory?.toJson(),
+        'projectCategory': projectCategory?.toJson(),
         'projectSkill': projectSkill.map((e) => e.toJson()).toList(),
       };
 
+  ProjectModel copyWith({
+    int? id,
+    String? name,
+    String? description,
+    int? minBudget,
+    int? maxBudget,
+    int? expectedDuration,
+    int? offerCount,
+    String? status,
+    DateTime? createDate,
+    Client? client,
+    dynamic worker,
+    Categories? projectCategory,
+    List<Skills>? projectSkill,
+  }) {
+    return ProjectModel(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      description: description ?? this.description,
+      minBudget: minBudget ?? this.minBudget,
+      maxBudget: maxBudget ?? this.maxBudget,
+      expectedDuration: expectedDuration ?? this.expectedDuration,
+      offerCount: offerCount ?? this.offerCount,
+      status: status ?? this.status,
+      createDate: createDate ?? this.createDate,
+      client: client ?? this.client,
+      worker: worker ?? this.worker,
+      projectCategory: projectCategory ?? this.projectCategory,
+      projectSkill: projectSkill ?? this.projectSkill,
+    );
+  }
+
   @override
-  List<Object?> get props {
-    return [
-      id,
-      name,
-      description,
-      minBudget,
-      maxBudget,
-      expectedDuration,
-      offerCount,
-      status,
-      createDate,
-      client,
-      worker,
-      projectCategory,
-      projectSkill,
-    ];
+  bool operator ==(covariant ProjectModel other) {
+    if (identical(this, other)) return true;
+
+    return other.id == id &&
+        other.name == name &&
+        other.description == description &&
+        other.minBudget == minBudget &&
+        other.maxBudget == maxBudget &&
+        other.expectedDuration == expectedDuration &&
+        other.offerCount == offerCount &&
+        other.status == status &&
+        other.createDate == createDate &&
+        other.client == client &&
+        other.worker == worker &&
+        other.projectCategory == projectCategory;
+  }
+
+  @override
+  int get hashCode {
+    return id.hashCode ^
+        name.hashCode ^
+        description.hashCode ^
+        minBudget.hashCode ^
+        maxBudget.hashCode ^
+        expectedDuration.hashCode ^
+        offerCount.hashCode ^
+        status.hashCode ^
+        createDate.hashCode ^
+        client.hashCode ^
+        worker.hashCode ^
+        projectCategory.hashCode ^
+        projectSkill.hashCode;
+  }
+
+  void update(ProjectModel project) {
+    name = project.name;
+    description = project.description;
+    minBudget = project.minBudget;
+    maxBudget = project.maxBudget;
+    expectedDuration = project.expectedDuration;
+    offerCount = project.offerCount;
+    projectCategory = project.projectCategory;
+    projectSkill = project.projectSkill;
   }
 }

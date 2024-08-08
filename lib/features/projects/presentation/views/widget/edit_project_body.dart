@@ -43,7 +43,7 @@ class _EditProjectBodyState extends State<EditProjectBody> {
         TextEditingController(text: widget.projectModel.maxBudget.toString());
     durationController = TextEditingController(
         text: widget.projectModel.expectedDuration.toString());
-   category = widget.projectModel.projectCategory;
+    category = widget.projectModel.projectCategory;
     skills = widget.projectModel.projectSkill;
     super.initState();
   }
@@ -143,8 +143,7 @@ class _EditProjectBodyState extends State<EditProjectBody> {
             ),
             const VirticalSpace(2),
             CustomShowChipButton(
-              projectItems:
-              skills.map((skill) => skill.name).toList(),
+              projectItems: skills.map((skill) => skill.name).toList(),
               onDelete: (name) {
                 setState(() {
                   skills.removeWhere((element) => element.name == name);
@@ -156,6 +155,7 @@ class _EditProjectBodyState extends State<EditProjectBody> {
               return BlocConsumer<ProjectBloc, ProjectState>(
                 listener: (context, state) {
                   if (state is EditProjectSuccess) {
+                    widget.projectModel.update(state.project);
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(content: Text("تم تعديل المشروع بنجاح")),
                     );
@@ -179,9 +179,8 @@ class _EditProjectBodyState extends State<EditProjectBody> {
                           projectSkillIds: skills.map((e) => e.id).toList(),
                           projectCategoriesIds: category?.id,
                         );
-                        context
-                            .read<ProjectBloc>()
-                            .add(UpdateProject(1, project));
+                        context.read<ProjectBloc>().add(
+                            UpdateProject(widget.projectModel.id, project));
                       },
                       color: Theme.of(context).primaryColor,
                       textcolor: Colors.white,

@@ -27,7 +27,7 @@ class CustomProjectStatus extends StatelessWidget {
               children: [
                 Container(
                   margin: EdgeInsets.only(right: SizeConfig.defaultSize! * 1.2),
-                  child: const CustomSubTitleMedium(text: 'برنامج إدارة طلبات'),
+                  child: CustomSubTitleMedium(text: projectModel.name),
                 ),
                 const Spacer(),
                 const CustomLabel(
@@ -40,11 +40,9 @@ class CustomProjectStatus extends StatelessWidget {
             ),
             Container(
               margin: EdgeInsets.only(right: SizeConfig.defaultSize! * 1.2),
-              child: const CustomBody(
-                  text:
-                      'نريد برنامج كامل لمتابعة الطلبات من أجل شركتنا يرجى التقدم فقط إن كنت تريد العمل ضمن دمشق'),
+              child: CustomBody(text: projectModel.description),
             ),
-            const CustomTimeline(),
+             CustomTimeline(currentStatus: ProjectModel.projectStatuses.indexOf(projectModel.status)),
             const VirticalSpace(1),
             SizedBox(
               height: SizeConfig.defaultSize! * 4,
@@ -53,35 +51,33 @@ class CustomProjectStatus extends StatelessWidget {
                   return const HorizintalSpace(.5);
                 },
                 scrollDirection: Axis.horizontal,
-                itemCount: 5,
+                itemCount:projectModel.projectSkill.length,
                 itemBuilder: (context, index) {
                   return CustomChoiceChip(
-                    text: "Laravel",
+                    text: projectModel.projectSkill[index].name,
                     color: Theme.of(context).focusColor,
                   );
                 },
               ),
             ),
             const VirticalSpace(1.5),
-            Container(
-              margin: EdgeInsets.only(right: SizeConfig.defaultSize! * 1.2),
-              child: const Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  CustomBody(
-                    text: '١٠ مليون ل.س',
-                    color: Colors.green,
-                  ),
-                  CustomBody(
-                    text: '٣ شهور',
-                    color: Colors.red,
-                  ),
-                  CustomBody(
-                    text: '٢٠ عرض',
-                    color: Colors.blueAccent,
-                  )
-                ],
-              ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                CustomBody(
+                  text:
+                      '${projectModel.minBudget}_${projectModel.maxBudget} مليون ل.س',
+                  color: Colors.green,
+                ),
+                CustomBody(
+                  text: projectModel.expectedDuration.toString(),
+                  color: Colors.red,
+                ),
+                CustomBody(
+                  text: projectModel.offerCount.toString(),
+                  color: Colors.blueAccent,
+                )
+              ],
             ),
             const VirticalSpace(2),
             Container(
@@ -98,12 +94,13 @@ class CustomProjectStatus extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const CustomSubTitleMedium(text: ' ميليسا الدمشقية '),
+                      CustomSubTitleMedium(
+                          text: projectModel.client!.userDto!.firstname!),
                       const VirticalSpace(1),
                       Row(
                         children: [
-                          const CustomLabel(
-                            text: '٤.٦',
+                          CustomLabel(
+                            text: projectModel.client!.rate.toString(),
                             color: Colors.black,
                           ),
                           const HorizintalSpace(.8),

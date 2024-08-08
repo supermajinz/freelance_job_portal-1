@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:freelance_job_portal/features/my_project/presentation/views/widget/project_status_details_body.dart';
+import 'package:freelance_job_portal/features/projects/data/model/project_model/project_model.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../core/widget/custom_icon_back.dart';
 import '../../../../core/widget/custom_title.dart';
 
 class ProjectStatusDetails extends StatelessWidget {
-  const ProjectStatusDetails({super.key});
+  const ProjectStatusDetails({super.key, required this.projectModel});
+  final ProjectModel projectModel;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +24,7 @@ class ProjectStatusDetails extends StatelessWidget {
               GoRouter.of(context).pop();
             },
           )),
-      body: const SafeArea(child: ProjectStatusDetailsBody()),
+      body:  SafeArea(child: ProjectStatusDetailsBody(project: projectModel,)),
     );
   }
 }

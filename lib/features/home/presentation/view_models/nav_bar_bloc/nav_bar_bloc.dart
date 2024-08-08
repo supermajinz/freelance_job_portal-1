@@ -10,17 +10,24 @@ import 'package:freelance_job_portal/features/profile/presentation/views/profile
 import 'package:freelance_job_portal/features/searsh/presentation/views/searsh.dart';
 
 class NavigationBloc extends Bloc<NavigationEvent, NavigationState> {
-  final List<Widget> pages = [
-    const Home(),
-    const Chat(),
-    const Searsh(),
-    const MyProject(),
-    const Profile(),
-  ];
+  Widget getPage(int index, dynamic args) {
+    switch (index) {
+      case 0:
+        return const Home();
+      case 1:
+        return const Chat();
+      case 2:
+        return Searsh(filters: args as Map<String, dynamic>? ?? {});
+      case 3:
+        return const MyProject();
+      default:
+        return const Profile();
+    }
+  }
 
   NavigationBloc() : super(const PageLoaded(0, Home())) {
     on<PageTapped>((event, emit) {
-      final currentPage = pages[event.index];
+      final currentPage = getPage(event.index, event.args);
       emit(PageLoaded(event.index, currentPage));
     });
   }

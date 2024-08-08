@@ -162,17 +162,20 @@ abstract class AppRouter {
     ),
     GoRoute(
       path: '/createoffer',
-      builder: (context, state) => const CreateOffer(),
+      builder: (context, state) =>
+          CreateOffer(projectModel: state.extra as ProjectModel),
     ),
     GoRoute(
       path: '/editoffer',
-      builder: (context, state) => const EditOffer(
-        offerId: 1,
+      builder: (context, state) => EditOffer(
+        offer: state.extra as OffersModel,
       ),
     ),
     GoRoute(
       path: '/offerdetails',
-      builder: (context, state) =>  OfferDetails(offer: state.extra as OffersModel,),
+      builder: (context, state) => OfferDetails(
+        offer: state.extra as OffersModel,
+      ),
     ),
     GoRoute(
       path: '/createproject',
@@ -186,20 +189,24 @@ abstract class AppRouter {
     GoRoute(
       path: '/showprojectdetails',
       builder: (context, state) {
-        return ShowProjectDetails(projectId: state.extra as int);
+        return ShowProjectDetails(project: state.extra as ProjectModel);
       },
     ),
     GoRoute(
       path: '/searsh',
-      builder: (context, state) => const Searsh(),
+      builder: (context, state) =>
+          Searsh(filters: state.extra as Map<String, dynamic>),
     ),
     GoRoute(
       path: '/sort',
-      builder: (context, state) => const Sort(),
+      builder: (context, state) =>
+          Sort(filters: state.extra as Map<String, dynamic>),
     ),
     GoRoute(
       path: '/projectstatusdetails',
-      builder: (context, state) => const ProjectStatusDetails(),
+      builder: (context, state) => ProjectStatusDetails(
+        projectModel: state.extra as ProjectModel,
+      ),
     ),
   ]);
 

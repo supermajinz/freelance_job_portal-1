@@ -17,8 +17,10 @@ class MyProjectRepoImpl implements MyProjectRepo {
       List<ProjectModel> projects = [];
       for (var item in data['projects']) {
         projects.add(ProjectModel.fromJson(item));
+         print("ahmad---------------------------------------  $item");
       }
       return Right(projects);
+     
     } catch (e) {
       if (e is DioException) {
         return left(ServerFailure.fromDioException(e));

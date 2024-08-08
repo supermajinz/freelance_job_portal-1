@@ -20,7 +20,7 @@ class ShowChipHome extends StatelessWidget {
             runSpacing: SizeConfig.defaultSize! * .5,
             children: skills
                 .map((skill) => CustomChoiceChip(
-                      text: skill.name!,
+                      text: skill.name,
                       color: Theme.of(context).focusColor,
                     ))
                 .toList(),

@@ -4,6 +4,8 @@ import 'package:freelance_job_portal/features/auth/data/auth_repo_impl.dart';
 import 'package:freelance_job_portal/features/auth/data/auth_token_service.dart';
 import 'package:freelance_job_portal/features/chat/data/chat_repo.dart';
 import 'package:freelance_job_portal/features/chat/data/ChatService.dart';
+import 'package:freelance_job_portal/features/my_project/data/repo/my_project_repo.dart';
+import 'package:freelance_job_portal/features/my_project/data/repo/my_project_repo_impl.dart';
 import 'package:freelance_job_portal/features/profile/data/profile_repo.dart';
 import 'package:freelance_job_portal/features/profile/data/client_profile_repo_impl.dart';
 import 'package:freelance_job_portal/features/home/data/repo/home_repo.dart';
@@ -13,6 +15,8 @@ import 'package:freelance_job_portal/features/offers/data/repo/offer_repo_impl.d
 import 'package:freelance_job_portal/features/projects/data/repo/project_repo.dart';
 
 import '../../features/projects/data/repo/project_repo_imp.dart';
+import '../../features/searsh/data/repo/search_repo_.dart';
+import '../../features/searsh/data/repo/search_repo_impl.dart';
 
 class DependencyInjection {
   static AuthTokenService provideAuthTokenService() {
@@ -51,6 +55,16 @@ class DependencyInjection {
   static OfferRepo provideOfferRepo() {
     final apiService = provideApiService();
     return OfferRepoImpl(apiService);
+  }
+
+  static MyProjectRepo provideMyProjectRepo() {
+    final apiService = provideApiService();
+    return MyProjectRepoImpl(apiService);
+  }
+
+  static SearchRepo provideSearchRepo() {
+    final apiService = provideApiService();
+    return SearchRepoImpl(apiService);
   }
 
 //    ChatRepo provideChatRepo(String chatUrl) {

@@ -23,7 +23,7 @@ class CreateProjectSuccess extends ProjectState {
 }
 
 class EditProjectSuccess extends ProjectState {
-  final EditProjectModel project;
+  final ProjectModel project;
 
   const EditProjectSuccess({required this.project});
 
@@ -31,14 +31,13 @@ class EditProjectSuccess extends ProjectState {
   List<Object> get props => [project];
 }
 
-class ProjectLoaded extends ProjectState {
-  final ProjectModel project;
-  const ProjectLoaded(this.project);
-  @override
-  List<Object> get props => [project];
-}
-
 class ProjectDelet extends ProjectState {}
+
+class OfferAccept extends ProjectState {}
+
+class OfferReject extends ProjectState {}
+
+class ProjectClose extends ProjectState {}
 
 class ProjectError extends ProjectState {
   final String message;

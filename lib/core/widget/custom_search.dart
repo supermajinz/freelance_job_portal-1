@@ -5,16 +5,17 @@ class CustomSearch extends StatelessWidget {
   final String title;
   final void Function()? onPressedNOT;
   final void Function()? onPressedSer;
+  final void Function(String)? onSubmit;
   final void Function(String)? onChanged;
-  //final TextEditingController myController;
-  const CustomSearch({
-    super.key,
-    required this.title,
-    this.onPressedNOT,
-    this.onPressedSer,
-    this.onChanged,
-    //required this.myController
-  });
+  final TextEditingController myController;
+  const CustomSearch(
+      {super.key,
+      required this.title,
+      this.onPressedNOT,
+      this.onPressedSer,
+      this.onChanged,
+      required this.myController,
+      this.onSubmit});
 
   @override
   Widget build(BuildContext context) {
@@ -23,8 +24,9 @@ class CustomSearch extends StatelessWidget {
           vertical: SizeConfig.defaultSize! * 1.5,
           horizontal: SizeConfig.defaultSize! * 1),
       child: TextFormField(
-        // controller: myController,
+        controller: myController,
         onChanged: onChanged,
+        onFieldSubmitted: onSubmit,
         decoration: InputDecoration(
             contentPadding: EdgeInsets.symmetric(
                 vertical: SizeConfig.defaultSize! * 1,

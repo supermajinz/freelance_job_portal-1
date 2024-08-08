@@ -7,9 +7,11 @@ import 'package:freelance_job_portal/core/widget/custom_sub_title.dart';
 import 'package:freelance_job_portal/core/widget/custom_text_form_general.dart';
 import 'package:freelance_job_portal/core/widget/space.dart';
 import 'package:freelance_job_portal/features/offers/presentation/view_models/bloc/offer_bloc.dart';
+import 'package:freelance_job_portal/features/projects/data/model/project_model/project_model.dart';
 
 class CreateOfferBody extends StatefulWidget {
-  const CreateOfferBody({super.key});
+  const CreateOfferBody({super.key, required this.projectModel});
+  final ProjectModel projectModel;
 
   @override
   State<CreateOfferBody> createState() => _CreateOfferBodyState();
@@ -23,13 +25,13 @@ class _CreateOfferBodyState extends State<CreateOfferBody> {
     final TextEditingController priceController = TextEditingController();
     final TextEditingController deliveryTimeController =
         TextEditingController();
-
     return BlocConsumer<OfferBloc, OfferState>(
       listener: (context, state) {
         if (state is OfferSuccess) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text('Offer created successfully!')),
           );
+          widget.projectModel.offerCount++;
         } else if (state is OfferFaliure) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
@@ -82,8 +84,8 @@ class _CreateOfferBodyState extends State<CreateOfferBody> {
                                 'cost': int.parse(priceController.text),
                                 'deliveryTime':
                                     int.parse(deliveryTimeController.text),
-                                "workerId": 1,
-                                "projectId": 1
+                                "workerId": 1, // profile card selector
+                                "projectId": widget.projectModel.id
                               };
                               print("offer data: $offerData");
 
@@ -108,40 +110,3 @@ class _CreateOfferBodyState extends State<CreateOfferBody> {
     );
   }
 }
-
-// class CustomDate extends StatefulWidget {
-//   final TextEditingController controller;
-
-//   const CustomDate({required this.controller, super.key});
-
-//   @override
-//   State<CustomDate> createState() => _CustomDateState();
-// }
-
-// class _CustomDateState extends State<CustomDate> {
-//   void _showDatePicker() async {
-//     DateTime? selectedDate = await showDatePicker(
-//       context: context,
-//       initialDate: DateTime.now(),
-//       firstDate: DateTime(2000),
-//       lastDate: DateTime(2025),
-//     );
-
-//     if (selectedDate != null) {
-//       setState(() {
-//         widget.controller.text = selectedDate.toIso8601String();
-//       });
-//     }
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return IconButton(
-//       onPressed: _showDatePicker,
-//       icon: const Icon(
-//         Icons.date_range_outlined,
-//         size: 35,
-//       ),
-//     );
-//   }
-// }

@@ -19,8 +19,9 @@ class CreateOffer extends OfferEvent {
 class UpdateOffer extends OfferEvent {
   final int offerId;
   final Map<String, dynamic> offerData;
+  final OffersModel offer;
 
-  const UpdateOffer(this.offerId, this.offerData);
+  const UpdateOffer(this.offerId, this.offerData, this.offer);
 
   @override
   List<Object> get props => [offerId, offerData];

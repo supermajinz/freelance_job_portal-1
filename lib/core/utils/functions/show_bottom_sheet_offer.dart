@@ -7,16 +7,13 @@ import 'package:freelance_job_portal/core/widget/custom_subtitle_medium.dart';
 import 'package:freelance_job_portal/core/widget/space.dart';
 import 'package:iconly/iconly.dart';
 
-void showBottomSheetOffer(BuildContext context) {
+void showBottomSheetOffer(BuildContext context, void Function()? onPressed) {
   showModalBottomSheet(
     context: context,
-    isScrollControlled:
-        true, // Allow the BottomSheet to take full screen height if needed
+    isScrollControlled: true,
     builder: (context) {
       return Container(
-        height: MediaQuery.of(context).size.height *
-            0.70, // Set the height to 75% of the screen height
-
+        height: MediaQuery.of(context).size.height * 0.70,
         padding: EdgeInsets.all(SizeConfig.defaultSize! * 2),
         child: Column(
           children: [
@@ -78,17 +75,15 @@ void showBottomSheetOffer(BuildContext context) {
                 )
               ],
             ),
-            const VirticalSpace(9),
-            // Add Spacer to push the button to the bottom
+            const Spacer(),
             CustomButtonGeneral(
-              onPressed: () {},
+              onPressed: onPressed,
               color: Colors.white,
               textcolor: Colors.black,
               text: "Slide to Accept",
               borderSide: const BorderSide(color: Colors.grey),
               width: SizeConfig.defaultSize! * 40,
             ),
-            // Add space below the button if needed
           ],
         ),
       );

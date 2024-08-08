@@ -5,12 +5,14 @@ import 'package:freelance_job_portal/core/widget/custom_button_general.dart';
 import 'package:freelance_job_portal/core/widget/custom_edit_meony_general.dart';
 import 'package:freelance_job_portal/core/widget/custom_sub_title.dart';
 import 'package:freelance_job_portal/core/widget/space.dart';
+import 'package:freelance_job_portal/features/offers/data/model/offers_model/offers_model.dart';
 import 'package:freelance_job_portal/features/offers/presentation/view_models/bloc/offer_bloc.dart';
 import 'package:freelance_job_portal/features/profile/presentation/views/widget/edit_text_form.dart';
+import 'package:go_router/go_router.dart';
 
 class EditOfferBody extends StatefulWidget {
-  final int offerId;
-  const EditOfferBody({super.key, required this.offerId});
+  final OffersModel offer;
+  const EditOfferBody({super.key, required this.offer});
 
   @override
   _EditOfferBodyState createState() => _EditOfferBodyState();
@@ -18,35 +20,39 @@ class EditOfferBody extends StatefulWidget {
 
 class _EditOfferBodyState extends State<EditOfferBody> {
   final formKey = GlobalKey<FormState>();
-  final TextEditingController descriptionController = TextEditingController();
-  final TextEditingController priceController = TextEditingController();
-  final TextEditingController deliveryTimeController = TextEditingController();
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   context.read<OfferBloc>().add(GetOfferDetails(widget.offerId));
-  // }
+  late final TextEditingController descriptionController;
+  late final TextEditingController priceController;
+  late final TextEditingController deliveryTimeController;
+//
+  @override
+  void initState() {
+    descriptionController = TextEditingController(text: widget.offer.message);
+    priceController =
+        TextEditingController(text: widget.offer.cost?.toString());
+    deliveryTimeController =
+        TextEditingController(text: widget.offer.deliveryTime?.toString());
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<OfferBloc, OfferState>(
       listener: (context, state) {
-        if (state is OfferSuccess) {
-          if (state.offer.id == widget.offerId) {
-            descriptionController.text = state.offer.message ?? '';
-            priceController.text = state.offer.cost.toString();
-            deliveryTimeController.text = state.offer.deliveryTime.toString();
-          }
+        if (state is OfferLoading) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('Offer is updating')),
+          );
         } else if (state is OfferFaliure) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
                 content: Text('Failed to load offer: ${state.errMessage}')),
           );
         } else if (state is OfferSuccess) {
+          ScaffoldMessenger.of(context).clearSnackBars();
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text('Offer updated successfully!')),
           );
+          GoRouter.of(context).pop();
         }
       },
       builder: (context, state) {
@@ -92,9 +98,8 @@ class _EditOfferBodyState extends State<EditOfferBody> {
                             'deliveryTime':
                                 int.parse(deliveryTimeController.text),
                           };
-                          context
-                              .read<OfferBloc>()
-                              .add(UpdateOffer(widget.offerId, offerData));
+                          context.read<OfferBloc>().add(UpdateOffer(
+                              widget.offer.id!, offerData, widget.offer));
                         }
                       },
                       color: Theme.of(context).primaryColor,

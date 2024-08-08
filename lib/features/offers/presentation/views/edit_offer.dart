@@ -2,12 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:freelance_job_portal/core/utils/size_config.dart';
 import 'package:freelance_job_portal/core/widget/custom_icon_back.dart';
 import 'package:freelance_job_portal/core/widget/custom_title.dart';
+import 'package:freelance_job_portal/features/offers/data/model/offers_model/offers_model.dart';
 import 'package:freelance_job_portal/features/offers/presentation/views/widget/edit_offer_body.dart';
 import 'package:go_router/go_router.dart';
 
 class EditOffer extends StatelessWidget {
-  final int offerId;
-  const EditOffer({super.key, required this.offerId});
+  final OffersModel offer;
+  const EditOffer({super.key, required this.offer});
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +27,7 @@ class EditOffer extends StatelessWidget {
           },
         ),
       ),
-      body: SafeArea(child: EditOfferBody(offerId: offerId)),
+      body: SafeArea(child: EditOfferBody(offer: offer)),
     );
   }
 }
