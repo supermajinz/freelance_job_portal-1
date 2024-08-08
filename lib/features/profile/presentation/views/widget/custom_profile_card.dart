@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:freelance_job_portal/features/profile/data/models/profile/client_profile.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
@@ -13,21 +14,22 @@ import 'package:freelance_job_portal/core/widget/space.dart';
 import '../../../../../core/widget/custom_title.dart';
 
 class CustomProfileCard extends StatelessWidget {
-  final String firstName;
-  final String lastName;
+  final ClientProfile profile;
+
+  final IconData? icon;
+  final void Function()? onPressed;
   const CustomProfileCard({
     super.key,
-    required this.firstName,
-    required this.lastName,
+    required this.profile,
     this.icon,
     this.onPressed,
   });
 
-  final IconData? icon;
-  final void Function()? onPressed;
-
   @override
   Widget build(BuildContext context) {
+    String? profileImageUrl = profile.photoDtOs!.isNotEmpty
+        ? "http://localhost:8080/api/v1/file/photo/${profile.photoDtOs![0].photo}"
+        : "assets/images/pro.jpg";
     return IntrinsicHeight(
       child: Container(
         padding: EdgeInsets.all(SizeConfig.defaultSize! * .8),
@@ -36,22 +38,22 @@ class CustomProfileCard extends StatelessWidget {
             borderRadius: BorderRadius.all(
                 Radius.circular(SizeConfig.defaultSize! * 1.5))),
         child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             GestureDetector(
               onTap: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const ImageGalleryScreen(),
+                    builder: (context) => ImageGalleryScreen(
+                      profile: profile,
+                    ),
                   ),
                 );
               },
               child: CircleAvatar(
                 radius: SizeConfig.defaultSize! * 5,
-                backgroundImage: const AssetImage(
-                  "assets/images/pro.jpg",
-                ),
+                backgroundImage: NetworkImage(profileImageUrl),
               ),
             ),
             const HorizintalSpace(1),
@@ -59,17 +61,18 @@ class CustomProfileCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 CustomSubTitleMedium(
-                  text: "$firstName $lastName",
+                  text:
+                      "${profile.userDto!.firstname} ${profile.userDto!.lastname}",
                 ),
                 const VirticalSpace(.5),
-                const CustomBody(
-                  text: "مطور تطبيقات موبايل",
+                CustomBody(
+                  text: profile.jobTitleDto!.title!,
                 ),
                 const VirticalSpace(0.2),
                 Row(
                   children: [
-                    const CustomLabel(
-                      text: "4.6",
+                    CustomLabel(
+                      text: "${profile.rate}",
                       color: Colors.black,
                     ),
                     const HorizintalSpace(0.5),
@@ -82,7 +85,7 @@ class CustomProfileCard extends StatelessWidget {
                 )
               ],
             ),
-            const HorizintalSpace(7),
+            const Spacer(),
             IconButton(
                 onPressed: onPressed,
                 icon: Icon(
@@ -98,7 +101,8 @@ class CustomProfileCard extends StatelessWidget {
 }
 
 class ImageGalleryScreen extends StatefulWidget {
-  const ImageGalleryScreen({super.key});
+  final ClientProfile profile;
+  const ImageGalleryScreen({super.key, required this.profile});
 
   @override
   // ignore: library_private_types_in_public_api
@@ -106,20 +110,12 @@ class ImageGalleryScreen extends StatefulWidget {
 }
 
 class _ImageGalleryScreenState extends State<ImageGalleryScreen> {
-  final List<String> imageUrls = [
-    'assets/images/pro.jpg',
-    'assets/images/pro1.jpg',
-    'assets/images/pro2.jpg',
-    'assets/images/pro.jpg',
-    'assets/images/pro.jpg',
-    'assets/images/pro1.jpg',
-    'assets/images/pro2.jpg',
-    'assets/images/pro.jpg',
-  ];
-
   final PageController _pageController = PageController();
+
   @override
   Widget build(BuildContext context) {
+    final List<String> imageUrls =
+        widget.profile.photoDtOs!.map((e) => e.photo!).toList();
     return Scaffold(
       backgroundColor: Colors.white, // خلفية شاشة
       body: SafeArea(
@@ -134,7 +130,8 @@ class _ImageGalleryScreenState extends State<ImageGalleryScreen> {
                 itemCount: imageUrls.length,
                 builder: (context, index) {
                   return PhotoViewGalleryPageOptions(
-                    imageProvider: AssetImage(imageUrls[index]),
+                    imageProvider: NetworkImage(
+                        "http://localhost:8080/api/v1/file/photo/${imageUrls[index]}"),
                     minScale: PhotoViewComputedScale.covered,
                     maxScale: PhotoViewComputedScale.covered *
                         SizeConfig.defaultSize! *

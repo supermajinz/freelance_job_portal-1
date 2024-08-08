@@ -16,9 +16,10 @@ class Profile extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<AuthBloc, AuthState>(
       builder: (context, authState) {
+        print(authState);
         if (authState is AuthGuest) {
           return _buildGuestView(context);
-        } else if (authState is AuthAuthenticated) {
+        } else if (authState is AuthAuthenticated ) {
           return BlocProvider(
             create: (context) =>
                 ProfileBloc(DependencyInjection.provideProfileRepo())

@@ -17,6 +17,9 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   ) : super(ProfileInitial()) {
     on<ShowProfile>(showProfile);
     on<GetProfiles>(getProfiles);
+    on<CreateClientProfileEvent>(createClientProfile);
+    on<AddPhotoToClientProfileEvent>(addPhotoToClientProfile);
+    on<AddSkillToClientProfileEvent>(addSkillToClientProfile);
   }
 
   FutureOr<void> showProfile(
@@ -44,6 +47,53 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       } else {
         emit(ProfilesLoaded(profiles));
       }
+    });
+  }
+
+  FutureOr<void> createClientProfile(
+      CreateClientProfileEvent event, Emitter<ProfileState> emit) async {
+    emit(ProfileCreateLoading());
+    final result = await _profileRepo.createProfile({
+      "bio": event.description,
+      "jobTitleId": event.jobTitleId,
+    });
+    result.fold(
+      (failure) => emit(ProfileCreateError(errorMessage: failure.errMessage)),
+      (clientProfile) {
+        print(clientProfile.toString());
+        emit(ClientProfileCreatedState(clientProfile: clientProfile));
+      },
+    );
+  }
+
+  FutureOr<void> addPhotoToClientProfile(
+      AddPhotoToClientProfileEvent event, Emitter<ProfileState> emit) async {
+    emit(AddPhotoToProfileLoading());
+    final result = await _profileRepo.addPhoto({
+      "clientProfileId": event.clientProfileId,
+      "photoId": event.photoId,
+    });
+    result.fold((failure) => emit(AddPhotoToProfileError(failure.errMessage)),
+        (success) {
+      print(
+          'added photo clientProfileId: ${event.clientProfileId} photoId:  ${event.photoId}');
+      emit(AddedPhotoToProfile(success));
+    });
+  }
+
+  FutureOr<void> addSkillToClientProfile(
+      AddSkillToClientProfileEvent event, Emitter<ProfileState> emit) async {
+    emit(AddSkillToProfileLoading());
+    final result = await _profileRepo.addSkill({
+      "clientProfileId": event.clientProfileId,
+      "skillId": event.skillId,
+    });
+    result.fold((failure) => emit(AddPhotoToProfileError(failure.errMessage)),
+        (success) {
+      print(
+          'added skill clientProfileId: ${event.clientProfileId} skillId:  ${event.skillId}');
+
+      emit(AddedPhotoToProfile(success));
     });
   }
 }

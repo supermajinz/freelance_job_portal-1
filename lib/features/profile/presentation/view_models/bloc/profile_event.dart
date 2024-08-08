@@ -19,3 +19,27 @@ class GetProfiles extends ProfileEvent {
 
   const GetProfiles(this.userId);
 }
+
+class CreateClientProfileEvent extends ProfileEvent {
+  final String description;
+  final int jobTitleId;
+
+  const CreateClientProfileEvent(
+      {required this.description, required this.jobTitleId});
+  @override
+  List<Object> get props => [description, jobTitleId];
+}
+
+class AddPhotoToClientProfileEvent extends ProfileEvent {
+  final int clientProfileId;
+  final int photoId;
+
+  const AddPhotoToClientProfileEvent(this.clientProfileId, this.photoId);
+}
+
+class AddSkillToClientProfileEvent extends ProfileEvent {
+  final int clientProfileId;
+  final int skillId;
+
+  const AddSkillToClientProfileEvent(this.clientProfileId, this.skillId);
+}

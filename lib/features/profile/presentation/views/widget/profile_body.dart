@@ -61,8 +61,11 @@ class _ProfileBodyState extends State<ProfileBody> {
                         context: context,
                         builder: (context) {
                           return Container(
-                            padding:
-                                EdgeInsets.all(SizeConfig.defaultSize! * 1),
+                            padding: EdgeInsets.only(
+                                right: SizeConfig.defaultSize! * 1,
+                                left: SizeConfig.defaultSize! * 1,
+                                top: SizeConfig.defaultSize! * 1,
+                                bottom: SizeConfig.defaultSize! * 3),
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
                               children: [
@@ -73,24 +76,30 @@ class _ProfileBodyState extends State<ProfileBody> {
                                       return const VirticalSpace(1);
                                     },
                                     scrollDirection: Axis.vertical,
-                                    itemCount: 2,
+                                    itemCount: widget.clientProfiles.length,
                                     itemBuilder: (context, index) {
-                                      return CustomProfileCard(
-                                        //TODO: on clicked changes current profile.
-                                        firstName: widget.clientProfiles[1]
-                                            .jobTitleDto!.title!,
-                                        lastName:
-                                            currentProfile.userDto!.lastname!,
-                                        icon: Icons.edit,
-                                        onPressed: () {
-                                          GoRouter.of(context)
-                                              .push('/editprofile');
+                                      return InkWell(
+                                        onTap: () {
+                                          setState(() {
+                                            currentProfile =
+                                                widget.clientProfiles[index];
+                                          });
+                                          Navigator.pop(context);
                                         },
+                                        child: CustomProfileCard(
+                                          //TODO: on clicked changes current profile.
+                                          profile: widget.clientProfiles[index],
+                                          icon: Icons.edit,
+                                          onPressed: () {
+                                            GoRouter.of(context)
+                                                .push('/editprofile');
+                                          },
+                                        ),
                                       );
                                     },
                                   ),
                                 ),
-                                const VirticalSpace(5),
+                                const VirticalSpace(2),
                                 CustomButtonGeneral(
                                     onPressed: () {
                                       GoRouter.of(context)
@@ -111,8 +120,7 @@ class _ProfileBodyState extends State<ProfileBody> {
                         margin: EdgeInsets.symmetric(
                             horizontal: SizeConfig.defaultSize! * 1),
                         child: CustomProfileCard(
-                          firstName: currentProfile.userDto!.firstname!,
-                          lastName: currentProfile.userDto!.lastname!,
+                          profile: currentProfile,
                           icon: Icons.edit,
                           onPressed: () {
                             GoRouter.of(context).push('/editprofile');
@@ -134,7 +142,7 @@ class _ProfileBodyState extends State<ProfileBody> {
                   child: Container(
                     margin: EdgeInsets.only(left: SizeConfig.defaultSize! * 2),
                     child: Text(
-                      "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce fermentum lacus metus. Vivamus faucibus ullamcorper velit, id facilisis lacus tempus....",
+                      currentProfile.bio!,
                       overflow: TextOverflow.ellipsis,
                       textAlign: TextAlign.start,
                       maxLines: 3,
@@ -148,7 +156,7 @@ class _ProfileBodyState extends State<ProfileBody> {
                 const VirticalSpace(1),
                 InkWell(
                   onTap: () {},
-                  child: Text("show more",
+                  child: Text("",//TODO: show more?
                       style: Theme.of(context).textTheme.labelLarge!.copyWith(
                           fontWeight: FontWeight.bold,
                           decoration: TextDecoration.underline)),
@@ -158,7 +166,7 @@ class _ProfileBodyState extends State<ProfileBody> {
                   text: "المهارات",
                 ),
                 const VirticalSpace(.5),
-                const ShowChip(),
+                currentProfile.skillDtOs!.isNotEmpty?   ShowChip(skills: currentProfile.skillDtOs!,) : const SizedBox(),
                 const VirticalSpace(4),
                 const CustomSubTitle(
                   text: "Portfolio",
