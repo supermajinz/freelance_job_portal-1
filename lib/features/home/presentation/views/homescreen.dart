@@ -5,6 +5,7 @@ import 'package:freelance_job_portal/core/constants/colors.dart';
 import 'package:freelance_job_portal/features/home/presentation/view_models/nav_bar_bloc/nav_bar_bloc.dart';
 import 'package:freelance_job_portal/features/home/presentation/view_models/nav_bar_bloc/nav_bar_event.dart';
 import 'package:freelance_job_portal/features/home/presentation/view_models/nav_bar_bloc/nav_bar_state.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:iconly/iconly.dart';
 import 'package:navigation_view/item_navigation_view.dart';
 import 'package:navigation_view/navigation_view.dart';
@@ -97,36 +98,41 @@ class _HomescreenState extends State<Homescreen> {
               ),
               bottomNavigationBar: BlocBuilder<NavigationBloc, NavigationState>(
                 builder: (context, state) {
-                  return NavigationBar(
+                  return GNav(
+                      onTabChange: (index) =>
+                          context.read<NavigationBloc>().add(PageTapped(index)),
                       selectedIndex:
                           (state is PageLoaded) ? state.currentIndex : 0,
                       backgroundColor: Theme.of(context).primaryColor,
-                      onDestinationSelected: (index) {
-                        context.read<NavigationBloc>().add(PageTapped(index));
-                      },
-                      labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
-                      indicatorColor: Colors.white24,
-                      destinations: [
-                        IconlyBold.home,
-                        IconlyBold.chat,
-                        IconlyBold.search,
-                        IconlyBold.bag,
-                        IconlyBold.profile,
-                      ]
-                          .asMap()
-                          .entries
-                          .map((e) => NavigationDestination(
-                                icon: Icon(
-                                  e.value,
-                                  color: (state is PageLoaded &&
-                                          e.key == state.currentIndex)
-                                      ? primaryColer
-                                      : Colors.white,
-                                  size: 30,
-                                ),
-                                label: '',
-                              ))
-                          .toList());
+                      activeColor: Colors.white,
+                      // activeColor: primaryColer,
+                      color: Colors.white,
+                      iconSize: 30,
+                      tabMargin: const EdgeInsets.symmetric(vertical: 8),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 12, horizontal: 10),
+                      tabBackgroundColor: primaryColer.withOpacity(0.2),
+                      tabBackgroundGradient: LinearGradient(
+                        colors: [
+                          primaryColer.withOpacity(.8),
+                          primaryColer.withOpacity(.0),
+                        ],
+                        // stops: [0.2, 1],
+                        begin: Alignment.topLeft,
+                        end: Alignment.bottomCenter,
+                      ),
+                      tabs: [
+                        GButton(icon: IconlyBroken.home, text: "الرئيسية"),
+                        GButton(icon: IconlyBroken.chat, text: "المحادائة"),
+                        GButton(icon: IconlyBroken.search, text: "البحث"),
+                        GButton(icon: IconlyBroken.bag, text: "مشاريعي"),
+                        GButton(icon: IconlyBroken.profile, text: "الملف الشخصي"),
+                        // GButton(icon: IconlyBroken.home),
+                        // GButton(icon: IconlyBroken.chat),
+                        // GButton(icon: IconlyBroken.search),
+                        // GButton(icon: IconlyBroken.bag),
+                        // GButton(icon: IconlyBroken.profile),
+                      ]);
                 },
               ),
             ),
