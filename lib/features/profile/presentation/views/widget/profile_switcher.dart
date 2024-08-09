@@ -25,7 +25,7 @@ class _ProfileSwitcherState extends State<ProfileSwitcher> {
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: AnimatedSwitcher(
-                duration: const Duration(milliseconds: 300),
+                duration: const Duration(milliseconds: 500),
                 transitionBuilder: (child, animation) => SlideTransition(
                     position: Tween<Offset>(
                             begin: const Offset(1.0, 0.0), end: Offset.zero)

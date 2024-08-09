@@ -223,7 +223,7 @@ class _CreateProfileBodyState extends State<CreateProfileBody> {
 
     // Navigate to the next screen or perform any other action
     context.read<NavigationBloc>().add(const PageTapped(
-          0,
+          4,
         ));
     GoRouter.of(context).push('/homescreen');
   }

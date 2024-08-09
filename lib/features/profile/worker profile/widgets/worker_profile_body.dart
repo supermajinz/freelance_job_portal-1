@@ -44,87 +44,71 @@ class _WorkerProfileBodyState extends State<WorkerProfileBody> {
   Widget build(BuildContext context) {
     return ListView(
       children: [
-        Stack(
-          clipBehavior: Clip.none,
-          children: [
-            ClipPath(
-                clipper: WaveClipperTwo(),
-                child: Container(
-                  height: SizeConfig.defaultSize! * 22,
-                  color: Theme.of(context).primaryColorLight,
-                )),
-            Positioned(
-                top: SizeConfig.defaultSize! * 12,
-                right: SizeConfig.defaultSize! * .5,
-                left: SizeConfig.defaultSize! * .5,
-                child: InkWell(
-                    onTap: () {
-                      showModalBottomSheet(
-                        context: context,
-                        builder: (context) {
-                          return Container(
-                            padding: EdgeInsets.only(
-                                right: SizeConfig.defaultSize! * 1,
-                                left: SizeConfig.defaultSize! * 1,
-                                top: SizeConfig.defaultSize! * 1,
-                                bottom: SizeConfig.defaultSize! * 3),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                SizedBox(
-                                  height: SizeConfig.defaultSize! * 35,
-                                  child: ListView.separated(
-                                    separatorBuilder: (context, index) {
-                                      return const VirticalSpace(1);
-                                    },
-                                    scrollDirection: Axis.vertical,
-                                    itemCount: widget.workerProfiles.length,
-                                    itemBuilder: (context, index) {
-                                      return InkWell(
-                                        onTap: () {
-                                          setState(() {
-                                            currentProfile =
-                                                widget.workerProfiles[index];
-                                          });
-                                          Navigator.pop(context);
-                                        },
-                                        child: WorkerCustomProfileCard(
-                                          //TODO: on clicked changes current profile.
-                                          profile: widget.workerProfiles[index],
-                                          icon: Icons.edit,
-                                          onPressed: () {},
-                                        ),
-                                      );
-                                    },
-                                  ),
+        InkWell(
+            onTap: () {
+              showModalBottomSheet(
+                context: context,
+                builder: (context) {
+                  return Container(
+                    padding: EdgeInsets.only(
+                        right: SizeConfig.defaultSize! * 1,
+                        left: SizeConfig.defaultSize! * 1,
+                        top: SizeConfig.defaultSize! * 1,
+                        bottom: SizeConfig.defaultSize! * 3),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        SizedBox(
+                          height: SizeConfig.defaultSize! * 35,
+                          child: ListView.separated(
+                            separatorBuilder: (context, index) {
+                              return const VirticalSpace(1);
+                            },
+                            scrollDirection: Axis.vertical,
+                            itemCount: widget.workerProfiles.length,
+                            itemBuilder: (context, index) {
+                              return InkWell(
+                                onTap: () {
+                                  setState(() {
+                                    currentProfile =
+                                        widget.workerProfiles[index];
+                                  });
+                                  Navigator.pop(context);
+                                },
+                                child: WorkerCustomProfileCard(
+                                  //TODO: on clicked changes current profile.
+                                  profile: widget.workerProfiles[index],
+                                  icon: Icons.edit,
+                                  onPressed: () {},
                                 ),
-                                const VirticalSpace(2),
-                                CustomButtonGeneral(
-                                    onPressed: () {
-                                      GoRouter.of(context)
-                                          .push("/createWorkerProfile");
-                                    },
-                                    color: Theme.of(context).primaryColor,
-                                    textcolor: Colors.white,
-                                    text: "Add New Profile",
-                                    borderSide: const BorderSide(),
-                                    width: SizeConfig.defaultSize! * 40)
-                              ],
-                            ),
-                          );
-                        },
-                      );
-                    },
-                    child: Container(
-                        margin: EdgeInsets.symmetric(
-                            horizontal: SizeConfig.defaultSize! * 1),
-                        child: WorkerCustomProfileCard(
-                          profile: currentProfile,
-                          icon: Icons.edit,
-                          onPressed: () {},
-                        )))),
-          ],
-        ),
+                              );
+                            },
+                          ),
+                        ),
+                        const VirticalSpace(2),
+                        CustomButtonGeneral(
+                            onPressed: () {
+                              GoRouter.of(context).push("/createWorkerProfile");
+                            },
+                            color: Theme.of(context).primaryColor,
+                            textcolor: Colors.white,
+                            text: "Add New Profile",
+                            borderSide: const BorderSide(),
+                            width: SizeConfig.defaultSize! * 40)
+                      ],
+                    ),
+                  );
+                },
+              );
+            },
+            child: Container(
+                margin: EdgeInsets.symmetric(
+                    horizontal: SizeConfig.defaultSize! * 1),
+                child: WorkerCustomProfileCard(
+                  profile: currentProfile,
+                  icon: Icons.edit,
+                  onPressed: () {},
+                ))),
         Container(
             margin: EdgeInsets.only(
                 top: SizeConfig.defaultSize! * 5,

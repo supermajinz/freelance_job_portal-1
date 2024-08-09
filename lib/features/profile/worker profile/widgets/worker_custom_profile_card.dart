@@ -5,7 +5,6 @@ import 'package:freelance_job_portal/features/profile/data/models/profile/worker
 import 'package:go_router/go_router.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 import 'package:freelance_job_portal/core/utils/size_config.dart';
 import 'package:freelance_job_portal/core/widget/custom_body_medium.dart';
@@ -53,11 +52,15 @@ class WorkerCustomProfileCard extends StatelessWidget {
                   ),
                 );
               },
-              child: CircleAvatar(
-                radius: SizeConfig.defaultSize! * 5,
-                backgroundImage: (profileImageUrl != null)
-                    ? NetworkImage(profileImageUrl)
-                    : const AssetImage('assets/images/pro1.jpg'),
+              child: Hero(
+                tag: 'profileImage',
+                child: CircleAvatar(
+                  radius: SizeConfig.defaultSize! * 5,
+                  backgroundImage: (profileImageUrl != null)
+                      ? NetworkImage(profileImageUrl)
+                      : const AssetImage('assets/images/pro1.jpg')
+                          as ImageProvider,
+                ),
               ),
             ),
             const HorizintalSpace(1),
@@ -106,6 +109,7 @@ class WorkerCustomProfileCard extends StatelessWidget {
     );
   }
 }
+
 // Image Gallery Screen for WorkerProfile
 class ImageGalleryScreen extends StatefulWidget {
   final WorkerProfile profile;
@@ -118,107 +122,84 @@ class ImageGalleryScreen extends StatefulWidget {
 
 class _ImageGalleryScreenState extends State<ImageGalleryScreen> {
   final PageController _pageController = PageController();
+  int _currentIndex = 0; // To track the current image index
+
+  @override
+  void initState() {
+    super.initState();
+    // Initialize _currentIndex if needed
+    _currentIndex = 0;
+  }
 
   @override
   Widget build(BuildContext context) {
     final List<String> imageUrls =
         widget.profile.photoDtOs!.map((e) => e.photo!).toList();
     return Scaffold(
-      backgroundColor: Colors.white, // خلفية شاشة
+      backgroundColor: Colors.black,
       body: SafeArea(
         child: Stack(
           children: [
-            Positioned(
-              right: 0,
-              left: 0,
-              top: 0,
-              bottom: SizeConfig.defaultSize! * 45,
-              child: PhotoViewGallery.builder(
+            Positioned.fill(
+              child: PageView.builder(
                 itemCount: imageUrls.length,
-                builder: (context, index) {
-                  return PhotoViewGalleryPageOptions(
-                    imageProvider: NetworkImage(
-                        "http://localhost:8080/api/v1/file/photo/${imageUrls[index]}"),
-                    minScale: PhotoViewComputedScale.covered,
-                    maxScale: PhotoViewComputedScale.covered *
-                        SizeConfig.defaultSize! *
-                        .15,
-                    heroAttributes:
-                        PhotoViewHeroAttributes(tag: imageUrls[index]),
-                  );
-                },
-                scrollPhysics: const BouncingScrollPhysics(),
-                pageController: _pageController,
-                enableRotation: true,
+                controller: _pageController,
                 onPageChanged: (index) {
-                  setState(() {});
+                  setState(() {
+                    _currentIndex = index;
+                  });
+                },
+                itemBuilder: (context, index) {
+                  return GestureDetector(
+                    onTap: () {
+                      // Toggle the app bar visibility
+                      // You might need to manage the app bar visibility state
+                      // in your parent widget or using a global state management
+                      // solution like Provider or BLoC.
+                    },
+                    child: PhotoView(
+                      imageProvider: NetworkImage(
+                          "http://localhost:8080/api/v1/file/photo/${imageUrls[index]}"),
+                      heroAttributes: PhotoViewHeroAttributes(
+                          tag:
+                              'profileImage'), // Use the same tag as the profile image
+                      minScale: PhotoViewComputedScale.contained,
+                      maxScale: PhotoViewComputedScale.covered * 2,
+                    ),
+                  );
                 },
               ),
             ),
             Positioned(
-              top: SizeConfig.defaultSize! * 2.5,
-              right: SizeConfig.defaultSize! * 1,
+              top: 16.0,
+              left: 16.0,
               child: IconButton(
-                icon: const Icon(Icons.arrow_back, color: Colors.white),
+                icon: const Icon(
+                  Icons.arrow_back,
+                  color: Colors.white,
+                ),
                 onPressed: () => Navigator.of(context).pop(),
               ),
             ),
             Positioned(
-              top: SizeConfig.defaultSize! * 35,
-              left: SizeConfig.defaultSize! * 1,
-              child: Container(
-                decoration: BoxDecoration(
-                    borderRadius:
-                        BorderRadius.circular(SizeConfig.defaultSize! * 5),
-                    color: Colors.green),
-                child: IconButton(
-                  icon: Icon(
-                    Icons.chat,
-                    color: Colors.white,
-                    size: SizeConfig.defaultSize! * 2.5,
-                  ),
-                  onPressed: () {},
-                ),
-              ),
-            ),
-            Positioned(
-              top: SizeConfig.defaultSize! * 32,
-              right: SizeConfig.defaultSize! * 3,
-              child: const Center(
-                child: CustomTitle(
-                  text: 'أحمد مراد',
-                  white: true,
-                ),
-              ),
-            ),
-            Positioned(
-              top: SizeConfig.defaultSize! * 2,
+              bottom: 16.0,
               left: 0,
               right: 0,
-              child: Center(
-                child: SmoothPageIndicator(
-                  controller: _pageController,
-                  count: imageUrls.length,
-                  effect: CustomizableEffect(
-                    activeDotDecoration: DotDecoration(
-                      width: MediaQuery.of(context).size.width /
-                          (imageUrls.length + 1),
-                      height: SizeConfig.defaultSize! * .3,
-                      color: Colors.white,
-                      borderRadius:
-                          BorderRadius.circular(SizeConfig.defaultSize! * 2.4),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: imageUrls.map((imageUrl) {
+                  final index = imageUrls.indexOf(imageUrl);
+                  return Container(
+                    width: 8.0,
+                    height: 8.0,
+                    margin: const EdgeInsets.symmetric(horizontal: 4.0),
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color:
+                          _currentIndex == index ? Colors.white : Colors.grey,
                     ),
-                    dotDecoration: DotDecoration(
-                      width: MediaQuery.of(context).size.width /
-                          (imageUrls.length + 1),
-                      height: SizeConfig.defaultSize! * .3,
-                      color: Colors.grey,
-                      borderRadius:
-                          BorderRadius.circular(SizeConfig.defaultSize! * 1.6),
-                    ),
-                    spacing: SizeConfig.defaultSize! * .5,
-                  ),
-                ),
+                  );
+                }).toList(),
               ),
             ),
           ],
