@@ -15,6 +15,8 @@ import 'package:freelance_job_portal/features/home/data/repo/home_repo.dart';
 import 'package:freelance_job_portal/features/home/data/repo/home_repo_impl.dart';
 import 'package:freelance_job_portal/features/offers/data/repo/offer_repo.dart';
 import 'package:freelance_job_portal/features/offers/data/repo/offer_repo_impl.dart';
+import 'package:freelance_job_portal/features/profile/worker%20profile/worker_profile_repo.dart';
+import 'package:freelance_job_portal/features/profile/worker%20profile/worker_profile_repo_abstract.dart';
 import 'package:freelance_job_portal/features/projects/data/repo/project_repo.dart';
 
 import '../../features/projects/data/repo/project_repo_imp.dart';
@@ -43,6 +45,10 @@ class DependencyInjection {
   static ProfileRepo provideProfileRepo() {
     final apiService = provideApiService();
     return ClientProfileRepoImpl(apiService: apiService);
+  }
+   static WorkerProfileRepoImpl provideWorkerProfileRepo() {
+    final apiService = provideApiService();
+    return WorkerProfileRepoImpl(apiService: apiService);
   }
 
   static ProjectRepo provideProjectRepo() {

@@ -1,34 +1,35 @@
+// Edit Worker Profile Screen
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freelance_job_portal/core/utils/dependency_injection.dart';
 import 'package:freelance_job_portal/core/widget/custom_icon_back.dart';
 import 'package:freelance_job_portal/core/widget/custom_title.dart';
-import 'package:freelance_job_portal/features/profile/data/models/profile/client_profile.dart';
-import 'package:freelance_job_portal/features/profile/presentation/view_models/bloc/profile_bloc.dart';
-import 'package:freelance_job_portal/features/profile/presentation/views/widget/edit_profile_body.dart';
+import 'package:freelance_job_portal/features/profile/data/models/profile/worker_Profile/worker_profile.dart';
+import 'package:freelance_job_portal/features/profile/worker%20profile/bloc/worker_profile_bloc.dart';
+import 'package:freelance_job_portal/features/profile/worker%20profile/widgets/edit_worker_profile_body.dart';
 import 'package:go_router/go_router.dart';
 
-class EditProfile extends StatelessWidget {
-  final ClientProfile profile;
-  const EditProfile({super.key, required this.profile});
+class EditWorkerProfile extends StatelessWidget {
+  final WorkerProfile profile;
+  const EditWorkerProfile({super.key, required this.profile});
 
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) =>
-          ProfileBloc(DependencyInjection.provideProfileRepo()),
+          WorkerProfileBloc(DependencyInjection.provideWorkerProfileRepo()),
       child: Builder(
         builder: (context) => Scaffold(
           appBar: AppBar(
             actions: [
-              BlocListener<ProfileBloc, ProfileState>(
+              BlocListener<WorkerProfileBloc, WorkerProfileState>(
                 listener: (context, state) {
-                  if (state is DeleteClientProfileError) {
+                  if (state is WorkerProfileDeleteError) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(content: Text('Error: ${state.errorMessage}')),
                     );
                   }
-                  if (state is ClientProfileDeleted) {
+                  if (state is WorkerProfileDeleted) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(content: Text('Profile Deleted')),
                     );
@@ -42,23 +43,27 @@ class EditProfile extends StatelessWidget {
                       builder: (BuildContext dialogContext) {
                         return AlertDialog(
                           title: const Text('تأكيد الحذف'),
-                          content: const Text('هل أنت متأكد أنك تريد حذف بروفايلك؟'),
+                          content:
+                              const Text('هل أنت متأكد أنك تريد حذف بروفايلك؟'),
                           actions: <Widget>[
                             TextButton(
-                              child: const Text('الإلغاء',),
+                              child: const Text('الإلغاء'),
                               onPressed: () {
                                 Navigator.of(dialogContext)
                                     .pop(); // Dismiss the dialog
                               },
                             ),
                             TextButton(
-                              child: const Text('الحذف', style:TextStyle(color: Colors.red),),
+                              child: const Text(
+                                'الحذف',
+                                style: TextStyle(color: Colors.red),
+                              ),
                               onPressed: () {
                                 Navigator.of(dialogContext)
                                     .pop(); // Dismiss the dialog
                                 context
-                                    .read<ProfileBloc>()
-                                    .add(DeleteClientProfileEvent(profile.id!));
+                                    .read<WorkerProfileBloc>()
+                                    .add(DeleteWorkerProfileEvent(profile.id!));
                               },
                             ),
                           ],
@@ -86,7 +91,7 @@ class EditProfile extends StatelessWidget {
             ),
           ),
           body: SafeArea(
-              child: EditProfileBody(
+              child: EditWorkerProfileBody(
             profile: profile,
           )),
         ),

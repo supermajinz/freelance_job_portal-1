@@ -27,6 +27,12 @@ class EditImageGalleryWidget extends StatefulWidget {
 class _EditImageGalleryWidgetState extends State<EditImageGalleryWidget> {
   late ImageBloc _imageBloc;
   List<PhotoDtO> photos = [];
+  @override
+  void dispose() {
+    widget.selectedPhotos ?? widget.selectedPhotos!.clear();
+    photos.clear();
+    super.dispose();
+  }
 
   @override
   void initState() {
@@ -94,12 +100,12 @@ class _EditImageGalleryWidgetState extends State<EditImageGalleryWidget> {
           ? ListView.separated(
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
-                return _buildImageCard(photos[index], index);
+                return _buildImageCard(photos[index + 1], index);
               },
               separatorBuilder: (context, index) {
                 return const HorizintalSpace(1);
               },
-              itemCount: photos.length,
+              itemCount: photos.length - 1,
             )
           : const Center(
               child: Text("You don't have photos in your profile"),
@@ -131,7 +137,7 @@ class _EditImageGalleryWidgetState extends State<EditImageGalleryWidget> {
           top: SizeConfig.defaultSize! * 0.5,
           right: SizeConfig.defaultSize! * 0.5,
           child: IconButton(
-            onPressed: () => _deleteImage(index),
+            onPressed: () => _deleteImage(index+1),
             icon: Icon(
               Icons.delete,
               color: Colors.red,
@@ -200,7 +206,7 @@ class _EditImageGalleryWidgetState extends State<EditImageGalleryWidget> {
                     ),
                     onTap: () {
                       Navigator.pop(context);
-                      pickImage(ImageSource.camera);
+                      //pickImage(ImageSource.camera);
                     },
                   ),
                 )

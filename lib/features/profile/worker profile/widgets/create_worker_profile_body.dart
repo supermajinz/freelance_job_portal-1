@@ -1,3 +1,4 @@
+// Create Worker Profile Body
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,25 +16,27 @@ import 'package:freelance_job_portal/features/home/data/model/skills/skills.dart
 import 'package:freelance_job_portal/features/home/presentation/view_models/nav_bar_bloc/nav_bar_bloc.dart';
 import 'package:freelance_job_portal/features/home/presentation/view_models/nav_bar_bloc/nav_bar_event.dart';
 import 'package:freelance_job_portal/features/photo/bloc/image_bloc.dart';
-import 'package:freelance_job_portal/features/profile/presentation/view_models/bloc/profile_bloc.dart';
 import 'package:freelance_job_portal/features/profile/presentation/views/widget/add_edit_proto.dart';
+import 'package:freelance_job_portal/features/profile/presentation/views/widget/add_photo_profile1.dart';
+import 'package:freelance_job_portal/features/profile/presentation/views/widget/create_profile_body.dart';
 import 'package:freelance_job_portal/features/profile/presentation/views/widget/custom_dropdown_searsh.dart';
 import 'package:freelance_job_portal/features/profile/presentation/views/widget/custom_show_chip_button.dart';
 import 'package:freelance_job_portal/features/profile/presentation/views/widget/image_gallery_widget.dart';
 import 'package:freelance_job_portal/features/profile/presentation/views/widget/show_chip.dart';
+import 'package:freelance_job_portal/features/profile/worker%20profile/bloc/worker_profile_bloc.dart';
 import 'package:freelance_job_portal/features/projects/presentation/views/widget/create_project_body.dart';
 import 'package:go_router/go_router.dart';
 
-import 'add_photo_profile1.dart';
 
-class CreateProfileBody extends StatefulWidget {
-  const CreateProfileBody({super.key});
+class CreateWorkerProfileBody extends StatefulWidget {
+  const CreateWorkerProfileBody({super.key});
 
   @override
-  State<CreateProfileBody> createState() => _CreateProfileBodyState();
+  State<CreateWorkerProfileBody> createState() =>
+      _CreateWorkerProfileBodyState();
 }
 
-class _CreateProfileBodyState extends State<CreateProfileBody> {
+class _CreateWorkerProfileBodyState extends State<CreateWorkerProfileBody> {
   final _descriptionController = TextEditingController();
   List<Skills> _selectedSkills = [];
   int? _selectedProfilePhotoId;
@@ -43,11 +46,11 @@ class _CreateProfileBodyState extends State<CreateProfileBody> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<ProfileBloc, ProfileState>(
+    return BlocListener<WorkerProfileBloc, WorkerProfileState>(
       listener: (context, state) {
-        if (state is ClientProfileCreatedState) {
+        if (state is WorkerProfileCreatedState) {
           _handleProfileCreated(context, state);
-        } else if (state is ProfileCreateError) {
+        } else if (state is WorkerProfileCreateError) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text('Error: ${state.errorMessage}')),
           );
@@ -170,9 +173,12 @@ class _CreateProfileBodyState extends State<CreateProfileBody> {
                         return;
                       }
 
-                      context.read<ProfileBloc>().add(CreateClientProfileEvent(
+                      context
+                          .read<WorkerProfileBloc>()
+                          .add(CreateWorkerProfileEvent(
                             description: _descriptionController.text,
                             jobTitleId: _selectedJobTitleId!,
+                            categoryId: _selectedCategory!.id!,
                           ));
                     },
                     color: Theme.of(context).primaryColor,
@@ -191,19 +197,19 @@ class _CreateProfileBodyState extends State<CreateProfileBody> {
   }
 
   void _handleProfileCreated(
-      BuildContext context, ClientProfileCreatedState state) {
+      BuildContext context, WorkerProfileCreatedState state) {
     // Add profile photo to profile
     if (_selectedProfilePhotoId != null) {
-      context.read<ProfileBloc>().add(AddPhotoToClientProfileEvent(
-            state.clientProfile.id!,
+      context.read<WorkerProfileBloc>().add(AddPhotoToWorkerProfileEvent(
+            state.workerProfile.id!,
             _selectedProfilePhotoId!,
           ));
     }
 
     // Add gallery photos to profile
     for (int photoId in _selectedGalleryPhotoIds) {
-      context.read<ProfileBloc>().add(AddPhotoToClientProfileEvent(
-            state.clientProfile.id!,
+      context.read<WorkerProfileBloc>().add(AddPhotoToWorkerProfileEvent(
+            state.workerProfile.id!,
             photoId,
           ));
     }
@@ -211,8 +217,10 @@ class _CreateProfileBodyState extends State<CreateProfileBody> {
     // Add skills to profile
     if (_selectedSkills.isNotEmpty) {
       for (var item in _selectedSkills) {
-        context.read<ProfileBloc>().add(
-            AddSkillToClientProfileEvent(state.clientProfile.id!, item.id));
+        context.read<WorkerProfileBloc>().add(AddSkillToWorkerProfileEvent(
+              state.workerProfile.id!,
+              item.id,
+            ));
       }
     }
 
@@ -246,52 +254,6 @@ class CustomShowChipButton extends StatelessWidget {
           .map((item) =>
               CustomChipButton(onDeleted: () => onDelete(item), text: item))
           .toList(),
-    );
-  }
-}
-
-class DropDownSearchJobTitles extends StatelessWidget {
-  final Function(JobTitle?) onChanged;
-  final JobTitle? selectedJobTitle;
-  const DropDownSearchJobTitles(
-      {super.key, required this.onChanged, this.selectedJobTitle});
-
-  @override
-  Widget build(BuildContext context) {
-    final categoriesSkillsBloc =
-        CategoriesSkillsBloc(DependencyInjection.provideCsRepo());
-    categoriesSkillsBloc.add(GetJobTitlesEvent());
-
-    return BlocProvider(
-      create: (context) => categoriesSkillsBloc,
-      child: BlocBuilder<CategoriesSkillsBloc, CategoriesSkillsState>(
-        builder: (context, state) {
-          if (state is! JobTitlesLoadedState) {
-            return const CircularProgressIndicator();
-          }
-          return DropdownSearch<JobTitle>(
-            items: state.jobTitles,
-            itemAsString: (item) => item.title!,
-            dropdownDecoratorProps: DropDownDecoratorProps(
-              dropdownSearchDecoration: InputDecoration(
-                hintText: '',
-                hintStyle: Theme.of(context).textTheme.labelLarge,
-                border: const OutlineInputBorder(),
-              ),
-            ),
-            popupProps: PopupProps.menu(
-              showSearchBox: true,
-              itemBuilder: (context, item, isSelected) {
-                return ListTile(
-                  title: Text(item.title!),
-                );
-              },
-            ),
-            onChanged: onChanged,
-            selectedItem: selectedJobTitle,
-          );
-        },
-      ),
     );
   }
 }

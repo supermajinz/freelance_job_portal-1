@@ -104,12 +104,12 @@ class CustomProjectCard extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           CustomSubTitleMedium(
-                              text: project.client!.userDto!.firstname!),
+                              text: project.client?.userDto!.firstname!?? ''),
                           const VirticalSpace(1),
                           Row(
                             children: [
                               CustomLabel(
-                                text: "${project.client!.rate}",
+                                text: "${project.client?.rate?? ''}",
                                 color: Colors.black,
                               ),
                               const HorizintalSpace(.8),

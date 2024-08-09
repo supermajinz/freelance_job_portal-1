@@ -20,9 +20,13 @@ import 'package:freelance_job_portal/features/offers/presentation/views/edit_off
 import 'package:freelance_job_portal/features/offers/presentation/views/offer_details.dart';
 import 'package:freelance_job_portal/features/onboarding/presentation/views/onboarding_view.dart';
 import 'package:freelance_job_portal/features/profile/data/models/profile/client_profile.dart';
+import 'package:freelance_job_portal/features/profile/data/models/profile/worker_Profile/worker_profile.dart';
 import 'package:freelance_job_portal/features/profile/presentation/views/create_profile.dart';
 import 'package:freelance_job_portal/features/profile/presentation/views/edit_profile.dart';
 import 'package:freelance_job_portal/features/profile/presentation/views/profile.dart';
+import 'package:freelance_job_portal/features/profile/worker%20profile/widgets/create_worker_profile.dart';
+import 'package:freelance_job_portal/features/profile/worker%20profile/widgets/edit_worker_profile.dart';
+import 'package:freelance_job_portal/features/profile/worker%20profile/widgets/worker_profile_screen.dart';
 import 'package:freelance_job_portal/features/projects/data/model/project_model/project_model.dart';
 import 'package:freelance_job_portal/features/projects/presentation/views/create_project.dart';
 import 'package:freelance_job_portal/features/projects/presentation/views/edit_project.dart';
@@ -112,6 +116,7 @@ abstract class AppRouter {
     GoRoute(
       path: '/profile',
       builder: (context, state) => const Profile(),
+      
     ),
     GoRoute(
       path: '/createprofile',
@@ -120,6 +125,20 @@ abstract class AppRouter {
     GoRoute(
       path: '/editprofile',
       builder: (context, state) =>  EditProfile(profile: state.extra as ClientProfile),
+    ),
+    //
+    GoRoute(
+      path: '/workerProfile',
+      builder: (context, state) => const WorkerProfileScreen(),
+    ),
+    GoRoute(
+      path: '/createWorkerProfile',
+      builder: (context, state) => const CreateWorkerProfile(),
+    ),
+    GoRoute(
+      path: '/editWorkerProfile',
+      builder: (context, state) =>
+          EditWorkerProfile(profile: state.extra as WorkerProfile),
     ),
     GoRoute(
       path: '/addprotofolio',

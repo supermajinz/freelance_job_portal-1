@@ -35,7 +35,8 @@ class _ProfileBodyState extends State<ProfileBody> {
   @override
   void initState() {
     super.initState();
-    currentProfile = widget.clientProfiles[0];
+    currentProfile =
+        widget.clientProfiles[0]; //TODO make this shared preferences
   }
 
   @override

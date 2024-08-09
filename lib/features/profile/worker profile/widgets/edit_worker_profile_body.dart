@@ -1,3 +1,4 @@
+// Edit Worker Profile Body
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freelance_job_portal/core/utils/dependency_injection.dart';
@@ -11,26 +12,26 @@ import 'package:freelance_job_portal/features/home/data/model/skills/skills.dart
 import 'package:freelance_job_portal/features/home/presentation/view_models/nav_bar_bloc/nav_bar_bloc.dart';
 import 'package:freelance_job_portal/features/home/presentation/view_models/nav_bar_bloc/nav_bar_event.dart';
 import 'package:freelance_job_portal/features/photo/bloc/image_bloc.dart';
-import 'package:freelance_job_portal/features/profile/data/models/profile/client_profile.dart';
+import 'package:freelance_job_portal/features/profile/data/models/profile/worker_Profile/worker_profile.dart';
 import 'package:freelance_job_portal/features/profile/data/models/profile/photo_dt_o.dart';
-import 'package:freelance_job_portal/features/profile/presentation/view_models/bloc/profile_bloc.dart';
 import 'package:freelance_job_portal/features/profile/presentation/views/widget/add_edit_proto.dart';
 import 'package:freelance_job_portal/features/profile/presentation/views/widget/create_profile_body.dart';
 import 'package:freelance_job_portal/features/profile/presentation/views/widget/edit_image_gallery_widget.dart';
 import 'package:freelance_job_portal/features/profile/presentation/views/widget/edit_photo_profile_1.dart';
 import 'package:freelance_job_portal/features/profile/presentation/views/widget/edit_text_form.dart';
+import 'package:freelance_job_portal/features/profile/worker%20profile/bloc/worker_profile_bloc.dart';
 import 'package:freelance_job_portal/features/projects/presentation/views/widget/create_project_body.dart';
 import 'package:go_router/go_router.dart';
 
-class EditProfileBody extends StatefulWidget {
-  final ClientProfile profile;
-  const EditProfileBody({super.key, required this.profile});
+class EditWorkerProfileBody extends StatefulWidget {
+  final WorkerProfile profile;
+  const EditWorkerProfileBody({super.key, required this.profile});
 
   @override
-  State<EditProfileBody> createState() => _EditProfileBodyState();
+  State<EditWorkerProfileBody> createState() => _EditWorkerProfileBodyState();
 }
 
-class _EditProfileBodyState extends State<EditProfileBody> {
+class _EditWorkerProfileBodyState extends State<EditWorkerProfileBody> {
   late final TextEditingController descriptionController;
   Categories? category;
   late final List<Skills> skills;
@@ -75,6 +76,9 @@ class _EditProfileBodyState extends State<EditProfileBody> {
 
   @override
   Widget build(BuildContext context) {
+    category = Categories(
+        id: widget.profile.categoryDto!.id!,
+        name: widget.profile.categoryDto!.name!);
     _selectedJobTitle = JobTitle(
       id: widget.profile.jobTitleDto!.id,
       title: widget.profile.jobTitleDto!.title,
@@ -83,21 +87,21 @@ class _EditProfileBodyState extends State<EditProfileBody> {
         widget.profile.photoDtOs?[0] != null) {
       selectedPhoto = widget.profile.photoDtOs![0];
     }
-    return BlocListener<ProfileBloc, ProfileState>(
+    return BlocListener<WorkerProfileBloc, WorkerProfileState>(
       listener: (context, state) {
-        if (state is EditedClientProfileState) {
+        if (state is WorkerProfileEditedState) {
           _handleProfileEdit(context, state);
-        } else if (state is EditProfileError) {
+        } else if (state is WorkerProfileEditError) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text('Error: ${state.errorMessage}')),
           );
-        } else if (state is DeletePhotoToProfileError ||
-            state is DeleteSkillToProfileError) {
+        } else if (state is WorkerProfileDeletePhotoError ||
+            state is WorkerProfileDeleteSkillError) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text('Error: error deleting')),
           );
-        } else if (state is DeletedPhotoToProfile ||
-            state is DeletedSkillToProfile) {
+        } else if (state is WorkerProfileDeletedPhoto ||
+            state is WorkerProfileDeletedSkill) {
           setState(() {});
           // Refresh the profile data or update the UI accordingly
         }
@@ -235,10 +239,11 @@ class _EditProfileBodyState extends State<EditProfileBody> {
                              newSkills: $addedSkills
                              deletedSkills:$deletedSkills
                               """);
-                          context.read<ProfileBloc>().add(
-                              EditClientProfileEvent(widget.profile.id!,
+                          context.read<WorkerProfileBloc>().add(
+                              EditWorkerProfileEvent(widget.profile.id!,
                                   description: descriptionController.text,
-                                  jobTitleId: _selectedJobTitle.id!));
+                                  jobTitleId: _selectedJobTitle.id!,
+                                  categoryId: category?.id ?? 1));
                         },
                         color: Theme.of(context).primaryColor,
                         textcolor: Colors.white,
@@ -253,11 +258,11 @@ class _EditProfileBodyState extends State<EditProfileBody> {
     );
   }
 
-  void _handleProfileEdit(BuildContext context, EditClientProfileState) {
+  void _handleProfileEdit(BuildContext context, WorkerProfileEditedState) {
     if (newPhotoId != null) {
       // Delete old
-      if (selectedPhoto != null) { 
-        context.read<ProfileBloc>().add(DeletePhotoToClientProfileEvent(
+      if (selectedPhoto != null) {
+        context.read<WorkerProfileBloc>().add(DeletePhotoToWorkerProfileEvent(
             widget.profile.id!, selectedPhoto!.id!));
         print(
             'widget deleted old profile pic with ${selectedPhoto.toString()}');
@@ -265,40 +270,40 @@ class _EditProfileBodyState extends State<EditProfileBody> {
       // Add new
       if (newPhotoId != null) {
         context
-            .read<ProfileBloc>()
-            .add(AddPhotoToClientProfileEvent(widget.profile.id!, newPhotoId!));
+            .read<WorkerProfileBloc>()
+            .add(AddPhotoToWorkerProfileEvent(widget.profile.id!, newPhotoId!));
         print('widget new photo $newPhotoId');
       }
     }
     if (deletedSkills.isNotEmpty) {
       for (int skillId in deletedSkills) {
         context
-            .read<ProfileBloc>()
-            .add(DeleteSkillToClientProfileEvent(widget.profile.id!, skillId));
+            .read<WorkerProfileBloc>()
+            .add(DeleteSkillToWorkerProfileEvent(widget.profile.id!, skillId));
       }
       deletedSkills.clear();
     }
     if (deletedPhotos.isNotEmpty) {
       for (int photoId in deletedPhotos) {
         context
-            .read<ProfileBloc>()
-            .add(DeletePhotoToClientProfileEvent(widget.profile.id!, photoId));
+            .read<WorkerProfileBloc>()
+            .add(DeletePhotoToWorkerProfileEvent(widget.profile.id!, photoId));
       }
       deletedPhotos.clear();
     }
     if (addedSkills.isNotEmpty) {
       for (int skillId in addedSkills) {
         context
-            .read<ProfileBloc>()
-            .add(AddSkillToClientProfileEvent(widget.profile.id!, skillId));
+            .read<WorkerProfileBloc>()
+            .add(AddSkillToWorkerProfileEvent(widget.profile.id!, skillId));
       }
       addedSkills.clear();
     }
     if (addedPhotos.isNotEmpty) {
       for (int photoId in addedPhotos) {
         context
-            .read<ProfileBloc>()
-            .add(AddPhotoToClientProfileEvent(widget.profile.id!, photoId));
+            .read<WorkerProfileBloc>()
+            .add(AddPhotoToWorkerProfileEvent(widget.profile.id!, photoId));
       }
       addedPhotos.clear();
     }
@@ -309,8 +314,8 @@ class _EditProfileBodyState extends State<EditProfileBody> {
 
     // Navigate to the next screen or perform any other action
     context.read<NavigationBloc>().add(const PageTapped(
-      0,
-    ));
+          0,
+        ));
     GoRouter.of(context).push('/homescreen');
   }
 }
