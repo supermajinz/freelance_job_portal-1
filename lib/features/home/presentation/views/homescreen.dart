@@ -95,81 +95,39 @@ class _HomescreenState extends State<Homescreen> {
                   size: 25,
                 ),
               ),
-              bottomNavigationBar: Container(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 10, horizontal: 5),
-                color: Theme.of(context).primaryColor,
-                child: NavigationView(
-                  backgroundColor: Theme.of(context).primaryColor,
-                  curve: Curves.fastEaseInToSlowEaseOut,
-                  color: Theme.of(context).primaryColor,
-                  borderTopColor: Theme.of(context).primaryColor,
-                  onChangePage: (index) {
-                    context.read<NavigationBloc>().add(PageTapped(index));
-                  },
-                  items: [
-                    ItemNavigationView(
-                      childAfter: const Icon(
+              bottomNavigationBar: BlocBuilder<NavigationBloc, NavigationState>(
+                builder: (context, state) {
+                  return NavigationBar(
+                      selectedIndex:
+                          (state is PageLoaded) ? state.currentIndex : 0,
+                      backgroundColor: Theme.of(context).primaryColor,
+                      onDestinationSelected: (index) {
+                        context.read<NavigationBloc>().add(PageTapped(index));
+                      },
+                      labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
+                      indicatorColor: Colors.white24,
+                      destinations: [
                         IconlyBold.home,
-                        color: primaryColer,
-                        size: 30,
-                      ),
-                      childBefore: const Icon(
-                        IconlyBold.home,
-                        color: Colors.white,
-                        size: 30,
-                      ),
-                    ),
-                    ItemNavigationView(
-                      childAfter: const Icon(
                         IconlyBold.chat,
-                        color: primaryColer,
-                        size: 30,
-                      ),
-                      childBefore: const Icon(
-                        IconlyBold.chat,
-                        color: Colors.white,
-                        size: 30,
-                      ),
-                    ),
-                    ItemNavigationView(
-                      childAfter: const Icon(
                         IconlyBold.search,
-                        color: primaryColer,
-                        size: 30,
-                      ),
-                      childBefore: const Icon(
-                        IconlyBold.search,
-                        color: Colors.white,
-                        size: 30,
-                      ),
-                    ),
-                    ItemNavigationView(
-                      childAfter: const Icon(
                         IconlyBold.bag,
-                        color: primaryColer,
-                        size: 30,
-                      ),
-                      childBefore: const Icon(
-                        IconlyBold.bag,
-                        color: Colors.white,
-                        size: 30,
-                      ),
-                    ),
-                    ItemNavigationView(
-                      childAfter: const Icon(
                         IconlyBold.profile,
-                        color: primaryColer,
-                        size: 30,
-                      ),
-                      childBefore: const Icon(
-                        IconlyBold.profile,
-                        color: Colors.white,
-                        size: 30,
-                      ),
-                    ),
-                  ],
-                ),
+                      ]
+                          .asMap()
+                          .entries
+                          .map((e) => NavigationDestination(
+                                icon: Icon(
+                                  e.value,
+                                  color: (state is PageLoaded &&
+                                          e.key == state.currentIndex)
+                                      ? primaryColer
+                                      : Colors.white,
+                                  size: 30,
+                                ),
+                                label: '',
+                              ))
+                          .toList());
+                },
               ),
             ),
           );
