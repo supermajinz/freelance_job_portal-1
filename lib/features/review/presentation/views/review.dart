@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:freelance_job_portal/core/widget/custom_icon_back.dart';
+import 'package:freelance_job_portal/features/review/presentation/view_models/args/review_args.dart';
 import 'package:freelance_job_portal/features/review/presentation/views/widget/review_body.dart';
 import 'package:go_router/go_router.dart';
 
 class Review extends StatelessWidget {
-  const Review({super.key});
+  const Review({super.key, required this.args});
+  final ReviewArgs args;
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +18,7 @@ class Review extends StatelessWidget {
               GoRouter.of(context).pop();
             },
           )),
-      body: const SafeArea(child: ReviewBody()),
+      body: SafeArea(child: ReviewBody(args: args)),
     );
   }
 }

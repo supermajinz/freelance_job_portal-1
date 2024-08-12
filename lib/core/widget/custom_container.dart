@@ -14,8 +14,9 @@ class CustomContainer extends StatelessWidget {
       decoration: BoxDecoration(
           color: Colors.white,
           border: Border.all(width: 1, color: Theme.of(context).primaryColor),
-          borderRadius: BorderRadius.circular(SizeConfig.defaultSize! * 2)),
+          borderRadius: BorderRadius.circular(SizeConfig.defaultSize! * 10)),
       child: CustomBody(
+        isday: true,
         text: text,
       ),
     );

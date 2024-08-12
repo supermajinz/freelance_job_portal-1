@@ -15,4 +15,6 @@ abstract class ProjectRepo {
   Future<Either<Failure, Unit>> closeProject(int projectId);
   Future<Either<Failure, Unit>> acceptOffer(int offerId);
   Future<Either<Failure, Unit>> rejectOffer(int offerId);
+  Future<Either<Failure, Unit>> completeProject(int projectId);
+  Future<Either<Failure, Unit>> submitProject(int projectId);
 }

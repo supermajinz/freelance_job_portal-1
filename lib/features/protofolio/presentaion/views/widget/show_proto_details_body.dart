@@ -50,7 +50,7 @@ class ShowProtoDetailsBody extends StatelessWidget {
                 text: "Skills Used",
               ),
               const VirticalSpace(2),
-          //    const ShowChip(), //TODO
+              //    const ShowChip(), //TODO
               const VirticalSpace(5),
               const Row(
                 children: [

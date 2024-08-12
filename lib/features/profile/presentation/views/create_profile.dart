@@ -28,7 +28,8 @@ class CreateProfile extends StatelessWidget {
       ),
       body: SafeArea(
           child: BlocProvider(
-        create: (context) => ProfileBloc(DependencyInjection.provideProfileRepo()),
+        create: (context) =>
+            ProfileBloc(DependencyInjection.provideProfileRepo()),
         child: const CreateProfileBody(),
       )),
     );

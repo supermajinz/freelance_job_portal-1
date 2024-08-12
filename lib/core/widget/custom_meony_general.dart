@@ -33,7 +33,7 @@ class CustomMeonyGeneral extends StatelessWidget {
                     topRight: Radius.circular(SizeConfig.defaultSize! * 10)),
                 color: Theme.of(context).primaryColor),
             child: const CustomSubTitleMedium(
-              text: "SYP",
+              text: "ل.س",
               color: Colors.white,
             ),
           ),

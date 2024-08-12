@@ -42,17 +42,17 @@ class AddProtofolioBody extends StatelessWidget {
                 text: "Category",
               ),
               const VirticalSpace(1.5),
-        //      const CustomDropdownSearsh1(),
+              //      const CustomDropdownSearsh1(),
               const VirticalSpace(5),
               const CustomSubTitle(
                 text: "Skills",
               ),
               const VirticalSpace(1.5),
-          //    const CustomDropdownSearsh1(),
+              //    const CustomDropdownSearsh1(),
               const VirticalSpace(2),
               const CustomShowChipButton(),
               const VirticalSpace(2),
-          //    const ShowChip(), //TODO
+              //    const ShowChip(), //TODO
               const VirticalSpace(5),
               const Row(
                 children: [

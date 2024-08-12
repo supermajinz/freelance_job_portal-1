@@ -37,6 +37,10 @@ class OfferAccept extends ProjectState {}
 
 class OfferReject extends ProjectState {}
 
+class ProjectComplete extends ProjectState {}
+
+class ProjectSubmit extends ProjectState {}
+
 class ProjectClose extends ProjectState {}
 
 class ProjectError extends ProjectState {

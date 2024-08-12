@@ -1,11 +1,10 @@
-
-
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 //import 'package:freelance_job_portal/features/categories%20and%20skills/models/categories/category.dart';
 
 import 'package:freelance_job_portal/features/categories%20and%20skills/models/job_title.dart';
+
 //import 'package:freelance_job_portal/features/categories%20and%20skills/models/skill.dart';
 /*
 class CustomDropdownSearsh1 extends StatelessWidget {

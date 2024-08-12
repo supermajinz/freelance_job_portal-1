@@ -7,8 +7,6 @@ import 'package:freelance_job_portal/features/profile/data/models/profile/skill_
 import 'package:freelance_job_portal/features/profile/data/models/profile/user_dto.dart';
 import 'package:freelance_job_portal/features/projects/data/model/project_model/job_title_dto.dart';
 
-
-
 class WorkerProfile extends Equatable {
   final int? id;
   final String? bio;

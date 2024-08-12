@@ -1,6 +1,5 @@
 part of 'worker_profile_bloc.dart';
 
-
 sealed class WorkerProfileEvent extends Equatable {
   const WorkerProfileEvent();
 

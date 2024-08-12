@@ -2,19 +2,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freelance_job_portal/core/utils/size_config.dart';
 import 'package:freelance_job_portal/core/widget/custom_button_general.dart';
-import 'package:freelance_job_portal/core/widget/custom_edit_meony_general.dart';
 import 'package:freelance_job_portal/core/widget/custom_sub_title.dart';
 import 'package:freelance_job_portal/core/widget/space.dart';
 import 'package:freelance_job_portal/features/offers/data/model/offers_model/offers_model.dart';
 import 'package:freelance_job_portal/features/offers/presentation/view_models/bloc/offer_bloc.dart';
 import 'package:freelance_job_portal/features/profile/presentation/views/widget/edit_text_form.dart';
 import 'package:go_router/go_router.dart';
+import '../../../../../core/widget/custom_meony_general.dart';
+import '../../../../../core/widget/custom_time_general.dart';
 
 class EditOfferBody extends StatefulWidget {
   final OffersModel offer;
   const EditOfferBody({super.key, required this.offer});
 
   @override
+  // ignore: library_private_types_in_public_api
   _EditOfferBodyState createState() => _EditOfferBodyState();
 }
 
@@ -71,24 +73,41 @@ class _EditOfferBodyState extends State<EditOfferBody> {
                     EditTextForm(
                       mycontroller: descriptionController,
                       hinttext: "",
-                      lable: "Description",
+                      lable: "ادخل الرسالة الجديدة",
                       isNumber: false,
                     ),
-                    const VirticalSpace(3),
-                    EditTextForm(
-                      mycontroller: deliveryTimeController,
-                      hinttext: "",
-                      lable: "Delivery Time",
-                      isNumber: true,
+                    const VirticalSpace(5),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Column(
+                            children: [
+                              const CustomSubTitle(text: "زمن التسليم"),
+                              const VirticalSpace(1),
+                              CustomTimeGeneral(
+                                mycontroller: deliveryTimeController,
+                                onTapicon: () {},
+                                isNumber: true,
+                              ),
+                            ],
+                          ),
+                        ),
+                        Expanded(
+                          child: Column(
+                            children: [
+                              const CustomSubTitle(text: "السعر"),
+                              const VirticalSpace(1),
+                              CustomMeonyGeneral(
+                                mycontroller: priceController,
+                                onTapicon: () {},
+                                isNumber: true,
+                              ),
+                            ],
+                          ),
+                        )
+                      ],
                     ),
-                    const VirticalSpace(4),
-                    const CustomSubTitle(text: "Budget"),
-                    const VirticalSpace(1),
-                    CustomEditMeonyGeneral(
-                      mycontroller: priceController,
-                      isNumber: true,
-                    ),
-                    const VirticalSpace(36),
+                    const VirticalSpace(44),
                     CustomButtonGeneral(
                       onPressed: () {
                         if (formKey.currentState!.validate()) {

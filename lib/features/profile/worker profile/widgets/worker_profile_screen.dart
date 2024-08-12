@@ -22,9 +22,9 @@ class WorkerProfileScreen extends StatelessWidget {
           return _buildGuestView(context);
         } else if (authState is AuthAuthenticated) {
           return BlocProvider(
-            create: (context) =>
-                WorkerProfileBloc(DependencyInjection.provideWorkerProfileRepo())
-                  ..add(GetWorkerProfiles(authState.id)),
+            create: (context) => WorkerProfileBloc(
+                DependencyInjection.provideWorkerProfileRepo())
+              ..add(GetWorkerProfiles(authState.id)),
             child: BlocBuilder<WorkerProfileBloc, WorkerProfileState>(
               builder: (context, profileState) {
                 if (profileState is WorkerProfileLoading) {

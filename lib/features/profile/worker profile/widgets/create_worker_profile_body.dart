@@ -27,7 +27,6 @@ import 'package:freelance_job_portal/features/profile/worker%20profile/bloc/work
 import 'package:freelance_job_portal/features/projects/presentation/views/widget/create_project_body.dart';
 import 'package:go_router/go_router.dart';
 
-
 class CreateWorkerProfileBody extends StatefulWidget {
   const CreateWorkerProfileBody({super.key});
 

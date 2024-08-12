@@ -18,6 +18,10 @@ import 'package:freelance_job_portal/features/offers/data/repo/offer_repo_impl.d
 import 'package:freelance_job_portal/features/profile/worker%20profile/worker_profile_repo.dart';
 import 'package:freelance_job_portal/features/profile/worker%20profile/worker_profile_repo_abstract.dart';
 import 'package:freelance_job_portal/features/projects/data/repo/project_repo.dart';
+import 'package:freelance_job_portal/features/review/data/repo/review_repo.dart';
+import 'package:freelance_job_portal/features/review/data/repo/review_repo_impl.dart';
+import 'package:freelance_job_portal/features/saved/data/repo/favorite_repo.dart';
+import 'package:freelance_job_portal/features/saved/data/repo/favorite_repo_impl.dart';
 
 import '../../features/projects/data/repo/project_repo_imp.dart';
 import '../../features/searsh/data/repo/search_repo_.dart';
@@ -31,7 +35,7 @@ class DependencyInjection {
   static ApiService provideApiService() {
     final authTokenService = provideAuthTokenService();
     return ApiService(
-      baseUrl: 'http://localhost:8080/api/v1/',
+      baseUrl: 'http://10.0.2.2:8080/api/v1/',
       authTokenService: authTokenService,
     );
   }
@@ -46,7 +50,8 @@ class DependencyInjection {
     final apiService = provideApiService();
     return ClientProfileRepoImpl(apiService: apiService);
   }
-   static WorkerProfileRepoImpl provideWorkerProfileRepo() {
+
+  static WorkerProfileRepoImpl provideWorkerProfileRepo() {
     final apiService = provideApiService();
     return WorkerProfileRepoImpl(apiService: apiService);
   }
@@ -66,7 +71,6 @@ class DependencyInjection {
     return OfferRepoImpl(apiService);
   }
 
-
   static CategorySkillRepo provideCsRepo() {
     final apiService = provideApiService();
     return CategorySkillRepoImpl(apiService);
@@ -80,6 +84,16 @@ class DependencyInjection {
   static SearchRepo provideSearchRepo() {
     final apiService = provideApiService();
     return SearchRepoImpl(apiService);
+  }
+
+  static ReviewRepo provideReviewRepo() {
+    final apiService = provideApiService();
+    return ReviewRepoImpl(apiService);
+  }
+
+  static FavoriteRepo provideFavoriteRepo() {
+    final apiService = provideApiService();
+    return FavoriteRepoImpl(apiService);
   }
 
 //    ChatRepo provideChatRepo(String chatUrl) {

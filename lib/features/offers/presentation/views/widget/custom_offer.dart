@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:freelance_job_portal/core/widget/custom_body_medium.dart';
 import 'package:freelance_job_portal/core/widget/custom_label.dart';
 import 'package:freelance_job_portal/core/widget/space.dart';
+import '../../../../../core/utils/functions/utils.dart';
 import '../../../../../core/utils/size_config.dart';
 import '../../../../../core/widget/custom_subtitle_medium.dart';
 import '../../../data/model/offers_model/offers_model.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 class CustomOffer extends StatelessWidget {
   const CustomOffer({super.key, required this.offer});
@@ -12,6 +14,15 @@ class CustomOffer extends StatelessWidget {
   final OffersModel offer;
   @override
   Widget build(BuildContext context) {
+    final createDate = offer.createDate?.toLocal() ?? DateTime.now();
+    final formattedCreateDate = timeago.format(createDate, locale: 'ar');
+    final workerName =
+        '${offer.worker!.userDto!.firstname ?? 'Unknown'} ${offer.worker!.userDto!.lastname ?? ''}';
+    final workerPhotoUrl = offer.worker!.photoDtOs?.isNotEmpty == true
+        ? "http://10.0.2.2:8080/api/v1/file/photo/${offer.worker!.photoDtOs![0].photo}"
+        : null;
+    final backgroundColor =
+        workerPhotoUrl == null ? Utils.getBackgroundColor(workerName) : null;
     return Container(
       padding: EdgeInsets.all(SizeConfig.defaultSize! * 1.5),
       decoration: BoxDecoration(
@@ -25,11 +36,20 @@ class CustomOffer extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               CircleAvatar(
-                radius: SizeConfig.defaultSize! * 4,
-                backgroundImage: const AssetImage(
-                  "assets/images/pro.jpg",
-                ),
-              ),
+                  radius: SizeConfig.defaultSize! * 4,
+                  backgroundColor: backgroundColor,
+                  backgroundImage: workerPhotoUrl != null
+                      ? NetworkImage(workerPhotoUrl)
+                      : null,
+                  child: workerPhotoUrl == null
+                      ? Center(
+                          child: Text(
+                            Utils.getInitials(workerName),
+                            style: const TextStyle(
+                                color: Colors.white, fontSize: 20),
+                          ),
+                        )
+                      : null),
               const HorizintalSpace(1),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -65,8 +85,8 @@ class CustomOffer extends StatelessWidget {
                 ],
               ),
               const Spacer(),
-              const CustomLabel(
-                text: "1d",
+              CustomLabel(
+                text: formattedCreateDate,
                 color: Colors.white,
               ),
             ],

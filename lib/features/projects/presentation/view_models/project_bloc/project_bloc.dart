@@ -14,8 +14,10 @@ class ProjectBloc extends Bloc<ProjectEvent, ProjectState> {
     on<UpdateProject>(_onUpdateProject);
     on<DeleteProject>(_onDeleteProject);
     on<CloseProject>(_onCloseProject);
-    on<AcceptOffer>(_onAcceptOffer); // إضافة المعالجة لقبول العرض
-    on<RejectOffer>(_onRejectOffer); // إضافة المعالجة لرفض العرض
+    on<AcceptOffer>(_onAcceptOffer);
+    on<RejectOffer>(_onRejectOffer);
+    on<CompleteProject>(_onCompleteProject);
+    on<SubmitProject>(_onSubmitProject);
   }
 
   Future<void> _onCreateProjectSubmitted(
@@ -80,6 +82,26 @@ class ProjectBloc extends Bloc<ProjectEvent, ProjectState> {
     result.fold(
       (failure) => emit(ProjectError(failure.errMessage)),
       (_) => emit(OfferReject()),
+    );
+  }
+
+  Future<void> _onCompleteProject(
+      CompleteProject event, Emitter<ProjectState> emit) async {
+    emit(ProjectLoading());
+    final result = await repo.completeProject(event.projectId);
+    result.fold(
+      (failure) => emit(ProjectError(failure.errMessage)),
+      (_) => emit(ProjectComplete()),
+    );
+  }
+
+  Future<void> _onSubmitProject(
+      SubmitProject event, Emitter<ProjectState> emit) async {
+    emit(ProjectLoading());
+    final result = await repo.submitProject(event.projectId);
+    result.fold(
+      (failure) => emit(ProjectError(failure.errMessage)),
+      (_) => emit(ProjectSubmit()),
     );
   }
 }

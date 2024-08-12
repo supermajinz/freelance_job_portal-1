@@ -2,10 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freelance_job_portal/core/utils/size_config.dart';
 import 'package:freelance_job_portal/core/widget/space.dart';
+import 'package:freelance_job_portal/features/offers/presentation/view_models/args/offer_details_args.dart';
 import 'package:freelance_job_portal/features/projects/presentation/view_models/project_bloc/project_bloc.dart';
 import 'package:freelance_job_portal/features/offers/presentation/views/widget/custom_offer.dart';
 import 'package:freelance_job_portal/features/projects/presentation/views/widget/custom_chip_project.dart';
+import 'package:freelance_job_portal/features/review/presentation/view_models/args/review_args.dart';
 import 'package:go_router/go_router.dart';
+import 'package:iconly/iconly.dart';
+import '../../../../../core/utils/functions/utils.dart';
 import '../../../../../core/widget/custom_body_medium.dart';
 import '../../../../../core/widget/custom_button_general.dart';
 import '../../../../../core/widget/custom_container.dart';
@@ -16,6 +20,7 @@ import '../../../../../core/widget/custom_subtitle_medium.dart';
 import '../../../../auth/presentation/view_models/bloc/auth_bloc.dart';
 import '../../../data/model/project_model/project_model.dart';
 import '../../view_models/offer_by_project/offer_by_project_bloc.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 class ShowProjectDetailsBody extends StatefulWidget {
   final ProjectModel project;
@@ -81,13 +86,9 @@ class _ShowProjectDetailsBodyState extends State<ShowProjectDetailsBody> {
         controller: _scrollController,
         child: Column(
           children: [
-            const VirticalSpace(4),
-            Stack(
-              children: [
-                _buildProjectDetailsContainer(context, widget.project),
-                _buildClientInfoContainer(context, widget.project),
-              ],
-            ),
+            const VirticalSpace(6),
+            _buildClientInfoContainer(context, widget.project),
+            _buildProjectDetailsContainer(context, widget.project),
           ],
         ),
       ),
@@ -95,26 +96,20 @@ class _ShowProjectDetailsBodyState extends State<ShowProjectDetailsBody> {
   }
 
   Widget _buildProjectDetailsContainer(
-    
       BuildContext context, ProjectModel project) {
-         final clientId = (context.read<AuthBloc>().state
-                                as AuthAuthenticated)
-                            .id;
+    final userId = (context.read<AuthBloc>().state as AuthAuthenticated).id;
     return Container(
       margin: EdgeInsets.symmetric(horizontal: SizeConfig.defaultSize! * .5),
+      constraints: const BoxConstraints(minHeight: 600),
       decoration: BoxDecoration(
         color: Theme.of(context).focusColor,
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(SizeConfig.defaultSize! * 4),
-          topRight: Radius.circular(SizeConfig.defaultSize! * 4),
-        ),
       ),
       child: Padding(
         padding: EdgeInsets.symmetric(horizontal: SizeConfig.defaultSize! * 2),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const VirticalSpace(15),
+            const VirticalSpace(2),
             _buildProjectHeader(context, project),
             const VirticalSpace(2),
             _buildProjectDescription(context, project),
@@ -129,8 +124,20 @@ class _ShowProjectDetailsBodyState extends State<ShowProjectDetailsBody> {
             const VirticalSpace(2),
             _buildOffersList(),
             const VirticalSpace(2),
-            if(project.client!.userId!=clientId)
-            _buildApplyButton(context, project),
+            if (project.client!.userId != userId && project.status == "open")
+              _buildApplyButton(context, project), //for all except owner
+            if (project.client!.userId == userId &&
+                project.status == "submitted")
+              _buildCompleteButton(
+                  context, project), //for owner client when submitted
+            if (project.worker?.userId == userId &&
+                project.status == "inProgress")
+              _buildSubmitButton(
+                  context, project), //for project worker when in progress
+            if (project.worker?.userId == userId &&
+                project.status == "submitted")
+              _buildSubmittedMsg(
+                  context, project), //for project worker when in submitted
             const VirticalSpace(2),
           ],
         ),
@@ -139,6 +146,9 @@ class _ShowProjectDetailsBodyState extends State<ShowProjectDetailsBody> {
   }
 
   Widget _buildProjectHeader(BuildContext context, ProjectModel project) {
+    final createDate = project.createDate?.toLocal() ?? DateTime.now();
+    final formattedCreateDate = timeago.format(createDate, locale: 'ar');
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -146,8 +156,13 @@ class _ShowProjectDetailsBodyState extends State<ShowProjectDetailsBody> {
         CustomSubTitle(text: project.name),
         Column(
           children: [
-            const CustomLabel(text: "1d", color: Colors.black),
-            CustomLabel(text: project.status, color: Colors.black),
+            Text(formattedCreateDate,
+                maxLines: 2,
+                textAlign: TextAlign.center,
+                style: Theme.of(context).textTheme.labelLarge!.copyWith(
+                    color: Colors.black,
+                    decorationThickness: SizeConfig.defaultSize)),
+            CustomLabel(text: project.status, color: Colors.blue),
           ],
         )
       ],
@@ -207,7 +222,7 @@ class _ShowProjectDetailsBodyState extends State<ShowProjectDetailsBody> {
         const CustomSubTitleMedium(text: "Price:"),
         CustomMeony(
           text:
-              "${project.minBudget.toString()}  _  ${project.maxBudget.toString()}",
+              "${project.minBudget.toString()}  -  ${project.maxBudget.toString()}",
         ),
       ],
     );
@@ -261,8 +276,10 @@ class _ShowProjectDetailsBodyState extends State<ShowProjectDetailsBody> {
               itemBuilder: (context, index) {
                 return InkWell(
                     onTap: () {
-                      GoRouter.of(context)
-                          .push("/offerdetails", extra: state.offers[index]);
+                      GoRouter.of(context).push("/offerdetails",
+                          extra: OfferDetailsArgs(
+                              offersModel: state.offers[index],
+                              projectModel: widget.project));
                     },
                     child: CustomOffer(offer: state.offers[index]));
               },
@@ -283,7 +300,6 @@ class _ShowProjectDetailsBodyState extends State<ShowProjectDetailsBody> {
     );
   }
 
-
   Widget _buildApplyButton(BuildContext context, ProjectModel project) {
     return Center(
       child: CustomButtonGeneral(
@@ -301,6 +317,15 @@ class _ShowProjectDetailsBodyState extends State<ShowProjectDetailsBody> {
   }
 
   Widget _buildClientInfoContainer(BuildContext context, ProjectModel project) {
+    final userId = (context.read<AuthBloc>().state as AuthAuthenticated).id;
+    final client = project.client;
+    final clientName =
+        '${client?.userDto?.firstname ?? 'Unknown'} ${client?.userDto?.lastname ?? ''}';
+    final clientPhotoUrl = client?.photoDtOs?.isNotEmpty == true
+        ? "http://10.0.2.2:8080/api/v1/file/photo/${client!.photoDtOs![0].photo}"
+        : null;
+    final backgroundColor =
+        clientPhotoUrl == null ? Utils.getBackgroundColor(clientName) : null;
     return Container(
         margin: EdgeInsets.symmetric(horizontal: SizeConfig.defaultSize! * .5),
         padding: EdgeInsets.all(SizeConfig.defaultSize! * 1),
@@ -315,12 +340,22 @@ class _ShowProjectDetailsBodyState extends State<ShowProjectDetailsBody> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: EdgeInsets.only(top: SizeConfig.defaultSize! * .5),
-              child: CircleAvatar(
-                radius: SizeConfig.defaultSize! * 5,
-                backgroundImage: const AssetImage("assets/images/pro.jpg"),
-              ),
-            ),
+                padding: EdgeInsets.only(top: SizeConfig.defaultSize! * .5),
+                child: CircleAvatar(
+                    radius: SizeConfig.defaultSize! * 5,
+                    backgroundColor: backgroundColor,
+                    backgroundImage: clientPhotoUrl != null
+                        ? NetworkImage(clientPhotoUrl)
+                        : null,
+                    child: clientPhotoUrl == null
+                        ? Center(
+                            child: Text(
+                              Utils.getInitials(clientName),
+                              style: const TextStyle(
+                                  color: Colors.white, fontSize: 30),
+                            ),
+                          )
+                        : null)),
             const HorizintalSpace(.5),
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -362,48 +397,49 @@ class _ShowProjectDetailsBodyState extends State<ShowProjectDetailsBody> {
               ],
             ),
             const Spacer(),
-            PopupMenuButton(
-              position: PopupMenuPosition.under,
-              constraints: const BoxConstraints(maxHeight: 150),
-              elevation: 10,
-              iconColor: Colors.white,
-              iconSize: 25,
-              onSelected: (value) {
-                if (value == 'edit') {
-                  GoRouter.of(context).push("/editproject", extra: project);
-                } else if (value == 'delete') {
-                  _deleteProject();
-                }
-              },
-              itemBuilder: (context) => [
-                const PopupMenuItem(
-                    value: 'edit',
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Icon(Icons.edit),
-                        CustomBody(
-                          text: "تعديل المشروع",
-                        ),
-                      ],
-                    )),
-                const PopupMenuItem(
-                    value: "delete",
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        Icon(
-                          Icons.delete,
-                          color: Colors.red,
-                        ),
-                        CustomBody(
-                          text: "حذف المشروع",
-                          color: Colors.red,
-                        ),
-                      ],
-                    )),
-              ],
-            ),
+            if (widget.project.client!.userId == userId)
+              PopupMenuButton(
+                position: PopupMenuPosition.under,
+                constraints: const BoxConstraints(maxHeight: 150),
+                elevation: 10,
+                iconColor: Colors.white,
+                iconSize: 25,
+                onSelected: (value) {
+                  if (value == 'edit') {
+                    GoRouter.of(context).push("/editproject", extra: project);
+                  } else if (value == 'delete') {
+                    _deleteProject();
+                  }
+                },
+                itemBuilder: (context) => [
+                  const PopupMenuItem(
+                      value: 'edit',
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Icon(IconlyBroken.edit),
+                          CustomBody(
+                            text: "تعديل المشروع",
+                          ),
+                        ],
+                      )),
+                  const PopupMenuItem(
+                      value: "delete",
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Icon(
+                            IconlyBroken.delete,
+                            color: Colors.red,
+                          ),
+                          CustomBody(
+                            text: "حذف المشروع",
+                            color: Colors.red,
+                          ),
+                        ],
+                      )),
+                ],
+              ),
           ],
         ));
   }
@@ -456,6 +492,59 @@ class _ShowProjectDetailsBodyState extends State<ShowProjectDetailsBody> {
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  _buildSubmitButton(BuildContext context, ProjectModel project) {
+    return Center(
+      child: CustomButtonGeneral(
+        onPressed: () {
+          context.read<ProjectBloc>().add(SubmitProject(widget.project.id));
+        },
+        color: Colors.white,
+        textcolor: Colors.black,
+        text: "Submit",
+        borderSide:
+            BorderSide(width: SizeConfig.defaultSize! * .1, color: Colors.grey),
+        width: SizeConfig.defaultSize! * 20,
+      ),
+    );
+  }
+
+  _buildSubmittedMsg(BuildContext context, ProjectModel project) {
+    return const CustomSubTitleMedium(text: '');
+  }
+
+  _buildCompleteButton(BuildContext context, ProjectModel project) {
+    final clientId = project.client!.id!;
+    final workerId = project.worker!.id!;
+    final projectId = project.id;
+    final reviewedName = project.worker!.userDto!.firstname!;
+    return BlocListener<ProjectBloc, ProjectState>(
+      listener: (context, state) {
+        if (state is ProjectComplete) {
+          GoRouter.of(context).pushNamed("/review",
+              extra: ReviewArgs(
+                  rated: "Worker",
+                  projectId: projectId,
+                  clientId: clientId,
+                  workerId: workerId,
+                  reviewedName: reviewedName));
+        }
+      },
+      child: Center(
+        child: CustomButtonGeneral(
+          onPressed: () {
+            context.read<ProjectBloc>().add(CompleteProject(widget.project.id));
+          },
+          color: Colors.white,
+          textcolor: Colors.black,
+          text: "Complete",
+          borderSide: BorderSide(
+              width: SizeConfig.defaultSize! * .1, color: Colors.grey),
+          width: SizeConfig.defaultSize! * 20,
+        ),
       ),
     );
   }

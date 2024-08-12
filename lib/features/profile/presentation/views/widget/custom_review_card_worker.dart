@@ -4,9 +4,12 @@ import 'package:freelance_job_portal/core/utils/size_config.dart';
 import 'package:freelance_job_portal/core/widget/custom_label.dart';
 import 'package:freelance_job_portal/core/widget/custom_subtitle_medium.dart';
 import 'package:freelance_job_portal/core/widget/space.dart';
+import 'package:intl/intl.dart';
+import '../../../../review/data/model/rate_model/rate.dart';
 
-class CustomReviewCard extends StatelessWidget {
-  const CustomReviewCard({super.key});
+class CustomReviewCardWorker extends StatelessWidget {
+  const CustomReviewCardWorker({super.key, required this.rate});
+  final Rate rate;
 
   @override
   Widget build(BuildContext context) {
@@ -27,8 +30,8 @@ class CustomReviewCard extends StatelessWidget {
               ),
             ),
             const HorizintalSpace(1),
-            const CustomSubTitleMedium(
-              text: "Sara",
+            CustomSubTitleMedium(
+              text: rate.client.userDto!.firstname!,
             ),
             const HorizintalSpace(23),
             IconButton(
@@ -45,7 +48,7 @@ class CustomReviewCard extends StatelessWidget {
             AnimatedRatingBar(
               activeFillColor: Theme.of(context).colorScheme.inversePrimary,
               strokeColor: Colors.green,
-              initialRating: 0,
+              initialRating: rate.totalRate,
               height: SizeConfig.defaultSize! * 2,
               width: SizeConfig.defaultSize! * 8,
               animationColor: Colors.red,
@@ -54,8 +57,8 @@ class CustomReviewCard extends StatelessWidget {
               },
             ),
             const HorizintalSpace(1.5),
-            const CustomLabel(
-              text: "15/4/2024",
+            CustomLabel(
+              text: DateFormat('yyyy-MM-dd').format(rate.createDate),
             )
           ],
         ),
@@ -64,8 +67,7 @@ class CustomReviewCard extends StatelessWidget {
           margin:
               EdgeInsets.symmetric(horizontal: SizeConfig.defaultSize! * .8),
           height: SizeConfig.defaultSize! * 7,
-          child: Text(
-              "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce fermentum lacus metus. Vivamus faucibus ullamcorper velit, id facilisis lacus tempus....",
+          child: Text(rate.description,
               overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.start,
               maxLines: 3,

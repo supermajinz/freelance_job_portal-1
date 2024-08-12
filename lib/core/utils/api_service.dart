@@ -13,12 +13,12 @@ class ApiService {
         _authTokenService = authTokenService {
     _dio.interceptors.add(InterceptorsWrapper(
       onRequest: (options, handler) async {
-        //const token =
-          //  "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIwOTg2NDExNjI0IiwiaWF0IjoxNzIzMTQzMzE2LCJleHAiOjE3MjMyMjk3MTZ9.tfW5e-HB2EKwzjrjf_L1PY6NbL_JLdEYvpkm9qxoRXY";
-        final token = await _authTokenService.getToken('access_token');
-        if (token != null) {
-          options.headers['Authorization'] = 'Bearer $token';
-        }
+        const token =
+            "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIwOTg2NDExNjI0IiwiaWF0IjoxNzIzNDg1MjgzLCJleHAiOjE3MjM1NzE2ODN9.h60OHRJvrBLWLGV79q_TSQxCO-0uavUb_PCw_Kr1RAc";
+        // final token = await _authTokenService.getToken('access_token');
+        // if (token != null) {
+        options.headers['Authorization'] = 'Bearer $token';
+        // }
         return handler.next(options);
       },
       onError: (DioException error, handler) async {

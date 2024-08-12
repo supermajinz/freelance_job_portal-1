@@ -12,7 +12,6 @@ class UploadImage extends ImageEvent {
   final String imagePath;
 
   const UploadImage({required this.imagePath});
-  
 
   @override
   List<Object> get props => [imagePath];

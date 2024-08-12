@@ -60,3 +60,21 @@ class RejectOffer extends ProjectEvent {
   @override
   List<Object> get props => [offerId];
 }
+
+class CompleteProject extends ProjectEvent {
+  final int projectId;
+
+  const CompleteProject(this.projectId);
+
+  @override
+  List<Object> get props => [projectId];
+}
+
+class SubmitProject extends ProjectEvent {
+  final int projectId;
+
+  const SubmitProject(this.projectId);
+
+  @override
+  List<Object> get props => [projectId];
+}

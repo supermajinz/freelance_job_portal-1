@@ -118,8 +118,8 @@ class WorkerProfileRepoImpl extends WorkerProfileRepo {
     try {
       print('repo: $photoData');
 
-      final response = await _apiService.deletePost(
-          'workerProfiles/add-photo', photoData);
+      final response =
+          await _apiService.deletePost('workerProfiles/add-photo', photoData);
       return Right(response['message']);
     } catch (e) {
       return Left(ServerFailure(errMessage: e.toString()));

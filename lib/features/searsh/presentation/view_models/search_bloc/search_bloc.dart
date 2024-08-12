@@ -11,9 +11,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
   SearchBloc(this.searchRepo) : super(SearchInitial()) {
     on<SearchProjectsEvent>((event, emit) async {
       emit(SearchLoading());
-      final result = await searchRepo.searchProjects(
-        params: event.filters
-      );
+      final result = await searchRepo.searchProjects(params: event.filters);
 
       result.fold(
         (failure) => emit(SearchFailure(errMessage: failure.errMessage)),

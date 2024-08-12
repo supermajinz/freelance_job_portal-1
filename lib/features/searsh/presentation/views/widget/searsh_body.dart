@@ -41,8 +41,8 @@ class _SearshBodyState extends State<SearshBody> {
             ...filters,
             if (searchController.text.isNotEmpty)
               "search": searchController.text,
-            "sortBy": _currentSortType,
-            "sortDes": !_isAscending,
+            //"sortBy": _currentSortType,
+            //"sortDes": !_isAscending,
             //sort
           },
         ));

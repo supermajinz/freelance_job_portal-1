@@ -9,7 +9,6 @@ import 'package:freelance_job_portal/features/profile/worker%20profile/worker_pr
 part 'worker_profile_event.dart';
 part 'worker_profile_state.dart';
 
-
 class WorkerProfileBloc extends Bloc<WorkerProfileEvent, WorkerProfileState> {
   final WorkerProfileRepoImpl _profileRepo;
   WorkerProfileBloc(
@@ -81,10 +80,9 @@ class WorkerProfileBloc extends Bloc<WorkerProfileEvent, WorkerProfileState> {
       "workerProfileId": event.workerProfileId,
       "photoId": event.photoId,
     });
-    result.fold(
-        (failure) =>
-            emit(WorkerProfileAddPhotoError(failure.errMessage)),
-        (success) {
+    result
+        .fold((failure) => emit(WorkerProfileAddPhotoError(failure.errMessage)),
+            (success) {
       print(
           'added photo workerProfileId: ${event.workerProfileId} photoId:  ${event.photoId}');
       emit(WorkerProfileAddedPhoto(success));
@@ -98,10 +96,9 @@ class WorkerProfileBloc extends Bloc<WorkerProfileEvent, WorkerProfileState> {
       "workerProfileId": event.workerProfileId,
       "skillId": event.skillId,
     });
-    result.fold(
-        (failure) =>
-            emit(WorkerProfileAddSkillError(failure.errMessage)),
-        (success) {
+    result
+        .fold((failure) => emit(WorkerProfileAddSkillError(failure.errMessage)),
+            (success) {
       print(
           'added skill workerProfileId: ${event.workerProfileId} skillId:  ${event.skillId}');
 
@@ -136,8 +133,7 @@ class WorkerProfileBloc extends Bloc<WorkerProfileEvent, WorkerProfileState> {
       "photoId": event.photoId,
     });
     result.fold(
-        (failure) => emit(
-            WorkerProfileDeletePhotoError(failure.errMessage)),
+        (failure) => emit(WorkerProfileDeletePhotoError(failure.errMessage)),
         (success) {
       print(
           'deleted photo workerProfileId: ${event.workerProfileId} skillId:  ${event.photoId}');
@@ -155,8 +151,7 @@ class WorkerProfileBloc extends Bloc<WorkerProfileEvent, WorkerProfileState> {
       "skillId": event.skillId,
     });
     result.fold(
-        (failure) => emit(
-            WorkerProfileDeleteSkillError(failure.errMessage)),
+        (failure) => emit(WorkerProfileDeleteSkillError(failure.errMessage)),
         (success) {
       print(
           'deleted skill workerProfileId: ${event.workerProfileId} skillId:  ${event.skillId}');
@@ -169,9 +164,7 @@ class WorkerProfileBloc extends Bloc<WorkerProfileEvent, WorkerProfileState> {
       DeleteWorkerProfileEvent event, Emitter<WorkerProfileState> emit) async {
     emit(WorkerProfileLoading());
     final result = await _profileRepo.deleteProfile(event.profileId);
-    result.fold(
-        (failure) =>
-            emit(WorkerProfileDeleteError(failure.errMessage)),
+    result.fold((failure) => emit(WorkerProfileDeleteError(failure.errMessage)),
         (_) {
       emit(WorkerProfileDeleted());
     });

@@ -14,7 +14,7 @@ class SearchLoading extends SearchState {}
 class SearchSuccess extends SearchState {
   final List<ProjectModel> projects;
 
-  const SearchSuccess( this.projects);
+  const SearchSuccess(this.projects);
 
   @override
   List<Object> get props => [projects];

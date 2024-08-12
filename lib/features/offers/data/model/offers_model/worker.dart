@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 
+import '../../../../home/data/model/skills/skills.dart';
 import 'category_dto.dart';
 import 'job_title_dto.dart';
 import 'user_dto.dart';
@@ -12,7 +13,7 @@ class Worker extends Equatable {
   final JobTitleDto? jobTitleDto;
   final CategoryDto? categoryDto;
   final List<dynamic>? photoDtOs;
-  final List<dynamic>? skillDtOs;
+  final List<Skills>? skillDtOs;
   final UserDto? userDto;
 
   const Worker({
@@ -39,7 +40,9 @@ class Worker extends Equatable {
             ? null
             : CategoryDto.fromJson(json['categoryDTO'] as Map<String, dynamic>),
         photoDtOs: json['photoDTOs'] as List<dynamic>?,
-        skillDtOs: json['skillDTOs'] as List<dynamic>?,
+        skillDtOs: ((json['skillDTOs'] ?? []) as List<dynamic>)
+            .map((e) => Skills.fromJson(e as Map<String, dynamic>))
+            .toList(),
         userDto: json['userDTO'] == null
             ? null
             : UserDto.fromJson(json['userDTO'] as Map<String, dynamic>),

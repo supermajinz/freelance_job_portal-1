@@ -12,6 +12,7 @@ import 'package:freelance_job_portal/core/widget/custom_label.dart';
 import 'package:freelance_job_portal/core/widget/custom_subtitle_medium.dart';
 import 'package:freelance_job_portal/core/widget/space.dart';
 
+import '../../../../../core/utils/functions/utils.dart';
 import '../../../../../core/widget/custom_title.dart';
 
 class CustomProfileCard extends StatelessWidget {
@@ -28,9 +29,13 @@ class CustomProfileCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String? profileImageUrl = profile.photoDtOs!.isNotEmpty
-        ? "http://localhost:8080/api/v1/file/photo/${profile.photoDtOs![0].photo}"
+    final clientName =
+        '${profile.userDto!.firstname ?? 'Unknown'} ${profile.userDto!.lastname ?? ''}';
+    final clientPhotoUrl = profile.photoDtOs?.isNotEmpty == true
+        ? "http://10.0.2.2:8080/api/v1/file/photo/${profile.photoDtOs![0].photo}"
         : null;
+    final backgroundColor =
+        clientPhotoUrl == null ? Utils.getBackgroundColor(clientName) : null;
     return IntrinsicHeight(
       child: Container(
         padding: EdgeInsets.all(SizeConfig.defaultSize! * .8),
@@ -53,9 +58,20 @@ class CustomProfileCard extends StatelessWidget {
                 );
               },
               child: CircleAvatar(
-                radius: SizeConfig.defaultSize! * 5,
-                backgroundImage: (profileImageUrl != null )? NetworkImage(profileImageUrl ):const AssetImage('assets/images/pro1.jpg') ,
-              ),
+                  radius: SizeConfig.defaultSize! * 5,
+                  backgroundColor: backgroundColor,
+                  backgroundImage: clientPhotoUrl != null
+                      ? NetworkImage(clientPhotoUrl)
+                      : null,
+                  child: clientPhotoUrl == null
+                      ? Center(
+                          child: Text(
+                            Utils.getInitials(clientName),
+                            style: const TextStyle(
+                                color: Colors.white, fontSize: 30),
+                          ),
+                        )
+                      : null),
             ),
             const HorizintalSpace(1),
             Column(
@@ -87,15 +103,23 @@ class CustomProfileCard extends StatelessWidget {
               ],
             ),
             const Spacer(),
-            IconButton(
-                onPressed: (){
-                   GoRouter.of(context).push('/editprofile',extra: profile);
-                },
-                icon: Icon(
-                  icon,
-                  size: SizeConfig.defaultSize! * 2.5,
+            Column(
+              children: [
+                const CustomLabel(
+                  text: 'عميل',
                   color: Colors.black,
-                ))
+                ),
+                IconButton(
+                    onPressed: () {
+                      GoRouter.of(context).push('/editprofile', extra: profile);
+                    },
+                    icon: Icon(
+                      icon,
+                      size: SizeConfig.defaultSize! * 2.5,
+                      color: Colors.black,
+                    )),
+              ],
+            )
           ],
         ),
       ),

@@ -1,10 +1,10 @@
 import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:freelance_job_portal/features/auth/presentation/view_models/bloc/auth_bloc.dart';
 import 'package:freelance_job_portal/features/home/data/model/caregories/caregories.dart';
 import 'package:freelance_job_portal/features/home/data/model/skills/skills.dart';
 import 'package:freelance_job_portal/features/home/presentation/view_models/home_bloc/home_bloc.dart';
+import 'package:freelance_job_portal/features/profile/data/models/profile/client_profile.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../../core/utils/size_config.dart';
 import '../../../../../core/widget/custom_button_general.dart';
@@ -17,7 +17,8 @@ import '../../../data/model/create_project_model.dart';
 import '../../view_models/project_bloc/project_bloc.dart';
 
 class CreateProjectBody extends StatefulWidget {
-  const CreateProjectBody({super.key});
+  final ClientProfile profile;
+  const CreateProjectBody({super.key, required this.profile});
 
   @override
   State<CreateProjectBody> createState() => _CreateProjectBodyState();
@@ -118,17 +119,6 @@ class _CreateProjectBodyState extends State<CreateProjectBody> {
                     }
                   },
                 ),
-                // const VirticalSpace(2),
-                // CustomShowChipButton(
-                //   projectItems: _selectedCategory.map((e) => e.name).toList(),
-                //   onDelete: (category) {
-                //     setState(() {
-                //       _selectedCategory.removeWhere(
-                //         (element) => element.name == category,
-                //       );
-                //     });
-                //   },
-                // ),
                 const VirticalSpace(5),
                 const CustomSubTitle(text: "Skills"),
                 const VirticalSpace(1.5),
@@ -180,9 +170,9 @@ class _CreateProjectBodyState extends State<CreateProjectBody> {
                         }
                       },
                       builder: (context, state) {
-                        final clientId = (context.read<AuthBloc>().state
-                                as AuthAuthenticated)
-                            .id;
+                        // final clientId = (context.read<AuthBloc>().state
+                        //         as AuthAuthenticated)
+                        //     .id;
                         return CustomButtonGeneral(
                           onPressed: () {
                             if (_formKey.currentState!.validate() &&
@@ -194,7 +184,7 @@ class _CreateProjectBodyState extends State<CreateProjectBody> {
                                 maxBudget: int.parse(_maxBudgetController.text),
                                 expectedDuration:
                                     int.parse(_expectedDurationController.text),
-                                clientProfileId: clientId,
+                                clientProfileId: widget.profile.id,
                                 // Assuming a default value, replace with actual client profile ID
                                 // GlobalData.instance.currentUser.clientProfile.id, // Assuming a default value, replace with actual client profile ID
                                 projectSkillIds:

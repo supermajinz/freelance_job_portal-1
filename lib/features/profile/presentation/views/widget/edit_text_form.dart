@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:freelance_job_portal/core/utils/size_config.dart';
-import 'package:freelance_job_portal/core/widget/custom_subtitle_medium.dart';
+import 'package:freelance_job_portal/core/widget/custom_sub_title.dart';
 
 class EditTextForm extends StatelessWidget {
   const EditTextForm(
@@ -41,7 +41,7 @@ class EditTextForm extends StatelessWidget {
           label: Container(
               margin:
                   EdgeInsets.symmetric(horizontal: SizeConfig.defaultSize! * 4),
-              child: CustomSubTitleMedium(text: lable)),
+              child: CustomSubTitle(text: lable)),
           isDense: true,
           floatingLabelAlignment: FloatingLabelAlignment.start,
           border: const OutlineInputBorder(

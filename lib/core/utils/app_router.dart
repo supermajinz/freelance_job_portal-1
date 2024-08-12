@@ -15,6 +15,7 @@ import 'package:freelance_job_portal/features/my_project/presentation/views/my_p
 import 'package:freelance_job_portal/features/my_project/presentation/views/project_status_details.dart';
 import 'package:freelance_job_portal/features/notifications/presentation/views/notifications.dart';
 import 'package:freelance_job_portal/features/offers/data/model/offers_model/offers_model.dart';
+import 'package:freelance_job_portal/features/offers/presentation/view_models/args/offer_details_args.dart';
 import 'package:freelance_job_portal/features/offers/presentation/views/create_offer.dart';
 import 'package:freelance_job_portal/features/offers/presentation/views/edit_offer.dart';
 import 'package:freelance_job_portal/features/offers/presentation/views/offer_details.dart';
@@ -35,6 +36,7 @@ import 'package:freelance_job_portal/features/protofolio/presentaion/views/add_p
 import 'package:freelance_job_portal/features/protofolio/presentaion/views/edit_protofolio.dart';
 import 'package:freelance_job_portal/features/protofolio/presentaion/views/show_proto_details.dart';
 import 'package:freelance_job_portal/features/report/presentation/views/report.dart';
+import 'package:freelance_job_portal/features/review/presentation/view_models/args/review_args.dart';
 import 'package:freelance_job_portal/features/review/presentation/views/review.dart';
 import 'package:freelance_job_portal/features/saved/presentation/views/saved.dart';
 import 'package:freelance_job_portal/features/searsh/presentation/views/searsh.dart';
@@ -116,7 +118,6 @@ abstract class AppRouter {
     GoRoute(
       path: '/profile',
       builder: (context, state) => const Profile(),
-      
     ),
     GoRoute(
       path: '/createprofile',
@@ -124,7 +125,8 @@ abstract class AppRouter {
     ),
     GoRoute(
       path: '/editprofile',
-      builder: (context, state) =>  EditProfile(profile: state.extra as ClientProfile),
+      builder: (context, state) =>
+          EditProfile(profile: state.extra as ClientProfile),
     ),
     //
     GoRoute(
@@ -178,7 +180,7 @@ abstract class AppRouter {
     ),
     GoRoute(
       path: '/review',
-      builder: (context, state) => const Review(),
+      builder: (context, state) => Review(args: state.extra as ReviewArgs),
     ),
     GoRoute(
       path: '/createoffer',
@@ -194,7 +196,7 @@ abstract class AppRouter {
     GoRoute(
       path: '/offerdetails',
       builder: (context, state) => OfferDetails(
-        offer: state.extra as OffersModel,
+        args: state.extra as OfferDetailsArgs,
       ),
     ),
     GoRoute(

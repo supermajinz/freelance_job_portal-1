@@ -96,7 +96,7 @@ class HomeBody extends StatelessWidget {
                 return InkWell(
                     onTap: () {
                       GoRouter.of(context).push('/showprojectdetails',
-                          extra: ProjectModel(id:22).id);
+                          extra: ProjectModel(id: 22).id);
                     },
                     child: CustomProjectCard(project: ProjectModel()));
               },

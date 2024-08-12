@@ -10,6 +10,7 @@ class CustomButtonGeneral extends StatelessWidget {
       required this.text,
       required this.borderSide,
       required this.width,
+      this.icon,
       this.onPressed});
   final Color color;
   final Color textcolor;
@@ -17,12 +18,14 @@ class CustomButtonGeneral extends StatelessWidget {
   final BorderSide borderSide;
   final double width;
   final void Function()? onPressed;
+  final Widget? icon;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: width,
       child: MaterialButton(
+          elevation: 10,
           onPressed: onPressed,
           color: color,
           shape: RoundedRectangleBorder(
@@ -30,9 +33,20 @@ class CustomButtonGeneral extends StatelessWidget {
                   BorderRadius.circular(SizeConfig.defaultSize! * 2.5),
               side: borderSide),
           padding: EdgeInsets.symmetric(vertical: SizeConfig.defaultSize! * .8),
-          child: CustomSubTitleMedium(
-            text: text,
-            color: textcolor,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              if (icon != null) ...[
+                icon!, // هنا تظهر الأيقونة على اليسار
+                SizedBox(
+                    width:
+                        SizeConfig.defaultSize!), // المسافة بين الأيقونة والنص
+              ],
+              CustomSubTitleMedium(
+                text: text,
+                color: textcolor,
+              ),
+            ],
           )),
     );
   }

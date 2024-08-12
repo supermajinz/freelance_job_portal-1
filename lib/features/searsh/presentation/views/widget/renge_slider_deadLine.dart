@@ -43,8 +43,9 @@ class _RangeSliderExampleState extends State<RangeSliderDeadLine> {
           },
         ),
         CustomSubTitleMedium(
+          isday: true,
           text:
-              "${_currentRangeValues.start.round()} - ${_currentRangeValues.end.round()}    يوم",
+              "${_currentRangeValues.start.round()} - ${_currentRangeValues.end.round()}",
         ),
       ],
     );

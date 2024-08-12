@@ -102,7 +102,8 @@ class ProjectRepoImp implements ProjectRepo {
       return left(ServerFailure(errMessage: e.toString()));
     }
   }
-   @override
+
+  @override
   Future<Either<Failure, Unit>> acceptOffer(int offerId) async {
     try {
       await _apiService.post('offers/accept/$offerId', {});
@@ -119,6 +120,32 @@ class ProjectRepoImp implements ProjectRepo {
   Future<Either<Failure, Unit>> rejectOffer(int offerId) async {
     try {
       await _apiService.post('offers/reject/$offerId', {});
+      return const Right(unit);
+    } catch (e) {
+      if (e is DioException) {
+        return left(ServerFailure.fromDioException(e));
+      }
+      return left(ServerFailure(errMessage: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, Unit>> completeProject(int projectId) async {
+    try {
+      await _apiService.post('project/complete/$projectId', {});
+      return const Right(unit);
+    } catch (e) {
+      if (e is DioException) {
+        return left(ServerFailure.fromDioException(e));
+      }
+      return left(ServerFailure(errMessage: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, Unit>> submitProject(int projectId) async {
+    try {
+      await _apiService.post('project/submit/$projectId', {});
       return const Right(unit);
     } catch (e) {
       if (e is DioException) {

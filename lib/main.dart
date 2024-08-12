@@ -11,13 +11,18 @@ import 'package:freelance_job_portal/features/my_project/presentation/view_model
 import 'package:freelance_job_portal/features/offers/presentation/view_models/bloc/offer_bloc.dart';
 import 'package:freelance_job_portal/features/projects/presentation/view_models/offer_by_project/offer_by_project_bloc.dart';
 import 'package:freelance_job_portal/features/projects/presentation/view_models/project_bloc/project_bloc.dart';
+import 'package:freelance_job_portal/features/review/presentation/view_models/bloc/review_bloc.dart';
+import 'package:freelance_job_portal/features/saved/presentation/view_models/favorites_bloc/favorites_bloc.dart';
 import 'package:freelance_job_portal/features/searsh/presentation/view_models/search_bloc/search_bloc.dart';
 import 'package:freelance_job_portal/l10n/l10n.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:timeago/timeago.dart' as timeago;
+import 'package:timeago/timeago.dart' as timeago_ar;
 
 //TODO: لوغو التطبيق يظهر عتد
 void main() async {
+  timeago.setLocaleMessages('ar', timeago_ar.ArMessages());
   WidgetsFlutterBinding.ensureInitialized();
   // final sharedPreferences = await SharedPreferences.getInstance;
 
@@ -53,6 +58,12 @@ void main() async {
       BlocProvider(
           create: (context) =>
               SearchBloc(DependencyInjection.provideSearchRepo())),
+      BlocProvider(
+          create: (context) =>
+              ReviewBloc(DependencyInjection.provideReviewRepo())),
+      BlocProvider(
+          create: (context) =>
+              FavoritesBloc(DependencyInjection.provideFavoriteRepo())),
     ],
     child: const FreelanceJob(),
   ));

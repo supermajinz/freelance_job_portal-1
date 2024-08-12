@@ -5,13 +5,17 @@ import 'package:freelance_job_portal/core/widget/space.dart';
 import 'package:freelance_job_portal/features/my_project/presentation/views/widget/custom_body_status_details.dart';
 import 'package:freelance_job_portal/features/my_project/presentation/views/widget/custom_info_details_status.dart';
 import 'package:freelance_job_portal/features/my_project/presentation/views/widget/custom_timeline.dart';
+import 'package:freelance_job_portal/features/offers/presentation/view_models/args/offer_details_args.dart';
 import 'package:freelance_job_portal/features/projects/data/model/project_model/project_model.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../../core/widget/custom_body_medium.dart';
 import '../../../../../core/widget/custom_button_general.dart';
+import '../../../../../core/widget/custom_subtitle_medium.dart';
+import '../../../../auth/presentation/view_models/bloc/auth_bloc.dart';
 import '../../../../offers/presentation/views/widget/custom_offer.dart';
 import '../../../../projects/presentation/view_models/offer_by_project/offer_by_project_bloc.dart';
 import '../../../../projects/presentation/view_models/project_bloc/project_bloc.dart';
+import '../../../../review/presentation/view_models/args/review_args.dart';
 
 class ProjectStatusDetailsBody extends StatefulWidget {
   const ProjectStatusDetailsBody({super.key, required this.project});
@@ -68,6 +72,7 @@ class _ShowProjectDetailsBodyState extends State<ProjectStatusDetailsBody>
 
   @override
   Widget build(BuildContext context) {
+    final userId = (context.read<AuthBloc>().state as AuthAuthenticated).id;
     return Scaffold(
       body: BlocListener<ProjectBloc, ProjectState>(
         listener: (context, state) {
@@ -156,12 +161,15 @@ class _ShowProjectDetailsBodyState extends State<ProjectStatusDetailsBody>
                                                 itemBuilder: (context, index) {
                                                   return InkWell(
                                                       onTap: () {
-                                                        GoRouter.of(context)
-                                                            .push(
-                                                                "/offerdetails",
-                                                                extra: state
-                                                                        .offers[
-                                                                    index]);
+                                                        GoRouter.of(context).push(
+                                                            "/offerdetails",
+                                                            extra: OfferDetailsArgs(
+                                                                offersModel:
+                                                                    state.offers[
+                                                                        index],
+                                                                projectModel:
+                                                                    widget
+                                                                        .project));
                                                       },
                                                       child: CustomOffer(
                                                           offer: state
@@ -189,18 +197,24 @@ class _ShowProjectDetailsBodyState extends State<ProjectStatusDetailsBody>
                                 ),
                               ),
                               const VirticalSpace(2),
-                              Center(
-                                child: CustomButtonGeneral(
-                                  onPressed: () {},
-                                  color: Colors.white,
-                                  textcolor: Colors.black,
-                                  text: "Apply",
-                                  borderSide: BorderSide(
-                                      width: SizeConfig.defaultSize! * .1,
-                                      color: Colors.grey),
-                                  width: SizeConfig.defaultSize! * 20,
-                                ),
-                              ),
+                              if (widget.project.client!.userId == userId &&
+                                  widget.project.status == "submitted")
+                                _buildCompleteButton(
+                                    context,
+                                    widget
+                                        .project), //for owner client when submitted
+                              if (widget.project.worker?.userId == userId &&
+                                  widget.project.status == "inProgress")
+                                _buildSubmitButton(
+                                    context,
+                                    widget
+                                        .project), //for project worker when in progress
+                              if (widget.project.worker?.userId == userId &&
+                                  widget.project.status == "submitted")
+                                _buildSubmittedMsg(
+                                    context,
+                                    widget
+                                        .project), //for project worker when in submitted
                               const VirticalSpace(2),
                             ],
                           ),
@@ -218,5 +232,58 @@ class _ShowProjectDetailsBodyState extends State<ProjectStatusDetailsBody>
         ),
       ),
     );
+  }
+
+  _buildCompleteButton(BuildContext context, ProjectModel project) {
+    final clientId = project.client!.id!;
+    final projectId = project.id;
+    final workerId = project.worker!.id!;
+    final reviewedName = project.worker!.userDto!.firstname!;
+    return BlocListener<ProjectBloc, ProjectState>(
+      listener: (context, state) {
+        if (state is ProjectComplete) {
+          GoRouter.of(context).pushNamed("/review",
+              extra: ReviewArgs(
+                  rated: "Worker",
+                  projectId: projectId,
+                  clientId: clientId,
+                  workerId: workerId,
+                  reviewedName: reviewedName));
+        }
+      },
+      child: Center(
+        child: CustomButtonGeneral(
+          onPressed: () {
+            context.read<ProjectBloc>().add(CompleteProject(widget.project.id));
+          },
+          color: Colors.white,
+          textcolor: Colors.black,
+          text: "Complete",
+          borderSide: BorderSide(
+              width: SizeConfig.defaultSize! * .1, color: Colors.grey),
+          width: SizeConfig.defaultSize! * 20,
+        ),
+      ),
+    );
+  }
+
+  _buildSubmitButton(BuildContext context, ProjectModel project) {
+    return Center(
+      child: CustomButtonGeneral(
+        onPressed: () {
+          context.read<ProjectBloc>().add(SubmitProject(widget.project.id));
+        },
+        color: Colors.white,
+        textcolor: Colors.black,
+        text: "Submit",
+        borderSide:
+            BorderSide(width: SizeConfig.defaultSize! * .1, color: Colors.grey),
+        width: SizeConfig.defaultSize! * 20,
+      ),
+    );
+  }
+
+  _buildSubmittedMsg(BuildContext context, ProjectModel project) {
+    return const CustomSubTitleMedium(text: '');
   }
 }

@@ -1,5 +1,6 @@
 import 'package:freelance_job_portal/features/home/data/model/caregories/caregories.dart';
 import 'package:freelance_job_portal/features/home/data/model/skills/skills.dart';
+import 'package:freelance_job_portal/features/offers/data/model/offers_model/worker.dart';
 import 'client.dart';
 
 class ProjectModel {
@@ -15,7 +16,7 @@ class ProjectModel {
   final String status;
   final DateTime? createDate;
   final Client? client;
-  final dynamic worker;
+  final Worker? worker;
   static const projectStatuses = [
     'open',
     'inProgress',
@@ -52,7 +53,7 @@ class ProjectModel {
             ? DateTime.now()
             : DateTime.parse(json['createDate'] as String),
         client: Client.fromJson(json['client'] as Map<String, dynamic>),
-        worker: json['worker'] as dynamic,
+       worker: json['worker'] == null? null: Worker.fromJson(json['worker'] as Map<String, dynamic>),
         projectCategory: Categories.fromJson(
             json["projectCategory"] as Map<String, dynamic>),
         projectSkill: ((json['projectSkill'] ?? []) as List<dynamic>)
@@ -87,7 +88,7 @@ class ProjectModel {
     String? status,
     DateTime? createDate,
     Client? client,
-    dynamic worker,
+    Worker? worker,
     Categories? projectCategory,
     List<Skills>? projectSkill,
   }) {

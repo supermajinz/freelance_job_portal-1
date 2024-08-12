@@ -2,7 +2,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
+import 'package:freelance_job_portal/core/widget/custom_loading.dart';
+import 'package:freelance_job_portal/features/profile/presentation/views/widget/custom_review_card_client.dart';
 import 'package:freelance_job_portal/features/projects/data/model/project_model/project_model.dart';
+import 'package:freelance_job_portal/features/review/presentation/view_models/bloc/review_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:rating_summary/rating_summary.dart';
 
@@ -14,10 +17,12 @@ import 'package:freelance_job_portal/features/profile/data/models/profile/client
 import 'package:freelance_job_portal/features/profile/presentation/view_models/bloc/profile_bloc.dart';
 import 'package:freelance_job_portal/features/profile/presentation/views/widget/custom_profile_card.dart';
 import 'package:freelance_job_portal/features/profile/presentation/views/widget/custom_protofolio_card.dart';
-import 'package:freelance_job_portal/features/profile/presentation/views/widget/custom_review_card.dart';
+import 'package:freelance_job_portal/features/profile/presentation/views/widget/custom_review_card_worker.dart';
 import 'package:freelance_job_portal/features/profile/presentation/views/widget/custom_zzz.dart';
 import 'package:freelance_job_portal/features/profile/presentation/views/widget/show_chip.dart';
 import 'package:freelance_job_portal/features/projects/presentation/views/widget/custom_project_card.dart';
+
+import '../../../worker profile/widgets/custom_rate.dart';
 
 class ProfileBody extends StatefulWidget {
   final List<ClientProfile> clientProfiles;
@@ -43,7 +48,6 @@ class _ProfileBodyState extends State<ProfileBody> {
   Widget build(BuildContext context) {
     return ListView(
       children: [
-
         // ClipPath(
         //     clipper: WaveClipperTwo(),
         //     child: Container(
@@ -94,8 +98,7 @@ class _ProfileBodyState extends State<ProfileBody> {
                         const VirticalSpace(2),
                         CustomButtonGeneral(
                             onPressed: () {
-                              GoRouter.of(context)
-                                  .push("/createprofile");
+                              GoRouter.of(context).push("/createprofile");
                             },
                             color: Theme.of(context).primaryColor,
                             textcolor: Colors.white,
@@ -189,35 +192,43 @@ class _ProfileBodyState extends State<ProfileBody> {
                 const CustomSubTitle(
                   text: "Ratings and reviews",
                 ),
-                const VirticalSpace(4),
-                Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 5),
-                  child: const RatingSummary(
-                    color: Colors.purple,
-                    counter: 13,
-                    average: 5,
-                    counterFiveStars: 8,
-                    counterFourStars: 4,
-                    counterThreeStars: 2,
-                    counterTwoStars: 1,
-                    counterOneStars: 1,
-                  ),
-                ),
-                const VirticalSpace(6),
-                SizedBox(
-                  height: SizeConfig.defaultSize! * 40,
-                  child: ListView.separated(
-                    shrinkWrap: true,
-                    physics: const AlwaysScrollableScrollPhysics(),
-                    separatorBuilder: (context, index) {
-                      return const Divider();
-                    },
-                    itemCount: 5,
-                    scrollDirection: Axis.vertical,
-                    itemBuilder: (context, index) {
-                      return const CustomReviewCard();
-                    },
-                  ),
+                BlocBuilder<ReviewBloc, ReviewState>(
+                  builder: (context, state) {
+                    context
+                        .read<ReviewBloc>()
+                        .add(GetReview(currentProfile.id!));
+                    if (state is ReviewLoading) {
+                      return const Center(child: CustomLoading());
+                    } else if (state is GetReviewSuccess) {
+                      return Column(
+                        children: [
+                          const VirticalSpace(4),
+                          CustomRate(profileRate: state.profileRates),
+                          const VirticalSpace(6),
+                          SizedBox(
+                            height: SizeConfig.defaultSize! * 40,
+                            child: ListView.separated(
+                              shrinkWrap: true,
+                              physics: const AlwaysScrollableScrollPhysics(),
+                              separatorBuilder: (context, index) {
+                                return const Divider();
+                              },
+                              itemCount: state.profileRates.rates.length,
+                              scrollDirection: Axis.vertical,
+                              itemBuilder: (context, index) {
+                                return CustomReviewCardClient(
+                                    rate: state.profileRates.rates[index]);
+                              },
+                            ),
+                          ),
+                        ],
+                      );
+                    } else if (state is ReviewFaliure) {
+                      return Center(child: Text(state.errMessage));
+                    } else {
+                      return const Center(child: Text('Not Found'));
+                    }
+                  },
                 ),
               ],
             ))

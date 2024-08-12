@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:freelance_job_portal/core/widget/custom_empty.dart';
+import 'package:freelance_job_portal/core/widget/custom_loading.dart';
 import 'package:freelance_job_portal/features/my_project/presentation/views/widget/custom_project_status.dart';
 import 'package:go_router/go_router.dart';
 import '../../../../../core/utils/size_config.dart';
@@ -16,29 +18,33 @@ class MyProjectBody extends StatelessWidget {
     return BlocBuilder<MyProjectBloc, MyProjectState>(
       builder: (context, state) {
         if (state is MyProjectLoading) {
-          return const Center(child: CircularProgressIndicator());
+          return const CustomLoading();
         } else if (state is MyProjectFaliure) {
           return Center(
               child: Text('Failed to load projects: ${state.message}'));
         } else if (state is MyProjectSuccess) {
-          return ListView.builder(
-            itemCount: state.projects.length,
-            itemBuilder: (context, index) {
-              return Container(
-                margin: EdgeInsets.symmetric(
-                    horizontal: SizeConfig.defaultSize! * 0.5),
-                child: InkWell(
-                  onTap: () {
-                    GoRouter.of(context).push("/projectstatusdetails",
-                        extra: state.projects[index]);
-                  },
-                  child: CustomProjectStatus(
-                    projectModel: state.projects[index],
+          if (state.projects.isEmpty) {
+            return const CustomEmpty();
+          } else {
+            return ListView.builder(
+              itemCount: state.projects.length,
+              itemBuilder: (context, index) {
+                return Container(
+                  margin: EdgeInsets.symmetric(
+                      horizontal: SizeConfig.defaultSize! * 0.5),
+                  child: InkWell(
+                    onTap: () {
+                      GoRouter.of(context).push("/projectstatusdetails",
+                          extra: state.projects[index]);
+                    },
+                    child: CustomProjectStatus(
+                      projectModel: state.projects[index],
+                    ),
                   ),
-                ),
-              );
-            },
-          );
+                );
+              },
+            );
+          }
         } else {
           return const Center(child: Text('No projects found'));
         }

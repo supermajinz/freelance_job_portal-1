@@ -1,24 +1,19 @@
-// Custom Profile Card for WorkerProfile
-// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:freelance_job_portal/features/profile/data/models/profile/worker_Profile/worker_profile.dart';
 import 'package:go_router/go_router.dart';
 import 'package:photo_view/photo_view.dart';
-import 'package:photo_view/photo_view_gallery.dart';
-
 import 'package:freelance_job_portal/core/utils/size_config.dart';
 import 'package:freelance_job_portal/core/widget/custom_body_medium.dart';
 import 'package:freelance_job_portal/core/widget/custom_label.dart';
 import 'package:freelance_job_portal/core/widget/custom_subtitle_medium.dart';
 import 'package:freelance_job_portal/core/widget/space.dart';
-
-import '../../../../../core/widget/custom_title.dart';
+import '../../../../core/utils/functions/utils.dart';
 
 class WorkerCustomProfileCard extends StatelessWidget {
   final WorkerProfile profile;
-
   final IconData? icon;
   final void Function()? onPressed;
+
   const WorkerCustomProfileCard({
     super.key,
     required this.profile,
@@ -28,9 +23,14 @@ class WorkerCustomProfileCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String? profileImageUrl = profile.photoDtOs!.isNotEmpty
-        ? "http://localhost:8080/api/v1/file/photo/${profile.photoDtOs![0].photo}"
+    final workerName =
+        '${profile.userDto!.firstname ?? 'Unknown'} ${profile.userDto!.lastname ?? ''}';
+    final workerPhotoUrl = profile.photoDtOs?.isNotEmpty == true
+        ? "http://10.0.2.2:8080/api/v1/file/photo/${profile.photoDtOs![0].photo}"
         : null;
+    final backgroundColor =
+        workerPhotoUrl == null ? Utils.getBackgroundColor(workerName) : null;
+
     return IntrinsicHeight(
       child: Container(
         padding: EdgeInsets.all(SizeConfig.defaultSize! * .8),
@@ -55,12 +55,20 @@ class WorkerCustomProfileCard extends StatelessWidget {
               child: Hero(
                 tag: 'profileImage',
                 child: CircleAvatar(
-                  radius: SizeConfig.defaultSize! * 5,
-                  backgroundImage: (profileImageUrl != null)
-                      ? NetworkImage(profileImageUrl)
-                      : const AssetImage('assets/images/pro1.jpg')
-                          as ImageProvider,
-                ),
+                    radius: SizeConfig.defaultSize! * 5,
+                    backgroundColor: backgroundColor,
+                    backgroundImage: workerPhotoUrl != null
+                        ? NetworkImage(workerPhotoUrl)
+                        : null,
+                    child: workerPhotoUrl == null
+                        ? Center(
+                            child: Text(
+                              Utils.getInitials(workerName),
+                              style: const TextStyle(
+                                  color: Colors.white, fontSize: 30),
+                            ),
+                          )
+                        : null),
               ),
             ),
             const HorizintalSpace(1),
@@ -93,16 +101,24 @@ class WorkerCustomProfileCard extends StatelessWidget {
               ],
             ),
             const Spacer(),
-            IconButton(
-                onPressed: () {
-                  GoRouter.of(context)
-                      .push('/editWorkerProfile', extra: profile);
-                },
-                icon: Icon(
-                  icon,
-                  size: SizeConfig.defaultSize! * 2.5,
+            Column(
+              children: [
+                const CustomLabel(
+                  text: 'فريلانسر',
                   color: Colors.black,
-                ))
+                ),
+                IconButton(
+                    onPressed: () {
+                      GoRouter.of(context)
+                          .push('/editWorkerProfile', extra: profile);
+                    },
+                    icon: Icon(
+                      icon,
+                      size: SizeConfig.defaultSize! * 2.5,
+                      color: Colors.black,
+                    )),
+              ],
+            )
           ],
         ),
       ),
@@ -116,7 +132,6 @@ class ImageGalleryScreen extends StatefulWidget {
   const ImageGalleryScreen({super.key, required this.profile});
 
   @override
-  // ignore: library_private_types_in_public_api
   _ImageGalleryScreenState createState() => _ImageGalleryScreenState();
 }
 
@@ -127,7 +142,6 @@ class _ImageGalleryScreenState extends State<ImageGalleryScreen> {
   @override
   void initState() {
     super.initState();
-    // Initialize _currentIndex if needed
     _currentIndex = 0;
   }
 

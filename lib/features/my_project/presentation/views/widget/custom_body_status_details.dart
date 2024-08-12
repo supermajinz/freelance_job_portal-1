@@ -8,6 +8,7 @@ import '../../../../../core/widget/custom_sub_title.dart';
 import '../../../../../core/widget/custom_subtitle_medium.dart';
 import '../../../../../core/widget/space.dart';
 import '../../../../projects/presentation/views/widget/custom_chip_project.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 class CustomBodyStatusDetails extends StatelessWidget {
   const CustomBodyStatusDetails({super.key, required this.projectModel});
@@ -15,6 +16,8 @@ class CustomBodyStatusDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final createDate = projectModel.createDate?.toLocal() ?? DateTime.now();
+    final formattedCreateDate = timeago.format(createDate, locale: 'ar');
     return Padding(
       padding: EdgeInsets.symmetric(horizontal: SizeConfig.defaultSize! * 2),
       child: Column(
@@ -24,16 +27,16 @@ class CustomBodyStatusDetails extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const Icon(Icons.laptop),
-              CustomSubTitle(text:projectModel.name),
+              CustomSubTitle(text: projectModel.name),
               Column(
                 children: [
-                  const CustomLabel(
-                    text: "1d",
+                  CustomLabel(
+                    text: formattedCreateDate,
                     color: Colors.black,
                   ),
                   CustomLabel(
                     text: projectModel.status,
-                    color: Colors.black,
+                    color: Colors.blueAccent,
                   )
                 ],
               )

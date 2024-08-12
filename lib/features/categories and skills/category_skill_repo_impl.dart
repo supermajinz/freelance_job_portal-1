@@ -35,7 +35,7 @@ class CategorySkillRepoImpl extends CategorySkillRepo {
       List<Skill> skill = [];
       for (var item in data['skills']['body']) {
         skill.add(Skill.fromJson(item));
-       // print(item);
+        // print(item);
       }
       //print(skill);
       return right(skill);

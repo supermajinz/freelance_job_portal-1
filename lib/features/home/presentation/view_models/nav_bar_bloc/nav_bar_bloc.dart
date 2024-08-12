@@ -23,7 +23,7 @@ class NavigationBloc extends Bloc<NavigationEvent, NavigationState> {
       case 3:
         return const MyProject();
       default:
-      //return const Profile();
+        //return const Profile();
         return const ProfileSwitcher();
     }
   }

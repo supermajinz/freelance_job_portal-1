@@ -7,8 +7,6 @@ import 'package:freelance_job_portal/features/home/presentation/view_models/nav_
 import 'package:freelance_job_portal/features/home/presentation/view_models/nav_bar_bloc/nav_bar_state.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:iconly/iconly.dart';
-import 'package:navigation_view/item_navigation_view.dart';
-import 'package:navigation_view/navigation_view.dart';
 import 'package:go_router/go_router.dart';
 import 'package:freelance_job_portal/core/utils/size_config.dart';
 import 'package:freelance_job_portal/core/widget/custom_title.dart';
@@ -18,6 +16,7 @@ class Homescreen extends StatefulWidget {
   const Homescreen({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _HomescreenState createState() => _HomescreenState();
 }
 
@@ -121,17 +120,13 @@ class _HomescreenState extends State<Homescreen> {
                         begin: Alignment.topLeft,
                         end: Alignment.bottomCenter,
                       ),
-                      tabs: [
+                      tabs: const [
                         GButton(icon: IconlyBroken.home, text: "الرئيسية"),
                         GButton(icon: IconlyBroken.chat, text: "المحادائة"),
                         GButton(icon: IconlyBroken.search, text: "البحث"),
                         GButton(icon: IconlyBroken.bag, text: "مشاريعي"),
-                        GButton(icon: IconlyBroken.profile, text: "الملف الشخصي"),
-                        // GButton(icon: IconlyBroken.home),
-                        // GButton(icon: IconlyBroken.chat),
-                        // GButton(icon: IconlyBroken.search),
-                        // GButton(icon: IconlyBroken.bag),
-                        // GButton(icon: IconlyBroken.profile),
+                        GButton(
+                            icon: IconlyBroken.profile, text: "الملف الشخصي"),
                       ]);
                 },
               ),

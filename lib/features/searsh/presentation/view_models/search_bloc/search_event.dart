@@ -10,9 +10,7 @@ abstract class SearchEvent extends Equatable {
 class SearchProjectsEvent extends SearchEvent {
   final Map<String, dynamic> filters;
 
-  const SearchProjectsEvent({
-    required this.filters
-  });
+  const SearchProjectsEvent({required this.filters});
 
   @override
   List<Object?> get props => [
