@@ -95,11 +95,8 @@ class _ShowProjectDetailsBodyState extends State<ShowProjectDetailsBody> {
   }
 
   Widget _buildProjectDetailsContainer(
-    
       BuildContext context, ProjectModel project) {
-         final clientId = (context.read<AuthBloc>().state
-                                as AuthAuthenticated)
-                            .id;
+    final clientId = (context.read<AuthBloc>().state as AuthAuthenticated).id;
     return Container(
       margin: EdgeInsets.symmetric(horizontal: SizeConfig.defaultSize! * .5),
       decoration: BoxDecoration(
@@ -129,8 +126,8 @@ class _ShowProjectDetailsBodyState extends State<ShowProjectDetailsBody> {
             const VirticalSpace(2),
             _buildOffersList(),
             const VirticalSpace(2),
-            if(project.client!.userId!=clientId)
-            _buildApplyButton(context, project),
+            if (project.client!.userId != clientId)
+              _buildApplyButton(context, project),
             const VirticalSpace(2),
           ],
         ),
@@ -282,7 +279,6 @@ class _ShowProjectDetailsBodyState extends State<ShowProjectDetailsBody> {
           showOffers ? CrossFadeState.showSecond : CrossFadeState.showFirst,
     );
   }
-
 
   Widget _buildApplyButton(BuildContext context, ProjectModel project) {
     return Center(

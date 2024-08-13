@@ -256,7 +256,7 @@ class _EditProfileBodyState extends State<EditProfileBody> {
   void _handleProfileEdit(BuildContext context, EditClientProfileState) {
     if (newPhotoId != null) {
       // Delete old
-      if (selectedPhoto != null) { 
+      if (selectedPhoto != null) {
         context.read<ProfileBloc>().add(DeletePhotoToClientProfileEvent(
             widget.profile.id!, selectedPhoto!.id!));
         print(
@@ -308,10 +308,10 @@ class _EditProfileBodyState extends State<EditProfileBody> {
     );
 
     // Navigate to the next screen or perform any other action
-    context.read<NavigationBloc>().add(const PageTapped(
-      0,
-    ));
-    GoRouter.of(context).push('/homescreen');
+    // context.read<NavigationBloc>().add(const PageTapped(
+    //     0,
+    // ));
+    GoRouter.of(context).pushReplacement('/homescreen');
   }
 }
 

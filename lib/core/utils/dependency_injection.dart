@@ -16,8 +16,12 @@ import 'package:freelance_job_portal/features/home/data/repo/home_repo_impl.dart
 import 'package:freelance_job_portal/features/offers/data/repo/offer_repo.dart';
 import 'package:freelance_job_portal/features/offers/data/repo/offer_repo_impl.dart';
 import 'package:freelance_job_portal/features/profile/worker%20profile/worker_profile_repo.dart';
-import 'package:freelance_job_portal/features/profile/worker%20profile/worker_profile_repo_abstract.dart';
 import 'package:freelance_job_portal/features/projects/data/repo/project_repo.dart';
+import 'package:freelance_job_portal/features/protofolio/data/repo/portofolio_repo.dart';
+import 'package:freelance_job_portal/features/protofolio/data/repo/portofolio_repo_impl.dart';
+import 'package:freelance_job_portal/features/wallet/data/repo/payments_repo.dart';
+import 'package:freelance_job_portal/features/wallet/data/repo/payments_repo_impl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../features/projects/data/repo/project_repo_imp.dart';
 import '../../features/searsh/data/repo/search_repo_.dart';
@@ -46,7 +50,8 @@ class DependencyInjection {
     final apiService = provideApiService();
     return ClientProfileRepoImpl(apiService: apiService);
   }
-   static WorkerProfileRepoImpl provideWorkerProfileRepo() {
+
+  static WorkerProfileRepoImpl provideWorkerProfileRepo() {
     final apiService = provideApiService();
     return WorkerProfileRepoImpl(apiService: apiService);
   }
@@ -65,7 +70,6 @@ class DependencyInjection {
     final apiService = provideApiService();
     return OfferRepoImpl(apiService);
   }
-
 
   static CategorySkillRepo provideCsRepo() {
     final apiService = provideApiService();
@@ -88,5 +92,29 @@ class DependencyInjection {
   static PhotoRepoImpl providePhotoRepo() {
     final apiService = provideApiService();
     return PhotoRepoImpl(apiService);
+  }
+
+  static PortofolioRepo providePortofolioRepo() {
+    final apiService = provideApiService();
+    return PortofolioRepoImpl(apiService);
+  }
+
+  static SharedPreferences? _sharedPreferences;
+
+  static Future<void> initSharedPreferences() async {
+    _sharedPreferences = await SharedPreferences.getInstance();
+  }
+
+  static SharedPreferences provideSharedPreferences() {
+    if (_sharedPreferences == null) {
+      throw StateError(
+          'SharedPreferences not initialized. Call initSharedPreferences() first.');
+    }
+    return _sharedPreferences!;
+  }
+
+  static PaymentsRepo providePaymentsRepo() {
+    final apiService = provideApiService();
+    return PaymentsRepoImpl(apiService);
   }
 }

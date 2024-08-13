@@ -1,4 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:freelance_job_portal/core/utils/dependency_injection.dart';
 import 'package:freelance_job_portal/features/auth/presentation/view_models/bloc/auth_bloc.dart';
 import 'package:freelance_job_portal/features/auth/presentation/views/login.dart';
 import 'package:freelance_job_portal/features/auth/presentation/views/verification_code.dart';
@@ -31,6 +32,8 @@ import 'package:freelance_job_portal/features/projects/data/model/project_model/
 import 'package:freelance_job_portal/features/projects/presentation/views/create_project.dart';
 import 'package:freelance_job_portal/features/projects/presentation/views/edit_project.dart';
 import 'package:freelance_job_portal/features/projects/presentation/views/show_project_details.dart';
+import 'package:freelance_job_portal/features/protofolio/data/models/portofolio_job/portofolio_job/portofolio_job.dart';
+import 'package:freelance_job_portal/features/protofolio/presentaion/view%20model/bloc/portofolio_bloc.dart';
 import 'package:freelance_job_portal/features/protofolio/presentaion/views/add_protofolio.dart';
 import 'package:freelance_job_portal/features/protofolio/presentaion/views/edit_protofolio.dart';
 import 'package:freelance_job_portal/features/protofolio/presentaion/views/show_proto_details.dart';
@@ -116,15 +119,16 @@ abstract class AppRouter {
     GoRoute(
       path: '/profile',
       builder: (context, state) => const Profile(),
-      
     ),
     GoRoute(
       path: '/createprofile',
       builder: (context, state) => const CreateProfile(),
+      //      builder: (context, state) =>  CreateProfile(userId: state.extra as int,),
     ),
     GoRoute(
       path: '/editprofile',
-      builder: (context, state) =>  EditProfile(profile: state.extra as ClientProfile),
+      builder: (context, state) =>
+          EditProfile(profile: state.extra as ClientProfile),
     ),
     //
     GoRoute(
@@ -142,15 +146,24 @@ abstract class AppRouter {
     ),
     GoRoute(
       path: '/addprotofolio',
-      builder: (context, state) => const AddProtofolio(),
+      builder: (context, state) => BlocProvider(
+        create: (context) => PortofolioBloc(
+            portofolioRepo: DependencyInjection.providePortofolioRepo()),
+        child: AddProtofolio(
+          profileId: state.extra as int,
+        ),
+      ),
     ),
     GoRoute(
       path: '/editprotofolio',
-      builder: (context, state) => const EditProtofolio(),
+      builder: (context, state) =>
+          EditProtofolio(job: state.extra as PortofolioJob),
     ),
     GoRoute(
       path: '/showprotodetails',
-      builder: (context, state) => const ShowProtoDetails(),
+      builder: (context, state) => ShowProtoDetails(
+        job: state.extra as PortofolioJob,
+      ),
     ),
     GoRoute(
       path: '/chat',
@@ -158,7 +171,7 @@ abstract class AppRouter {
     ),
     GoRoute(
       path: '/dms',
-      builder: (context, state) => DMs(),
+      builder: (context, state) => const DMs(),
     ),
     GoRoute(
       path: '/saved',

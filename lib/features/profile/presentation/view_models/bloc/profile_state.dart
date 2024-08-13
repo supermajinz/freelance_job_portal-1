@@ -64,6 +64,7 @@ class ProfileCreateError extends ProfileState {
         errorMessage,
       ];
 }
+
 class EditProfileLoading extends ProfileState {}
 
 class EditedClientProfileState extends ProfileState {
@@ -110,6 +111,7 @@ class AddPhotoToProfileError extends ProfileState {
         errorMessage,
       ];
 }
+
 class AddSkillToProfileLoading extends ProfileState {}
 
 class AddedSkillToProfile extends ProfileState {
@@ -132,7 +134,9 @@ class AddSkillToProfileError extends ProfileState {
         errorMessage,
       ];
 }
+
 class DeleteSkillToProfileLoading extends ProfileState {}
+
 class DeleteSkillToProfileError extends ProfileState {
   final String errorMessage;
 
@@ -142,6 +146,7 @@ class DeleteSkillToProfileError extends ProfileState {
         errorMessage,
       ];
 }
+
 class DeletePhotoToProfileLoading extends ProfileState {}
 
 class DeletePhotoToProfileError extends ProfileState {
@@ -153,6 +158,7 @@ class DeletePhotoToProfileError extends ProfileState {
         errorMessage,
       ];
 }
+
 class DeletedSkillToProfile extends ProfileState {
   final String successMessage;
 
@@ -163,6 +169,7 @@ class DeletedSkillToProfile extends ProfileState {
         successMessage,
       ];
 }
+
 class DeletedPhotoToProfile extends ProfileState {
   final String successMessage;
 
@@ -173,7 +180,9 @@ class DeletedPhotoToProfile extends ProfileState {
         successMessage,
       ];
 }
-class ClientProfileDeleted extends ProfileState{}
+
+class ClientProfileDeleted extends ProfileState {}
+
 class DeleteClientProfileError extends ProfileState {
   final String errorMessage;
 
@@ -183,4 +192,3 @@ class DeleteClientProfileError extends ProfileState {
         errorMessage,
       ];
 }
-

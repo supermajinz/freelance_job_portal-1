@@ -29,7 +29,7 @@ class _EditImageGalleryWidgetState extends State<EditImageGalleryWidget> {
   List<PhotoDtO> photos = [];
   @override
   void dispose() {
-    widget.selectedPhotos ?? widget.selectedPhotos!.clear();
+    widget.selectedPhotos ?? widget.selectedPhotos?.clear();
     photos.clear();
     super.dispose();
   }
@@ -137,7 +137,7 @@ class _EditImageGalleryWidgetState extends State<EditImageGalleryWidget> {
           top: SizeConfig.defaultSize! * 0.5,
           right: SizeConfig.defaultSize! * 0.5,
           child: IconButton(
-            onPressed: () => _deleteImage(index+1),
+            onPressed: () => _deleteImage(index + 1),
             icon: Icon(
               Icons.delete,
               color: Colors.red,

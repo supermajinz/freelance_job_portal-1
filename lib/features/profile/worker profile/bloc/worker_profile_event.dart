@@ -1,6 +1,5 @@
 part of 'worker_profile_bloc.dart';
 
-
 sealed class WorkerProfileEvent extends Equatable {
   const WorkerProfileEvent();
 
@@ -80,4 +79,13 @@ class DeleteWorkerProfileEvent extends WorkerProfileEvent {
   final int profileId;
 
   const DeleteWorkerProfileEvent(this.profileId);
+}
+
+class ChangeCurrentProfileEvent extends WorkerProfileEvent {
+  final int profileId;
+  const ChangeCurrentProfileEvent(this.profileId);
+  @override
+  List<Object> get props => [
+        profileId,
+      ];
 }

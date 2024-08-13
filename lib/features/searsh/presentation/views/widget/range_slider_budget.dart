@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:freelance_job_portal/core/widget/custom_subtitle_medium.dart';
 
 class RangeSliderBudget extends StatefulWidget {
-  const RangeSliderBudget({super.key, required this.onChanged, required this.init});
+  const RangeSliderBudget(
+      {super.key, required this.onChanged, required this.init});
   final void Function(int min, int max) onChanged;
   final RangeValues init;
 
@@ -12,12 +13,13 @@ class RangeSliderBudget extends StatefulWidget {
 }
 
 class _RangeSliderExampleState extends State<RangeSliderBudget> {
-late RangeValues _currentRangeValues;
+  late RangeValues _currentRangeValues;
   @override
   void initState() {
     _currentRangeValues = widget.init;
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -36,10 +38,8 @@ late RangeValues _currentRangeValues;
             setState(() {
               _currentRangeValues = values;
             });
-            widget.onChanged(
-              _currentRangeValues.start.toInt(),
-              _currentRangeValues.end.toInt()
-            );
+            widget.onChanged(_currentRangeValues.start.toInt(),
+                _currentRangeValues.end.toInt());
             // BlocProvider.of<SearchBloc>(context).add(
             //   SearchProjectsEvent(
             //     minBudget: values.start.round(),

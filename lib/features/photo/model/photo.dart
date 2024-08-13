@@ -15,6 +15,6 @@ class Photo extends Equatable {
         'id': id,
         'photo': photo,
       };
-      @override
+  @override
   List<Object?> get props => [id, photo];
 }

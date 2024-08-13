@@ -5,16 +5,18 @@ import 'package:equatable/equatable.dart';
 import 'package:freelance_job_portal/features/profile/data/models/profile/worker_Profile/worker_profile.dart';
 import 'package:freelance_job_portal/features/profile/data/profile_repo.dart';
 import 'package:freelance_job_portal/features/profile/worker%20profile/worker_profile_repo.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 part 'worker_profile_event.dart';
 part 'worker_profile_state.dart';
 
-
 class WorkerProfileBloc extends Bloc<WorkerProfileEvent, WorkerProfileState> {
   final WorkerProfileRepoImpl _profileRepo;
-  WorkerProfileBloc(
-    this._profileRepo,
-  ) : super(WorkerProfileInitial()) {
+  final SharedPreferences _sharedPreferences;
+  static const String _currentProfileKey = 'currentWorkerProfileId';
+
+  WorkerProfileBloc(this._profileRepo, this._sharedPreferences)
+      : super(WorkerProfileInitial()) {
     on<ShowWorkerProfile>(showWorkerProfile);
     on<GetWorkerProfiles>(getWorkerProfiles);
     on<CreateWorkerProfileEvent>(createWorkerProfile);
@@ -24,6 +26,7 @@ class WorkerProfileBloc extends Bloc<WorkerProfileEvent, WorkerProfileState> {
     on<DeletePhotoToWorkerProfileEvent>(deletePhotoToWorkerProfile);
     on<DeleteSkillToWorkerProfileEvent>(deleteSkillToWorkerProfile);
     on<DeleteWorkerProfileEvent>(_deleteWorkerProfile);
+    on<ChangeCurrentProfileEvent>(_changeCurrentProfile);
   }
 
   FutureOr<void> showWorkerProfile(
@@ -34,8 +37,6 @@ class WorkerProfileBloc extends Bloc<WorkerProfileEvent, WorkerProfileState> {
         (failure) =>
             emit(WorkerProfileGetError(errorMessage: failure.errMessage)),
         (profile) {
-      //print('we are in bloc');
-      print(profile.toString());
       emit(WorkerProfileGetSuccess(myProfile: profile));
     });
   }
@@ -47,11 +48,31 @@ class WorkerProfileBloc extends Bloc<WorkerProfileEvent, WorkerProfileState> {
     result.fold(
         (failure) =>
             emit(WorkerProfileGetError(errorMessage: failure.errMessage)),
-        (profiles) {
+        (profiles) async {
       if (profiles.isEmpty) {
         emit(WorkerProfileNoProfiles());
       } else {
-        emit(WorkerProfilesLoaded(profiles));
+        final int? currentProfileId =
+            _sharedPreferences.getInt(_currentProfileKey);
+        if (currentProfileId != null) {
+          final int index =
+              profiles.indexWhere((profile) => profile.id == currentProfileId);
+          if (index != -1) {
+            emit(WorkerProfilesLoaded(profiles,
+                currentProfile: profiles[index]));
+          } else {
+            // Handle the case where the stored profile ID is not found
+            // You might want to clear the stored ID or show an error message
+            _sharedPreferences.remove(_currentProfileKey);
+            emit(WorkerProfilesLoaded(profiles,
+                currentProfile: profiles[0])); // Default to the first profile
+          }
+        } else {
+          _sharedPreferences.setInt(_currentProfileKey,
+              profiles[0].id!); // Store the first profile's ID
+          emit(WorkerProfilesLoaded(profiles,
+              currentProfile: profiles[0])); // Default to the first profile
+        }
       }
     });
   }
@@ -67,8 +88,8 @@ class WorkerProfileBloc extends Bloc<WorkerProfileEvent, WorkerProfileState> {
     result.fold(
       (failure) =>
           emit(WorkerProfileCreateError(errorMessage: failure.errMessage)),
-      (workerProfile) {
-        print(workerProfile.toString());
+      (workerProfile) async {
+        add(ChangeCurrentProfileEvent(workerProfile.id!));
         emit(WorkerProfileCreatedState(workerProfile: workerProfile));
       },
     );
@@ -81,12 +102,9 @@ class WorkerProfileBloc extends Bloc<WorkerProfileEvent, WorkerProfileState> {
       "workerProfileId": event.workerProfileId,
       "photoId": event.photoId,
     });
-    result.fold(
-        (failure) =>
-            emit(WorkerProfileAddPhotoError(failure.errMessage)),
-        (success) {
-      print(
-          'added photo workerProfileId: ${event.workerProfileId} photoId:  ${event.photoId}');
+    result
+        .fold((failure) => emit(WorkerProfileAddPhotoError(failure.errMessage)),
+            (success) {
       emit(WorkerProfileAddedPhoto(success));
     });
   }
@@ -98,13 +116,9 @@ class WorkerProfileBloc extends Bloc<WorkerProfileEvent, WorkerProfileState> {
       "workerProfileId": event.workerProfileId,
       "skillId": event.skillId,
     });
-    result.fold(
-        (failure) =>
-            emit(WorkerProfileAddSkillError(failure.errMessage)),
-        (success) {
-      print(
-          'added skill workerProfileId: ${event.workerProfileId} skillId:  ${event.skillId}');
-
+    result
+        .fold((failure) => emit(WorkerProfileAddSkillError(failure.errMessage)),
+            (success) {
       emit(WorkerProfileAddedSkill(success));
     });
   }
@@ -121,7 +135,6 @@ class WorkerProfileBloc extends Bloc<WorkerProfileEvent, WorkerProfileState> {
       (failure) =>
           emit(WorkerProfileEditError(errorMessage: failure.errMessage)),
       (workerProfile) {
-        print(workerProfile.toString());
         emit(WorkerProfileEditedState(workerProfile: workerProfile));
       },
     );
@@ -136,12 +149,8 @@ class WorkerProfileBloc extends Bloc<WorkerProfileEvent, WorkerProfileState> {
       "photoId": event.photoId,
     });
     result.fold(
-        (failure) => emit(
-            WorkerProfileDeletePhotoError(failure.errMessage)),
+        (failure) => emit(WorkerProfileDeletePhotoError(failure.errMessage)),
         (success) {
-      print(
-          'deleted photo workerProfileId: ${event.workerProfileId} skillId:  ${event.photoId}');
-
       emit(WorkerProfileDeletedPhoto(success));
     });
   }
@@ -155,12 +164,8 @@ class WorkerProfileBloc extends Bloc<WorkerProfileEvent, WorkerProfileState> {
       "skillId": event.skillId,
     });
     result.fold(
-        (failure) => emit(
-            WorkerProfileDeleteSkillError(failure.errMessage)),
+        (failure) => emit(WorkerProfileDeleteSkillError(failure.errMessage)),
         (success) {
-      print(
-          'deleted skill workerProfileId: ${event.workerProfileId} skillId:  ${event.skillId}');
-
       emit(WorkerProfileDeletedSkill(success));
     });
   }
@@ -169,11 +174,23 @@ class WorkerProfileBloc extends Bloc<WorkerProfileEvent, WorkerProfileState> {
       DeleteWorkerProfileEvent event, Emitter<WorkerProfileState> emit) async {
     emit(WorkerProfileLoading());
     final result = await _profileRepo.deleteProfile(event.profileId);
-    result.fold(
-        (failure) =>
-            emit(WorkerProfileDeleteError(failure.errMessage)),
+    result.fold((failure) => emit(WorkerProfileDeleteError(failure.errMessage)),
         (_) {
       emit(WorkerProfileDeleted());
     });
+  }
+
+  FutureOr<void> _changeCurrentProfile(
+      ChangeCurrentProfileEvent event, Emitter<WorkerProfileState> emit) async {
+    final currentState = state;
+    if (currentState is WorkerProfilesLoaded) {
+      final int index = currentState.profiles
+          .indexWhere((profile) => profile.id == event.profileId);
+      if (index != -1) {
+        _sharedPreferences.setInt(_currentProfileKey, event.profileId);
+        emit(WorkerProfilesLoaded(currentState.profiles,
+            currentProfile: currentState.profiles[index]));
+      }
+    }
   }
 }

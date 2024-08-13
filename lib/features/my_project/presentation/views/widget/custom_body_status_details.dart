@@ -24,7 +24,7 @@ class CustomBodyStatusDetails extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               const Icon(Icons.laptop),
-              CustomSubTitle(text:projectModel.name),
+              CustomSubTitle(text: projectModel.name),
               Column(
                 children: [
                   const CustomLabel(

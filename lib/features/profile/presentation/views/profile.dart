@@ -9,9 +9,14 @@ import 'package:freelance_job_portal/features/profile/presentation/view_models/b
 import 'package:freelance_job_portal/features/profile/presentation/views/widget/profile_body.dart';
 import 'package:go_router/go_router.dart';
 
-class Profile extends StatelessWidget {
+class Profile extends StatefulWidget {
   const Profile({super.key});
 
+  @override
+  State<Profile> createState() => _ProfileState();
+}
+
+class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AuthBloc, AuthState>(
@@ -19,7 +24,7 @@ class Profile extends StatelessWidget {
         print(authState);
         if (authState is AuthGuest) {
           return _buildGuestView(context);
-        } else if (authState is AuthAuthenticated ) {
+        } else if (authState is AuthAuthenticated) {
           return BlocProvider(
             create: (context) =>
                 ProfileBloc(DependencyInjection.provideProfileRepo())
@@ -32,7 +37,9 @@ class Profile extends StatelessWidget {
                   return _buildNoProfilesView(context);
                 } else if (profileState is ProfilesLoaded) {
                   return Scaffold(
-                    body: ProfileBody(clientProfiles: profileState.profiles),
+                    body: ProfileBody(
+                      clientProfiles: profileState.profiles,
+                    ),
                   );
                 } else if (profileState is ProfileGetError) {
                   return Center(

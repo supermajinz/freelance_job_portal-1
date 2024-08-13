@@ -142,7 +142,7 @@ class _SortBodyState extends State<SortBody> {
                       context
                           .read<NavigationBloc>()
                           .add(PageTapped(2, args: selectedFilters));
-                      GoRouter.of(context).push('/homescreen');
+                      GoRouter.of(context).pushReplacement('/homescreen');
                     },
                     color: Theme.of(context).primaryColor,
                     textcolor: Colors.white,

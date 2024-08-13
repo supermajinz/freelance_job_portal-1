@@ -7,7 +7,6 @@ import 'package:freelance_job_portal/core/widget/space.dart';
 import 'package:freelance_job_portal/features/photo/bloc/image_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 
-
 class ImageGalleryWidget extends StatefulWidget {
   final Function(int) onPhotoUploaded;
   const ImageGalleryWidget({Key? key, required this.onPhotoUploaded})
@@ -38,6 +37,7 @@ class _ImageGalleryWidgetState extends State<ImageGalleryWidget> {
       print('No image selected');
     }
   }
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<ImageBloc, ImageState>(
@@ -68,7 +68,7 @@ class _ImageGalleryWidgetState extends State<ImageGalleryWidget> {
     );
   }
 
-   Widget _buildImageGallery(BuildContext context) {
+  Widget _buildImageGallery(BuildContext context) {
     return SizedBox(
       height: SizeConfig.defaultSize! * 18,
       child: imageUrls.isNotEmpty
@@ -88,7 +88,7 @@ class _ImageGalleryWidgetState extends State<ImageGalleryWidget> {
     );
   }
 
- Widget _buildImageCard(String imageUrl, int index) {
+  Widget _buildImageCard(String imageUrl, int index) {
     return Stack(
       clipBehavior: Clip.none,
       children: [
@@ -205,10 +205,11 @@ class _ImageGalleryWidgetState extends State<ImageGalleryWidget> {
       },
     );
   }
+
   void _deleteImage(int index) {
     setState(() {
       imageUrls.removeAt(index);
     });
-    // You might want to add logic here to delete the image from the server as well 
+    // You might want to add logic here to delete the image from the server as well
   }
 }

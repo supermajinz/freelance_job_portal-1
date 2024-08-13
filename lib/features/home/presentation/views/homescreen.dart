@@ -126,7 +126,8 @@ class _HomescreenState extends State<Homescreen> {
                         GButton(icon: IconlyBroken.chat, text: "المحادائة"),
                         GButton(icon: IconlyBroken.search, text: "البحث"),
                         GButton(icon: IconlyBroken.bag, text: "مشاريعي"),
-                        GButton(icon: IconlyBroken.profile, text: "الملف الشخصي"),
+                        GButton(
+                            icon: IconlyBroken.profile, text: "الملف الشخصي"),
                         // GButton(icon: IconlyBroken.home),
                         // GButton(icon: IconlyBroken.chat),
                         // GButton(icon: IconlyBroken.search),

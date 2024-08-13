@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart'; // Import shared_preferences
+
 import 'package:freelance_job_portal/core/widget/space.dart';
 import 'package:freelance_job_portal/features/profile/presentation/views/profile.dart';
 import 'package:freelance_job_portal/features/profile/worker%20profile/widgets/worker_profile_screen.dart';
@@ -11,7 +13,27 @@ class ProfileSwitcher extends StatefulWidget {
 }
 
 class _ProfileSwitcherState extends State<ProfileSwitcher> {
-  bool _isWorkerProfile = false; // Default to Client Profile
+  bool _isWorkerProfile = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadProfileType(); // Load the saved profile type
+  }
+
+  // Load profile type from SharedPreferences
+  Future<void> _loadProfileType() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _isWorkerProfile = prefs.getBool('isWorkerProfile') ?? false;
+    });
+  }
+
+  // Save profile type to SharedPreferences
+  Future<void> _saveProfileType(bool isWorker) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool('isWorkerProfile', isWorker);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +41,6 @@ class _ProfileSwitcherState extends State<ProfileSwitcher> {
       body: Column(
         children: [
           const VirticalSpace(1),
-          // Animated Switcher for smooth transition
           SizedBox(
             height: 50,
             child: Padding(
@@ -57,6 +78,7 @@ class _ProfileSwitcherState extends State<ProfileSwitcher> {
         setState(() {
           _isWorkerProfile = true;
         });
+        _saveProfileType(true); // Save the selection
       },
       child: Container(
         decoration: BoxDecoration(
@@ -106,6 +128,7 @@ class _ProfileSwitcherState extends State<ProfileSwitcher> {
         setState(() {
           _isWorkerProfile = false;
         });
+        _saveProfileType(false); // Save the selection
       },
       child: Container(
         decoration: BoxDecoration(

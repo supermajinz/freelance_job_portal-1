@@ -9,18 +9,23 @@ import 'package:freelance_job_portal/features/home/presentation/view_models/home
 import 'package:freelance_job_portal/features/home/presentation/view_models/nav_bar_bloc/nav_bar_bloc.dart';
 import 'package:freelance_job_portal/features/my_project/presentation/view_models/bloc/my_project_bloc.dart';
 import 'package:freelance_job_portal/features/offers/presentation/view_models/bloc/offer_bloc.dart';
+import 'package:freelance_job_portal/features/photo/bloc/image_bloc.dart';
+import 'package:freelance_job_portal/features/profile/presentation/view_models/bloc/profile_bloc.dart';
 import 'package:freelance_job_portal/features/projects/presentation/view_models/offer_by_project/offer_by_project_bloc.dart';
 import 'package:freelance_job_portal/features/projects/presentation/view_models/project_bloc/project_bloc.dart';
+import 'package:freelance_job_portal/features/protofolio/presentaion/view%20model/bloc/portofolio_bloc.dart';
 import 'package:freelance_job_portal/features/searsh/presentation/view_models/search_bloc/search_bloc.dart';
+import 'package:freelance_job_portal/features/wallet/presentation/view_models/bloc/wallet_bloc.dart';
 import 'package:freelance_job_portal/l10n/l10n.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 //TODO: لوغو التطبيق يظهر عتد
 void main() async {
+  int userId;
   WidgetsFlutterBinding.ensureInitialized();
   // final sharedPreferences = await SharedPreferences.getInstance;
-
+  await DependencyInjection.initSharedPreferences();
   runApp(MultiBlocProvider(
     providers: [
       BlocProvider(
@@ -30,9 +35,11 @@ void main() async {
         create: (context) => NavigationBloc(),
       ),
       BlocProvider(
-        create: (context) => AuthBloc(
-          DependencyInjection.provideAuthRepo(),
-        )..add(CheckAuthStatusEvent()),
+        create: (context) {
+          return AuthBloc(
+            DependencyInjection.provideAuthRepo(),
+          )..add(CheckAuthStatusEvent());
+        },
       ),
       BlocProvider<ProjectBloc>(
           create: (context) =>
@@ -53,6 +60,18 @@ void main() async {
       BlocProvider(
           create: (context) =>
               SearchBloc(DependencyInjection.provideSearchRepo())),
+      //   BlocProvider(
+      // create: (context) =>
+      //      ProfileBloc(DependencyInjection.provideProfileRepo(),DependencyInjection.provideSharedPreferences())),
+      BlocProvider(
+          create: (context) =>
+              ImageBloc(DependencyInjection.providePhotoRepo())),
+      BlocProvider(
+          create: (context) =>
+              WalletBloc(DependencyInjection.providePaymentsRepo())),
+      BlocProvider(
+          create: (context) => PortofolioBloc(
+              portofolioRepo: DependencyInjection.providePortofolioRepo())),
     ],
     child: const FreelanceJob(),
   ));

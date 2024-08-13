@@ -27,7 +27,6 @@ import 'package:freelance_job_portal/features/profile/worker%20profile/bloc/work
 import 'package:freelance_job_portal/features/projects/presentation/views/widget/create_project_body.dart';
 import 'package:go_router/go_router.dart';
 
-
 class CreateWorkerProfileBody extends StatefulWidget {
   const CreateWorkerProfileBody({super.key});
 
@@ -153,10 +152,10 @@ class _CreateWorkerProfileBodyState extends State<CreateWorkerProfileBody> {
                 AddEditProto(
                   text: "Add Protofolio Project",
                   onTap: () {
-                    context.read<NavigationBloc>().add(const PageTapped(
-                          4,
-                        ));
-                    GoRouter.of(context).push('/homescreen');
+                    //    context.read<NavigationBloc>().add(const PageTapped(
+                    //        4,
+                    //    ));
+                    GoRouter.of(context).pushReplacement('/homescreen');
                   },
                 ),
                 const VirticalSpace(6),
@@ -230,10 +229,10 @@ class _CreateWorkerProfileBodyState extends State<CreateWorkerProfileBody> {
     );
 
     // Navigate to the next screen or perform any other action
-    context.read<NavigationBloc>().add(const PageTapped(
-          0,
-        ));
-    GoRouter.of(context).push('/homescreen');
+    //context.read<NavigationBloc>().add(const PageTapped(
+    //    0,
+    //));
+    GoRouter.of(context).pushReplacement('/homescreen');
   }
 }
 

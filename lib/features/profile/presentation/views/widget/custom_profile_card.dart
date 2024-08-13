@@ -43,18 +43,22 @@ class CustomProfileCard extends StatelessWidget {
           children: [
             GestureDetector(
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => ImageGalleryScreen(
-                      profile: profile,
-                    ),
-                  ),
-                );
+                profile.photoDtOs!.isNotEmpty
+                    ? Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ImageGalleryScreen(
+                            profile: profile,
+                          ),
+                        ),
+                      )
+                    : null;
               },
               child: CircleAvatar(
                 radius: SizeConfig.defaultSize! * 5,
-                backgroundImage: (profileImageUrl != null )? NetworkImage(profileImageUrl ):const AssetImage('assets/images/pro1.jpg') ,
+                backgroundImage: (profileImageUrl != null)
+                    ? NetworkImage(profileImageUrl)
+                    : const AssetImage('assets/images/pro1.jpg'),
               ),
             ),
             const HorizintalSpace(1),
@@ -88,8 +92,8 @@ class CustomProfileCard extends StatelessWidget {
             ),
             const Spacer(),
             IconButton(
-                onPressed: (){
-                   GoRouter.of(context).push('/editprofile',extra: profile);
+                onPressed: () {
+                  GoRouter.of(context).push('/editprofile', extra: profile);
                 },
                 icon: Icon(
                   icon,
@@ -102,7 +106,7 @@ class CustomProfileCard extends StatelessWidget {
     );
   }
 }
-
+/*
 class ImageGalleryScreen extends StatefulWidget {
   final ClientProfile profile;
   const ImageGalleryScreen({super.key, required this.profile});
@@ -215,6 +219,104 @@ class _ImageGalleryScreenState extends State<ImageGalleryScreen> {
                     spacing: SizeConfig.defaultSize! * .5,
                   ),
                 ),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+*/
+class ImageGalleryScreen extends StatefulWidget {
+  final ClientProfile profile;
+  const ImageGalleryScreen({super.key, required this.profile});
+
+  @override
+  // ignore: library_private_types_in_public_api
+  _ImageGalleryScreenState createState() => _ImageGalleryScreenState();
+}
+
+class _ImageGalleryScreenState extends State<ImageGalleryScreen> {
+  final PageController _pageController = PageController();
+  int _currentIndex = 0; // To track the current image index
+
+  @override
+  void initState() {
+    super.initState();
+    // Initialize _currentIndex if needed
+    _currentIndex = 0;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final List<String> imageUrls =
+        widget.profile.photoDtOs!.map((e) => e.photo!).toList();
+    return Scaffold(
+      backgroundColor: Colors.black,
+      body: SafeArea(
+        child: Stack(
+          children: [
+            Positioned.fill(
+              child: PageView.builder(
+                itemCount: imageUrls.length,
+                controller: _pageController,
+                onPageChanged: (index) {
+                  setState(() {
+                    _currentIndex = index;
+                  });
+                },
+                itemBuilder: (context, index) {
+                  return GestureDetector(
+                    onTap: () {
+                      // Toggle the app bar visibility
+                      // You might need to manage the app bar visibility state
+                      // in your parent widget or using a global state management
+                      // solution like Provider or BLoC.
+                    },
+                    child: PhotoView(
+                      imageProvider: NetworkImage(
+                          "http://localhost:8080/api/v1/file/photo/${imageUrls[index]}"),
+                      heroAttributes: const PhotoViewHeroAttributes(
+                          tag:
+                              'profileImage'), // Use the same tag as the profile image
+                      minScale: PhotoViewComputedScale.contained,
+                      maxScale: PhotoViewComputedScale.covered * 2,
+                    ),
+                  );
+                },
+              ),
+            ),
+            Positioned(
+              top: 16.0,
+              left: 16.0,
+              child: IconButton(
+                icon: const Icon(
+                  Icons.arrow_back,
+                  color: Colors.white,
+                ),
+                onPressed: () => Navigator.of(context).pop(),
+              ),
+            ),
+            Positioned(
+              bottom: 16.0,
+              left: 0,
+              right: 0,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: imageUrls.map((imageUrl) {
+                  final index = imageUrls.indexOf(imageUrl);
+                  return Container(
+                    width: 8.0,
+                    height: 8.0,
+                    margin: const EdgeInsets.symmetric(horizontal: 4.0),
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color:
+                          _currentIndex == index ? Colors.white : Colors.grey,
+                    ),
+                  );
+                }).toList(),
               ),
             ),
           ],

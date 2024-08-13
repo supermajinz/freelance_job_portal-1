@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:freelance_job_portal/features/projects/data/model/project_model/project_model.dart';
+import 'package:freelance_job_portal/features/protofolio/presentaion/views/widget/portofolio_widget.dart';
 import 'package:go_router/go_router.dart';
 import 'package:rating_summary/rating_summary.dart';
 
@@ -13,11 +14,12 @@ import 'package:freelance_job_portal/core/widget/space.dart';
 import 'package:freelance_job_portal/features/profile/data/models/profile/client_profile.dart';
 import 'package:freelance_job_portal/features/profile/presentation/view_models/bloc/profile_bloc.dart';
 import 'package:freelance_job_portal/features/profile/presentation/views/widget/custom_profile_card.dart';
-import 'package:freelance_job_portal/features/profile/presentation/views/widget/custom_protofolio_card.dart';
+import 'package:freelance_job_portal/features/protofolio/presentaion/views/widget/custom_protofolio_card.dart';
 import 'package:freelance_job_portal/features/profile/presentation/views/widget/custom_review_card.dart';
 import 'package:freelance_job_portal/features/profile/presentation/views/widget/custom_zzz.dart';
 import 'package:freelance_job_portal/features/profile/presentation/views/widget/show_chip.dart';
 import 'package:freelance_job_portal/features/projects/presentation/views/widget/custom_project_card.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ProfileBody extends StatefulWidget {
   final List<ClientProfile> clientProfiles;
@@ -35,15 +37,39 @@ class _ProfileBodyState extends State<ProfileBody> {
   @override
   void initState() {
     super.initState();
+
     currentProfile =
         widget.clientProfiles[0]; //TODO make this shared preferences
+    _loadSavedProfile();
+  }
+
+  Future<void> _loadSavedProfile() async {
+    final savedProfileId = await _loadCurrentProfileId();
+    if (savedProfileId != null) {
+      final savedProfile = widget.clientProfiles.firstWhere(
+        (profile) => profile.id == savedProfileId,
+        orElse: () => widget.clientProfiles[0],
+      );
+      setState(() {
+        currentProfile = savedProfile;
+      });
+    }
+  }
+
+  Future<int?> _loadCurrentProfileId() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getInt('current_client_profile_id');
+  }
+
+  Future<void> _saveCurrentProfile(int profileId) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setInt('current_client_profile_id', profileId);
   }
 
   @override
   Widget build(BuildContext context) {
     return ListView(
       children: [
-
         // ClipPath(
         //     clipper: WaveClipperTwo(),
         //     child: Container(
@@ -79,10 +105,12 @@ class _ProfileBodyState extends State<ProfileBody> {
                                     currentProfile =
                                         widget.clientProfiles[index];
                                   });
-                                  Navigator.pop(context);
+                                  _saveCurrentProfile(currentProfile.id!);
+                                  GoRouter.of(context).pop();
+
+                                  //GoRouter.of(context).pop();
                                 },
                                 child: CustomProfileCard(
-                                  //TODO: on clicked changes current profile.
                                   profile: widget.clientProfiles[index],
                                   icon: Icons.edit,
                                   onPressed: () {},
@@ -94,8 +122,7 @@ class _ProfileBodyState extends State<ProfileBody> {
                         const VirticalSpace(2),
                         CustomButtonGeneral(
                             onPressed: () {
-                              GoRouter.of(context)
-                                  .push("/createprofile");
+                              GoRouter.of(context).push("/createprofile");
                             },
                             color: Theme.of(context).primaryColor,
                             textcolor: Colors.white,
@@ -159,12 +186,6 @@ class _ProfileBodyState extends State<ProfileBody> {
                         skills: currentProfile.skillDtOs!,
                       )
                     : const SizedBox(),
-                const VirticalSpace(4),
-                const CustomSubTitle(
-                  text: "Portfolio",
-                ),
-                const VirticalSpace(1.5),
-                const CustomProtofolioCard(),
                 const VirticalSpace(4),
                 const CustomSubTitle(
                   text: "Projects completed",

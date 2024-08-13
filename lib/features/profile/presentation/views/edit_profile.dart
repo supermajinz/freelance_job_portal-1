@@ -32,7 +32,7 @@ class EditProfile extends StatelessWidget {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(content: Text('Profile Deleted')),
                     );
-                    GoRouter.of(context).push('/homescreen');
+                    GoRouter.of(context).pushReplacement('/homescreen');
                   }
                 },
                 child: IconButton(
@@ -42,17 +42,23 @@ class EditProfile extends StatelessWidget {
                       builder: (BuildContext dialogContext) {
                         return AlertDialog(
                           title: const Text('تأكيد الحذف'),
-                          content: const Text('هل أنت متأكد أنك تريد حذف بروفايلك؟'),
+                          content:
+                              const Text('هل أنت متأكد أنك تريد حذف بروفايلك؟'),
                           actions: <Widget>[
                             TextButton(
-                              child: const Text('الإلغاء',),
+                              child: const Text(
+                                'الإلغاء',
+                              ),
                               onPressed: () {
                                 Navigator.of(dialogContext)
                                     .pop(); // Dismiss the dialog
                               },
                             ),
                             TextButton(
-                              child: const Text('الحذف', style:TextStyle(color: Colors.red),),
+                              child: const Text(
+                                'الحذف',
+                                style: TextStyle(color: Colors.red),
+                              ),
                               onPressed: () {
                                 Navigator.of(dialogContext)
                                     .pop(); // Dismiss the dialog

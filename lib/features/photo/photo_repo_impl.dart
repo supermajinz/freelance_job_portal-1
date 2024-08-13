@@ -12,22 +12,22 @@ class PhotoRepoImpl extends PhotoRepo {
 
   PhotoRepoImpl(this._apiService);
 
-@override
+  @override
   Future<Either<Failure, Photo>> uploadPhoto(String imagePath) async {
-   // print('repo upload image');
-   // print('$imagePath');
+    // print('repo upload image');
+    // print('$imagePath');
     try {
       final file = File(imagePath);
       final formData = FormData.fromMap({
         'file': await MultipartFile.fromFile(file.path,
             filename: file.path.split('/').last),
       });
-     // print('form data ${formData.fields}');
+      // print('form data ${formData.fields}');
       //print('form data ${formData.files}');
 
-     // print('Calling _apiService.postFormData');
+      // print('Calling _apiService.postFormData');
       final response = await _apiService.postFormData('file/photo', formData);
-     // print('API Response: $response');
+      // print('API Response: $response');
 
       if (response.containsKey('id') && response.containsKey('photo')) {
         return Right(Photo.fromJson(response));
@@ -35,10 +35,10 @@ class PhotoRepoImpl extends PhotoRepo {
           response.containsKey('message')) {
         return Left(ServerFailure(errMessage: response['message']));
       } else {
-       // print('Unexpected response format: $response');
+        // print('Unexpected response format: $response');
         return Left(ServerFailure(errMessage: 'Unexpected response format'));
       }
-        } catch (e) {
+    } catch (e) {
       //print('Exception in uploadPhoto: $e');
       return Left(ServerFailure(errMessage: e.toString()));
     }

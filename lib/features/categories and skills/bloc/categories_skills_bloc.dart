@@ -70,14 +70,14 @@ class CategoriesSkillsBloc
 
   FutureOr<void> _categorySelected(
       CategorySelectedEvent event, Emitter<CategoriesSkillsState> emit) async {
-   // print("block ${event.categoryId}");
+    // print("block ${event.categoryId}");
     final result = await CSrepo.getSkills(event.categoryId);
     result.fold((failure) => emit(CSError(failure.errMessage)), (skills) {
-     // print(skills.toString());
+      // print(skills.toString());
       emit(CategorySelectedState(_categories, event.categoryId, skills));
     });
 
-   // print('bloc: ${event.categoryId}');
+    // print('bloc: ${event.categoryId}');
   }
 
   FutureOr<void> _onJobTitleSelected(
@@ -88,7 +88,7 @@ class CategoriesSkillsBloc
   FutureOr<void> _skillSelected(
       SkillSelectedEvent event, Emitter<CategoriesSkillsState> emit) {
     _selectedSkillIds.add(event.skillId);
-  //  print("bloc selected skill ${event.skillId}");
+    //  print("bloc selected skill ${event.skillId}");
     emit(SkillSelected(_skills, _selectedSkillIds));
   }
 }

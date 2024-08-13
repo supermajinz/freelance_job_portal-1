@@ -6,11 +6,16 @@ import 'package:freelance_job_portal/core/widget/custom_button_general.dart';
 import 'package:freelance_job_portal/core/widget/custom_sub_title.dart';
 import 'package:freelance_job_portal/core/widget/custom_subtitle_medium.dart';
 import 'package:freelance_job_portal/core/widget/space.dart';
+import 'package:freelance_job_portal/features/wallet/data/models/wallet_model.dart';
+import 'package:freelance_job_portal/features/wallet/data/models/wallet_payments/wallet_payments.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconly/iconly.dart';
+import 'package:intl/intl.dart';
 
 class WalletBody extends StatelessWidget {
-  const WalletBody({super.key});
+  final int myUserId;
+  final WalletPayments wallet;
+  const WalletBody({super.key, required this.wallet, required this.myUserId});
 
   @override
   Widget build(BuildContext context) {
@@ -34,20 +39,20 @@ class WalletBody extends StatelessWidget {
                   size: SizeConfig.defaultSize! * 15,
                 ),
                 const HorizintalSpace(1),
-                const Column(
+                Column(
                   children: [
-                    CustomSubTitle(
-                      text: "Balance:",
+                    const CustomSubTitle(
+                      text: ":الرصيد:",
                     ),
                     CustomSubTitleMedium(
-                      text: "SYP 20,000,000",
+                      text: wallet.wallet!.totalBalance.toString(),
                       color: Colors.grey,
                     ),
-                    CustomSubTitle(
-                      text: "Withheld Funds:",
+                    const CustomSubTitle(
+                      text: "الرصيد المحجوز:",
                     ),
                     CustomSubTitleMedium(
-                      text: "SYP 7,500,000",
+                      text: wallet.wallet!.totalHeldBalance.toString(),
                       color: Colors.grey,
                     ),
                   ],
@@ -56,6 +61,7 @@ class WalletBody extends StatelessWidget {
             ),
           ),
           const VirticalSpace(2),
+          /*
           Row(
             children: [
               CustomButtonGeneral(
@@ -79,42 +85,52 @@ class WalletBody extends StatelessWidget {
                   width: SizeConfig.defaultSize! * 16)
             ],
           ),
+          */
           const VirticalSpace(3),
           const CustomSubTitle(
-            text: "Transaction History:",
+            text: "تاريخ التحوبلات:",
           ),
           const VirticalSpace(1),
           SizedBox(
-            height: SizeConfig.defaultSize! * 44.3,
+            height: SizeConfig.defaultSize! * 40,
             child: ListView.separated(
                 itemBuilder: (context, index) {
-                  return const Column(
+                  return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Wrap(
                         children: [
-                          CustomBody(text: "SYP 5,000,000 "),
                           CustomBody(
-                            text: "has been sent to ",
+                              text: wallet.transactions![index].amount!
+                                  .toString()),
+                          CustomBody(
+                            text: wallet.transactions![index].senderUserId ==
+                                    myUserId
+                                ? " قد أرسلت إلى  "
+                                : " استلمت من ",
                             color: Colors.grey,
                           ),
                           CustomBody(
-                            text: "Ahmad Murad ",
+                            text: "", //TODO Name
                           ),
                           CustomBody(
-                            text: "for ",
+                            text: " ",
                             color: Colors.grey,
                           ),
+                          /*
                           CustomBody(
                             text: "Order Management App",
                           )
+                          */
                         ],
                       ),
                       CustomBody(
-                        text: "Date: 12/2/2024",
+                        text:
+                            "التاريخ : ${DateFormat('yyyy-MM-dd').format(wallet.transactions![index].transactionDate!)}",
                       ),
                       CustomBody(
-                        text: "Transaction ID: 94786746873743876",
+                        text:
+                            "رقم عملية التحويل: ${wallet.transactions![index].transactionNumber!.toString()}",
                       ),
                     ],
                   );
@@ -122,7 +138,7 @@ class WalletBody extends StatelessWidget {
                 separatorBuilder: (context, index) {
                   return const Divider();
                 },
-                itemCount: 6),
+                itemCount: wallet.transactions!.length),
           )
         ],
       ),

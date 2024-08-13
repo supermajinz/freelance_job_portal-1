@@ -24,7 +24,10 @@ class ProjectStatusDetails extends StatelessWidget {
               GoRouter.of(context).pop();
             },
           )),
-      body:  SafeArea(child: ProjectStatusDetailsBody(project: projectModel,)),
+      body: SafeArea(
+          child: ProjectStatusDetailsBody(
+        project: projectModel,
+      )),
     );
   }
 }

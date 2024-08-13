@@ -102,7 +102,8 @@ class ProjectRepoImp implements ProjectRepo {
       return left(ServerFailure(errMessage: e.toString()));
     }
   }
-   @override
+
+  @override
   Future<Either<Failure, Unit>> acceptOffer(int offerId) async {
     try {
       await _apiService.post('offers/accept/$offerId', {});

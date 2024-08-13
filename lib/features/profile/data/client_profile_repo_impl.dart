@@ -134,14 +134,14 @@ class ClientProfileRepoImpl implements ProfileRepo {
           'clientProfiles/delete-skill', skillData);
       return Right(response['message']);
     } catch (e) {
-      return Left(ServerFailure(errMessage:e.toString()));
+      return Left(ServerFailure(errMessage: e.toString()));
     }
   }
-  
+
   @override
-  Future<Either<Failure, void>> deleteProfile(int profileId)async {
-    try{
-       await _apiService.deleteNoResponse('clientProfiles/$profileId');
+  Future<Either<Failure, void>> deleteProfile(int profileId) async {
+    try {
+      await _apiService.deleteNoResponse('clientProfiles/$profileId');
       return const Right(null);
     } catch (e) {
       return Left(ServerFailure(errMessage: e.toString()));

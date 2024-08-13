@@ -29,8 +29,9 @@ class CreateWorkerProfile extends StatelessWidget {
       ),
       body: SafeArea(
           child: BlocProvider(
-        create: (context) =>
-            WorkerProfileBloc(DependencyInjection.provideWorkerProfileRepo()),
+        create: (context) => WorkerProfileBloc(
+            DependencyInjection.provideWorkerProfileRepo(),
+            DependencyInjection.provideSharedPreferences()),
         child: const CreateWorkerProfileBody(),
       )),
     );

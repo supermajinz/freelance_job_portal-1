@@ -25,7 +25,7 @@ class ImageBloc extends Bloc<ImageEvent, ImageState> {
       (imageModel) {
         final imageUrl = _imageRepository.getImageUrl(imageModel.photo);
         print('bloc $imageUrl');
-        emit(ImageUploaded(imageUrl,imageModel.id));
+        emit(ImageUploaded(imageUrl, imageModel.id));
       },
     );
   }

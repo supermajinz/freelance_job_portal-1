@@ -63,13 +63,17 @@ class CustomTimeline extends StatelessWidget {
             },
             indicatorBuilder: (context, index) {
               return DotIndicator(
-                color: index <= currentStatus ? Colors.blue : const Color.fromARGB(255, 206, 204, 204),
+                color: index <= currentStatus
+                    ? Colors.blue
+                    : const Color.fromARGB(255, 206, 204, 204),
               );
             },
             connectorBuilder: (context, index, type) {
               return SolidLineConnector(
                 direction: Axis.horizontal,
-                color: index <= currentStatus ? Colors.blue : const Color.fromARGB(255, 206, 204, 204),
+                color: index <= currentStatus
+                    ? Colors.blue
+                    : const Color.fromARGB(255, 206, 204, 204),
               );
             },
           ),

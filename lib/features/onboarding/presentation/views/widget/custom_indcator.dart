@@ -17,7 +17,7 @@ class CustomIndcator extends StatelessWidget {
               borderRadius: BorderRadius.circular(8),
               side: const BorderSide(color: primaryColer))),
       dotsCount: 3,
-      position: dotIndex!.toInt(),
+      //position: dotIndex!.toInt(),
     );
   }
 }
