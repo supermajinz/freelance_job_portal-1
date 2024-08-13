@@ -18,6 +18,8 @@ import 'package:freelance_job_portal/features/offers/data/repo/offer_repo_impl.d
 import 'package:freelance_job_portal/features/profile/worker%20profile/worker_profile_repo.dart';
 import 'package:freelance_job_portal/features/profile/worker%20profile/worker_profile_repo_abstract.dart';
 import 'package:freelance_job_portal/features/projects/data/repo/project_repo.dart';
+import 'package:freelance_job_portal/features/report/data/repo/report_repo.dart';
+import 'package:freelance_job_portal/features/report/data/repo/report_repo_impl.dart';
 import 'package:freelance_job_portal/features/review/data/repo/review_repo.dart';
 import 'package:freelance_job_portal/features/review/data/repo/review_repo_impl.dart';
 import 'package:freelance_job_portal/features/saved/data/repo/favorite_repo.dart';
@@ -94,6 +96,11 @@ class DependencyInjection {
   static FavoriteRepo provideFavoriteRepo() {
     final apiService = provideApiService();
     return FavoriteRepoImpl(apiService);
+  }
+
+  static ReportRepo provideReportRepo() {
+    final apiService = provideApiService();
+    return ReportRepoImpl(apiService);
   }
 
 //    ChatRepo provideChatRepo(String chatUrl) {

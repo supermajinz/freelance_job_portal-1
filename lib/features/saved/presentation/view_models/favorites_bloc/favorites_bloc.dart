@@ -14,8 +14,7 @@ class FavoritesBloc extends Bloc<FavoritesEvent, FavoritesState> {
     on<AddUserToFavorite>(_onAddUserToFavorite);
     on<DeleteProjectFromFavorite>(_onDeleteProjectFromFavorite);
     on<DeleteUserFromFavorite>(_onDeleteUserFromFavorite);
-    on<GetFavoriteProject>(_onGetFavoriteProject);
-    on<GetFavoriteUser>(_onGetFavoriteUser);
+    on<GetFavorite>(_onGetFavoriteProject);
   }
 
   Future<void> _onAddProjectToFavorite(
@@ -63,22 +62,15 @@ class FavoritesBloc extends Bloc<FavoritesEvent, FavoritesState> {
   }
 
   Future<void> _onGetFavoriteProject(
-      GetFavoriteProject event, Emitter<FavoritesState> emit) async {
+      GetFavorite event, Emitter<FavoritesState> emit) async {
     emit(FavoritesLoading());
     final result = await repo.getFavoriteProject(event.userId);
+    final result2 = await repo.getFavoriteUser(event.userId);
     result.fold(
       (failure) => emit(FavoritesFailure(failure.errMessage)),
-      (projects) => emit(GetFavoriteProjectSuccess(projects)),
-    );
-  }
-
-  Future<void> _onGetFavoriteUser(
-      GetFavoriteUser event, Emitter<FavoritesState> emit) async {
-    emit(FavoritesLoading());
-    final result = await repo.getFavoriteUser(event.userId);
-    result.fold(
-      (failure) => emit(FavoritesFailure(failure.errMessage)),
-      (users) => emit(GetFavoriteUserSuccess(users)),
+      (projects) => result2.fold(
+          (failure) => emit(FavoritesFailure(failure.errMessage)),
+          (users) => emit(GetFavoriteSuccess(projects, users))),
     );
   }
 }

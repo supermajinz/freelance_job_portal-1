@@ -8,13 +8,23 @@ import '../../../../../core/utils/size_config.dart';
 import '../../../../auth/presentation/view_models/bloc/auth_bloc.dart';
 import '../../view_models/bloc/my_project_bloc.dart';
 
-class MyProjectBody extends StatelessWidget {
+class MyProjectBody extends StatefulWidget {
   const MyProjectBody({super.key});
 
   @override
-  Widget build(BuildContext context) {
+  State<MyProjectBody> createState() => _MyProjectBodyState();
+}
+
+class _MyProjectBodyState extends State<MyProjectBody> {
+  @override
+  void initState() {
     final userId = (context.read<AuthBloc>().state as AuthAuthenticated).id;
     context.read<MyProjectBloc>().add(FetchMyProject(userId));
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return BlocBuilder<MyProjectBloc, MyProjectState>(
       builder: (context, state) {
         if (state is MyProjectLoading) {

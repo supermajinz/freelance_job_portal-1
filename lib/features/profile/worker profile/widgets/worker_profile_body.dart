@@ -41,6 +41,7 @@ class _WorkerProfileBodyState extends State<WorkerProfileBody> {
     super.initState();
     currentProfile =
         widget.workerProfiles[0]; //TODO make this shared preferences
+    context.read<ReviewBloc>().add(GetReview(currentProfile.id!));
   }
 
   @override
@@ -187,9 +188,6 @@ class _WorkerProfileBodyState extends State<WorkerProfileBody> {
                 ),
                 BlocBuilder<ReviewBloc, ReviewState>(
                   builder: (context, state) {
-                    context
-                        .read<ReviewBloc>()
-                        .add(GetReview(currentProfile.id!));
                     if (state is ReviewLoading) {
                       return const Center(child: CustomLoading());
                     } else if (state is GetReviewSuccess) {

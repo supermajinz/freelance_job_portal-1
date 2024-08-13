@@ -37,9 +37,11 @@ class DrawarBody extends StatelessWidget {
             title: const Text('الرئيسية'),
           ),
           ListTile(
-            onTap: () {},
-            leading: const Icon(Icons.account_circle_rounded),
-            title: const Text('الملف الشخصي'),
+            onTap: () {
+              GoRouter.of(context).push('/report', extra: null);
+            },
+            leading: const Icon(Icons.report),
+            title: const Text('ارسال شكوى'),
           ),
           ListTile(
             onTap: () {

@@ -46,6 +46,7 @@ class _CreateOfferBodyState extends State<CreateOfferBody> {
             const SnackBar(content: Text('Offer created successfully!')),
           );
           widget.projectModel.offerCount++;
+          GoRouter.of(context).pop();
         } else if (state is OfferFaliure) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(

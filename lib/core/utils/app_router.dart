@@ -172,7 +172,7 @@ abstract class AppRouter {
     ),
     GoRoute(
       path: '/report',
-      builder: (context, state) => const Report(),
+      builder: (context, state) => Report(id: state.extra as int?),
     ),
     GoRoute(
       path: '/myproject',

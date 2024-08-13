@@ -47,19 +47,10 @@ class DeleteUserFromFavorite extends FavoritesEvent {
   List<Object> get props => [userId, favoriteUserId];
 }
 
-class GetFavoriteProject extends FavoritesEvent {
+class GetFavorite extends FavoritesEvent {
   final int userId;
 
-  const GetFavoriteProject(this.userId);
-
-  @override
-  List<Object> get props => [userId];
-}
-
-class GetFavoriteUser extends FavoritesEvent {
-  final int userId;
-
-  const GetFavoriteUser(this.userId);
+  const GetFavorite(this.userId);
 
   @override
   List<Object> get props => [userId];

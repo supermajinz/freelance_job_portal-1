@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
 import 'package:freelance_job_portal/core/constants/colors.dart';
+import 'package:freelance_job_portal/features/auth/presentation/view_models/bloc/auth_bloc.dart';
 import 'package:freelance_job_portal/features/home/presentation/view_models/nav_bar_bloc/nav_bar_bloc.dart';
 import 'package:freelance_job_portal/features/home/presentation/view_models/nav_bar_bloc/nav_bar_event.dart';
 import 'package:freelance_job_portal/features/home/presentation/view_models/nav_bar_bloc/nav_bar_state.dart';
+import 'package:freelance_job_portal/features/saved/presentation/view_models/favorites_bloc/favorites_bloc.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:iconly/iconly.dart';
 import 'package:go_router/go_router.dart';
@@ -22,6 +24,12 @@ class Homescreen extends StatefulWidget {
 
 class _HomescreenState extends State<Homescreen> {
   final _advancedDrawerController = AdvancedDrawerController();
+  @override
+  void initState() {
+    super.initState();
+    final userId = (context.read<AuthBloc>().state as AuthAuthenticated).id;
+    context.read<FavoritesBloc>().add(GetFavorite(userId));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -86,6 +94,8 @@ class _HomescreenState extends State<Homescreen> {
                 ),
               ),
               body: state.currentPage,
+              floatingActionButtonLocation:
+                  FloatingActionButtonLocation.endFloat,
               floatingActionButton: FloatingActionButton(
                 onPressed: () {
                   GoRouter.of(context).push("/createproject");

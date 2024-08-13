@@ -6,7 +6,8 @@ import 'package:freelance_job_portal/features/report/presentation/views/widget/r
 import 'package:go_router/go_router.dart';
 
 class Report extends StatelessWidget {
-  const Report({super.key});
+  const Report({super.key, this.id});
+  final int? id;
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +15,7 @@ class Report extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
           title: const CustomTitle(
-            text: 'Report',
+            text: 'ابلاغ',
             white: true,
           ),
           centerTitle: true,
@@ -24,7 +25,7 @@ class Report extends StatelessWidget {
               GoRouter.of(context).pop();
             },
           )),
-      body: const SafeArea(child: ReportBody()),
+      body:  SafeArea(child: ReportBody(id: id)),
     );
   }
 }

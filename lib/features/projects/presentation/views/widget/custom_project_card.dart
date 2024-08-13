@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freelance_job_portal/core/utils/size_config.dart';
+import 'package:freelance_job_portal/core/widget/bookmark_button.dart';
 import 'package:freelance_job_portal/core/widget/custom_body_medium.dart';
 import 'package:freelance_job_portal/core/widget/custom_label.dart';
 import 'package:freelance_job_portal/core/widget/custom_subtitle_medium.dart';
@@ -21,175 +22,126 @@ class CustomProjectCard extends StatefulWidget {
 }
 
 class _CustomProjectCardState extends State<CustomProjectCard> {
-  bool isBookmarked = false;
   @override
   Widget build(BuildContext context) {
     final createDate = widget.project.createDate?.toLocal() ?? DateTime.now();
     final formattedCreateDate = timeago.format(createDate, locale: 'ar');
-    final userId = (context.read<AuthBloc>().state as AuthAuthenticated).id;
-    return BlocListener<FavoritesBloc, FavoritesState>(
-      listener: (context, state) {
-        if (state is AddProjectToFavoriteSuccess &&
-            state.projectId == widget.project.id) {
-          setState(() {
-            isBookmarked = true;
-          });
-        } else if (state is DeleteProjectFromFavoriteSuccess &&
-            state.projectId == widget.project.id) {
-          setState(() {
-            isBookmarked = false;
-          });
-        } else if (state is AddProjectToFavoriteSuccess) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text('zzzzzzzzzzzzzzzzzzzzzz'),
-              backgroundColor: Colors.red,
-            ),
-          );
-        }
-        else if (state is FavoritesFailure) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text('حدث خطأ: ${state.errMessage}'),
-              backgroundColor: Colors.red,
-            ),
-          );
-        }
-      },
-      child: InkWell(
-        onTap: () => GoRouter.of(context)
-            .push('/showprojectdetails', extra: widget.project),
-        child: AspectRatio(
-          aspectRatio:
-              SizeConfig.defaultSize! * 1.2 / SizeConfig.defaultSize! * 1,
-          child: Card(
-              child: Container(
-            padding: EdgeInsets.only(top: SizeConfig.defaultSize! * 0.2),
-            child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding:
-                        EdgeInsets.only(right: SizeConfig.defaultSize! * 1.2),
-                    child: Row(
-                      children: [
-                        CustomSubTitleMedium(text: widget.project.name),
-                        const Spacer(),
-                        CustomLabel(
-                          text: formattedCreateDate,
-                        ),
-                        IconButton(
-                          icon: Icon(
-                            isBookmarked
-                                ? Icons.bookmark_added
-                                : Icons.bookmark_add_outlined,
-                          ),
-                          onPressed: () {
-                            if (isBookmarked) {
-                              context.read<FavoritesBloc>().add(
-                                  DeleteProjectFromFavorite(
-                                      userId, widget.project.id));
-                            } else {
-                              context.read<FavoritesBloc>().add(
-                                  AddProjectToFavorite(
-                                      userId, widget.project.id));
-                            }
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding:
-                        EdgeInsets.only(right: SizeConfig.defaultSize! * 1.2),
-                    child: CustomBody(text: widget.project.description),
-                  ),
-                  const VirticalSpace(1),
-                  Padding(
-                    padding:
-                        EdgeInsets.only(right: SizeConfig.defaultSize! * 1.2),
-                    child: SizedBox(
-                      height: SizeConfig.defaultSize! * 4,
-                      child: ListView.separated(
-                        separatorBuilder: (context, index) {
-                          return const HorizintalSpace(.5);
-                        },
-                        scrollDirection: Axis.horizontal,
-                        itemCount: widget.project.projectSkill.length,
-                        itemBuilder: (context, index) {
-                          return CustomChoiceChip(
-                            text: widget.project.projectSkill[index].name,
-                            color: Theme.of(context).focusColor,
-                          );
-                        },
-                      ),
-                    ),
-                  ),
-                  const VirticalSpace(1),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+    return InkWell(
+      onTap: () => GoRouter.of(context)
+          .push('/showprojectdetails', extra: widget.project),
+      child: AspectRatio(
+        aspectRatio:
+            SizeConfig.defaultSize! * 1.2 / SizeConfig.defaultSize! * 1,
+        child: Card(
+            child: Container(
+          padding: EdgeInsets.only(top: SizeConfig.defaultSize! * 0.2),
+          child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding:
+                      EdgeInsets.only(right: SizeConfig.defaultSize! * 1.2),
+                  child: Row(
                     children: [
-                      CustomBody(
-                        isCurrency: true,
-                        text:
-                            '${widget.project.minBudget} - ${widget.project.maxBudget}',
-                        color: Colors.green,
+                      CustomSubTitleMedium(text: widget.project.name),
+                      const Spacer(),
+                      CustomLabel(
+                        text: formattedCreateDate,
                       ),
-                      CustomBody(
-                        isday: true,
-                        text: '${widget.project.expectedDuration}',
-                        color: Colors.red,
-                      ),
-                      CustomBody(
-                        text: '${widget.project.offerCount} عرض',
-                        color: Colors.blueAccent,
-                      )
+                      BookmarkButton(isProject: true, id: widget.project.id)
                     ],
                   ),
-                  const VirticalSpace(2),
-                  Padding(
-                    padding:
-                        EdgeInsets.only(right: SizeConfig.defaultSize! * 1.2),
-                    child: Row(
-                      children: [
-                        CircleAvatar(
-                          maxRadius: SizeConfig.defaultSize! * 3,
-                          backgroundImage: const AssetImage(
-                            "assets/images/pro.jpg",
-                          ),
-                        ),
-                        const HorizintalSpace(1),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            CustomSubTitleMedium(
-                                text: widget
-                                        .project.client?.userDto!.firstname! ??
-                                    ''),
-                            const VirticalSpace(1),
-                            Row(
-                              children: [
-                                CustomLabel(
-                                  text: "${widget.project.client?.rate ?? ''}",
-                                  color: Colors.black,
-                                ),
-                                const HorizintalSpace(.8),
-                                Icon(
-                                  Icons.star,
-                                  color: Colors.yellow,
-                                  size: SizeConfig.defaultSize! * 2,
-                                )
-                              ],
-                            )
-                          ],
-                        ),
-                      ],
+                ),
+                Padding(
+                  padding:
+                      EdgeInsets.only(right: SizeConfig.defaultSize! * 1.2),
+                  child: CustomBody(text: widget.project.description),
+                ),
+                const VirticalSpace(1),
+                Padding(
+                  padding:
+                      EdgeInsets.only(right: SizeConfig.defaultSize! * 1.2),
+                  child: SizedBox(
+                    height: SizeConfig.defaultSize! * 4,
+                    child: ListView.separated(
+                      separatorBuilder: (context, index) {
+                        return const HorizintalSpace(.5);
+                      },
+                      scrollDirection: Axis.horizontal,
+                      itemCount: widget.project.projectSkill.length,
+                      itemBuilder: (context, index) {
+                        return CustomChoiceChip(
+                          text: widget.project.projectSkill[index].name,
+                          color: Theme.of(context).focusColor,
+                        );
+                      },
                     ),
                   ),
-                ]),
-          )),
-        ),
+                ),
+                const VirticalSpace(1),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    CustomBody(
+                      isCurrency: true,
+                      text:
+                          '${widget.project.minBudget} - ${widget.project.maxBudget}',
+                      color: Colors.green,
+                    ),
+                    CustomBody(
+                      isday: true,
+                      text: '${widget.project.expectedDuration}',
+                      color: Colors.red,
+                    ),
+                    CustomBody(
+                      text: '${widget.project.offerCount} عرض',
+                      color: Colors.blueAccent,
+                    )
+                  ],
+                ),
+                const VirticalSpace(2),
+                Padding(
+                  padding:
+                      EdgeInsets.only(right: SizeConfig.defaultSize! * 1.2),
+                  child: Row(
+                    children: [
+                      CircleAvatar(
+                        maxRadius: SizeConfig.defaultSize! * 3,
+                        backgroundImage: const AssetImage(
+                          "assets/images/pro.jpg",
+                        ),
+                      ),
+                      const HorizintalSpace(1),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          CustomSubTitleMedium(
+                              text:
+                                  widget.project.client?.userDto!.firstname! ??
+                                      ''),
+                          const VirticalSpace(1),
+                          Row(
+                            children: [
+                              CustomLabel(
+                                text: "${widget.project.client?.rate ?? ''}",
+                                color: Colors.black,
+                              ),
+                              const HorizintalSpace(.8),
+                              Icon(
+                                Icons.star,
+                                color: Colors.yellow,
+                                size: SizeConfig.defaultSize! * 2,
+                              )
+                            ],
+                          )
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+              ]),
+        )),
       ),
     );
   }

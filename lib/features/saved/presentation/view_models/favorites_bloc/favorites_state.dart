@@ -41,22 +41,14 @@ class DeleteUserFromFavoriteSuccess extends FavoritesState {
   const DeleteUserFromFavoriteSuccess(this.favoriteUserId);
 }
 
-class GetFavoriteProjectSuccess extends FavoritesState {
+class GetFavoriteSuccess extends FavoritesState {
   final List<ProjectModel> projects;
-
-  const GetFavoriteProjectSuccess(this.projects);
-
-  @override
-  List<Object> get props => [projects];
-}
-
-class GetFavoriteUserSuccess extends FavoritesState {
   final List<User> users;
 
-  const GetFavoriteUserSuccess(this.users);
+  const GetFavoriteSuccess(this.projects, this.users);
 
   @override
-  List<Object> get props => [users];
+  List<Object> get props => [users, projects];
 }
 
 class FavoritesFailure extends FavoritesState {

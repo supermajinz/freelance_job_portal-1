@@ -21,6 +21,10 @@ ThemeData themeEn = ThemeData(
         bodySmall: TextStyle(color: Colors.grey, fontSize: 12)));
 ThemeData themeAr = ThemeData(
     fontFamily: "Roboto",
+    snackBarTheme: const SnackBarThemeData(
+        backgroundColor: snackbarBackground,
+        shape:
+            RoundedRectangleBorder(side: BorderSide(color: success, width: 2))),
     colorSchemeSeed: Colors.blue,
     textTheme: const TextTheme(
       headlineLarge: TextStyle(

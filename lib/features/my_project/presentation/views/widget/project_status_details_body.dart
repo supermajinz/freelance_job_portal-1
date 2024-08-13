@@ -73,6 +73,12 @@ class _ShowProjectDetailsBodyState extends State<ProjectStatusDetailsBody>
   @override
   Widget build(BuildContext context) {
     final userId = (context.read<AuthBloc>().state as AuthAuthenticated).id;
+    print("will $userId");
+    print("will ${widget.project.status == "inProgress"}");
+    print("will ${widget.project.status}");
+    print("will ${widget.project.worker?.userId}");
+    print(
+        "will ${widget.project.worker?.userId == userId}____${widget.project.status == "inProgress"}");
     return Scaffold(
       body: BlocListener<ProjectBloc, ProjectState>(
         listener: (context, state) {
@@ -268,6 +274,7 @@ class _ShowProjectDetailsBodyState extends State<ProjectStatusDetailsBody>
   }
 
   _buildSubmitButton(BuildContext context, ProjectModel project) {
+    print("will submit");
     return Center(
       child: CustomButtonGeneral(
         onPressed: () {

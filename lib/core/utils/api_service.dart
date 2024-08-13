@@ -13,12 +13,13 @@ class ApiService {
         _authTokenService = authTokenService {
     _dio.interceptors.add(InterceptorsWrapper(
       onRequest: (options, handler) async {
-        const token =
-            "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIwOTg2NDExNjI0IiwiaWF0IjoxNzIzNDg1MjgzLCJleHAiOjE3MjM1NzE2ODN9.h60OHRJvrBLWLGV79q_TSQxCO-0uavUb_PCw_Kr1RAc";
-        // final token = await _authTokenService.getToken('access_token');
-        // if (token != null) {
+        // const token =
+        //     "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIwOTg2NDExNjI0IiwiaWF0IjoxNzIzNDg1MjgzLCJleHAiOjE3MjM1NzE2ODN9.h60OHRJvrBLWLGV79q_TSQxCO-0uavUb_PCw_Kr1RAc";
+            // "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIwOTg2NDExNjIxIiwiaWF0IjoxNzIzMzk4OTgxLCJleHAiOjE3MjM0ODUzODF9.VnjjhGZc5VlW4KB_qS3a0DyatmvloiMDjctHCMR9ec8";
+        final token = await _authTokenService.getToken('access_token');
+        if (token != null) {
         options.headers['Authorization'] = 'Bearer $token';
-        // }
+        }
         return handler.next(options);
       },
       onError: (DioException error, handler) async {
@@ -59,6 +60,7 @@ class ApiService {
       print("performing post request: $endpoint");
       print('api service post: $data');
       final response = await _dio.post(endpoint, data: data);
+      print("post request $endpoint response: ${response.data}");
       if (response.data is String) {
         // If the response is a string, wrap it in a Map
         return {'message': response.data};

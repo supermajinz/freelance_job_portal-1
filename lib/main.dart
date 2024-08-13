@@ -11,6 +11,7 @@ import 'package:freelance_job_portal/features/my_project/presentation/view_model
 import 'package:freelance_job_portal/features/offers/presentation/view_models/bloc/offer_bloc.dart';
 import 'package:freelance_job_portal/features/projects/presentation/view_models/offer_by_project/offer_by_project_bloc.dart';
 import 'package:freelance_job_portal/features/projects/presentation/view_models/project_bloc/project_bloc.dart';
+import 'package:freelance_job_portal/features/report/presentation/view_models/bloc/report_bloc.dart';
 import 'package:freelance_job_portal/features/review/presentation/view_models/bloc/review_bloc.dart';
 import 'package:freelance_job_portal/features/saved/presentation/view_models/favorites_bloc/favorites_bloc.dart';
 import 'package:freelance_job_portal/features/searsh/presentation/view_models/search_bloc/search_bloc.dart';
@@ -64,6 +65,9 @@ void main() async {
       BlocProvider(
           create: (context) =>
               FavoritesBloc(DependencyInjection.provideFavoriteRepo())),
+      BlocProvider(
+          create: (context) =>
+              ReportBloc(DependencyInjection.provideReportRepo())),
     ],
     child: const FreelanceJob(),
   ));

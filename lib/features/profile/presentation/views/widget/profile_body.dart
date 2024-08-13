@@ -42,6 +42,9 @@ class _ProfileBodyState extends State<ProfileBody> {
     super.initState();
     currentProfile =
         widget.clientProfiles[0]; //TODO make this shared preferences
+    context
+        .read<ReviewBloc>()
+        .add(GetReview(currentProfile.id!));
   }
 
   @override
@@ -194,9 +197,6 @@ class _ProfileBodyState extends State<ProfileBody> {
                 ),
                 BlocBuilder<ReviewBloc, ReviewState>(
                   builder: (context, state) {
-                    context
-                        .read<ReviewBloc>()
-                        .add(GetReview(currentProfile.id!));
                     if (state is ReviewLoading) {
                       return const Center(child: CustomLoading());
                     } else if (state is GetReviewSuccess) {

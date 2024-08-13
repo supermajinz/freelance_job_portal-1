@@ -54,7 +54,6 @@ class OfferDetailsBody extends StatelessWidget {
             children: [
               const VirticalSpace(6),
               Container(
-                constraints: const BoxConstraints(minHeight: 600),
                 margin: EdgeInsets.symmetric(
                     horizontal: SizeConfig.defaultSize! * .5),
                 padding: EdgeInsets.all(SizeConfig.defaultSize! * 1),
@@ -189,6 +188,7 @@ class OfferDetailsBody extends StatelessWidget {
                 ),
               ),
               Container(
+                constraints: const BoxConstraints(minHeight: 600),
                 margin: EdgeInsets.symmetric(
                     horizontal: SizeConfig.defaultSize! * .5),
                 decoration: BoxDecoration(
@@ -202,6 +202,7 @@ class OfferDetailsBody extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [CustomLabel(text: formattedCreateDate)],
                       ),
+                      VirticalSpace(SizeConfig.defaultSize! * .2),
                       Padding(
                         padding: EdgeInsets.symmetric(
                             vertical: SizeConfig.defaultSize! * 1),
@@ -227,7 +228,7 @@ class OfferDetailsBody extends StatelessWidget {
                                   ),
                         ),
                       ),
-                      const VirticalSpace(4),
+                      const VirticalSpace(6),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -237,7 +238,7 @@ class OfferDetailsBody extends StatelessWidget {
                           )
                         ],
                       ),
-                      const VirticalSpace(4),
+                      const VirticalSpace(5),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -251,6 +252,7 @@ class OfferDetailsBody extends StatelessWidget {
                           )
                         ],
                       ),
+                      const VirticalSpace(12),
                       if (project.client?.userId == userId)
                         _buildProjectOwnerButtons(context),
                       if (offer.worker?.userId == userId)
@@ -273,6 +275,7 @@ class OfferDetailsBody extends StatelessWidget {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text('تم قبول العرض بنجاح')),
           );
+          GoRouter.of(context).pushReplacement("/myproject");
         } else if (state is OfferReject) {
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text('تم رفض العرض بنجاح')),

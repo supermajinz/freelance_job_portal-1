@@ -53,7 +53,9 @@ class ProjectModel {
             ? DateTime.now()
             : DateTime.parse(json['createDate'] as String),
         client: Client.fromJson(json['client'] as Map<String, dynamic>),
-       worker: json['worker'] == null? null: Worker.fromJson(json['worker'] as Map<String, dynamic>),
+        worker: json['worker'] == null
+            ? null
+            : Worker.fromJson(json['worker'] as Map<String, dynamic>),
         projectCategory: Categories.fromJson(
             json["projectCategory"] as Map<String, dynamic>),
         projectSkill: ((json['projectSkill'] ?? []) as List<dynamic>)
@@ -113,18 +115,7 @@ class ProjectModel {
   bool operator ==(covariant ProjectModel other) {
     if (identical(this, other)) return true;
 
-    return other.id == id &&
-        other.name == name &&
-        other.description == description &&
-        other.minBudget == minBudget &&
-        other.maxBudget == maxBudget &&
-        other.expectedDuration == expectedDuration &&
-        other.offerCount == offerCount &&
-        other.status == status &&
-        other.createDate == createDate &&
-        other.client == client &&
-        other.worker == worker &&
-        other.projectCategory == projectCategory;
+    return other.id == id;
   }
 
   @override
