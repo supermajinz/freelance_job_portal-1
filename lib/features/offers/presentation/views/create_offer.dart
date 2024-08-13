@@ -15,6 +15,7 @@ import '../../../profile/worker profile/bloc/worker_profile_bloc.dart';
 
 class CreateOffer extends StatelessWidget {
   const CreateOffer({super.key, required this.projectModel});
+
   final ProjectModel projectModel;
 
   @override
@@ -41,7 +42,8 @@ class CreateOffer extends StatelessWidget {
             } else if (authState is AuthAuthenticated) {
               return BlocProvider(
                 create: (context) => WorkerProfileBloc(
-                    DependencyInjection.provideWorkerProfileRepo())
+                    DependencyInjection.provideWorkerProfileRepo(),
+                    DependencyInjection.provideSharedPreferences())
                   ..add(GetWorkerProfiles(authState.id)),
                 child: BlocBuilder<WorkerProfileBloc, WorkerProfileState>(
                   builder: (context, profileState) {
@@ -78,7 +80,7 @@ class CreateOffer extends StatelessWidget {
         const Center(
           child: Text('عليك أن تنشأ حساب لكي تنشأ ملف شخصي'),
         ),
-        VirticalSpace(1),
+        const VirticalSpace(1),
         CustomButtonGeneral(
           onPressed: () {
             GoRouter.of(context).push("/signup");
