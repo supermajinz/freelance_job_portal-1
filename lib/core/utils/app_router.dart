@@ -26,8 +26,10 @@ import 'package:freelance_job_portal/features/profile/data/models/profile/worker
 import 'package:freelance_job_portal/features/profile/presentation/views/create_profile.dart';
 import 'package:freelance_job_portal/features/profile/presentation/views/edit_profile.dart';
 import 'package:freelance_job_portal/features/profile/presentation/views/profile.dart';
+import 'package:freelance_job_portal/features/profile/presentation/views/widget/visit_profile_body.dart';
 import 'package:freelance_job_portal/features/profile/worker%20profile/widgets/create_worker_profile.dart';
 import 'package:freelance_job_portal/features/profile/worker%20profile/widgets/edit_worker_profile.dart';
+import 'package:freelance_job_portal/features/profile/worker%20profile/widgets/visit_worker_profile.dart';
 import 'package:freelance_job_portal/features/profile/worker%20profile/widgets/worker_profile_screen.dart';
 import 'package:freelance_job_portal/features/projects/data/model/project_model/project_model.dart';
 import 'package:freelance_job_portal/features/projects/presentation/views/create_project.dart';
@@ -38,6 +40,7 @@ import 'package:freelance_job_portal/features/protofolio/presentaion/view%20mode
 import 'package:freelance_job_portal/features/protofolio/presentaion/views/add_protofolio.dart';
 import 'package:freelance_job_portal/features/protofolio/presentaion/views/edit_protofolio.dart';
 import 'package:freelance_job_portal/features/protofolio/presentaion/views/show_proto_details.dart';
+import 'package:freelance_job_portal/features/protofolio/presentaion/views/widget/visit_porto_details.dart';
 import 'package:freelance_job_portal/features/report/presentation/views/report.dart';
 import 'package:freelance_job_portal/features/review/presentation/view_models/args/review_args.dart';
 import 'package:freelance_job_portal/features/review/presentation/views/review.dart';
@@ -241,6 +244,21 @@ abstract class AppRouter {
       path: '/projectstatusdetails',
       builder: (context, state) => ProjectStatusDetails(
         projectModel: state.extra as ProjectModel,
+      ),
+    ),
+    GoRoute(
+      path: '/visitprofile',
+      builder: (context, state) => VisitProfileBody(visitedProfile: state.extra as ClientProfile),
+    ),
+     GoRoute(
+      path: '/visitworkerprofile',
+      builder: (context, state) =>
+          VisitWorkerProfileBody(visitedProfile: state.extra as WorkerProfile),
+    ),
+     GoRoute(
+      path: '/visitshowprotodetails',
+      builder: (context, state) => VisitShowProtoDetails(
+        job: state.extra as PortofolioJob,
       ),
     ),
   ]);

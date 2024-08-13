@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:freelance_job_portal/features/protofolio/data/models/portofolio_job/portofolio_job/photo_dt_o.dart';
 
 import '../../../../home/data/model/skills/skills.dart';
 import 'category_dto.dart';
@@ -12,7 +13,7 @@ class Worker extends Equatable {
   final double? rate;
   final JobTitleDto? jobTitleDto;
   final CategoryDto? categoryDto;
-  final List<dynamic>? photoDtOs;
+  final List<PhotoDtO>? photoDtOs;
   final List<Skills>? skillDtOs;
   final UserDto? userDto;
 
@@ -39,7 +40,9 @@ class Worker extends Equatable {
         categoryDto: json['categoryDTO'] == null
             ? null
             : CategoryDto.fromJson(json['categoryDTO'] as Map<String, dynamic>),
-        photoDtOs: json['photoDTOs'] as List<dynamic>?,
+       photoDtOs: (json['photoDTOs'] as List<dynamic>?)
+            ?.map((e) => PhotoDtO.fromJson(e as Map<String, dynamic>))
+            .toList(),
         skillDtOs: ((json['skillDTOs'] ?? []) as List<dynamic>)
             .map((e) => Skills.fromJson(e as Map<String, dynamic>))
             .toList(),
@@ -55,7 +58,7 @@ class Worker extends Equatable {
         'rate': rate,
         'jobTitleDTO': jobTitleDto?.toJson(),
         'categoryDTO': categoryDto?.toJson(),
-        'photoDTOs': photoDtOs,
+        'photoDTOs': photoDtOs?.map((e) => e.toJson()).toList(),
         'skillDTOs': skillDtOs,
         'userDTO': userDto?.toJson(),
       };

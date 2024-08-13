@@ -19,7 +19,7 @@ class CustomOffer extends StatelessWidget {
     final formattedCreateDate = timeago.format(createDate, locale: 'ar');
     final workerName =
         '${offer.worker!.userDto!.firstname ?? 'Unknown'} ${offer.worker!.userDto!.lastname ?? ''}';
-    final workerPhotoUrl = offer.worker!.photoDtOs?.isNotEmpty == true
+    final workerPhotoUrl = offer.worker!.photoDtOs!.isNotEmpty == true
         ? "${DependencyInjection.baseUrl}file/photo/${offer.worker!.photoDtOs![0].photo}"
         : null;
     final backgroundColor =

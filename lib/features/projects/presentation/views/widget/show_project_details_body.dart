@@ -4,6 +4,8 @@ import 'package:freelance_job_portal/core/utils/dependency_injection.dart';
 import 'package:freelance_job_portal/core/utils/size_config.dart';
 import 'package:freelance_job_portal/core/widget/space.dart';
 import 'package:freelance_job_portal/features/offers/presentation/view_models/args/offer_details_args.dart';
+import 'package:freelance_job_portal/features/profile/data/models/profile/client_profile.dart';
+import 'package:freelance_job_portal/features/profile/presentation/view_models/bloc/profile_bloc.dart';
 import 'package:freelance_job_portal/features/projects/presentation/view_models/project_bloc/project_bloc.dart';
 import 'package:freelance_job_portal/features/offers/presentation/views/widget/custom_offer.dart';
 import 'package:freelance_job_portal/features/projects/presentation/views/widget/custom_chip_project.dart';
@@ -320,6 +322,7 @@ class _ShowProjectDetailsBodyState extends State<ShowProjectDetailsBody> {
   Widget _buildClientInfoContainer(BuildContext context, ProjectModel project) {
     final userId = (context.read<AuthBloc>().state as AuthAuthenticated).id;
     final client = project.client;
+
     final clientName =
         '${client?.userDto?.firstname ?? 'Unknown'} ${client?.userDto?.lastname ?? ''}';
     final clientPhotoUrl = client?.photoDtOs?.isNotEmpty == true
@@ -327,122 +330,149 @@ class _ShowProjectDetailsBodyState extends State<ShowProjectDetailsBody> {
         : null;
     final backgroundColor =
         clientPhotoUrl == null ? Utils.getBackgroundColor(clientName) : null;
-    return Container(
-        margin: EdgeInsets.symmetric(horizontal: SizeConfig.defaultSize! * .5),
-        padding: EdgeInsets.all(SizeConfig.defaultSize! * 1),
-        decoration: BoxDecoration(
-          color: Theme.of(context).hintColor,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(SizeConfig.defaultSize! * 4),
-            topRight: Radius.circular(SizeConfig.defaultSize! * 4),
-          ),
-        ),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-                padding: EdgeInsets.only(top: SizeConfig.defaultSize! * .5),
-                child: CircleAvatar(
-                    radius: SizeConfig.defaultSize! * 5,
-                    backgroundColor: backgroundColor,
-                    backgroundImage: clientPhotoUrl != null
-                        ? NetworkImage(clientPhotoUrl)
-                        : null,
-                    child: clientPhotoUrl == null
-                        ? Center(
-                            child: Text(
-                              Utils.getInitials(clientName),
-                              style: const TextStyle(
-                                  color: Colors.white, fontSize: 30),
-                            ),
-                          )
-                        : null)),
-            const HorizintalSpace(.5),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                CustomSubTitleMedium(
-                  text:
-                      "${project.client?.userDto?.firstname ?? 'Unknown'} ${project.client?.userDto?.lastname ?? ''}",
-                  color: Colors.white,
+    return BlocProvider(
+      create: (context) => ProfileBloc(DependencyInjection.provideProfileRepo())
+        ..add(GetProfiles(client!.userDto!.id!)),
+      child: BlocBuilder<ProfileBloc, ProfileState>(
+        builder: (context, state) {
+          if (state is ProfileLoading) {
+            return CircularProgressIndicator();
+          }
+          if (state is! ProfilesLoaded) {
+            return SizedBox();
+          }
+          final ClientProfile visitedProfile =
+              state.profiles.firstWhere((profile) => profile.id == client!.id!);
+          return Container(
+              margin: EdgeInsets.symmetric(
+                  horizontal: SizeConfig.defaultSize! * .5),
+              padding: EdgeInsets.all(SizeConfig.defaultSize! * 1),
+              decoration: BoxDecoration(
+                color: Theme.of(context).hintColor,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(SizeConfig.defaultSize! * 4),
+                  topRight: Radius.circular(SizeConfig.defaultSize! * 4),
                 ),
-                Padding(
-                  padding: EdgeInsets.only(right: SizeConfig.defaultSize! * .5),
-                  child: CustomBody(
-                    text: project.client?.jobTitleDto?.title ?? 'No job title',
-                    color: Colors.white,
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(right: SizeConfig.defaultSize! * .8),
-                  child: const CustomBody(
-                    text: "13 مشروع مكتمل",
-                    color: Colors.white,
-                  ),
-                ),
-                const VirticalSpace(0.2),
-                Row(
-                  children: [
-                    CustomLabel(
-                      text: project.client?.rate.toString() ?? 'N/A',
-                      color: Colors.white,
-                    ),
-                    const HorizintalSpace(0.5),
-                    const Icon(
-                      Icons.star,
-                      color: Colors.yellow,
-                      size: 20,
-                    ),
-                  ],
-                ),
-              ],
-            ),
-            const Spacer(),
-            if (widget.project.client!.userId == userId)
-              PopupMenuButton(
-                position: PopupMenuPosition.under,
-                constraints: const BoxConstraints(maxHeight: 150),
-                elevation: 10,
-                iconColor: Colors.white,
-                iconSize: 25,
-                onSelected: (value) {
-                  if (value == 'edit') {
-                    GoRouter.of(context).push("/editproject", extra: project);
-                  } else if (value == 'delete') {
-                    _deleteProject();
-                  }
-                },
-                itemBuilder: (context) => [
-                  const PopupMenuItem(
-                      value: 'edit',
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Icon(IconlyBroken.edit),
-                          CustomBody(
-                            text: "تعديل المشروع",
-                          ),
-                        ],
-                      )),
-                  const PopupMenuItem(
-                      value: "delete",
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Icon(
-                            IconlyBroken.delete,
-                            color: Colors.red,
-                          ),
-                          CustomBody(
-                            text: "حذف المشروع",
-                            color: Colors.red,
-                          ),
-                        ],
-                      )),
-                ],
               ),
-          ],
-        ));
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                      padding:
+                          EdgeInsets.only(top: SizeConfig.defaultSize! * .5),
+                      child: InkWell(
+                        onTap: () {
+                          GoRouter.of(context).push('/visitprofile',extra: visitedProfile);
+                        },
+                        child: CircleAvatar(
+                            radius: SizeConfig.defaultSize! * 5,
+                            backgroundColor: backgroundColor,
+                            backgroundImage: clientPhotoUrl != null
+                                ? NetworkImage(clientPhotoUrl)
+                                : null,
+                            child: clientPhotoUrl == null
+                                ? Center(
+                                    child: Text(
+                                      Utils.getInitials(clientName),
+                                      style: const TextStyle(
+                                          color: Colors.white, fontSize: 30),
+                                    ),
+                                  )
+                                : null),
+                      )),
+                  const HorizintalSpace(.5),
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      CustomSubTitleMedium(
+                        text:
+                            "${project.client?.userDto?.firstname ?? 'Unknown'} ${project.client?.userDto?.lastname ?? ''}",
+                        color: Colors.white,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(
+                            right: SizeConfig.defaultSize! * .5),
+                        child: CustomBody(
+                          text: project.client?.jobTitleDto?.title ??
+                              'No job title',
+                          color: Colors.white,
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(
+                            right: SizeConfig.defaultSize! * .8),
+                        child: const CustomBody(
+                          text: "13 مشروع مكتمل",
+                          color: Colors.white,
+                        ),
+                      ),
+                      const VirticalSpace(0.2),
+                      Row(
+                        children: [
+                          CustomLabel(
+                            text: project.client?.rate.toString() ?? 'N/A',
+                            color: Colors.white,
+                          ),
+                          const HorizintalSpace(0.5),
+                          const Icon(
+                            Icons.star,
+                            color: Colors.yellow,
+                            size: 20,
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  const Spacer(),
+                  if (widget.project.client!.userId == userId)
+                    PopupMenuButton(
+                      position: PopupMenuPosition.under,
+                      constraints: const BoxConstraints(maxHeight: 150),
+                      elevation: 10,
+                      iconColor: Colors.white,
+                      iconSize: 25,
+                      onSelected: (value) {
+                        if (value == 'edit') {
+                          GoRouter.of(context)
+                              .push("/editproject", extra: project);
+                        } else if (value == 'delete') {
+                          _deleteProject();
+                        }
+                      },
+                      itemBuilder: (context) => [
+                        const PopupMenuItem(
+                            value: 'edit',
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Icon(IconlyBroken.edit),
+                                CustomBody(
+                                  text: "تعديل المشروع",
+                                ),
+                              ],
+                            )),
+                        const PopupMenuItem(
+                            value: "delete",
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Icon(
+                                  IconlyBroken.delete,
+                                  color: Colors.red,
+                                ),
+                                CustomBody(
+                                  text: "حذف المشروع",
+                                  color: Colors.red,
+                                ),
+                              ],
+                            )),
+                      ],
+                    ),
+                ],
+              ));
+        },
+      ),
+    );
   }
 
   Widget buildClientImage(dynamic project) {
