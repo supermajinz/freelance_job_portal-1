@@ -43,14 +43,16 @@ class WorkerCustomProfileCard extends StatelessWidget {
           children: [
             GestureDetector(
               onTap: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => ImageGalleryScreen(
-                      profile: profile,
-                    ),
-                  ),
-                );
+                profile.photoDtOs!.isNotEmpty
+                    ? Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => ImageGalleryScreen(
+                            profile: profile,
+                          ),
+                        ),
+                      )
+                    : null;
               },
               child: Hero(
                 tag: 'profileImage',

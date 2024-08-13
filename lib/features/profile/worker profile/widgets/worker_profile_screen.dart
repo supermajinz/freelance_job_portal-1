@@ -23,7 +23,8 @@ class WorkerProfileScreen extends StatelessWidget {
         } else if (authState is AuthAuthenticated) {
           return BlocProvider(
             create: (context) => WorkerProfileBloc(
-                DependencyInjection.provideWorkerProfileRepo())
+                DependencyInjection.provideWorkerProfileRepo(),
+                DependencyInjection.provideSharedPreferences())
               ..add(GetWorkerProfiles(authState.id)),
             child: BlocBuilder<WorkerProfileBloc, WorkerProfileState>(
               builder: (context, profileState) {

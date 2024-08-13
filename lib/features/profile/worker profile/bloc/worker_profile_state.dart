@@ -36,8 +36,15 @@ class WorkerProfileNoProfiles extends WorkerProfileState {}
 
 class WorkerProfilesLoaded extends WorkerProfileState {
   final List<WorkerProfile> profiles;
+  final WorkerProfile currentProfile;
 
-  const WorkerProfilesLoaded(this.profiles);
+  const WorkerProfilesLoaded(this.profiles, {required this.currentProfile});
+
+  @override
+  List<Object> get props => [
+        profiles,
+        currentProfile,
+      ];
 }
 
 class WorkerProfileCreateLoading extends WorkerProfileState {}

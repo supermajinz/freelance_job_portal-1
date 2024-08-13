@@ -80,3 +80,12 @@ class DeleteWorkerProfileEvent extends WorkerProfileEvent {
 
   const DeleteWorkerProfileEvent(this.profileId);
 }
+
+class ChangeCurrentProfileEvent extends WorkerProfileEvent {
+  final int profileId;
+  const ChangeCurrentProfileEvent(this.profileId);
+  @override
+  List<Object> get props => [
+        profileId,
+      ];
+}

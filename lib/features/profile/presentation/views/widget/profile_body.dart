@@ -5,6 +5,7 @@ import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:freelance_job_portal/core/widget/custom_loading.dart';
 import 'package:freelance_job_portal/features/profile/presentation/views/widget/custom_review_card_client.dart';
 import 'package:freelance_job_portal/features/projects/data/model/project_model/project_model.dart';
+import 'package:freelance_job_portal/features/protofolio/presentaion/views/widget/portofolio_widget.dart';
 import 'package:freelance_job_portal/features/review/presentation/view_models/bloc/review_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:rating_summary/rating_summary.dart';
@@ -18,9 +19,12 @@ import 'package:freelance_job_portal/features/profile/presentation/view_models/b
 import 'package:freelance_job_portal/features/profile/presentation/views/widget/custom_profile_card.dart';
 import 'package:freelance_job_portal/features/profile/presentation/views/widget/custom_protofolio_card.dart';
 import 'package:freelance_job_portal/features/profile/presentation/views/widget/custom_review_card_worker.dart';
+import 'package:freelance_job_portal/features/protofolio/presentaion/views/widget/custom_protofolio_card.dart';
+import 'package:freelance_job_portal/features/profile/presentation/views/widget/custom_review_card.dart';
 import 'package:freelance_job_portal/features/profile/presentation/views/widget/custom_zzz.dart';
 import 'package:freelance_job_portal/features/profile/presentation/views/widget/show_chip.dart';
 import 'package:freelance_job_portal/features/projects/presentation/views/widget/custom_project_card.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../worker profile/widgets/custom_rate.dart';
 
@@ -42,15 +46,41 @@ class _ProfileBodyState extends State<ProfileBody> {
     super.initState();
     currentProfile =
         widget.clientProfiles[0]; //TODO make this shared preferences
-    context
-        .read<ReviewBloc>()
-        .add(GetReview(currentProfile.id!));
+    _loadSavedProfile();
+  }
+
+  Future<void> _loadSavedProfile() async {
+    final savedProfileId = await _loadCurrentProfileId();
+    if (savedProfileId != null) {
+      final savedProfile = widget.clientProfiles.firstWhere(
+        (profile) => profile.id == savedProfileId,
+        orElse: () => widget.clientProfiles[0],
+      );
+      setState(() {
+        currentProfile = savedProfile;
+      });
+      context
+          .read<ReviewBloc>()
+          .add(GetReview(currentProfile.id!));
+
+    }
+  }
+
+  Future<int?> _loadCurrentProfileId() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getInt('current_client_profile_id');
+  }
+
+  Future<void> _saveCurrentProfile(int profileId) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setInt('current_client_profile_id', profileId);
   }
 
   @override
   Widget build(BuildContext context) {
     return ListView(
       children: [
+
         // ClipPath(
         //     clipper: WaveClipperTwo(),
         //     child: Container(
@@ -86,10 +116,12 @@ class _ProfileBodyState extends State<ProfileBody> {
                                     currentProfile =
                                         widget.clientProfiles[index];
                                   });
-                                  Navigator.pop(context);
+                                  _saveCurrentProfile(currentProfile.id!);
+                                  GoRouter.of(context).pop();
+
+                                  //GoRouter.of(context).pop();
                                 },
                                 child: CustomProfileCard(
-                                  //TODO: on clicked changes current profile.
                                   profile: widget.clientProfiles[index],
                                   icon: Icons.edit,
                                   onPressed: () {},
@@ -165,12 +197,6 @@ class _ProfileBodyState extends State<ProfileBody> {
                         skills: currentProfile.skillDtOs!,
                       )
                     : const SizedBox(),
-                const VirticalSpace(4),
-                const CustomSubTitle(
-                  text: "Portfolio",
-                ),
-                const VirticalSpace(1.5),
-                const CustomProtofolioCard(),
                 const VirticalSpace(4),
                 const CustomSubTitle(
                   text: "Projects completed",

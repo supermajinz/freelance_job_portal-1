@@ -18,7 +18,7 @@ class ApiService {
             // "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIwOTg2NDExNjIxIiwiaWF0IjoxNzIzMzk4OTgxLCJleHAiOjE3MjM0ODUzODF9.VnjjhGZc5VlW4KB_qS3a0DyatmvloiMDjctHCMR9ec8";
         final token = await _authTokenService.getToken('access_token');
         if (token != null) {
-        options.headers['Authorization'] = 'Bearer $token';
+          options.headers['Authorization'] = 'Bearer $token';
         }
         return handler.next(options);
       },
@@ -42,6 +42,9 @@ class ApiService {
           "performing get request: $endpoint${params != null ? " ,params: $params" : ""}");
       final response = await _dio.get(endpoint, queryParameters: params);
       if (response.data is int) {
+        return {'data': response.data};
+      }
+      if (response.data is List) {
         return {'data': response.data};
       }
       print("get request $endpoint response: ${response.data}");
@@ -104,6 +107,9 @@ class ApiService {
   Future<Map<String, dynamic>> delete(String endpoint) async {
     try {
       final response = await _dio.delete(endpoint);
+      if (response is! Map<String, dynamic>) {
+        return {"date": response};
+      }
       return response.data;
     } on DioException catch (e) {
       print('DioException: ${e.message}');

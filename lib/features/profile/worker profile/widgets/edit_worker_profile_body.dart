@@ -313,10 +313,10 @@ class _EditWorkerProfileBodyState extends State<EditWorkerProfileBody> {
     );
 
     // Navigate to the next screen or perform any other action
-    context.read<NavigationBloc>().add(const PageTapped(
-          0,
-        ));
-    GoRouter.of(context).push('/homescreen');
+    //  context.read<NavigationBloc>().add(const PageTapped(
+    //      0,
+    //  ));
+    GoRouter.of(context).pushReplacement('/homescreen');
   }
 }
 

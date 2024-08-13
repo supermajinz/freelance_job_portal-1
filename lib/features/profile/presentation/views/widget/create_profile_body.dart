@@ -146,16 +146,6 @@ class _CreateProfileBodyState extends State<CreateProfileBody> {
                     });
                   },
                 ),
-                const VirticalSpace(4),
-                AddEditProto(
-                  text: "Add Protofolio Project",
-                  onTap: () {
-                    context.read<NavigationBloc>().add(const PageTapped(
-                          4,
-                        ));
-                    GoRouter.of(context).push('/homescreen');
-                  },
-                ),
                 const VirticalSpace(6),
                 Center(
                   child: CustomButtonGeneral(
@@ -177,7 +167,7 @@ class _CreateProfileBodyState extends State<CreateProfileBody> {
                     },
                     color: Theme.of(context).primaryColor,
                     textcolor: Colors.white,
-                    text: "Create",
+                    text: "إنشاء",
                     borderSide: const BorderSide(width: 0),
                     width: SizeConfig.defaultSize! * 20,
                   ),
@@ -225,7 +215,7 @@ class _CreateProfileBodyState extends State<CreateProfileBody> {
     context.read<NavigationBloc>().add(const PageTapped(
           4,
         ));
-    GoRouter.of(context).push('/homescreen');
+    GoRouter.of(context).pushReplacement('/homescreen');
   }
 }
 

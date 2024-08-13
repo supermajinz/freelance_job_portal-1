@@ -55,9 +55,7 @@ class CustomProjectStatus extends StatelessWidget {
               margin: EdgeInsets.only(right: SizeConfig.defaultSize! * 1.2),
               child: CustomBody(text: projectModel.description),
             ),
-            CustomTimeline(
-                currentStatus:
-                    ProjectModel.projectStatuses.indexOf(projectModel.status)),
+             CustomTimeline(currentStatus: ProjectModel.projectStatuses.indexOf(projectModel.status)),
             const VirticalSpace(1),
             Container(
               margin: EdgeInsets.only(right: SizeConfig.defaultSize! * 1.2),

@@ -29,7 +29,7 @@ class _EditImageGalleryWidgetState extends State<EditImageGalleryWidget> {
   List<PhotoDtO> photos = [];
   @override
   void dispose() {
-    widget.selectedPhotos ?? widget.selectedPhotos!.clear();
+    widget.selectedPhotos ?? widget.selectedPhotos?.clear();
     photos.clear();
     super.dispose();
   }

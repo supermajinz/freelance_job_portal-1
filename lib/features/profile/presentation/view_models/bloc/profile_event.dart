@@ -74,3 +74,12 @@ class DeleteClientProfileEvent extends ProfileEvent {
 
   const DeleteClientProfileEvent(this.profileId);
 }
+
+class ChangeCurrentProfileEvent extends ProfileEvent {
+  final int profileId;
+  const ChangeCurrentProfileEvent(this.profileId);
+  @override
+  List<Object> get props => [
+        profileId,
+      ];
+}

@@ -32,7 +32,7 @@ class EditProfile extends StatelessWidget {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(content: Text('Profile Deleted')),
                     );
-                    GoRouter.of(context).push('/homescreen');
+                    GoRouter.of(context).pushReplacement('/homescreen');
                   }
                 },
                 child: IconButton(

@@ -152,10 +152,10 @@ class _CreateWorkerProfileBodyState extends State<CreateWorkerProfileBody> {
                 AddEditProto(
                   text: "Add Protofolio Project",
                   onTap: () {
-                    context.read<NavigationBloc>().add(const PageTapped(
-                          4,
-                        ));
-                    GoRouter.of(context).push('/homescreen');
+                    //    context.read<NavigationBloc>().add(const PageTapped(
+                    //        4,
+                    //    ));
+                    GoRouter.of(context).pushReplacement('/homescreen');
                   },
                 ),
                 const VirticalSpace(6),
@@ -229,10 +229,10 @@ class _CreateWorkerProfileBodyState extends State<CreateWorkerProfileBody> {
     );
 
     // Navigate to the next screen or perform any other action
-    context.read<NavigationBloc>().add(const PageTapped(
-          0,
-        ));
-    GoRouter.of(context).push('/homescreen');
+    //context.read<NavigationBloc>().add(const PageTapped(
+    //    0,
+    //));
+    GoRouter.of(context).pushReplacement('/homescreen');
   }
 }
 
