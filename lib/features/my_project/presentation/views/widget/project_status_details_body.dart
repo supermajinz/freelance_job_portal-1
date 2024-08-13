@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freelance_job_portal/core/utils/size_config.dart';
 import 'package:freelance_job_portal/core/widget/space.dart';
+import 'package:freelance_job_portal/features/my_project/presentation/view_models/bloc/my_project_bloc.dart';
 import 'package:freelance_job_portal/features/my_project/presentation/views/widget/custom_body_status_details.dart';
 import 'package:freelance_job_portal/features/my_project/presentation/views/widget/custom_info_details_status.dart';
 import 'package:freelance_job_portal/features/my_project/presentation/views/widget/custom_timeline.dart';
@@ -248,7 +249,13 @@ class _ShowProjectDetailsBodyState extends State<ProjectStatusDetailsBody>
     return BlocListener<ProjectBloc, ProjectState>(
       listener: (context, state) {
         if (state is ProjectComplete) {
-          GoRouter.of(context).pushNamed("/review",
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('تم اتمام المشروع')),
+          );
+          final userId =
+              (context.read<AuthBloc>().state as AuthAuthenticated).id;
+          context.read<MyProjectBloc>().add(FetchMyProject(userId));
+          GoRouter.of(context).push("/review",
               extra: ReviewArgs(
                   rated: "Worker",
                   projectId: projectId,
@@ -276,16 +283,29 @@ class _ShowProjectDetailsBodyState extends State<ProjectStatusDetailsBody>
   _buildSubmitButton(BuildContext context, ProjectModel project) {
     print("will submit");
     return Center(
-      child: CustomButtonGeneral(
-        onPressed: () {
-          context.read<ProjectBloc>().add(SubmitProject(widget.project.id));
+      child: BlocListener<ProjectBloc, ProjectState>(
+        listener: (context, state) {
+          if (state is ProjectSubmit) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('تم رفع المشروع')),
+            );
+            final userId =
+                (context.read<AuthBloc>().state as AuthAuthenticated).id;
+            context.read<MyProjectBloc>().add(FetchMyProject(userId));
+            GoRouter.of(context).pop();
+          }
         },
-        color: Colors.white,
-        textcolor: Colors.black,
-        text: "Submit",
-        borderSide:
-            BorderSide(width: SizeConfig.defaultSize! * .1, color: Colors.grey),
-        width: SizeConfig.defaultSize! * 20,
+        child: CustomButtonGeneral(
+          onPressed: () {
+            context.read<ProjectBloc>().add(SubmitProject(widget.project.id));
+          },
+          color: Colors.white,
+          textcolor: Colors.black,
+          text: "Submit",
+          borderSide: BorderSide(
+              width: SizeConfig.defaultSize! * .1, color: Colors.grey),
+          width: SizeConfig.defaultSize! * 20,
+        ),
       ),
     );
   }

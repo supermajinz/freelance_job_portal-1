@@ -36,9 +36,7 @@ class ProfileRates {
 
   factory ProfileRates.fromMap(Map<String, dynamic> map) {
     return ProfileRates(
-      rates: (map['rates'] as List<Map<String, dynamic>>)
-          .map<Rate>((e) => Rate.fromMap(e))
-          .toList(),
+      rates: map['rates'].map<Rate>((e) => Rate.fromMap(e)).toList(),
       count: map['count'] as int,
       avg: map['avg'] as double,
       count1: map['count1'] as int,

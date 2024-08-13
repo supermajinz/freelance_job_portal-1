@@ -10,7 +10,7 @@ class CustomRate extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 5),
       child: RatingSummary(
-        color: Colors.purple,
+        color: Theme.of(context).primaryColor,
         counter: profileRate.count,
         average: profileRate.avg,
         counterFiveStars: profileRate.count5,

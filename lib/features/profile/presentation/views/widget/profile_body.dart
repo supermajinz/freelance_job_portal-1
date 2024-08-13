@@ -57,10 +57,7 @@ class _ProfileBodyState extends State<ProfileBody> {
       setState(() {
         currentProfile = savedProfile;
       });
-      context
-          .read<ReviewBloc>()
-          .add(GetReview(currentProfile.id!));
-
+      context.read<ReviewBloc>().add(GetReview(currentProfile.id!, true));
     }
   }
 
@@ -78,7 +75,6 @@ class _ProfileBodyState extends State<ProfileBody> {
   Widget build(BuildContext context) {
     return ListView(
       children: [
-
         // ClipPath(
         //     clipper: WaveClipperTwo(),
         //     child: Container(

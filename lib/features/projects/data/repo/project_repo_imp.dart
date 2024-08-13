@@ -132,7 +132,7 @@ class ProjectRepoImp implements ProjectRepo {
   @override
   Future<Either<Failure, Unit>> completeProject(int projectId) async {
     try {
-      await _apiService.post('project/complete/$projectId', {});
+      await _apiService.post('projects/complete/$projectId', {});
       return const Right(unit);
     } catch (e) {
       if (e is DioException) {
@@ -145,7 +145,7 @@ class ProjectRepoImp implements ProjectRepo {
   @override
   Future<Either<Failure, Unit>> submitProject(int projectId) async {
     try {
-      await _apiService.post('project/submit/$projectId', {});
+      await _apiService.post('projects/submit/$projectId', {});
       return const Right(unit);
     } catch (e) {
       if (e is DioException) {

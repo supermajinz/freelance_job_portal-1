@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
+import 'package:freelance_job_portal/core/widget/custom_empty.dart';
 import 'package:freelance_job_portal/core/widget/custom_loading.dart';
 import 'package:freelance_job_portal/core/utils/dependency_injection.dart';
 
@@ -69,7 +70,7 @@ class _WorkerProfileBodyState extends State<WorkerProfileBody> {
     context
         .read<PortofolioBloc>()
         .add(GetPortofolios(workerProfileId: currentProfile.id!));
-    context.read<ReviewBloc>().add(GetReview(currentProfile.id!));
+    context.read<ReviewBloc>().add(GetReview(currentProfile.id!, false));
   }
 
   Future<int?> _loadCurrentProfileId() async {
@@ -255,7 +256,10 @@ class _WorkerProfileBodyState extends State<WorkerProfileBody> {
                     if (state is ReviewLoading) {
                       return const Center(child: CustomLoading());
                     } else if (state is GetReviewSuccess) {
-                      return Column(
+                      if (state.profileRates.rates.isEmpty) {
+                        return const CustomEmpty();
+                      }
+                      else{ return Column(
                         children: [
                           const VirticalSpace(4),
                           CustomRate(profileRate: state.profileRates),
@@ -277,7 +281,8 @@ class _WorkerProfileBodyState extends State<WorkerProfileBody> {
                             ),
                           ),
                         ],
-                      );
+                      );}
+                     
                     } else if (state is ReviewFaliure) {
                       return Center(child: Text(state.errMessage));
                     } else {

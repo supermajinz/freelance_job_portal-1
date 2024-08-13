@@ -58,7 +58,7 @@ class _HomescreenState extends State<Homescreen> {
               borderRadius: BorderRadius.all(
                   Radius.circular(SizeConfig.defaultSize! * 1.6)),
             ),
-            drawer: const SafeArea(child: DrawarBody()),
+            drawer: SafeArea(child: DrawarBody(controller: _advancedDrawerController)),
             child: Scaffold(
               appBar: AppBar(
                 elevation: 5,

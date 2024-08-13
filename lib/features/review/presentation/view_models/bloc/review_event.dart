@@ -16,6 +16,8 @@ class AddReview extends ReviewEvent {
 
 class GetReview extends ReviewEvent {
   final int profileId;
+  final bool isClient;
 
-  const GetReview(this.profileId);
+
+  const GetReview(this.profileId, this.isClient);
 }
