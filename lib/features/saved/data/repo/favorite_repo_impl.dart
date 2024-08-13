@@ -67,9 +67,6 @@ class FavoriteRepoImpl implements FavoriteRepo {
       if (e is DioException) {
         return Left(ServerFailure.fromDioException(e));
       }
-      if (kDebugMode) {
-        print("will 'users/$userId/favorites/$favoriteUserId' $e");
-      }
       return Left(ServerFailure(errMessage: e.toString()));
     }
   }
@@ -82,17 +79,19 @@ class FavoriteRepoImpl implements FavoriteRepo {
       List<ProjectModel> projects = [];
       for (var item in data['favoriteProjects']) {
         projects.add(ProjectModel.fromJson(item));
+        print("projects-------------------____________________________________${projects}");
+         print("____________________________________${item}");
       }
       return Right(projects);
     } catch (e) {
-      if (kDebugMode) {
-        print("will 'users/$userId/projects' $e");
-      }
       if (e is DioException) {
+          
         return Left(ServerFailure.fromDioException(e));
       }
-      if (e is TypeError) {
-        print("____________________________________${e.stackTrace}");
+      print(e.runtimeType);
+      print(e);
+      if(e is TypeError){
+        print(e.stackTrace);
       }
       return Left(ServerFailure(errMessage: e.toString()));
     }
