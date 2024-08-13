@@ -80,11 +80,12 @@ class OfferDetailsBody extends StatelessWidget {
                                       .provideWorkerProfileRepo(),
                                   DependencyInjection
                                       .provideSharedPreferences())
-                                ..add(GetWorkerProfiles(offer.worker!.userDto!.id!)),
+                                ..add(GetWorkerProfiles(
+                                    offer.worker!.userDto!.id!)),
                               child: BlocBuilder<WorkerProfileBloc,
                                   WorkerProfileState>(
                                 builder: (context, state) {
-                                  if (state is WorkerProfileAddPhotoLoading) {
+                                  if (state is WorkerProfileLoading) {
                                     return CircularProgressIndicator();
                                   }
                                   if (state is! WorkerProfilesLoaded) {
@@ -328,6 +329,9 @@ class OfferDetailsBody extends StatelessWidget {
                     () {
                       context.read<ProjectBloc>().add(AcceptOffer(offer.id!));
                     },
+                    offer.cost!,
+                    offer.deliveryTime!,
+                    project.name
                   );
                 },
                 color: const Color.fromARGB(255, 86, 219, 155),
