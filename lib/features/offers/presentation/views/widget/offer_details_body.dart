@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:freelance_job_portal/core/utils/dependency_injection.dart';
 import 'package:freelance_job_portal/core/utils/functions/show_bottom_sheet_offer.dart';
 import 'package:freelance_job_portal/core/utils/size_config.dart';
 import 'package:freelance_job_portal/core/widget/custom_body_medium.dart';
@@ -35,7 +36,7 @@ class OfferDetailsBody extends StatelessWidget {
     final workerName =
         '${offer.worker!.userDto!.firstname ?? 'Unknown'} ${offer.worker!.userDto!.lastname ?? ''}';
     final workerPhotoUrl = offer.worker!.photoDtOs?.isNotEmpty == true
-        ? "http://10.0.2.2:8080/api/v1/file/photo/${offer.worker!.photoDtOs![0].photo}"
+        ? "${DependencyInjection.baseUrl}file/photo/${offer.worker!.photoDtOs![0].photo}"
         : null;
     final backgroundColor =
         workerPhotoUrl == null ? Utils.getBackgroundColor(workerName) : null;

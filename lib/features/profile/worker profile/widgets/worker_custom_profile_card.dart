@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:freelance_job_portal/core/utils/dependency_injection.dart';
 import 'package:freelance_job_portal/features/profile/data/models/profile/worker_Profile/worker_profile.dart';
 import 'package:go_router/go_router.dart';
 import 'package:photo_view/photo_view.dart';
@@ -26,7 +27,7 @@ class WorkerCustomProfileCard extends StatelessWidget {
     final workerName =
         '${profile.userDto!.firstname ?? 'Unknown'} ${profile.userDto!.lastname ?? ''}';
     final workerPhotoUrl = profile.photoDtOs?.isNotEmpty == true
-        ? "http://10.0.2.2:8080/api/v1/file/photo/${profile.photoDtOs![0].photo}"
+        ? "${DependencyInjection.baseUrl}file/photo/${profile.photoDtOs![0].photo}"
         : null;
     final backgroundColor =
         workerPhotoUrl == null ? Utils.getBackgroundColor(workerName) : null;
@@ -175,7 +176,7 @@ class _ImageGalleryScreenState extends State<ImageGalleryScreen> {
                     },
                     child: PhotoView(
                       imageProvider: NetworkImage(
-                          "http://localhost:8080/api/v1/file/photo/${imageUrls[index]}"),
+                          "${DependencyInjection.baseUrl}file/photo/${imageUrls[index]}"),
                       heroAttributes: PhotoViewHeroAttributes(
                           tag:
                               'profileImage'), // Use the same tag as the profile image

@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:freelance_job_portal/core/utils/dependency_injection.dart';
 import 'package:freelance_job_portal/core/utils/size_config.dart';
 import 'package:freelance_job_portal/core/widget/space.dart';
 import 'package:freelance_job_portal/features/photo/bloc/image_bloc.dart';
@@ -131,7 +132,7 @@ class _EditPhotoProfileState extends State<EditPhotoProfile> {
         color: Colors.grey[300],
         child: widget.selectedPhoto != null
             ? Image.network(
-                "http://localhost:8080/api/v1/file/photo/${widget.selectedPhoto!.photo}",
+                "${DependencyInjection.baseUrl}file/photo/${widget.selectedPhoto!.photo}",
                 fit: BoxFit.cover,
                 errorBuilder: (context, error, stackTrace) {
                   print('Error loading image: $error');

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:freelance_job_portal/core/utils/dependency_injection.dart';
 import 'package:freelance_job_portal/core/utils/size_config.dart';
 import 'package:freelance_job_portal/core/widget/custom_body_medium.dart';
 import 'package:freelance_job_portal/core/widget/custom_label.dart';
@@ -23,7 +24,7 @@ class CustomProjectStatus extends StatelessWidget {
     final clientName =
         '${client?.userDto?.firstname ?? 'Unknown'} ${client?.userDto?.lastname ?? ''}';
     final clientPhotoUrl = client?.photoDtOs?.isNotEmpty == true
-        ? "http://10.0.2.2:8080/api/v1/file/photo/${client!.photoDtOs![0].photo}"
+        ? "${DependencyInjection.baseUrl}file/photo/${client!.photoDtOs![0].photo}"
         : null;
     final backgroundColor =
         clientPhotoUrl == null ? Utils.getBackgroundColor(clientName) : null;

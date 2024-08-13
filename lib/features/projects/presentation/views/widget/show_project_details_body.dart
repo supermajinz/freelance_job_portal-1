@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:freelance_job_portal/core/utils/dependency_injection.dart';
 import 'package:freelance_job_portal/core/utils/size_config.dart';
 import 'package:freelance_job_portal/core/widget/space.dart';
 import 'package:freelance_job_portal/features/offers/presentation/view_models/args/offer_details_args.dart';
@@ -322,7 +323,7 @@ class _ShowProjectDetailsBodyState extends State<ShowProjectDetailsBody> {
     final clientName =
         '${client?.userDto?.firstname ?? 'Unknown'} ${client?.userDto?.lastname ?? ''}';
     final clientPhotoUrl = client?.photoDtOs?.isNotEmpty == true
-        ? "http://10.0.2.2:8080/api/v1/file/photo/${client!.photoDtOs![0].photo}"
+        ? "${DependencyInjection.baseUrl}file/photo/${client!.photoDtOs![0].photo}"
         : null;
     final backgroundColor =
         clientPhotoUrl == null ? Utils.getBackgroundColor(clientName) : null;

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:freelance_job_portal/core/utils/dependency_injection.dart';
 import 'package:freelance_job_portal/core/utils/size_config.dart';
 import 'package:photo_view/photo_view.dart';
 
@@ -50,7 +51,7 @@ class ImageGalleryViewer extends StatelessWidget {
             image: DecorationImage(
               fit: BoxFit.fill,
               image: NetworkImage(
-                  "http://localhost:8080/api/v1/file/photo/${imageUrl}"),
+                  "${DependencyInjection.baseUrl}file/photo/${imageUrl}"),
             ),
           ),
         ),
@@ -102,7 +103,7 @@ class _ImageGalleryScreenState extends State<PortofolioImageGalleryScreen> {
                     },
                     child: PhotoView(
                       imageProvider: NetworkImage(
-                          "http://localhost:8080/api/v1/file/photo/${widget.imageUrls[index]}"),
+                          "${DependencyInjection.baseUrl}file/photo/${widget.imageUrls[index]}"),
                       heroAttributes: PhotoViewHeroAttributes(
                           tag: 'portfolioImage${widget.imageUrls[index]}'),
                       minScale: PhotoViewComputedScale.contained,
