@@ -4,6 +4,7 @@ import 'package:freelance_job_portal/core/utils/size_config.dart';
 import 'package:freelance_job_portal/core/widget/bookmark_button.dart';
 import 'package:freelance_job_portal/core/widget/custom_body_medium.dart';
 import 'package:freelance_job_portal/core/widget/custom_label.dart';
+import 'package:freelance_job_portal/core/widget/custom_money_body.dart';
 import 'package:freelance_job_portal/core/widget/custom_subtitle_medium.dart';
 import 'package:freelance_job_portal/core/widget/space.dart';
 import 'package:freelance_job_portal/features/home/presentation/views/widget/custom_choice_chip.dart';
@@ -83,13 +84,13 @@ class _CustomProjectCardState extends State<CustomProjectCard> {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    CustomBody(
+                    CustomMoneyBody(
                       isCurrency: true,
                       text:
                           '${widget.project.minBudget} - ${widget.project.maxBudget}',
                       color: Colors.green,
                     ),
-                    CustomBody(
+                    CustomMoneyBody(
                       isday: true,
                       text: '${widget.project.expectedDuration}',
                       color: Colors.red,
