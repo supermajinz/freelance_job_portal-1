@@ -69,7 +69,7 @@ class _EditWorkerProfileBodyState extends State<EditWorkerProfileBody> {
     }).toList();
 
     selectedPhotos = widget.profile.photoDtOs!
-        .map((e) => 'http://localhost:8080/api/v1/file/photo/${e.photo!}')
+        .map((e) => '${DependencyInjection.baseUrl}file/photo/${e.photo!}')
         .toList();
     super.initState();
   }

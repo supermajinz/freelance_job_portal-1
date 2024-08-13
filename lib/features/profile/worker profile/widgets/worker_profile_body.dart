@@ -50,9 +50,7 @@ class _WorkerProfileBodyState extends State<WorkerProfileBody> {
     print("will try init");
     currentProfile = widget.workerProfiles[0]; // Set a default profile
     _loadSavedProfile(); // Trigger loading of saved profile
-    //context
-    //  .read<PortofolioBloc>()
-    //.add(GetPortofolios(workerProfileId: currentProfile.id!));
+  
   }
 
   Future<void> _loadSavedProfile() async {
@@ -81,8 +79,7 @@ class _WorkerProfileBodyState extends State<WorkerProfileBody> {
   Future<void> _saveCurrentProfile(int profileId) async {
     final prefs = await SharedPreferences.getInstance();
     await prefs.setInt('current_profile_id', profileId);
-    currentProfile =
-        widget.workerProfiles[0]; //TODO make this shared preferences
+   
   }
 
   @override
@@ -123,8 +120,10 @@ class _WorkerProfileBodyState extends State<WorkerProfileBody> {
                                   context.read<PortofolioBloc>().add(
                                       GetPortofolios(
                                           workerProfileId: currentProfile.id!));
+
                                   print(
                                       "will try current profile id ${currentProfile.id}");
+
                                   GoRouter.of(context).pop();
                                 },
                                 child: WorkerCustomProfileCard(
@@ -248,6 +247,7 @@ class _WorkerProfileBodyState extends State<WorkerProfileBody> {
                 const VirticalSpace(5),
                 const CustomZzz(),
                 const VirticalSpace(5),
+                /*
                 const CustomSubTitle(
                   text: "Ratings and reviews",
                 ),
@@ -290,6 +290,7 @@ class _WorkerProfileBodyState extends State<WorkerProfileBody> {
                     }
                   },
                 ),
+                */
               ],
             ))
       ],

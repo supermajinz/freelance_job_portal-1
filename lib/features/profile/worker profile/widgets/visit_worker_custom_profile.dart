@@ -10,12 +10,12 @@ import 'package:freelance_job_portal/core/widget/custom_subtitle_medium.dart';
 import 'package:freelance_job_portal/core/widget/space.dart';
 import '../../../../core/utils/functions/utils.dart';
 
-class WorkerCustomProfileCard extends StatelessWidget {
+class VisitWorkerCustomProfileCard extends StatelessWidget {
   final WorkerProfile profile;
   final IconData? icon;
   final void Function()? onPressed;
 
-  const WorkerCustomProfileCard({
+  const VisitWorkerCustomProfileCard({
     super.key,
     required this.profile,
     this.icon,
@@ -104,22 +104,13 @@ class WorkerCustomProfileCard extends StatelessWidget {
               ],
             ),
             const Spacer(),
-            Column(
+            const Column(
               children: [
-                const CustomLabel(
+                CustomLabel(
                   text: 'فريلانسر',
                   color: Colors.black,
                 ),
-                IconButton(
-                    onPressed: () {
-                      GoRouter.of(context)
-                          .push('/editWorkerProfile', extra: profile);
-                    },
-                    icon: Icon(
-                      icon,
-                      size: SizeConfig.defaultSize! * 2.5,
-                      color: Colors.black,
-                    )),
+                
               ],
             )
           ],

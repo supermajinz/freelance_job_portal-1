@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:freelance_job_portal/core/utils/dependency_injection.dart';
 import 'package:freelance_job_portal/core/utils/functions/show_bottom_sheet_offer.dart';
 import 'package:freelance_job_portal/core/utils/size_config.dart';
 import 'package:freelance_job_portal/core/widget/custom_body_medium.dart';
@@ -11,6 +12,9 @@ import 'package:freelance_job_portal/core/widget/custom_subtitle_medium.dart';
 import 'package:freelance_job_portal/core/widget/space.dart';
 import 'package:freelance_job_portal/features/auth/presentation/view_models/bloc/auth_bloc.dart';
 import 'package:freelance_job_portal/features/offers/presentation/view_models/bloc/offer_bloc.dart';
+import 'package:freelance_job_portal/features/profile/data/models/profile/worker_Profile/worker_profile.dart';
+import 'package:freelance_job_portal/features/profile/presentation/view_models/bloc/profile_bloc.dart';
+import 'package:freelance_job_portal/features/profile/worker%20profile/bloc/worker_profile_bloc.dart';
 import 'package:freelance_job_portal/features/projects/data/model/project_model/project_model.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconly/iconly.dart';
@@ -35,7 +39,7 @@ class OfferDetailsBody extends StatelessWidget {
     final workerName =
         '${offer.worker!.userDto!.firstname ?? 'Unknown'} ${offer.worker!.userDto!.lastname ?? ''}';
     final workerPhotoUrl = offer.worker!.photoDtOs?.isNotEmpty == true
-        ? "http://10.0.2.2:8080/api/v1/file/photo/${offer.worker!.photoDtOs![0].photo}"
+        ? "${DependencyInjection.baseUrl}file/photo/${offer.worker!.photoDtOs![0].photo}"
         : null;
     final backgroundColor =
         workerPhotoUrl == null ? Utils.getBackgroundColor(workerName) : null;
@@ -70,22 +74,51 @@ class OfferDetailsBody extends StatelessWidget {
                       children: [
                         Padding(
                             padding: const EdgeInsets.only(top: 5),
-                            child: CircleAvatar(
-                                radius: SizeConfig.defaultSize! * 5,
-                                backgroundColor: backgroundColor,
-                                backgroundImage: workerPhotoUrl != null
-                                    ? NetworkImage(workerPhotoUrl)
-                                    : null,
-                                child: workerPhotoUrl == null
-                                    ? Center(
-                                        child: Text(
-                                          Utils.getInitials(workerName),
-                                          style: const TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 30),
-                                        ),
-                                      )
-                                    : null)),
+                            child: BlocProvider(
+                              create: (context) => WorkerProfileBloc(
+                                  DependencyInjection
+                                      .provideWorkerProfileRepo(),
+                                  DependencyInjection
+                                      .provideSharedPreferences())
+                                ..add(GetWorkerProfiles(offer.worker!.userDto!.id!)),
+                              child: BlocBuilder<WorkerProfileBloc,
+                                  WorkerProfileState>(
+                                builder: (context, state) {
+                                  if (state is WorkerProfileAddPhotoLoading) {
+                                    return CircularProgressIndicator();
+                                  }
+                                  if (state is! WorkerProfilesLoaded) {
+                                    return Placeholder();
+                                  }
+                                  final WorkerProfile visitedProfile =
+                                      state.profiles.firstWhere((profile) =>
+                                          profile.id == offer.worker!.id);
+                                  return InkWell(
+                                    onTap: () {
+                                      GoRouter.of(context).push(
+                                          '/visitworkerprofile',
+                                          extra: visitedProfile);
+                                    },
+                                    child: CircleAvatar(
+                                        radius: SizeConfig.defaultSize! * 5,
+                                        backgroundColor: backgroundColor,
+                                        backgroundImage: workerPhotoUrl != null
+                                            ? NetworkImage(workerPhotoUrl)
+                                            : null,
+                                        child: workerPhotoUrl == null
+                                            ? Center(
+                                                child: Text(
+                                                  Utils.getInitials(workerName),
+                                                  style: const TextStyle(
+                                                      color: Colors.white,
+                                                      fontSize: 30),
+                                                ),
+                                              )
+                                            : null),
+                                  );
+                                },
+                              ),
+                            )),
                         const HorizintalSpace(1.5),
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,

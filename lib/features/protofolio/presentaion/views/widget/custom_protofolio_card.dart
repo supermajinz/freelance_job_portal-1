@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:freelance_job_portal/core/utils/dependency_injection.dart';
 import 'package:freelance_job_portal/core/utils/size_config.dart';
 import 'package:freelance_job_portal/core/widget/custom_label.dart';
 import 'package:freelance_job_portal/features/protofolio/data/models/portofolio_job/portofolio_job/portofolio_job.dart';
@@ -53,7 +54,7 @@ class CustomProtofolioCardList extends StatelessWidget {
           image: hasNoPhoto
               ? const AssetImage('assets/images/51-200x200.jpg')
               : NetworkImage(
-                  'http://localhost:8080/api/v1/file/photo/${jobsList[index].photoDtOs!.first.photo}'),
+                  '${DependencyInjection.baseUrl}file/photo/${jobsList[index].photoDtOs!.first.photo}'),
         ),
         boxShadow: [
           BoxShadow(
