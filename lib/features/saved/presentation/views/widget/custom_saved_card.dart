@@ -26,20 +26,21 @@ class _CustomSavedCardState extends State<CustomSavedCard> {
       padding: EdgeInsets.only(
           top: SizeConfig.defaultSize! * .8,
           bottom: SizeConfig.defaultSize! * .8),
-      height: SizeConfig.defaultSize! * 12,
       decoration: BoxDecoration(
           color: Theme.of(context).primaryColorLight,
-          borderRadius: BorderRadius.all(
-              Radius.circular(SizeConfig.defaultSize! * 1.5))),
+          borderRadius:
+              BorderRadius.all(Radius.circular(SizeConfig.defaultSize! * 1.5))),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          const Spacer(),
           CircleAvatar(
-            radius: SizeConfig.defaultSize! * 6.5,
+            radius: SizeConfig.defaultSize! * 5,
             backgroundImage: const AssetImage(
               "assets/images/pro.jpg",
             ),
           ),
+          const Spacer(),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

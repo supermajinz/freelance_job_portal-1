@@ -24,6 +24,7 @@ import 'package:freelance_job_portal/features/profile/presentation/views/widget/
 import 'package:freelance_job_portal/features/projects/presentation/views/widget/custom_project_card.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../../../../core/widget/cusrom_rating_summary.dart';
 import '../../../worker profile/widgets/custom_rate.dart';
 
 class ProfileBody extends StatefulWidget {
@@ -215,41 +216,7 @@ class _ProfileBodyState extends State<ProfileBody> {
                 const CustomSubTitle(
                   text: "Ratings and reviews",
                 ),
-                BlocBuilder<ReviewBloc, ReviewState>(
-                  builder: (context, state) {
-                    if (state is ReviewLoading) {
-                      return const Center(child: CustomLoading());
-                    } else if (state is GetReviewSuccess) {
-                      return Column(
-                        children: [
-                          const VirticalSpace(4),
-                          CustomRate(profileRate: state.profileRates),
-                          const VirticalSpace(6),
-                          SizedBox(
-                            height: SizeConfig.defaultSize! * 40,
-                            child: ListView.separated(
-                              shrinkWrap: true,
-                              physics: const AlwaysScrollableScrollPhysics(),
-                              separatorBuilder: (context, index) {
-                                return const Divider();
-                              },
-                              itemCount: state.profileRates.rates.length,
-                              scrollDirection: Axis.vertical,
-                              itemBuilder: (context, index) {
-                                return CustomReviewCardClient(
-                                    rate: state.profileRates.rates[index]);
-                              },
-                            ),
-                          ),
-                        ],
-                      );
-                    } else if (state is ReviewFaliure) {
-                      return Center(child: Text(state.errMessage));
-                    } else {
-                      return const Center(child: Text('Not Found'));
-                    }
-                  },
-                ),
+                const CusromRatingSummary(),
               ],
             ))
       ],

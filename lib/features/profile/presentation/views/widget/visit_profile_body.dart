@@ -1,33 +1,20 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:freelance_job_portal/core/widget/custom_icon_back.dart';
-import 'package:freelance_job_portal/core/widget/custom_loading.dart';
 import 'package:freelance_job_portal/core/widget/custom_title.dart';
-import 'package:freelance_job_portal/features/profile/presentation/views/widget/custom_review_card_client.dart';
 import 'package:freelance_job_portal/features/profile/presentation/views/widget/visit_client_profile_custom_card.dart';
 import 'package:freelance_job_portal/features/projects/data/model/project_model/project_model.dart';
-import 'package:freelance_job_portal/features/protofolio/presentaion/views/widget/portofolio_widget.dart';
 import 'package:freelance_job_portal/features/review/presentation/view_models/bloc/review_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:rating_summary/rating_summary.dart';
-
 import 'package:freelance_job_portal/core/utils/size_config.dart';
-import 'package:freelance_job_portal/core/widget/custom_button_general.dart';
 import 'package:freelance_job_portal/core/widget/custom_sub_title.dart';
 import 'package:freelance_job_portal/core/widget/space.dart';
 import 'package:freelance_job_portal/features/profile/data/models/profile/client_profile.dart';
-import 'package:freelance_job_portal/features/profile/presentation/view_models/bloc/profile_bloc.dart';
-import 'package:freelance_job_portal/features/profile/presentation/views/widget/custom_profile_card.dart';
-import 'package:freelance_job_portal/features/profile/presentation/views/widget/custom_review_card_worker.dart';
-import 'package:freelance_job_portal/features/protofolio/presentaion/views/widget/custom_protofolio_card.dart';
 import 'package:freelance_job_portal/features/profile/presentation/views/widget/custom_zzz.dart';
 import 'package:freelance_job_portal/features/profile/presentation/views/widget/show_chip.dart';
 import 'package:freelance_job_portal/features/projects/presentation/views/widget/custom_project_card.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
-import '../../../worker profile/widgets/custom_rate.dart';
+import '../../../../../core/widget/cusrom_rating_summary.dart';
 
 class VisitProfileBody extends StatefulWidget {
   final ClientProfile visitedProfile;
@@ -40,9 +27,27 @@ class VisitProfileBody extends StatefulWidget {
 
 class _VisitProfileBodyState extends State<VisitProfileBody> {
   @override
+  void initState() {
+    context.read<ReviewBloc>().add(GetReview(widget.visitedProfile.id!, true));
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+          actions: [
+            IconButton(
+                onPressed: () {
+                  GoRouter.of(context)
+                      .push('/report', extra: widget.visitedProfile.userId);
+                },
+                icon: const Icon(
+                  Icons.report,
+                  size: 30,
+                ),
+                color: Colors.white),
+          ],
           title: CustomTitle(
             text:
                 '${widget.visitedProfile.userDto!.firstname} ${widget.visitedProfile.userDto!.lastname}',
@@ -134,41 +139,7 @@ class _VisitProfileBodyState extends State<VisitProfileBody> {
                   const CustomSubTitle(
                     text: "Ratings and reviews",
                   ),
-                  BlocBuilder<ReviewBloc, ReviewState>(
-                    builder: (context, state) {
-                      if (state is ReviewLoading) {
-                        return const Center(child: CustomLoading());
-                      } else if (state is GetReviewSuccess) {
-                        return Column(
-                          children: [
-                            const VirticalSpace(4),
-                            CustomRate(profileRate: state.profileRates),
-                            const VirticalSpace(6),
-                            SizedBox(
-                              height: SizeConfig.defaultSize! * 40,
-                              child: ListView.separated(
-                                shrinkWrap: true,
-                                physics: const AlwaysScrollableScrollPhysics(),
-                                separatorBuilder: (context, index) {
-                                  return const Divider();
-                                },
-                                itemCount: state.profileRates.rates.length,
-                                scrollDirection: Axis.vertical,
-                                itemBuilder: (context, index) {
-                                  return CustomReviewCardClient(
-                                      rate: state.profileRates.rates[index]);
-                                },
-                              ),
-                            ),
-                          ],
-                        );
-                      } else if (state is ReviewFaliure) {
-                        return Center(child: Text(state.errMessage));
-                      } else {
-                        return const Center(child: Text('Not Found'));
-                      }
-                    },
-                  ),
+                  const CusromRatingSummary(),
                 ],
               ))
         ],

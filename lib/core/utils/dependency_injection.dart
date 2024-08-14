@@ -42,7 +42,7 @@ class DependencyInjection {
   static ApiService provideApiService() {
     final authTokenService = provideAuthTokenService();
     return ApiService(
-      baseUrl: 'http://localhost:8080/api/v1/',
+      baseUrl: 'http://10.0.2.2:8080/api/v1/',
       authTokenService: authTokenService,
     );
   }

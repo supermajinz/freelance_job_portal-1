@@ -9,6 +9,7 @@ import 'package:freelance_job_portal/core/widget/custom_label.dart';
 import 'package:freelance_job_portal/core/widget/custom_subtitle_medium.dart';
 import 'package:freelance_job_portal/core/widget/space.dart';
 import '../../../../core/utils/functions/utils.dart';
+import '../../../../core/widget/bookmark_button.dart';
 
 class VisitWorkerCustomProfileCard extends StatelessWidget {
   final WorkerProfile profile;
@@ -104,13 +105,14 @@ class VisitWorkerCustomProfileCard extends StatelessWidget {
               ],
             ),
             const Spacer(),
-            const Column(
+            Row(
               children: [
-                CustomLabel(
-                  text: 'فريلانسر',
-                  color: Colors.black,
-                ),
-                
+                BookmarkButton(isProject: false, id: profile.userId!),
+              
+                // CustomLabel(
+                //   text: 'فريلانسر',
+                //   color: Colors.black,
+                // ),
               ],
             )
           ],
