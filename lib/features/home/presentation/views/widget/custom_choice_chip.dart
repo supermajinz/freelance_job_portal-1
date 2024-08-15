@@ -15,7 +15,10 @@ class CustomChoiceChip extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChoiceChip(
       selectedColor: color,
-      label: CustomLabel(text: text),
+      label: CustomLabel(
+        text: text,
+        color: const Color.fromARGB(255, 255, 255, 255),
+      ),
       selected: true,
       shape: RoundedRectangleBorder(
           borderRadius:

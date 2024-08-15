@@ -3,6 +3,7 @@ import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freelance_job_portal/core/localization/bloc/localization_bloc.dart';
 import 'package:freelance_job_portal/core/utils/size_config.dart';
+import 'package:freelance_job_portal/core/widget/space.dart';
 import 'package:freelance_job_portal/features/auth/presentation/view_models/bloc/auth_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconly/iconly.dart';
@@ -75,28 +76,35 @@ class DrawarBody extends StatelessWidget {
             leading: const Icon(Icons.logout),
             title: const Text('تسجيل الخروج'),
           ),
-          PopupMenuButton<String>(
-            icon: const Icon(
-              Icons.language,
-              color: Colors.white,
-            ),
-            itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
-              PopupMenuItem<String>(
-                value: 'en',
-                child: const Text('English'),
-                onTap: () {
-                  BlocProvider.of<LocalizationBloc>(context)
-                      .add(const LoadLocalization(Locale('en')));
-                },
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              HorizintalSpace(0.5),
+              PopupMenuButton<String>(
+                icon: const Icon(
+                  Icons.language,
+                  color: Colors.white,
+                ),
+                itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+                  // PopupMenuItem<String>(
+                  //   value: 'en',
+                  //   child: const Text('English'),
+                  //   onTap: () {
+                  //     BlocProvider.of<LocalizationBloc>(context)
+                  //         .add(const LoadLocalization(Locale('en')));
+                  //   },
+                  // ),
+                  PopupMenuItem<String>(
+                    value: 'ar',
+                    child: const Text('Arabic'),
+                    onTap: () {
+                      BlocProvider.of<LocalizationBloc>(context)
+                          .add(const LoadLocalization(Locale('ar')));
+                    },
+                  ),
+                ],
               ),
-              PopupMenuItem<String>(
-                value: 'ar',
-                child: const Text('Arabic'),
-                onTap: () {
-                  BlocProvider.of<LocalizationBloc>(context)
-                      .add(const LoadLocalization(Locale('ar')));
-                },
-              ),
+              Text('اللغة', style: TextStyle(color: Colors.white)),
             ],
           ),
           const Spacer(),
