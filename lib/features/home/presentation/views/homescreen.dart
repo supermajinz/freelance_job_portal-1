@@ -58,7 +58,8 @@ class _HomescreenState extends State<Homescreen> {
               borderRadius: BorderRadius.all(
                   Radius.circular(SizeConfig.defaultSize! * 1.6)),
             ),
-            drawer: SafeArea(child: DrawarBody(controller: _advancedDrawerController)),
+            drawer: SafeArea(
+                child: DrawarBody(controller: _advancedDrawerController)),
             child: Scaffold(
               appBar: AppBar(
                 elevation: 5,
@@ -134,7 +135,7 @@ class _HomescreenState extends State<Homescreen> {
                         GButton(icon: IconlyBroken.home, text: "الرئيسية"),
                         GButton(icon: IconlyBroken.chat, text: "المحادائة"),
                         GButton(icon: IconlyBroken.search, text: "البحث"),
-                        GButton(icon: IconlyBroken.bag, text: "مشاريعي"),
+                        GButton(icon: IconlyBroken.paper, text: "مشاريعي"),
                         GButton(
                             icon: IconlyBroken.profile, text: "الملف الشخصي"),
                       ]);

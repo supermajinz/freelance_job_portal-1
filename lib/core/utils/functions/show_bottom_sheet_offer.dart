@@ -49,9 +49,9 @@ void showBottomSheetOffer(
                 state.walletPayments.wallet!.totalHeldBalance! + heldAmount;
 
             // Check for sufficient balance
-            // if (state.walletPayments.wallet!.totalBalance! < price) {
-            //   return _buildInsufficientFundsContent(context);
-            // } //TODO remove comment after adding a suffecient balance to the account
+             if (state.walletPayments.wallet!.totalBalance! < price) {
+               return _buildInsufficientFundsContent(context);
+             } //TODO remove comment after adding a suffecient balance to the account
 
             return Container(
               padding: EdgeInsets.all(SizeConfig.defaultSize! * 2),

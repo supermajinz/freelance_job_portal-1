@@ -146,20 +146,17 @@ class _ProfileBodyState extends State<ProfileBody> {
               children: [
                 const CustomSubTitle(text: "الوصف"),
                 const VirticalSpace(1),
-                SizedBox(
-                  height: SizeConfig.defaultSize! * 7,
-                  child: Container(
-                    margin: EdgeInsets.only(left: SizeConfig.defaultSize! * 2),
-                    child: Text(
-                      currentProfile.bio!,
-                      overflow: TextOverflow.ellipsis,
-                      textAlign: TextAlign.start,
-                      maxLines: 3,
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodyLarge!
-                          .copyWith(color: Colors.grey),
-                    ),
+                Container(
+                  margin: EdgeInsets.only(left: SizeConfig.defaultSize! * 2),
+                  child: Text(
+                    currentProfile.bio!,
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.start,
+                    maxLines: 6,
+                    style: Theme.of(context)
+                        .textTheme
+                        .bodyLarge!
+                        .copyWith(color: Colors.grey),
                   ),
                 ),
                 const VirticalSpace(1),
@@ -199,7 +196,7 @@ class _ProfileBodyState extends State<ProfileBody> {
                   ),
                 ),
                 const VirticalSpace(5),
-                const CustomZzz(),
+                //  const CustomZzz(),
                 const VirticalSpace(5),
                 const CustomSubTitle(
                   text: "Ratings and reviews",

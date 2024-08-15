@@ -40,7 +40,7 @@ class LocalizationBloc extends Bloc<LocalizationEvent, LocalizationState> {
 
   Future<Locale> getLocale() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    String languageCode = prefs.getString('language') ?? 'en';
+    String languageCode = prefs.getString('language') ?? 'ar';
     return Locale(languageCode);
   }
 

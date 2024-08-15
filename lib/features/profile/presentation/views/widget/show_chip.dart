@@ -17,7 +17,7 @@ class ShowChip extends StatelessWidget {
       children: skills
           .map((i) => CustomChoiceChip(
                 text: i.name!,
-                color: Theme.of(context).primaryColorDark,
+                color: Theme.of(context).colorScheme.onSecondaryContainer,
               ))
           .toList(),
     );
