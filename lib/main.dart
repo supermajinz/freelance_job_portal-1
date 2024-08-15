@@ -10,7 +10,6 @@ import 'package:freelance_job_portal/features/home/presentation/view_models/nav_
 import 'package:freelance_job_portal/features/my_project/presentation/view_models/bloc/my_project_bloc.dart';
 import 'package:freelance_job_portal/features/offers/presentation/view_models/bloc/offer_bloc.dart';
 import 'package:freelance_job_portal/features/photo/bloc/image_bloc.dart';
-import 'package:freelance_job_portal/features/profile/presentation/view_models/bloc/profile_bloc.dart';
 import 'package:freelance_job_portal/features/projects/presentation/view_models/offer_by_project/offer_by_project_bloc.dart';
 import 'package:freelance_job_portal/features/projects/presentation/view_models/project_bloc/project_bloc.dart';
 import 'package:freelance_job_portal/features/protofolio/presentaion/view%20model/bloc/portofolio_bloc.dart';
@@ -28,7 +27,6 @@ import 'package:timeago/timeago.dart' as timeago_ar;
 //TODO: لوغو التطبيق يظهر عتد
 void main() async {
   timeago.setLocaleMessages('ar', timeago_ar.ArMessages());
-  int userId;
   WidgetsFlutterBinding.ensureInitialized();
   // final sharedPreferences = await SharedPreferences.getInstance;
   await DependencyInjection.initSharedPreferences();

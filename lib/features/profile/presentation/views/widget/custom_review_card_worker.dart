@@ -1,4 +1,3 @@
-import 'package:animated_rating_bar/widgets/animated_rating_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:freelance_job_portal/core/utils/size_config.dart';
@@ -61,8 +60,7 @@ class CustomReviewCardWorker extends StatelessWidget {
                     color: Colors.yellow,
                     textDirection: TextDirection.ltr,
                   ),
-                  empty: const Icon(Icons.star_outline,
-                      color: Colors.yellow)),
+                  empty: const Icon(Icons.star_outline, color: Colors.yellow)),
             ),
             const HorizintalSpace(1.5),
             CustomLabel(

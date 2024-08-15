@@ -50,7 +50,7 @@ class _CreateProjectBodyState extends State<CreateProjectBody> {
                 const VirticalSpace(4),
                 CustomTextFormGeneral(
                   hinttext: "",
-                  lable: "Project Name",
+                  lable: "إسم المشروع",
                   isNumber: false,
                   mycontroller: _titleController,
                   onTapicon: () {},
@@ -58,7 +58,7 @@ class _CreateProjectBodyState extends State<CreateProjectBody> {
                 const VirticalSpace(3),
                 CustomTextFormGeneral(
                   hinttext: "",
-                  lable: "Description",
+                  lable: "وصف المشروع",
                   isNumber: false,
                   mycontroller: _descriptionController,
                   onTapicon: () {},
@@ -70,7 +70,7 @@ class _CreateProjectBodyState extends State<CreateProjectBody> {
                     Expanded(
                       child: Column(
                         children: [
-                          const CustomSubTitle(text: "Min Budget"),
+                          const CustomSubTitle(text: "الحد الأدنى للميزانية"),
                           const VirticalSpace(2),
                           CustomMeonyGeneral(
                             isNumber: true,
@@ -83,7 +83,7 @@ class _CreateProjectBodyState extends State<CreateProjectBody> {
                     Expanded(
                       child: Column(
                         children: [
-                          const CustomSubTitle(text: "Max Budget"),
+                          const CustomSubTitle(text: "الحد الأعلى للميزانية"),
                           const VirticalSpace(2),
                           CustomMeonyGeneral(
                             isNumber: true,
@@ -96,18 +96,18 @@ class _CreateProjectBodyState extends State<CreateProjectBody> {
                   ],
                 ),
                 const VirticalSpace(5),
-                const CustomSubTitle(text: "Expected Duration (in days)"),
+                const CustomSubTitle(text: "المدة المتوقعة (خلال ايام)"),
                 const VirticalSpace(2),
                 CustomTextFormGeneral(
                   hinttext: "",
-                  lable: "Duration",
+                  lable: "المدة",
                   isNumber: true,
                   mycontroller: _expectedDurationController,
                   obs: false,
                   onTapicon: () {},
                 ),
                 const VirticalSpace(5),
-                const CustomSubTitle(text: "Categories"),
+                const CustomSubTitle(text: "اختر تصنيف"),
                 const VirticalSpace(1.5),
                 CustomDropdownSearchCategories(
                   onChanged: (value) {
@@ -120,7 +120,7 @@ class _CreateProjectBodyState extends State<CreateProjectBody> {
                   },
                 ),
                 const VirticalSpace(5),
-                const CustomSubTitle(text: "Skills"),
+                const CustomSubTitle(text: "اختر مهارات"),
                 const VirticalSpace(1.5),
                 CustomDropdownSearchSkills(
                   category: _selectedCategory,
@@ -149,15 +149,17 @@ class _CreateProjectBodyState extends State<CreateProjectBody> {
                     return BlocConsumer<ProjectBloc, ProjectState>(
                       listener: (context, state) {
                         if (state is CreateProjectSuccess) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(
-                                content: Text('Project created successfully')),
-                          );
-
-                          GoRouter.of(context).pushReplacement(
-                              '/showprojectdetails',
-                              extra: state.project.id);
-                          // Navigate back or to project details
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(
+                                const SnackBar(
+                                    content: Text('تم انشاء المشروع بنجاح')),
+                              )
+                              .closed
+                              .then((_) {
+                            GoRouter.of(context).pushReplacement(
+                                '/showprojectdetails',
+                                extra: state.project.id);
+                          });
                         } else if (state is CreateProjectLoading) {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
@@ -199,8 +201,8 @@ class _CreateProjectBodyState extends State<CreateProjectBody> {
                           color: Theme.of(context).primaryColor,
                           textcolor: Colors.white,
                           text: state is CreateProjectLoading
-                              ? "Creating..."
-                              : "Create",
+                              ? "يتم الانشاء..."
+                              : "انشاء",
                           borderSide: const BorderSide(),
                           width: SizeConfig.defaultSize! * 20,
                         );

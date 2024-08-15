@@ -98,141 +98,129 @@ class _ShowProjectDetailsBodyState extends State<ProjectStatusDetailsBody>
           controller: _scrollController,
           child: Column(
             children: [
-              const VirticalSpace(3),
-              Stack(
-                children: [
-                  Container(
-                    margin: EdgeInsets.symmetric(
-                        horizontal: SizeConfig.defaultSize! * .5),
-                    decoration: BoxDecoration(
-                      color: Theme.of(context).focusColor,
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(SizeConfig.defaultSize! * 4),
-                        topRight: Radius.circular(SizeConfig.defaultSize! * 4),
+              const VirticalSpace(5),
+              CustomInfoDetailsStatus(
+                projectModel: widget.project,
+              ),
+              Container(
+                padding: EdgeInsets.only(top: SizeConfig.defaultSize! * 1),
+                margin: EdgeInsets.symmetric(
+                    horizontal: SizeConfig.defaultSize! * .5),
+                decoration: BoxDecoration(
+                  color: Theme.of(context).focusColor,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    CustomBodyStatusDetails(
+                      projectModel: widget.project,
+                    ),
+                    CustomTimeline(
+                      currentStatus: ProjectModel.projectStatuses
+                          .indexOf(widget.project.status),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                          horizontal: SizeConfig.defaultSize! * 2),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const VirticalSpace(5),
+                          InkWell(
+                            onTap: _toggleOffers,
+                            child: Container(
+                              alignment: Alignment.center,
+                              height: SizeConfig.defaultSize! * 3,
+                              width: SizeConfig.defaultSize! * 13,
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  border: Border.all(
+                                      width: 1,
+                                      color: Theme.of(context).primaryColor),
+                                  borderRadius: BorderRadius.circular(
+                                      SizeConfig.defaultSize! * 2)),
+                              child: CustomBody(
+                                text:
+                                    "عدد العروض: ${widget.project.offerCount}",
+                              ),
+                            ),
+                          ),
+                          const VirticalSpace(2),
+                          AnimatedContainer(
+                            duration: const Duration(milliseconds: 500),
+                            height: showOffers ? null : 0,
+                            child: AnimatedOpacity(
+                              duration: const Duration(milliseconds: 500),
+                              opacity: showOffers ? 1.0 : 0.0,
+                              child: showOffers
+                                  ? BlocBuilder<OfferByProjectBloc,
+                                      OfferByProjectState>(
+                                      builder: (context, state) {
+                                        if (state is OfferByProjectLoaded) {
+                                          return ListView.separated(
+                                            physics:
+                                                const NeverScrollableScrollPhysics(),
+                                            shrinkWrap: true,
+                                            itemBuilder: (context, index) {
+                                              return InkWell(
+                                                  onTap: () {
+                                                    GoRouter.of(context).push(
+                                                        "/offerdetails",
+                                                        extra: OfferDetailsArgs(
+                                                            offersModel: state
+                                                                .offers[index],
+                                                            projectModel: widget
+                                                                .project));
+                                                  },
+                                                  child: CustomOffer(
+                                                      offer:
+                                                          state.offers[index]));
+                                            },
+                                            separatorBuilder: (context, index) {
+                                              return const VirticalSpace(1);
+                                            },
+                                            itemCount: state.offers.length,
+                                          );
+                                        } else if (state
+                                            is OfferByProjectFaliure) {
+                                          return Center(
+                                              child: Text(
+                                                  "'Error: ${state.message}"));
+                                        } else {
+                                          return const Center(
+                                              child:
+                                                  CircularProgressIndicator());
+                                        }
+                                      },
+                                    )
+                                  : const SizedBox.shrink(),
+                            ),
+                          ),
+                          const VirticalSpace(2),
+                          if (widget.project.client!.userId == userId &&
+                              widget.project.status == "submitted")
+                            _buildCompleteButton(
+                                context,
+                                widget
+                                    .project), //for owner client when submitted
+                          if (widget.project.worker?.userId == userId &&
+                              widget.project.status == "inProgress")
+                            _buildSubmitButton(
+                                context,
+                                widget
+                                    .project), //for project worker when in progress
+                          if (widget.project.worker?.userId == userId &&
+                              widget.project.status == "submitted")
+                            _buildSubmittedMsg(
+                                context,
+                                widget
+                                    .project), //for project worker when in submitted
+                          const VirticalSpace(2),
+                        ],
                       ),
                     ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const VirticalSpace(15),
-                        CustomBodyStatusDetails(
-                          projectModel: widget.project,
-                        ),
-                        CustomTimeline(
-                          currentStatus: ProjectModel.projectStatuses
-                              .indexOf(widget.project.status),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: SizeConfig.defaultSize! * 2),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const VirticalSpace(5),
-                              InkWell(
-                                onTap: _toggleOffers,
-                                child: Container(
-                                  alignment: Alignment.center,
-                                  height: SizeConfig.defaultSize! * 3,
-                                  width: SizeConfig.defaultSize! * 10,
-                                  decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      border: Border.all(
-                                          width: 1,
-                                          color:
-                                              Theme.of(context).primaryColor),
-                                      borderRadius: BorderRadius.circular(
-                                          SizeConfig.defaultSize! * 2)),
-                                  child: CustomBody(
-                                    text:
-                                        "Offers: ${widget.project.offerCount}",
-                                  ),
-                                ),
-                              ),
-                              const VirticalSpace(2),
-                              AnimatedContainer(
-                                duration: const Duration(milliseconds: 500),
-                                height: showOffers ? null : 0,
-                                child: AnimatedOpacity(
-                                  duration: const Duration(milliseconds: 500),
-                                  opacity: showOffers ? 1.0 : 0.0,
-                                  child: showOffers
-                                      ? BlocBuilder<OfferByProjectBloc,
-                                          OfferByProjectState>(
-                                          builder: (context, state) {
-                                            if (state is OfferByProjectLoaded) {
-                                              return ListView.separated(
-                                                physics:
-                                                    const NeverScrollableScrollPhysics(),
-                                                shrinkWrap: true,
-                                                itemBuilder: (context, index) {
-                                                  return InkWell(
-                                                      onTap: () {
-                                                        GoRouter.of(context).push(
-                                                            "/offerdetails",
-                                                            extra: OfferDetailsArgs(
-                                                                offersModel:
-                                                                    state.offers[
-                                                                        index],
-                                                                projectModel:
-                                                                    widget
-                                                                        .project));
-                                                      },
-                                                      child: CustomOffer(
-                                                          offer: state
-                                                              .offers[index]));
-                                                },
-                                                separatorBuilder:
-                                                    (context, index) {
-                                                  return const VirticalSpace(1);
-                                                },
-                                                itemCount: state.offers.length,
-                                              );
-                                            } else if (state
-                                                is OfferByProjectFaliure) {
-                                              return Center(
-                                                  child: Text(
-                                                      "'Error: ${state.message}"));
-                                            } else {
-                                              return const Center(
-                                                  child:
-                                                      CircularProgressIndicator());
-                                            }
-                                          },
-                                        )
-                                      : const SizedBox.shrink(),
-                                ),
-                              ),
-                              const VirticalSpace(2),
-                              if (widget.project.client!.userId == userId &&
-                                  widget.project.status == "submitted")
-                                _buildCompleteButton(
-                                    context,
-                                    widget
-                                        .project), //for owner client when submitted
-                              if (widget.project.worker?.userId == userId &&
-                                  widget.project.status == "inProgress")
-                                _buildSubmitButton(
-                                    context,
-                                    widget
-                                        .project), //for project worker when in progress
-                              if (widget.project.worker?.userId == userId &&
-                                  widget.project.status == "submitted")
-                                _buildSubmittedMsg(
-                                    context,
-                                    widget
-                                        .project), //for project worker when in submitted
-                              const VirticalSpace(2),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  CustomInfoDetailsStatus(
-                    projectModel: widget.project,
-                  )
-                ],
+                  ],
+                ),
               ),
             ],
           ),
@@ -271,7 +259,7 @@ class _ShowProjectDetailsBodyState extends State<ProjectStatusDetailsBody>
           },
           color: Colors.white,
           textcolor: Colors.black,
-          text: "Complete",
+          text: "اتمام المشروع",
           borderSide: BorderSide(
               width: SizeConfig.defaultSize! * .1, color: Colors.grey),
           width: SizeConfig.defaultSize! * 20,

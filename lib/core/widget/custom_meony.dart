@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:freelance_job_portal/core/utils/size_config.dart';
-import 'package:freelance_job_portal/core/widget/custom_body_medium.dart';
+import 'package:freelance_job_portal/core/widget/custom_money_body.dart';
 import 'package:freelance_job_portal/core/widget/custom_subtitle_medium.dart';
 
 class CustomMeony extends StatelessWidget {
@@ -21,7 +21,7 @@ class CustomMeony extends StatelessWidget {
                   topRight: Radius.circular(SizeConfig.defaultSize! * 10)),
               color: Theme.of(context).primaryColor),
           child: const CustomSubTitleMedium(
-            text: "SYP",
+            text: "ل.س",
             color: Colors.white,
           ),
         ),
@@ -37,7 +37,7 @@ class CustomMeony extends StatelessWidget {
                 bottomLeft: Radius.circular(SizeConfig.defaultSize! * 10),
                 topLeft: Radius.circular(SizeConfig.defaultSize! * 10)),
           ),
-          child: CustomBody(
+          child: CustomMoneyBody(
             text: text,
           ),
         ),

@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:freelance_job_portal/core/constants/colors.dart';
 import 'package:freelance_job_portal/core/utils/size_config.dart';
 import 'package:freelance_job_portal/core/widget/custom_body_medium.dart';
-import 'package:freelance_job_portal/core/widget/custom_button_general.dart';
 import 'package:freelance_job_portal/core/widget/custom_sub_title.dart';
 import 'package:freelance_job_portal/core/widget/custom_subtitle_medium.dart';
 import 'package:freelance_job_portal/core/widget/space.dart';
-import 'package:freelance_job_portal/features/wallet/data/models/wallet_model.dart';
 import 'package:freelance_job_portal/features/wallet/data/models/wallet_payments/wallet_payments.dart';
-import 'package:go_router/go_router.dart';
 import 'package:iconly/iconly.dart';
 import 'package:intl/intl.dart';
 

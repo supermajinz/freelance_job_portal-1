@@ -23,7 +23,6 @@ class FavoritePeople extends StatelessWidget {
                   return const CustomEmpty();
                 } else {
                   return ListView.separated(
-                    // physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     separatorBuilder: (context, index) {
                       return const VirticalSpace(.5);

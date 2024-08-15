@@ -8,8 +8,6 @@ import 'package:freelance_job_portal/core/widget/space.dart';
 import 'package:freelance_job_portal/features/categories%20and%20skills/models/job_title.dart';
 import 'package:freelance_job_portal/features/home/data/model/caregories/caregories.dart';
 import 'package:freelance_job_portal/features/home/data/model/skills/skills.dart';
-import 'package:freelance_job_portal/features/home/presentation/view_models/nav_bar_bloc/nav_bar_bloc.dart';
-import 'package:freelance_job_portal/features/home/presentation/view_models/nav_bar_bloc/nav_bar_event.dart';
 import 'package:freelance_job_portal/features/photo/bloc/image_bloc.dart';
 import 'package:freelance_job_portal/features/profile/data/models/profile/client_profile.dart';
 import 'package:freelance_job_portal/features/profile/data/models/profile/photo_dt_o.dart';

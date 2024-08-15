@@ -1,31 +1,20 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
-import 'package:freelance_job_portal/core/widget/custom_loading.dart';
-import 'package:freelance_job_portal/features/profile/presentation/views/widget/custom_review_card_client.dart';
 import 'package:freelance_job_portal/features/projects/data/model/project_model/project_model.dart';
-import 'package:freelance_job_portal/features/protofolio/presentaion/views/widget/portofolio_widget.dart';
 import 'package:freelance_job_portal/features/review/presentation/view_models/bloc/review_bloc.dart';
 import 'package:go_router/go_router.dart';
-import 'package:rating_summary/rating_summary.dart';
-
 import 'package:freelance_job_portal/core/utils/size_config.dart';
 import 'package:freelance_job_portal/core/widget/custom_button_general.dart';
 import 'package:freelance_job_portal/core/widget/custom_sub_title.dart';
 import 'package:freelance_job_portal/core/widget/space.dart';
 import 'package:freelance_job_portal/features/profile/data/models/profile/client_profile.dart';
-import 'package:freelance_job_portal/features/profile/presentation/view_models/bloc/profile_bloc.dart';
 import 'package:freelance_job_portal/features/profile/presentation/views/widget/custom_profile_card.dart';
-import 'package:freelance_job_portal/features/profile/presentation/views/widget/custom_review_card_worker.dart';
-import 'package:freelance_job_portal/features/protofolio/presentaion/views/widget/custom_protofolio_card.dart';
 import 'package:freelance_job_portal/features/profile/presentation/views/widget/custom_zzz.dart';
 import 'package:freelance_job_portal/features/profile/presentation/views/widget/show_chip.dart';
 import 'package:freelance_job_portal/features/projects/presentation/views/widget/custom_project_card.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import '../../../../../core/widget/cusrom_rating_summary.dart';
-import '../../../worker profile/widgets/custom_rate.dart';
 
 class ProfileBody extends StatefulWidget {
   final List<ClientProfile> clientProfiles;
@@ -42,10 +31,9 @@ class _ProfileBodyState extends State<ProfileBody> {
   late ClientProfile currentProfile;
   @override
   void initState() {
-    super.initState();
-    currentProfile =
-        widget.clientProfiles[0]; //TODO make this shared preferences
+    currentProfile = widget.clientProfiles[0];
     _loadSavedProfile();
+    super.initState();
   }
 
   Future<void> _loadSavedProfile() async {

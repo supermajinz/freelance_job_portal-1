@@ -9,6 +9,7 @@ import 'package:freelance_job_portal/core/widget/space.dart';
 import 'package:freelance_job_portal/features/home/data/model/caregories/caregories.dart';
 import 'package:freelance_job_portal/features/profile/presentation/views/widget/edit_text_form.dart';
 import 'package:freelance_job_portal/features/projects/data/model/project_model/project_model.dart';
+import 'package:go_router/go_router.dart';
 import '../../../../../core/widget/custom_label.dart';
 import '../../../../home/data/model/skills/skills.dart';
 import '../../../../home/presentation/view_models/home_bloc/home_bloc.dart';
@@ -64,14 +65,14 @@ class _EditProjectBodyState extends State<EditProjectBody> {
                 onTapicon: () {},
                 mycontroller: titleController,
                 hinttext: "",
-                lable: "Title",
+                lable: "اسم المشروع",
                 isNumber: false),
             const VirticalSpace(3),
             EditTextForm(
                 onTapicon: () {},
                 mycontroller: descriptionController,
                 hinttext: "",
-                lable: "Discripion",
+                lable: "وصف المشروع",
                 isNumber: false),
             const VirticalSpace(6),
             Row(
@@ -80,7 +81,7 @@ class _EditProjectBodyState extends State<EditProjectBody> {
                 Expanded(
                   child: Column(
                     children: [
-                      const CustomSubTitle(text: "Min Budget"),
+                      const CustomSubTitle(text: "الحدالادنى للميزانية"),
                       const VirticalSpace(2),
                       CustomEditMeonyGeneral(
                         isNumber: true,
@@ -93,7 +94,7 @@ class _EditProjectBodyState extends State<EditProjectBody> {
                 Expanded(
                   child: Column(
                     children: [
-                      const CustomSubTitle(text: "Max Budget"),
+                      const CustomSubTitle(text: "الحد الاعلى للميزانية"),
                       const VirticalSpace(2),
                       CustomEditMeonyGeneral(
                         isNumber: true,
@@ -106,17 +107,17 @@ class _EditProjectBodyState extends State<EditProjectBody> {
               ],
             ),
             const VirticalSpace(5),
-            const CustomSubTitle(text: "Duration"),
+            const CustomSubTitle(text: "المدة المتوقعة (خلال ايام)"),
             const VirticalSpace(2),
             EditTextForm(
               onTapicon: () {},
               mycontroller: durationController,
               hinttext: "",
-              lable: "Duration",
+              lable: "المدة",
               isNumber: true,
             ),
             const VirticalSpace(5),
-            const CustomSubTitle(text: "Category"),
+            const CustomSubTitle(text: "اختر تصنيف"),
             const VirticalSpace(1.5),
             CustomDropdownSearchCategories(
               onChanged: (value) {
@@ -129,7 +130,7 @@ class _EditProjectBodyState extends State<EditProjectBody> {
               },
             ),
             const VirticalSpace(5),
-            const CustomSubTitle(text: "Skills"),
+            const CustomSubTitle(text: "اختر مهارات"),
             const VirticalSpace(1.5),
             CustomDropdownSearchSkills(
               category: category,
@@ -156,10 +157,15 @@ class _EditProjectBodyState extends State<EditProjectBody> {
                 listener: (context, state) {
                   if (state is EditProjectSuccess) {
                     widget.projectModel.update(state.project);
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(content: Text("تم تعديل المشروع بنجاح")),
-                    );
-                    // Show success message or navigate to another screen
+                    ScaffoldMessenger.of(context)
+                        .showSnackBar(
+                          const SnackBar(
+                              content: Text("تم تعديل المشروع بنجاح")),
+                        )
+                        .closed
+                        .then((_) {
+                      GoRouter.of(context).pop();
+                    });
                   } else if (state is ProjectError) {
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(content: Text(state.message)),
@@ -184,7 +190,7 @@ class _EditProjectBodyState extends State<EditProjectBody> {
                       },
                       color: Theme.of(context).primaryColor,
                       textcolor: Colors.white,
-                      text: "Save",
+                      text: "حفظ التعديلات",
                       borderSide: const BorderSide(),
                       width: SizeConfig.defaultSize! * 20,
                     ),
@@ -213,7 +219,6 @@ class CustomDropdownSearchCategories extends StatelessWidget {
         }
         return DropdownSearch<Categories>(
           items: state.categories,
-          // قم بتغيير هذه إلى معرفات الفئات الفعلية
           itemAsString: (item) => item.name,
           dropdownDecoratorProps: DropDownDecoratorProps(
             dropdownSearchDecoration: InputDecoration(
@@ -226,8 +231,7 @@ class CustomDropdownSearchCategories extends StatelessWidget {
             showSearchBox: true,
             itemBuilder: (context, item, isSelected) {
               return ListTile(
-                title:
-                    Text(item.name), // قم بتغيير هذا لعرض أسماء الفئات الفعلية
+                title: Text(item.name),
               );
             },
           ),
@@ -254,7 +258,6 @@ class CustomDropdownSearchSkills extends StatelessWidget {
         }
         return DropdownSearch<Skills>(
           items: state.skillsByCategory[category?.id] ?? [],
-          // قم بتغيير هذه إلى معرفات المهارات الفعلية
           // itemAsString: (item) => item.name,
           itemAsString: (item) => "",
           dropdownDecoratorProps: DropDownDecoratorProps(
@@ -268,8 +271,7 @@ class CustomDropdownSearchSkills extends StatelessWidget {
             showSearchBox: true,
             itemBuilder: (context, item, isSelected) {
               return ListTile(
-                title: Text(
-                    item.name), // قم بتغيير هذا لعرض أسماء المهارات الفعلية
+                title: Text(item.name),
               );
             },
           ),

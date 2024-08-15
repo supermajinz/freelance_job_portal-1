@@ -238,7 +238,7 @@ class _WorkerProfileBodyState extends State<WorkerProfileBody> {
                 const CustomSubTitle(
                   text: "Ratings and reviews",
                 ),
-                const CusromRatingSummary()
+               const CusromRatingSummary()
               ],
             ))
       ],

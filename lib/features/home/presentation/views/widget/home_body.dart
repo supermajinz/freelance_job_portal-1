@@ -88,7 +88,7 @@ class HomeBody extends StatelessWidget {
               )),
           const VirticalSpace(1),
           SizedBox(
-            height: SizeConfig.defaultSize! * 29,
+            height: SizeConfig.defaultSize! * 31,
             child: ListView.builder(
               itemCount: 4,
               scrollDirection: Axis.horizontal,
@@ -124,7 +124,7 @@ class HomeBody extends StatelessWidget {
               )),
           const VirticalSpace(1),
           SizedBox(
-            height: SizeConfig.defaultSize! * 29,
+            height: SizeConfig.defaultSize! * 31,
             child: ListView.builder(
               itemCount: 4,
               scrollDirection: Axis.horizontal,

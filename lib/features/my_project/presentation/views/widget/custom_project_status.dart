@@ -12,6 +12,7 @@ import 'package:freelance_job_portal/features/projects/data/model/project_model/
 import 'package:timeago/timeago.dart' as timeago;
 
 import '../../../../../core/utils/functions/utils.dart';
+import '../../../../../core/widget/bookmark_button.dart';
 
 class CustomProjectStatus extends StatelessWidget {
   const CustomProjectStatus({super.key, required this.projectModel});
@@ -39,25 +40,39 @@ class CustomProjectStatus extends StatelessWidget {
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
+                  padding: EdgeInsets.only(top: SizeConfig.defaultSize! * 1),
+                  width: SizeConfig.defaultSize! * 20,
                   margin: EdgeInsets.only(right: SizeConfig.defaultSize! * 1.2),
-                  child: CustomSubTitleMedium(text: projectModel.name),
+                  child: Text(
+                    projectModel.name,
+                    style: Theme.of(context).textTheme.titleMedium!,
+                    maxLines: 2,
+                  ),
                 ),
                 const Spacer(),
-                CustomLabel(
-                  text: formattedCreateDate,
+                Container(
+                  padding: EdgeInsets.only(top: SizeConfig.defaultSize! * 1),
+                  width: SizeConfig.defaultSize! * 5,
+                  child: Text(
+                    textAlign: TextAlign.center,
+                    formattedCreateDate,
+                    style: Theme.of(context).textTheme.labelLarge!,
+                  ),
                 ),
-                IconButton(
-                    onPressed: () {},
-                    icon: const Icon(Icons.bookmark_add_outlined))
+                BookmarkButton(isProject: true, id: projectModel.id)
               ],
             ),
+            const VirticalSpace(2),
             Container(
               margin: EdgeInsets.only(right: SizeConfig.defaultSize! * 1.2),
               child: CustomBody(text: projectModel.description),
             ),
-             CustomTimeline(currentStatus: ProjectModel.projectStatuses.indexOf(projectModel.status)),
+            CustomTimeline(
+                currentStatus:
+                    ProjectModel.projectStatuses.indexOf(projectModel.status)),
             const VirticalSpace(1),
             Container(
               margin: EdgeInsets.only(right: SizeConfig.defaultSize! * 1.2),

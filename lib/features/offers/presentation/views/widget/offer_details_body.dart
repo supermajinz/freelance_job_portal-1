@@ -13,7 +13,6 @@ import 'package:freelance_job_portal/core/widget/space.dart';
 import 'package:freelance_job_portal/features/auth/presentation/view_models/bloc/auth_bloc.dart';
 import 'package:freelance_job_portal/features/offers/presentation/view_models/bloc/offer_bloc.dart';
 import 'package:freelance_job_portal/features/profile/data/models/profile/worker_Profile/worker_profile.dart';
-import 'package:freelance_job_portal/features/profile/presentation/view_models/bloc/profile_bloc.dart';
 import 'package:freelance_job_portal/features/profile/worker%20profile/bloc/worker_profile_bloc.dart';
 import 'package:freelance_job_portal/features/projects/data/model/project_model/project_model.dart';
 import 'package:go_router/go_router.dart';
