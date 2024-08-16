@@ -36,6 +36,25 @@ class ChatService {
     );
   }
 
+  message() {
+    final client = StompClient(
+        config: StompConfig(
+          url: 'ws://localhost:8080/ws/websocket',
+          reconnectDelay: const Duration(seconds: 5),
+        ));
+    client.activate();
+    await Future.delayed(const Duration(seconds: 1));
+    //subscribe to chat
+    client.subscribe(
+        destination: "/user/456/queue/messages",
+        callback: (p0) => print("comingMessage: ${p0.body}"));
+    //send message in chat
+    client.send(
+        destination: "/app/chat",
+        body: json.encode(
+            {"senderId": 123, "recipientId": 456, "content": "Hello, world!"}));
+  }
+
   Future<void> connect() async {
     if (!_isConnected) {
       await _initializeStompClient();

@@ -1,34 +1,33 @@
-// lib/features/chat/domain/models/chat_message.dart
-import 'package:equatable/equatable.dart';
+import '../../../auth/data/models/user.dart';
 
-class ChatMessage extends Equatable {
+class ChatRoomModel{
   final String id;
-  final String senderId;
-  final String recipientId;
-  final bool isSender;
-  final String content;
-  final DateTime timestamp;
+  final String chatId;
+  final User sender;
+  final User recipient;
 
-  const ChatMessage({
+  const ChatRoomModel({
     required this.id,
-    required this.senderId,
-    required this.recipientId,
-    this.isSender = false,
-    required this.content,
-    required this.timestamp,
+    required this.chatId,
+    required this.sender,
+    required this.recipient,
   });
 
-  factory ChatMessage.fromJson(Map<String, dynamic> json) {
-    return ChatMessage(
-      id: json['id'],
-      senderId: json['senderId'],
-      recipientId: json['recipientId'],
-      content: json['content'],
-      timestamp: DateTime.parse(json['timestamp']),
-    );
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'chatId': chatId,
+      'sender': sender,
+      'recipient': recipient,
+    };
   }
 
-  @override
-  List<Object?> get props =>
-      [id, senderId, recipientId, isSender, content, timestamp];
+  factory ChatRoomModel.fromMap(Map<String, dynamic> map) {
+    return ChatRoomModel(
+      id: map['id'] as String,
+      chatId: map['chatId'] as String,
+      sender: User.fromJson(map['sender']),
+      recipient: User.fromJson(map['recipient']),
+    );
+  }
 }

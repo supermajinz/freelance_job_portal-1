@@ -8,10 +8,15 @@ abstract class ChatState extends Equatable {
 }
 
 class ChatInitial extends ChatState {}
+class ChatFetched extends ChatState {
+  final List<Chat>
+}
 
 class ChatConnecting extends ChatState {}
 
-class ChatConnected extends ChatState {}
+class ChatConnected extends ChatState {
+  const ChatConnected();
+}
 
 class ChatDisconnected extends ChatState {}
 
@@ -24,7 +29,7 @@ class ChatError extends ChatState {
   List<Object> get props => [message];
 }
 
-class ChatMessageReceived extends ChatState {
+class ChatMessageReceived extends ChatConnected {
   final List<ChatMessage> messages;
 
   const ChatMessageReceived(this.messages);
@@ -33,4 +38,4 @@ class ChatMessageReceived extends ChatState {
   List<Object> get props => [messages];
 }
 
-class ChatMessageSent extends ChatState {}
+class ChatMessageSent extends ChatConnected {}

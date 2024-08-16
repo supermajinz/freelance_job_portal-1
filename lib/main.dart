@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freelance_job_portal/core/constants/theme.dart';
 import 'package:freelance_job_portal/core/localization/bloc/localization_bloc.dart';
+import 'package:freelance_job_portal/core/notifications/firebase_messaging.dart';
 import 'package:freelance_job_portal/core/utils/app_router.dart';
 import 'package:freelance_job_portal/core/utils/dependency_injection.dart';
 import 'package:freelance_job_portal/features/auth/presentation/view_models/bloc/auth_bloc.dart';
@@ -30,6 +31,7 @@ void main() async {
   timeago.setLocaleMessages('ar', timeago_ar.ArMessages());
   int userId;
   WidgetsFlutterBinding.ensureInitialized();
+  initFireBase();
   // final sharedPreferences = await SharedPreferences.getInstance;
   await DependencyInjection.initSharedPreferences();
   runApp(MultiBlocProvider(

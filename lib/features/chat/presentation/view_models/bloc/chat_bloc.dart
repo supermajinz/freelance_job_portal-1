@@ -2,20 +2,23 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:freelance_job_portal/features/chat/data/models/chat_model.dart';
+import 'package:freelance_job_portal/features/chat/data/models/chat_message.dart';
 import 'package:freelance_job_portal/features/chat/data/chat_repo.dart';
 //import 'package:get/get_connect/http/src/utils/utils.dart';
 
 part 'chat_event.dart';
+
 part 'chat_state.dart';
 
 class ChatBloc extends Bloc<ChatEvent, ChatState> {
   final ChatRepo _chatRepo;
   List<ChatMessage> _messages = [];
+
   ChatBloc(this._chatRepo) : super(ChatInitial()) {
     on<ConnectToChatEvent>(connectToChatEvent);
     on<DisconnectFromChatEvent>(disconnectFromChatEvent);
     on<SendMessageEvent>(sendMessageEvent);
+    on<GetChats>(getChats);
   }
 
   FutureOr<void> connectToChatEvent(
@@ -50,4 +53,6 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
       emit(ChatMessageSent());
     });
   }
+
+  FutureOr<void> getChats(GetChats event, Emitter<ChatState> emit) {}
 }

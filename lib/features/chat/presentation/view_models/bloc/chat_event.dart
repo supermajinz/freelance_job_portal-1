@@ -25,3 +25,11 @@ class SendMessageEvent extends ChatEvent {
   @override
   List<Object> get props => [message];
 }
+
+class GetChats extends ChatEvent {
+
+  const GetChats();
+
+  @override
+  List<Object> get props => [];
+}

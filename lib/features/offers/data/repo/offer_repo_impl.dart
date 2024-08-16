@@ -6,7 +6,7 @@ import 'package:freelance_job_portal/features/offers/data/repo/offer_repo.dart';
 
 import '../model/offers_model/offers_model.dart';
 
-class OfferRepoImpl implements OfferRepo {
+class OfferRepoImpl implements OffersRepo {
   final ApiService _apiService;
 
   OfferRepoImpl(this._apiService);

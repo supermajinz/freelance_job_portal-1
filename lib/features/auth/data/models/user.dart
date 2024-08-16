@@ -11,14 +11,15 @@ class User extends Equatable {
   final String? role;
   final String? device_token;
 
-  const User(
-      {this.id = 0,
-      required this.firstname,
-      required this.lastname,
-      required this.email,
-      required this.phone,
-      this.role = "CLIENT_WORKER",
-      this.device_token = "dsa"});
+  const User({
+    this.id = 0,
+    required this.firstname,
+    required this.lastname,
+    required this.email,
+    required this.phone,
+    this.role = "CLIENT_WORKER",
+    this.device_token = "dsa",
+  });
 
   factory User.fromJson(Map<String, dynamic> json) => User(
         id: json['id'] as int?,
@@ -40,8 +41,6 @@ class User extends Equatable {
 
   @override
   List<Object?> get props {
-    return [
-      id
-    ];
+    return [id];
   }
 }
