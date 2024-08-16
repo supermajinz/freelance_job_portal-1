@@ -27,14 +27,19 @@ class ReviewRepoImpl implements ReviewRepo {
   }
 
   @override
-  Future<Either<Failure, ProfileRates>> getProfileRate(int profileId, bool isClient) async {
+  Future<Either<Failure, ProfileRates>> getProfileRate(
+      int profileId, bool isClient) async {
     try {
-      var data = await apiService.get('rate/profile/$profileId', params: {
-        "profileType": isClient? "Client": "Worker"
-      });
+      var data = await apiService.get('rate/profile/$profileId',
+          params: {"profileType": isClient ? "Client" : "Worker"});
       return Right(ProfileRates.fromMap(data));
     } catch (e) {
+      print(e);
+      if (e is TypeError) {
+        print(e.stackTrace);
+      }
       if (e is DioException) {
+        print(e.stackTrace);
         return Left(ServerFailure.fromDioException(e));
       }
       return Left(ServerFailure(errMessage: e.toString()));

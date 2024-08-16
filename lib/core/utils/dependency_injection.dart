@@ -34,7 +34,7 @@ import '../../features/searsh/data/repo/search_repo_.dart';
 import '../../features/searsh/data/repo/search_repo_impl.dart';
 
 class DependencyInjection {
-  static const String baseUrl = "http://localhost:8080/api/v1/";
+  static const String baseUrl = "http://10.0.2.2:8080/api/v1/";
   static AuthTokenService provideAuthTokenService() {
     return AuthTokenService();
   }
@@ -42,7 +42,7 @@ class DependencyInjection {
   static ApiService provideApiService() {
     final authTokenService = provideAuthTokenService();
     return ApiService(
-      baseUrl: 'http://10.0.2.2:8080/api/v1/',
+      baseUrl: baseUrl,
       authTokenService: authTokenService,
     );
   }

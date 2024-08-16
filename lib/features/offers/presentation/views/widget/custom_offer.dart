@@ -60,9 +60,12 @@ class CustomOffer extends StatelessWidget {
                         "${offer.worker!.userDto!.firstname} ${offer.worker!.userDto!.lastname}",
                     color: Colors.white,
                   ),
-                  CustomBody(
-                    text: offer.worker!.jobTitleDto!.title!,
-                    color: Colors.white,
+                  SizedBox(
+                    width:SizeConfig.defaultSize! * 19,
+                    child: CustomBody(
+                      text: offer.worker!.jobTitleDto!.title!,
+                      color: Colors.white,
+                    ),
                   ),
                   const VirticalSpace(0.2),
                   Row(
@@ -88,12 +91,9 @@ class CustomOffer extends StatelessWidget {
             ],
           ),
           const VirticalSpace(1),
-          Padding(
-            padding: EdgeInsets.only(right: SizeConfig.defaultSize! * 1),
-            child: CustomBody(
-              text: offer.message!,
-              color: Colors.white,
-            ),
+          CustomBody(
+            text: offer.message!,
+            color: Colors.white,
           ),
         ],
       ),

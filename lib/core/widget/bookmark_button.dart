@@ -10,7 +10,6 @@ class BookmarkButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final userId = (context.read<AuthBloc>().state as AuthAuthenticated).id;
     return BlocConsumer<FavoritesBloc, FavoritesState>(
       buildWhen: (previous, current) => current is GetFavoriteSuccess,
       listenWhen: (previous, current) => isProject
@@ -19,6 +18,8 @@ class BookmarkButton extends StatelessWidget {
           : (current is AddUserToFavoriteSuccess ||
               current is DeleteUserFromFavoriteSuccess),
       listener: (context, state) {
+        if (context.read<AuthBloc>().state is! AuthAuthenticated) return;
+        final userId = (context.read<AuthBloc>().state as AuthAuthenticated).id;
         if (isProject &&
             state is AddProjectToFavoriteSuccess &&
             state.projectId == id) {
@@ -46,12 +47,11 @@ class BookmarkButton extends StatelessWidget {
               content: Text('تم حفظ المستخدم'),
             ),
           );
-         
         } else if (!isProject &&
             state is DeleteUserFromFavoriteSuccess &&
             state.favoriteUserId == id) {
           context.read<FavoritesBloc>().add(GetFavorite(userId));
-           ScaffoldMessenger.of(context).showSnackBar(
+          ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(content: Text('تم الغاء حفظ المستخدم')),
           );
         }
@@ -67,6 +67,9 @@ class BookmarkButton extends StatelessWidget {
             isBookmarked ? Icons.bookmark_added : Icons.bookmark_add_outlined,
           ),
           onPressed: () {
+            
+        if (context.read<AuthBloc>().state is! AuthAuthenticated) return;
+        final userId = (context.read<AuthBloc>().state as AuthAuthenticated).id;
             if (isBookmarked) {
               context.read<FavoritesBloc>().add(isProject
                   ? DeleteProjectFromFavorite(userId, id)

@@ -15,9 +15,11 @@ class ReportRepoImpl implements ReportRepo {
       Map<String, dynamic> reportData) async {
     try {
       final response = await apiService.post('reports', reportData);
+      print(reportData);
       return Right(ReportModel.fromJson(response));
     } catch (e) {
       if (e is DioException) {
+        print(e.stackTrace);
         return left(ServerFailure.fromDioException(e));
       }
       return left(ServerFailure(errMessage: e.toString()));

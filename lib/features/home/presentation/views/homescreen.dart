@@ -27,8 +27,11 @@ class _HomescreenState extends State<Homescreen> {
   @override
   void initState() {
     super.initState();
-    final userId = (context.read<AuthBloc>().state as AuthAuthenticated).id;
-    context.read<FavoritesBloc>().add(GetFavorite(userId));
+    if(context.read<AuthBloc>().state is AuthAuthenticated){
+      final userId = (context.read<AuthBloc>().state as AuthAuthenticated).id;
+      
+      context.read<FavoritesBloc>().add(GetFavorite(userId));
+    }
   }
 
   @override

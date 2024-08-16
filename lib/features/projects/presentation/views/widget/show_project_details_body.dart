@@ -102,7 +102,9 @@ class _ShowProjectDetailsBodyState extends State<ShowProjectDetailsBody> {
 
   Widget _buildProjectDetailsContainer(
       BuildContext context, ProjectModel project) {
-    final userId = (context.read<AuthBloc>().state as AuthAuthenticated).id;
+    final userId = context.read<AuthBloc>().state is AuthAuthenticated
+        ? (context.read<AuthBloc>().state as AuthAuthenticated).id
+        : null;
     return Container(
       margin: EdgeInsets.symmetric(horizontal: SizeConfig.defaultSize! * .5),
       constraints: const BoxConstraints(minHeight: 600),
@@ -327,7 +329,9 @@ class _ShowProjectDetailsBodyState extends State<ShowProjectDetailsBody> {
   }
 
   Widget _buildClientInfoContainer(BuildContext context, ProjectModel project) {
-    final userId = (context.read<AuthBloc>().state as AuthAuthenticated).id;
+    final userId = context.read<AuthBloc>().state is AuthAuthenticated
+        ? (context.read<AuthBloc>().state as AuthAuthenticated).id
+        : null;
     final client = project.client;
 
     final clientName =
@@ -369,8 +373,10 @@ class _ShowProjectDetailsBodyState extends State<ShowProjectDetailsBody> {
                           EdgeInsets.only(top: SizeConfig.defaultSize! * .5),
                       child: InkWell(
                         onTap: () {
-                          GoRouter.of(context)
-                              .push('/visitprofile', extra: visitedProfile);
+                          if (project.client!.userId != userId) {
+                            GoRouter.of(context)
+                                .push('/visitprofile', extra: visitedProfile);
+                          }
                         },
                         child: CircleAvatar(
                             radius: SizeConfig.defaultSize! * 5,

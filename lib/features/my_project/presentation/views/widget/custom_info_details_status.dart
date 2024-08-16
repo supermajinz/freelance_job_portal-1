@@ -79,8 +79,10 @@ class _CustomInfoDetailsStatusState extends State<CustomInfoDetailsStatus> {
                           EdgeInsets.only(top: SizeConfig.defaultSize! * .5),
                       child: InkWell(
                         onTap: () {
-                          GoRouter.of(context)
-                              .push('/visitprofile', extra: visitedProfile);
+                          if (widget.projectModel.client!.userId != userId) {
+                            GoRouter.of(context)
+                                .push('/visitprofile', extra: visitedProfile);
+                          }
                         },
                         child: CircleAvatar(
                             radius: SizeConfig.defaultSize! * 5,
