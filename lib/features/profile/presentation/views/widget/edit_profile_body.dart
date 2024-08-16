@@ -12,7 +12,6 @@ import 'package:freelance_job_portal/features/photo/bloc/image_bloc.dart';
 import 'package:freelance_job_portal/features/profile/data/models/profile/client_profile.dart';
 import 'package:freelance_job_portal/features/profile/data/models/profile/photo_dt_o.dart';
 import 'package:freelance_job_portal/features/profile/presentation/view_models/bloc/profile_bloc.dart';
-import 'package:freelance_job_portal/features/profile/presentation/views/widget/add_edit_proto.dart';
 import 'package:freelance_job_portal/features/profile/presentation/views/widget/create_profile_body.dart';
 import 'package:freelance_job_portal/features/profile/presentation/views/widget/edit_image_gallery_widget.dart';
 import 'package:freelance_job_portal/features/profile/presentation/views/widget/edit_photo_profile_1.dart';
@@ -209,14 +208,6 @@ class _EditProfileBodyState extends State<EditProfileBody> {
                     });
                   },
                 ),
-                const VirticalSpace(2),
-                const VirticalSpace(5),
-                AddEditProto(
-                  text: "Edit Protofolio Project",
-                  onTap: () {
-                    GoRouter.of(context).push("/editprotofolio");
-                  },
-                ),
                 const VirticalSpace(6),
                 Center(
                     child: CustomButtonGeneral(
@@ -240,7 +231,7 @@ class _EditProfileBodyState extends State<EditProfileBody> {
                         },
                         color: Theme.of(context).primaryColor,
                         textcolor: Colors.white,
-                        text: "Save",
+                        text: "حفظ",
                         borderSide: const BorderSide(width: 0),
                         width: SizeConfig.defaultSize! * 20)),
               ],

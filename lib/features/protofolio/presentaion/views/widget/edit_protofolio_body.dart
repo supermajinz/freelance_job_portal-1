@@ -6,11 +6,7 @@ import 'package:freelance_job_portal/core/widget/custom_button_general.dart';
 import 'package:freelance_job_portal/core/widget/custom_sub_title.dart';
 import 'package:freelance_job_portal/core/widget/space.dart';
 import 'package:freelance_job_portal/features/home/data/model/caregories/caregories.dart';
-import 'package:freelance_job_portal/features/home/data/model/skills/skills.dart';
-import 'package:freelance_job_portal/features/profile/presentation/views/widget/custom_dropdown_searsh.dart';
-import 'package:freelance_job_portal/features/profile/presentation/views/widget/edit_image_gallery_widget.dart';
 import 'package:freelance_job_portal/features/profile/presentation/views/widget/edit_text_form.dart';
-import 'package:freelance_job_portal/features/profile/presentation/views/widget/show_chip.dart';
 import 'package:freelance_job_portal/features/projects/presentation/views/widget/create_project_body.dart';
 import 'package:freelance_job_portal/features/protofolio/data/models/portofolio_job/portofolio_job/photo_dt_o.dart';
 import 'package:freelance_job_portal/features/protofolio/data/models/portofolio_job/portofolio_job/portofolio_job.dart';
@@ -19,7 +15,6 @@ import 'package:freelance_job_portal/features/protofolio/presentaion/view%20mode
 import 'package:freelance_job_portal/features/protofolio/presentaion/views/widget/custom_date.dart';
 import 'package:freelance_job_portal/features/protofolio/presentaion/views/widget/edit_gallery.dart';
 import 'package:go_router/go_router.dart';
-import '../../../../profile/presentation/views/widget/custom_show_chip_button.dart';
 
 class EditProtofolioBody extends StatefulWidget {
   final PortofolioJob job;
@@ -201,12 +196,6 @@ class _EditProtofolioBodyState extends State<EditProtofolioBody> {
                       ),
                     ],
                   ),
-                  const VirticalSpace(5),
-                  // const EditTextForm(
-                  // initvalue: "https://docs.google.com/d/10qgrbMt3I",
-                  //   hinttext: "",
-                  // lable: "Link",
-                  //isNumber: false),
                   const VirticalSpace(5),
                   Center(
                       child: CustomButtonGeneral(

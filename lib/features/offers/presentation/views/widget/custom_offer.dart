@@ -25,7 +25,7 @@ class CustomOffer extends StatelessWidget {
     final backgroundColor =
         workerPhotoUrl == null ? Utils.getBackgroundColor(workerName) : null;
     return Container(
-      padding: EdgeInsets.all(SizeConfig.defaultSize! * 1.5),
+      padding: EdgeInsets.all(SizeConfig.defaultSize! * 1),
       decoration: BoxDecoration(
         color: Theme.of(context).unselectedWidgetColor,
         borderRadius: BorderRadius.circular(SizeConfig.defaultSize! * 1),
@@ -51,7 +51,7 @@ class CustomOffer extends StatelessWidget {
                           ),
                         )
                       : null),
-              const HorizintalSpace(1),
+              const Spacer(),
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -60,13 +60,9 @@ class CustomOffer extends StatelessWidget {
                         "${offer.worker!.userDto!.firstname} ${offer.worker!.userDto!.lastname}",
                     color: Colors.white,
                   ),
-                  Padding(
-                    padding:
-                        EdgeInsets.only(right: SizeConfig.defaultSize! * .5),
-                    child: CustomBody(
-                      text: offer.worker!.jobTitleDto!.title!,
-                      color: Colors.white,
-                    ),
+                  CustomBody(
+                    text: offer.worker!.jobTitleDto!.title!,
+                    color: Colors.white,
                   ),
                   const VirticalSpace(0.2),
                   Row(
@@ -75,7 +71,6 @@ class CustomOffer extends StatelessWidget {
                         text: offer.worker!.rate.toString(),
                         color: Colors.white,
                       ),
-                      const HorizintalSpace(0.5),
                       const Icon(
                         Icons.star,
                         color: Colors.yellow,
@@ -93,9 +88,12 @@ class CustomOffer extends StatelessWidget {
             ],
           ),
           const VirticalSpace(1),
-          CustomBody(
-            text: offer.message!,
-            color: Colors.white,
+          Padding(
+            padding: EdgeInsets.only(right: SizeConfig.defaultSize! * 1),
+            child: CustomBody(
+              text: offer.message!,
+              color: Colors.white,
+            ),
           ),
         ],
       ),

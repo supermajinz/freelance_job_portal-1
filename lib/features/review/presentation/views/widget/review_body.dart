@@ -45,12 +45,12 @@ class ReviewBody extends StatelessWidget {
                 children: [
                   Center(
                     child: CustomTitle(
-                      text: "Review ${args.reviewedName}",
+                      text: "قيم ${args.reviewedName}",
                     ),
                   ),
                   const VirticalSpace(5),
                   const CustomSubTitle(
-                    text: "Overrall rating",
+                    text: "التقييم العام",
                   ),
                   const VirticalSpace(1),
                   CustomRating(
@@ -58,7 +58,7 @@ class ReviewBody extends StatelessWidget {
                   ),
                   const VirticalSpace(3),
                   const CustomSubTitle(
-                    text: "Proficieny rating",
+                    text: "تقييم الكفاءة",
                   ),
                   const VirticalSpace(1),
                   CustomRating(
@@ -66,7 +66,7 @@ class ReviewBody extends StatelessWidget {
                   ),
                   const VirticalSpace(3),
                   const CustomSubTitle(
-                    text: "Communication rating",
+                    text: "تقييم التواصل",
                   ),
                   const VirticalSpace(1),
                   CustomRating(
@@ -74,7 +74,7 @@ class ReviewBody extends StatelessWidget {
                   ),
                   const VirticalSpace(3),
                   const CustomSubTitle(
-                    text: "Quality rating",
+                    text: "تقييم الجودة",
                   ),
                   const VirticalSpace(1),
                   CustomRating(
@@ -85,7 +85,7 @@ class ReviewBody extends StatelessWidget {
                       obs: false,
                       mycontroller: descriptionController,
                       hinttext: "",
-                      lable: "Describe your experience",
+                      lable: "وصف تجربتك",
                       isNumber: false),
                   const VirticalSpace(8),
                   Center(
@@ -109,7 +109,7 @@ class ReviewBody extends StatelessWidget {
                           },
                           color: Theme.of(context).primaryColor,
                           textcolor: Colors.white,
-                          text: "Send",
+                          text: "ارسال",
                           borderSide: const BorderSide(width: 0),
                           width: SizeConfig.defaultSize! * 20)),
                 ],

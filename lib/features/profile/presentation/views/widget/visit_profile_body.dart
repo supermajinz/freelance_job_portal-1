@@ -117,11 +117,11 @@ class _VisitProfileBodyState extends State<VisitProfileBody> {
                       : const SizedBox(),
                   const VirticalSpace(4),
                   const CustomSubTitle(
-                    text: "Projects completed",
+                    text: "المشاريع المكتملة",
                   ),
                   const VirticalSpace(0.5),
                   SizedBox(
-                    height: SizeConfig.defaultSize! * 29,
+                    height: SizeConfig.defaultSize! * 31,
                     child: ListView.separated(
                       separatorBuilder: (context, index) {
                         return const HorizintalSpace(0.3);
@@ -137,7 +137,7 @@ class _VisitProfileBodyState extends State<VisitProfileBody> {
                   const CustomZzz(),
                   const VirticalSpace(5),
                   const CustomSubTitle(
-                    text: "Ratings and reviews",
+                    text: "التقيمات",
                   ),
                   const CusromRatingSummary(),
                 ],

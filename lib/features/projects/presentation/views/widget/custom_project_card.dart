@@ -85,7 +85,7 @@ class _CustomProjectCardState extends State<CustomProjectCard> {
                   itemBuilder: (context, index) {
                     return CustomChoiceChip(
                       text: widget.project.projectSkill[index].name,
-                      color: Theme.of(context).focusColor,
+                      color: Theme.of(context).colorScheme.secondary,
                     );
                   },
                 ),

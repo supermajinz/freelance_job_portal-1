@@ -80,7 +80,7 @@ class EditProfile extends StatelessWidget {
               )
             ],
             title: const CustomTitle(
-              text: 'Edit Profile',
+              text: 'تعديل الملف الشخصي',
               white: true,
             ),
             centerTitle: true,

@@ -4,7 +4,6 @@ import 'package:freelance_job_portal/core/utils/size_config.dart';
 import 'package:freelance_job_portal/features/auth/presentation/view_models/bloc/auth_bloc.dart';
 import 'package:freelance_job_portal/features/auth/presentation/views/widget/custom_auth_title.dart';
 import 'package:freelance_job_portal/features/auth/presentation/views/widget/custom_button_auth.dart';
-import 'package:freelance_job_portal/core/widget/custom_title.dart';
 import 'package:freelance_job_portal/core/widget/space.dart';
 import 'package:freelance_job_portal/features/auth/presentation/views/widget/otp_text_field.dart';
 import 'package:go_router/go_router.dart';
@@ -45,18 +44,13 @@ class _VerificationCodeBodyState extends State<VerificationCodeBody> {
         return ListView(
           children: [
             const VirticalSpace(5),
-            const Center(child: CustomAuthTitle(text: "Verification Code")),
+            const Center(child: CustomAuthTitle(text: "التحقق من الرمز")),
             const VirticalSpace(4),
-            const Center(
-              child: CustomTitle(
-                text: "Check Code",
-              ),
-            ),
-            const VirticalSpace(2),
             Container(
               margin:
                   EdgeInsets.symmetric(horizontal: SizeConfig.defaultSize! * 1),
-              child: Text("please Enter The Digit Code",
+              child: Text(
+                  "لقد أرسلنا رمز تحقق إلى رقم هاتفك. من فضلك أدخل الرمز المكون من 6 أرقام أدناه لإكمال عملية التحقق وتفعيل حسابك.",
                   style: Theme.of(context).textTheme.bodyLarge,
                   textAlign: TextAlign.center),
             ),
@@ -70,10 +64,10 @@ class _VerificationCodeBodyState extends State<VerificationCodeBody> {
               },
             ),
             if (state is AuthInvalidCode)
-              Center(
+              const Center(
                   child: Text(
-                state.message,
-                style: const TextStyle(color: Colors.red),
+                " الرمز الذي أدخلته غير صحيح. حاول مرة أخرى.",
+                style: TextStyle(color: Colors.red),
               )),
             const VirticalSpace(1),
             const VirticalSpace(35),
@@ -83,7 +77,7 @@ class _VerificationCodeBodyState extends State<VerificationCodeBody> {
                 },
                 color: Theme.of(context).primaryColor,
                 textcolor: Colors.white,
-                text: "Check",
+                text: "تحقق",
                 borderSide: const BorderSide(width: 0),
                 width: SizeConfig.defaultSize! * 2)
           ],

@@ -1,9 +1,7 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freelance_job_portal/core/utils/size_config.dart';
-import 'package:freelance_job_portal/core/widget/space.dart';
 import 'package:freelance_job_portal/features/photo/bloc/image_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -66,7 +64,10 @@ class _AddPhotoProfileState extends State<AddPhotoProfile> {
                     ),
                   ),
                   child: IconButton(
-                    onPressed: () => _showImageSourceBottomSheet(context),
+                    onPressed: () {
+                      Navigator.pop(context);
+                      pickImage(ImageSource.gallery);
+                    },
                     icon: Icon(
                       Icons.add_a_photo_rounded,
                       size: SizeConfig.defaultSize! * 2.5,
@@ -133,74 +134,5 @@ class _AddPhotoProfileState extends State<AddPhotoProfile> {
         ),
       );
     }
-  }
-
-  void _showImageSourceBottomSheet(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      builder: (context) {
-        return Card(
-          child: Container(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height / 5.2,
-            margin: EdgeInsets.only(top: SizeConfig.defaultSize! * 1),
-            padding: EdgeInsets.all(SizeConfig.defaultSize! * 1.5),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Expanded(
-                  child: InkWell(
-                    child: Column(
-                      children: [
-                        Icon(Icons.image,
-                            size: SizeConfig.defaultSize! * 6,
-                            color: Colors.green),
-                        const VirticalSpace(1.2),
-                        Text(
-                          "Gallery",
-                          style: Theme.of(context)
-                              .textTheme
-                              .headlineLarge
-                              ?.copyWith(color: Colors.green),
-                          textAlign: TextAlign.center,
-                        )
-                      ],
-                    ),
-                    onTap: () {
-                      Navigator.pop(context);
-                      pickImage(ImageSource.gallery);
-                    },
-                  ),
-                ),
-                Expanded(
-                  child: InkWell(
-                    child: Column(
-                      children: [
-                        Icon(Icons.camera_alt,
-                            size: SizeConfig.defaultSize! * 6,
-                            color: Colors.green),
-                        const VirticalSpace(1.2),
-                        Text(
-                          "Camera",
-                          style: Theme.of(context)
-                              .textTheme
-                              .headlineLarge
-                              ?.copyWith(color: Colors.green),
-                          textAlign: TextAlign.center,
-                        )
-                      ],
-                    ),
-                    onTap: () {
-                      Navigator.pop(context);
-                      pickImage(ImageSource.camera);
-                    },
-                  ),
-                )
-              ],
-            ),
-          ),
-        );
-      },
-    );
   }
 }

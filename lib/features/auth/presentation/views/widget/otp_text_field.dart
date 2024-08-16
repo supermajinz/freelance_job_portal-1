@@ -16,21 +16,24 @@ class OtpTextFieldVer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return OtpTextField(
-      numberOfFields: 6,
-      borderRadius: BorderRadius.circular(SizeConfig.defaultSize! * 2),
-      fieldWidth: SizeConfig.defaultSize! * 5,
-      borderColor: isError ? const Color(0xFF512DA8) : Colors.red,
-      //set to true to show as box or false to show as dash
-      showFieldAsBox: true,
-      //runs when a code is typed in
-      onCodeChanged: (String code) {
-        //handle validation or checks here
-      },
-      //runs when every textfield is filled
-      onSubmit: (String verificationCode) {
-        onComplete(verificationCode);
-      }, // end onSubmit
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: OtpTextField(
+        numberOfFields: 6,
+        borderRadius: BorderRadius.circular(SizeConfig.defaultSize! * 2),
+        fieldWidth: SizeConfig.defaultSize! * 5,
+        borderColor: isError ? const Color(0xFF512DA8) : Colors.red,
+        //set to true to show as box or false to show as dash
+        showFieldAsBox: true,
+        //runs when a code is typed in
+        onCodeChanged: (String code) {
+          //handle validation or checks here
+        },
+        //runs when every textfield is filled
+        onSubmit: (String verificationCode) {
+          onComplete(verificationCode);
+        }, // end onSubmit
+      ),
     );
   }
 }

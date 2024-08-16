@@ -13,12 +13,15 @@ import '../../../../../core/widget/custom_meony_general.dart';
 import '../../../../../core/widget/custom_sub_title.dart';
 import '../../../../../core/widget/custom_text_form_general.dart';
 import '../../../../../core/widget/space.dart';
+import '../../../../profile/presentation/views/widget/custom_profile_card.dart';
 import '../../../data/model/create_project_model.dart';
 import '../../view_models/project_bloc/project_bloc.dart';
 
 class CreateProjectBody extends StatefulWidget {
   final ClientProfile profile;
-  const CreateProjectBody({super.key, required this.profile});
+  final List<ClientProfile> clientProfiles;
+  const CreateProjectBody(
+      {super.key, required this.profile, required this.clientProfiles});
 
   @override
   State<CreateProjectBody> createState() => _CreateProjectBodyState();
@@ -34,6 +37,13 @@ class _CreateProjectBodyState extends State<CreateProjectBody> {
   Categories? _selectedCategory;
   final List<Skills> _selectedSkills = [];
 
+  late ClientProfile currentProfile;
+  @override
+  void initState() {
+    currentProfile = widget.clientProfiles[0];
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -47,7 +57,69 @@ class _CreateProjectBodyState extends State<CreateProjectBody> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const VirticalSpace(4),
+                InkWell(
+                    onTap: () {
+                      showModalBottomSheet(
+                        context: context,
+                        builder: (context) {
+                          return Container(
+                            padding: EdgeInsets.only(
+                                right: SizeConfig.defaultSize! * 1,
+                                left: SizeConfig.defaultSize! * 1,
+                                top: SizeConfig.defaultSize! * 1,
+                                bottom: SizeConfig.defaultSize! * 3),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                SizedBox(
+                                  height: SizeConfig.defaultSize! * 35,
+                                  child: ListView.separated(
+                                    separatorBuilder: (context, index) {
+                                      return const VirticalSpace(1);
+                                    },
+                                    scrollDirection: Axis.vertical,
+                                    itemCount: widget.clientProfiles.length,
+                                    itemBuilder: (context, index) {
+                                      return InkWell(
+                                        onTap: () {
+                                          setState(() {
+                                            currentProfile =
+                                                widget.clientProfiles[index];
+                                          });
+                                          GoRouter.of(context).pop();
+                                        },
+                                        child: CustomProfileCard(
+                                          profile: widget.clientProfiles[index],
+                                          icon: Icons.edit,
+                                          onPressed: () {},
+                                        ),
+                                      );
+                                    },
+                                  ),
+                                ),
+                                const VirticalSpace(2),
+                                CustomButtonGeneral(
+                                    onPressed: () {
+                                      GoRouter.of(context)
+                                          .push("/createprofile");
+                                    },
+                                    color: Theme.of(context).primaryColor,
+                                    textcolor: Colors.white,
+                                    text: "Add New Profile",
+                                    borderSide: const BorderSide(),
+                                    width: SizeConfig.defaultSize! * 40)
+                              ],
+                            ),
+                          );
+                        },
+                      );
+                    },
+                    child: CustomProfileCard(
+                      profile: currentProfile,
+                      icon: Icons.edit,
+                      onPressed: () {},
+                    )),
+                const VirticalSpace(7),
                 CustomTextFormGeneral(
                   hinttext: "",
                   lable: "إسم المشروع",
@@ -146,7 +218,7 @@ class _CreateProjectBodyState extends State<CreateProjectBody> {
                 const VirticalSpace(7),
                 Center(
                   child: Builder(builder: (context) {
-                    return BlocConsumer<ProjectBloc, ProjectState>(
+                    return BlocListener<ProjectBloc, ProjectState>(
                       listener: (context, state) {
                         if (state is CreateProjectSuccess) {
                           ScaffoldMessenger.of(context)
@@ -171,42 +243,35 @@ class _CreateProjectBodyState extends State<CreateProjectBody> {
                           );
                         }
                       },
-                      builder: (context, state) {
-                        // final clientId = (context.read<AuthBloc>().state
-                        //         as AuthAuthenticated)
-                        //     .id;
-                        return CustomButtonGeneral(
-                          onPressed: () {
-                            if (_formKey.currentState!.validate() &&
-                                _selectedCategory != null) {
-                              final project = CreateProjectModel(
-                                name: _titleController.text,
-                                description: _descriptionController.text,
-                                minBudget: int.parse(_minBudgetController.text),
-                                maxBudget: int.parse(_maxBudgetController.text),
-                                expectedDuration:
-                                    int.parse(_expectedDurationController.text),
-                                clientProfileId: widget.profile.id,
-                                // Assuming a default value, replace with actual client profile ID
-                                // GlobalData.instance.currentUser.clientProfile.id, // Assuming a default value, replace with actual client profile ID
-                                projectSkillIds:
-                                    _selectedSkills.map((e) => e.id).toList(),
-                                projectCategory: _selectedCategory?.id,
-                              );
-                              context.read<ProjectBloc>().add(
-                                    CreateProjectSubmitted(project: project),
-                                  );
-                            }
-                          },
-                          color: Theme.of(context).primaryColor,
-                          textcolor: Colors.white,
-                          text: state is CreateProjectLoading
-                              ? "يتم الانشاء..."
-                              : "انشاء",
-                          borderSide: const BorderSide(),
-                          width: SizeConfig.defaultSize! * 20,
-                        );
-                      },
+                      child: CustomButtonGeneral(
+                        onPressed: () {
+                          if (_formKey.currentState!.validate() &&
+                              _selectedCategory != null) {
+                            final project = CreateProjectModel(
+                              name: _titleController.text,
+                              description: _descriptionController.text,
+                              minBudget: int.parse(_minBudgetController.text),
+                              maxBudget: int.parse(_maxBudgetController.text),
+                              expectedDuration:
+                                  int.parse(_expectedDurationController.text),
+                              clientProfileId: currentProfile.id,
+                              // Assuming a default value, replace with actual client profile ID
+                              // GlobalData.instance.currentUser.clientProfile.id, // Assuming a default value, replace with actual client profile ID
+                              projectSkillIds:
+                                  _selectedSkills.map((e) => e.id).toList(),
+                              projectCategory: _selectedCategory?.id,
+                            );
+                            context.read<ProjectBloc>().add(
+                                  CreateProjectSubmitted(project: project),
+                                );
+                          }
+                        },
+                        color: Theme.of(context).primaryColor,
+                        textcolor: Colors.white,
+                        text: "انشاء",
+                        borderSide: const BorderSide(),
+                        width: SizeConfig.defaultSize! * 20,
+                      ),
                     );
                   }),
                 )
@@ -246,8 +311,7 @@ class CustomDropdownSearchCategories extends StatelessWidget {
             showSearchBox: true,
             itemBuilder: (context, item, isSelected) {
               return ListTile(
-                title:
-                    Text(item.name), // قم بتغيير هذا لعرض أسماء الفئات الفعلية
+                title: Text(item.name),
               );
             },
           ),

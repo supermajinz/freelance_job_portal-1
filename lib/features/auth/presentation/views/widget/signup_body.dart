@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freelance_job_portal/core/utils/functions/validinput.dart';
 import 'package:freelance_job_portal/core/utils/size_config.dart';
-import 'package:freelance_job_portal/core/widget/custom_body_medium.dart';
 import 'package:freelance_job_portal/core/widget/custom_title.dart';
 import 'package:freelance_job_portal/features/auth/data/models/user.dart';
 import 'package:freelance_job_portal/features/auth/presentation/view_models/bloc/auth_bloc.dart';
@@ -58,13 +57,21 @@ class _SignupBodyState extends State<SignupBody> {
             child: ListView(
               children: [
                 const VirticalSpace(5),
-                const Center(child: CustomAuthTitle(text: "Sign Up")),
-                const VirticalSpace(4),
-                const Center(child: CustomTitle(text: "Welcom Back")),
-                const VirticalSpace(2),
+                const Center(child: CustomAuthTitle(text: "إنشاء حساب جديد")),
+                Image.asset(
+                  'assets/images/signup.png',
+                  height: SizeConfig.defaultSize! * 10,
+                  width: SizeConfig.defaultSize! * 10,
+                  fit: BoxFit.contain,
+                ),
                 const Center(
-                  child: CustomBody(
-                    text: "Sign Up With Phone Number and Password",
+                    child: CustomTitle(text: "مرحبًا بك في عالم الفرص!")),
+                const VirticalSpace(2),
+                Center(
+                  child: Text(
+                    style: Theme.of(context).textTheme.bodyLarge!,
+                    textAlign: TextAlign.center,
+                    "ابدأ الآن وانضم إلى مجتمعنا من المستقلين وأصحاب المشاريع.",
                   ),
                 ),
                 const VirticalSpace(6),
@@ -73,7 +80,7 @@ class _SignupBodyState extends State<SignupBody> {
                     child: CustomTextForm(
                       mycontroller: _firstNameController,
                       hinttext: "",
-                      lable: "First Name",
+                      lable: "الاسم",
                       icon: Icons.person_2_outlined,
                       isNumber: false,
                       valid: (p0) {
@@ -85,7 +92,7 @@ class _SignupBodyState extends State<SignupBody> {
                     child: CustomTextForm(
                       mycontroller: _lastNameController,
                       hinttext: "",
-                      lable: "Last Name",
+                      lable: "الكنية",
                       icon: Icons.person_2_outlined,
                       isNumber: false,
                       valid: (p0) {
@@ -96,8 +103,8 @@ class _SignupBodyState extends State<SignupBody> {
                 ]),
                 CustomTextForm(
                   mycontroller: _phoneController,
-                  hinttext: "Enter Your Phone Number",
-                  lable: "Phone Number",
+                  hinttext: "ادخل رقم هاتفك",
+                  lable: "رقم الهاتف",
                   icon: Icons.phone_android_outlined,
                   isNumber: true,
                   valid: (p0) {
@@ -106,8 +113,8 @@ class _SignupBodyState extends State<SignupBody> {
                 ),
                 CustomTextForm(
                   mycontroller: _emailController,
-                  hinttext: "Enter Your Email",
-                  lable: "Email",
+                  hinttext: "ادخل ايملك",
+                  lable: "الايميل",
                   icon: Icons.email_outlined,
                   isNumber: false,
                   valid: (email) {
@@ -116,8 +123,8 @@ class _SignupBodyState extends State<SignupBody> {
                 ),
                 CustomTextForm(
                   mycontroller: _passwordController,
-                  hinttext: "Enter Your Password",
-                  lable: "Password",
+                  hinttext: "ادخل كلمة المرور",
+                  lable: "كلمة المرور",
                   obs: true,
                   icon: Icons.lock_outline,
                   isNumber: false,
@@ -125,7 +132,7 @@ class _SignupBodyState extends State<SignupBody> {
                     return validInput(password!, 8, 32, "password");
                   },
                 ),
-                const VirticalSpace(12.5),
+                const VirticalSpace(3),
                 CustomButton(
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
@@ -143,13 +150,13 @@ class _SignupBodyState extends State<SignupBody> {
                     },
                     color: Theme.of(context).primaryColor,
                     textcolor: Colors.white,
-                    text: "Sign Up",
+                    text: "انشاء الحساب",
                     borderSide: const BorderSide(width: 0),
                     width: SizeConfig.defaultSize! * 2),
                 const VirticalSpace(1),
                 TextSignUp(
-                  text1: "Already have an account? ",
-                  text2: "Log in",
+                  text1: "هل لديك حساب حقأ ؟ ",
+                  text2: "اذهب لتسجيل الدخول",
                   onTap: () {
                     GoRouter.of(context).push("/login");
                   },

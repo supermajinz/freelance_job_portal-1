@@ -53,6 +53,8 @@ import 'package:freelance_job_portal/features/wallet/presentation/views/wallet.d
 import 'package:freelance_job_portal/features/wallet/presentation/views/withdraw.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../features/splash/presentation/splash_view.dart';
+
 abstract class AppRouter {
   static final router = GoRouter(routes: [
     GoRoute(
@@ -70,6 +72,10 @@ abstract class AppRouter {
     GoRoute(
       path: '/onboardingview',
       builder: (context, state) => const OnboardingView(),
+    ),
+     GoRoute(
+      path: '/splashscreen',
+      builder: (context, state) => const SplashScreen(),
     ),
     GoRoute(
       path: '/signup',

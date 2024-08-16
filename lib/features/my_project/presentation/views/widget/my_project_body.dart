@@ -18,9 +18,21 @@ class MyProjectBody extends StatefulWidget {
 class _MyProjectBodyState extends State<MyProjectBody> {
   @override
   void initState() {
+    _fetchProjects();
+    super.initState();
+  }
+
+  void _fetchProjects() {
     final userId = (context.read<AuthBloc>().state as AuthAuthenticated).id;
     context.read<MyProjectBloc>().add(FetchMyProject(userId));
-    super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _fetchProjects();
+    });
   }
 
   @override
@@ -44,8 +56,12 @@ class _MyProjectBodyState extends State<MyProjectBody> {
                       horizontal: SizeConfig.defaultSize! * 0.5),
                   child: InkWell(
                     onTap: () {
-                      GoRouter.of(context).push("/projectstatusdetails",
-                          extra: state.projects[index]);
+                      GoRouter.of(context)
+                          .push("/projectstatusdetails",
+                              extra: state.projects[index])
+                          .then((_) {
+                        _fetchProjects();
+                      });
                     },
                     child: CustomProjectStatus(
                       projectModel: state.projects[index],
@@ -56,7 +72,7 @@ class _MyProjectBodyState extends State<MyProjectBody> {
             );
           }
         } else {
-          return const Center(child: Text('No projects found'));
+          return const Center();
         }
       },
     );

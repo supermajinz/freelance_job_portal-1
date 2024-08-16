@@ -110,12 +110,6 @@ class ShowProtoDetailsBody extends StatelessWidget {
                   )
                 ],
               ),
-              //const VirticalSpace(5),
-              //const EditTextForm(
-              // initvalue: "https://docs.google.com/d/10qgrbMt3I",
-              //  hinttext: "",
-              //lable: "Link",
-              //isNumber: false),
             ],
           ),
         ),

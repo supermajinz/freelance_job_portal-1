@@ -16,7 +16,7 @@ class CreateWorkerProfile extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const CustomTitle(
-          text: 'Create Profile',
+          text: 'انشاء ملف شخصي',
           white: true,
         ),
         centerTitle: true,

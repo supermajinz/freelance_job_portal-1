@@ -27,6 +27,8 @@ import 'package:freelance_job_portal/features/profile/worker%20profile/bloc/work
 import 'package:freelance_job_portal/features/projects/presentation/views/widget/create_project_body.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../auth/presentation/view_models/bloc/auth_bloc.dart';
+
 class CreateWorkerProfileBody extends StatefulWidget {
   const CreateWorkerProfileBody({super.key});
 
@@ -149,16 +151,6 @@ class _CreateWorkerProfileBodyState extends State<CreateWorkerProfileBody> {
                   },
                 ),
                 const VirticalSpace(4),
-                AddEditProto(
-                  text: "Add Protofolio Project",
-                  onTap: () {
-                    //    context.read<NavigationBloc>().add(const PageTapped(
-                    //        4,
-                    //    ));
-                    GoRouter.of(context).pushReplacement('/homescreen');
-                  },
-                ),
-                const VirticalSpace(6),
                 Center(
                   child: CustomButtonGeneral(
                     onPressed: () {
@@ -182,7 +174,7 @@ class _CreateWorkerProfileBodyState extends State<CreateWorkerProfileBody> {
                     },
                     color: Theme.of(context).primaryColor,
                     textcolor: Colors.white,
-                    text: "Create",
+                    text: "انشاء",
                     borderSide: const BorderSide(width: 0),
                     width: SizeConfig.defaultSize! * 20,
                   ),

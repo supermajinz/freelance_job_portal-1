@@ -86,6 +86,7 @@ class ProjectRepoImp implements ProjectRepo {
       if (e is DioException) {
         return left(ServerFailure.fromDioException(e));
       }
+      print(e);
       return left(ServerFailure(errMessage: e.toString()));
     }
   }

@@ -16,7 +16,7 @@ class Sort extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
           title: const CustomTitle(
-            text: 'Sort',
+            text: 'فرز',
             white: true,
           ),
           centerTitle: true,

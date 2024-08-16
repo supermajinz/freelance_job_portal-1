@@ -9,7 +9,6 @@ import 'package:freelance_job_portal/core/widget/custom_subtitle_medium.dart';
 import 'package:freelance_job_portal/core/widget/space.dart';
 import 'package:freelance_job_portal/features/auth/presentation/view_models/bloc/auth_bloc.dart';
 import 'package:freelance_job_portal/features/wallet/presentation/view_models/bloc/wallet_bloc.dart';
-import 'package:iconly/iconly.dart';
 
 void showBottomSheetOffer(
   BuildContext context,
@@ -49,9 +48,9 @@ void showBottomSheetOffer(
                 state.walletPayments.wallet!.totalHeldBalance! + heldAmount;
 
             // Check for sufficient balance
-             if (state.walletPayments.wallet!.totalBalance! < price) {
-               return _buildInsufficientFundsContent(context);
-             } //TODO remove comment after adding a suffecient balance to the account
+            if (state.walletPayments.wallet!.totalBalance! < price) {
+              return _buildInsufficientFundsContent(context);
+            }
 
             return Container(
               padding: EdgeInsets.all(SizeConfig.defaultSize! * 2),
@@ -197,10 +196,10 @@ Widget _buildInsufficientFundsContent(BuildContext context) {
           const Icon(Icons.warning_amber_rounded,
               size: 64, color: Colors.orange),
           const VirticalSpace(2),
-          const CustomSubTitle(
-              text:
+           Text(
+             style:  Theme.of(context).textTheme.titleLarge,textAlign: TextAlign.center,
                   'ليس لديك رصيد كافي لتقبل العرض، يرجى تعبئة رصيدك و إعادة المحاولة'),
-          const VirticalSpace(3),
+       const Spacer(),
           CustomButtonGeneral(
             onPressed: () => Navigator.pop(context),
             color: Colors.white,
