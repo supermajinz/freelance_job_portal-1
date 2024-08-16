@@ -50,10 +50,10 @@ class _SavedBodyState extends State<SavedBody> {
               labelStyle: Theme.of(context).textTheme.titleLarge,
               tabs: const [
                 Tab(
-                  child: Text("People"),
+                  child: Text("الاشخاص"),
                 ),
                 Tab(
-                  child: Text("Project"),
+                  child: Text("المشاريع"),
                 )
               ]),
         ),

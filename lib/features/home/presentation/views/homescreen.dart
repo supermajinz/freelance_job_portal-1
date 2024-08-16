@@ -97,15 +97,18 @@ class _HomescreenState extends State<Homescreen> {
               body: state.currentPage,
               floatingActionButtonLocation:
                   FloatingActionButtonLocation.endFloat,
-              floatingActionButton: FloatingActionButton(
-                onPressed: () {
-                  GoRouter.of(context).push("/createproject");
-                },
-                child: const Icon(
-                  Icons.add,
-                  size: 25,
-                ),
-              ),
+              floatingActionButton:
+                  (state.currentIndex == 0 || state.currentIndex == 3)
+                      ? FloatingActionButton(
+                          onPressed: () {
+                            GoRouter.of(context).push("/createproject");
+                          },
+                          child: const Icon(
+                            Icons.add,
+                            size: 25,
+                          ),
+                        )
+                      : null,
               bottomNavigationBar: BlocBuilder<NavigationBloc, NavigationState>(
                 builder: (context, state) {
                   return GNav(

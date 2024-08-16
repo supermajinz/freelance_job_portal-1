@@ -42,7 +42,7 @@ class _EditOfferBodyState extends State<EditOfferBody> {
       listener: (context, state) {
         if (state is OfferLoading) {
           ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Offer is updating')),
+            const SnackBar(content: Text('جاري تعديل العرض')),
           );
         } else if (state is OfferFaliure) {
           ScaffoldMessenger.of(context).showSnackBar(
@@ -51,10 +51,14 @@ class _EditOfferBodyState extends State<EditOfferBody> {
           );
         } else if (state is OfferSuccess) {
           ScaffoldMessenger.of(context).clearSnackBars();
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Offer updated successfully!')),
-          );
-          GoRouter.of(context).pop();
+          ScaffoldMessenger.of(context)
+              .showSnackBar(
+                const SnackBar(content: Text('تم تعديل العرض بنجاح')),
+              )
+              .closed
+              .then((_) {
+            GoRouter.of(context).pop();
+          });
         }
       },
       builder: (context, state) {
@@ -65,11 +69,11 @@ class _EditOfferBodyState extends State<EditOfferBody> {
               Container(
                 margin: EdgeInsets.symmetric(
                   horizontal: SizeConfig.defaultSize! * 1.5,
-                  vertical: SizeConfig.defaultSize! * 2,
+                  vertical: SizeConfig.defaultSize! * 3,
                 ),
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    const VirticalSpace(4),
                     EditTextForm(
                       mycontroller: descriptionController,
                       hinttext: "",
@@ -107,7 +111,7 @@ class _EditOfferBodyState extends State<EditOfferBody> {
                         )
                       ],
                     ),
-                    const VirticalSpace(44),
+                    const VirticalSpace(35),
                     CustomButtonGeneral(
                       onPressed: () {
                         if (formKey.currentState!.validate()) {
@@ -123,11 +127,10 @@ class _EditOfferBodyState extends State<EditOfferBody> {
                       },
                       color: Theme.of(context).primaryColor,
                       textcolor: Colors.white,
-                      text: "Save",
+                      text: "حفظ التعديل",
                       borderSide: const BorderSide(),
                       width: SizeConfig.defaultSize! * 20,
                     ),
-                    const VirticalSpace(3),
                   ],
                 ),
               ),

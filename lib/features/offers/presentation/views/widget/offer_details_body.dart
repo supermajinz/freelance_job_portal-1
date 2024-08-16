@@ -19,6 +19,7 @@ import 'package:go_router/go_router.dart';
 import 'package:iconly/iconly.dart';
 import 'package:line_awesome_flutter/line_awesome_flutter.dart';
 import '../../../../../core/utils/functions/utils.dart';
+import '../../../../projects/presentation/view_models/offer_by_project/offer_by_project_bloc.dart';
 import '../../../../projects/presentation/view_models/project_bloc/project_bloc.dart';
 import '../../../../projects/presentation/views/widget/custom_chip_project.dart';
 import '../../../data/model/offers_model/offers_model.dart';
@@ -49,7 +50,11 @@ class OfferDetailsBody extends StatelessWidget {
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(content: Text('تم حذف العرض بنجاح')),
             );
+            project.offerCount--;
             GoRouter.of(context).pop();
+            context
+                .read<OfferByProjectBloc>()
+                .add(FetchOffersByProject(project.id));
           }
         },
         child: SingleChildScrollView(
@@ -61,7 +66,7 @@ class OfferDetailsBody extends StatelessWidget {
                     horizontal: SizeConfig.defaultSize! * .5),
                 padding: EdgeInsets.all(SizeConfig.defaultSize! * 1),
                 decoration: BoxDecoration(
-                    color: Theme.of(context).hintColor,
+                    color: Theme.of(context).colorScheme.secondary,
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(SizeConfig.defaultSize! * 4),
                         topRight:
@@ -85,10 +90,10 @@ class OfferDetailsBody extends StatelessWidget {
                                   WorkerProfileState>(
                                 builder: (context, state) {
                                   if (state is WorkerProfileLoading) {
-                                    return CircularProgressIndicator();
+                                    return const CircularProgressIndicator();
                                   }
                                   if (state is! WorkerProfilesLoaded) {
-                                    return Placeholder();
+                                    return const Placeholder();
                                   }
                                   final WorkerProfile visitedProfile =
                                       state.profiles.firstWhere((profile) =>
@@ -154,7 +159,7 @@ class OfferDetailsBody extends StatelessWidget {
                           ],
                         ),
                         const Spacer(),
-                        if (project.worker?.userId == userId)
+                        if (offer.worker?.userId == userId)
                           PopupMenuButton(
                             position: PopupMenuPosition.under,
                             constraints: const BoxConstraints(maxHeight: 150),
@@ -172,18 +177,19 @@ class OfferDetailsBody extends StatelessWidget {
                               }
                             },
                             itemBuilder: (context) => [
-                              const PopupMenuItem(
-                                  value: 'edit',
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
-                                    children: [
-                                      Icon(IconlyBroken.edit),
-                                      CustomBody(
-                                        text: "تعديل العرض",
-                                      ),
-                                    ],
-                                  )),
+                              if (project.status == "open")
+                                const PopupMenuItem(
+                                    value: 'edit',
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      children: [
+                                        Icon(IconlyBroken.edit),
+                                        CustomBody(
+                                          text: "تعديل العرض",
+                                        ),
+                                      ],
+                                    )),
                               const PopupMenuItem(
                                   value: "delete",
                                   child: Row(
@@ -230,42 +236,29 @@ class OfferDetailsBody extends StatelessWidget {
                 child: Padding(
                   padding: EdgeInsets.all(SizeConfig.defaultSize! * 2),
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [CustomLabel(text: formattedCreateDate)],
                       ),
-                      VirticalSpace(SizeConfig.defaultSize! * .2),
+                      const CustomSubTitleMedium(text: 'وصف العرض'),
                       Padding(
                         padding: EdgeInsets.symmetric(
                             vertical: SizeConfig.defaultSize! * 1),
                         child: Text(
                           offer.message!,
-                          textAlign: TextAlign.center,
+                          textAlign: TextAlign.start,
                           maxLines: 5,
                           overflow: TextOverflow.ellipsis,
                           style: Theme.of(context).textTheme.bodyLarge,
                         ),
                       ),
-                      InkWell(
-                        onTap: () {},
-                        child: Text(
-                          "show more",
-                          textAlign: TextAlign.start,
-                          style:
-                              Theme.of(context).textTheme.labelLarge!.copyWith(
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black,
-                                    decorationThickness: 2,
-                                    decoration: TextDecoration.underline,
-                                  ),
-                        ),
-                      ),
-                      const VirticalSpace(6),
+                      const VirticalSpace(4),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const CustomSubTitleMedium(text: "Price"),
+                          const CustomSubTitleMedium(text: "المبلغ المقدم"),
                           CustomMeony(
                             text: offer.cost?.toString() ?? 'N/A',
                           )
@@ -277,7 +270,7 @@ class OfferDetailsBody extends StatelessWidget {
                         children: [
                           const Expanded(
                               child:
-                                  CustomSubTitleMedium(text: "Delivery Time")),
+                                  CustomSubTitleMedium(text: "المدة المتوقعة")),
                           Expanded(
                             child: CustomContainer(
                               text: offer.deliveryTime?.toString() ?? 'N/A',
@@ -285,7 +278,7 @@ class OfferDetailsBody extends StatelessWidget {
                           )
                         ],
                       ),
-                      const VirticalSpace(12),
+                      const VirticalSpace(17),
                       if (project.client?.userId == userId)
                         _buildProjectOwnerButtons(context),
                       if (offer.worker?.userId == userId)
@@ -315,51 +308,64 @@ class OfferDetailsBody extends StatelessWidget {
           );
         }
       },
-      child: Row(
-        children: [
-          Expanded(
-            flex: 7,
-            child: CustomButtonGeneral(
-                icon: const Icon(LineAwesomeIcons.check_circle,
-                    color: Colors.white),
-                onPressed: () {
-                  showBottomSheetOffer(
-                    context,
-                    () {
-                      context.read<ProjectBloc>().add(AcceptOffer(offer.id!));
-                    },
-                    offer.cost!,
-                    offer.deliveryTime!,
-                    project.name
-                  );
-                },
-                color: const Color.fromARGB(255, 86, 219, 155),
-                textcolor: Colors.white,
-                text: "قبول العرض",
-                borderSide: const BorderSide(width: 0),
-                width: SizeConfig.defaultSize! * 20),
-          ),
-          const Spacer(),
-          Expanded(
-            flex: 7,
-            child: CustomButtonGeneral(
-                icon: const Icon(LineAwesomeIcons.times_circle_1,
-                    color: Colors.white),
-                onPressed: () {
-                  context.read<ProjectBloc>().add(RejectOffer(offer.id!));
-                },
-                color: const Color.fromARGB(255, 233, 105, 105),
-                textcolor: Colors.white,
-                text: "رفض العرض",
-                borderSide: const BorderSide(width: 0),
-                width: SizeConfig.defaultSize! * 20),
-          )
-        ],
-      ),
+      child: project.status == 'open'
+          ? Row(
+              children: [
+                Expanded(
+                  flex: 7,
+                  child: CustomButtonGeneral(
+                      icon: const Icon(LineAwesomeIcons.check_circle,
+                          color: Color.fromARGB(255, 6, 124, 67)),
+                      onPressed: () {
+                        showBottomSheetOffer(context, () {
+                          context
+                              .read<ProjectBloc>()
+                              .add(AcceptOffer(offer.id!));
+                        }, offer.cost!, offer.deliveryTime!, project.name);
+                      },
+                      color: Colors.white,
+                      textcolor: const Color.fromARGB(255, 6, 124, 67),
+                      text: "قبول العرض",
+                      borderSide: const BorderSide(
+                        width: 1,
+                        color: Color.fromARGB(255, 6, 124, 67),
+                      ),
+                      width: SizeConfig.defaultSize! * 20),
+                ),
+                const Spacer(),
+                Expanded(
+                  flex: 7,
+                  child: CustomButtonGeneral(
+                      icon: const Icon(LineAwesomeIcons.times_circle_1,
+                          color: Color.fromARGB(255, 179, 56, 56)),
+                      onPressed: () {
+                        context.read<ProjectBloc>().add(RejectOffer(offer.id!));
+                      },
+                      color: Colors.white,
+                      textcolor: const Color.fromARGB(255, 179, 56, 56),
+                      text: "رفض العرض",
+                      borderSide: const BorderSide(
+                        width: 1,
+                        color: Color.fromARGB(255, 179, 56, 56),
+                      ),
+                      width: SizeConfig.defaultSize! * 20),
+                )
+              ],
+            )
+          : const Center(
+              // child: CustomButtonGeneral(
+              //     icon: const Icon(IconlyBroken.chat, color: Colors.white),
+              //     onPressed: () {},
+              //     color: Theme.of(context).primaryColor,
+              //     textcolor: Colors.white,
+              //     text: "محادثة",
+              //     borderSide: const BorderSide(width: 0),
+              //     width: SizeConfig.defaultSize! * 20),
+              ),
     );
   }
 
   _buildOfferOwnerButton(BuildContext context) {
-    return SizedBox();
+    return const SizedBox();
   }
 }

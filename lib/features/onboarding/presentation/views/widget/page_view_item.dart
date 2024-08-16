@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:freelance_job_portal/core/utils/size_config.dart';
+import 'package:lottie/lottie.dart';
 
 class PageViewItem extends StatelessWidget {
   const PageViewItem({super.key, required this.disc, required this.image});
@@ -9,9 +10,9 @@ class PageViewItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Image.asset(
+        Lottie.asset(
           image,
-          height: SizeConfig.defaultSize! * 40,
+          height: SizeConfig.defaultSize! * 50,
           width: double.infinity,
           fit: BoxFit.fill,
         ),

@@ -160,13 +160,13 @@ class _SearshBodyState extends State<SearshBody> {
                           widget.filters.containsKey("maxBudget"))
                         CustomChipSearsh(
                           text:
-                              "${widget.filters['minBudget']} - ${widget.filters['maxBudget']} SYP",
+                              "${widget.filters['minBudget']} - ${widget.filters['maxBudget']}  ل.س",
                         ),
                       if (widget.filters.containsKey("minDuration") &&
                           widget.filters.containsKey("maxDuration"))
                         CustomChipSearsh(
                           text:
-                              "${widget.filters['minDuration']} - ${widget.filters['maxDuration']} Days",
+                              "${widget.filters['minDuration']} - ${widget.filters['maxDuration']}  يوم",
                         ),
                     ],
                   ),

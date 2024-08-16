@@ -14,7 +14,7 @@ class OfferDetails extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const CustomTitle(
-          text: 'Offer Details',
+          text: 'تفاصيل العرض',
           white: true,
         ),
         centerTitle: true,

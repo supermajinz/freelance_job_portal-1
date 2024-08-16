@@ -87,7 +87,7 @@ class CustomProjectStatus extends StatelessWidget {
                   itemBuilder: (context, index) {
                     return CustomChoiceChip(
                       text: projectModel.projectSkill[index].name,
-                      color: Theme.of(context).focusColor,
+                      color: Theme.of(context).colorScheme.secondary,
                     );
                   },
                 ),

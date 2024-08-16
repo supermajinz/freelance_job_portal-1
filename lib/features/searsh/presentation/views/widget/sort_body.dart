@@ -53,7 +53,7 @@ class _SortBodyState extends State<SortBody> {
             children: [
               const VirticalSpace(2),
               const CustomSubTitle(
-                text: "Category",
+                text: 'حسب التصنيفات',
               ),
               const VirticalSpace(1.5),
               CustomDropdownSearchCategories(
@@ -79,7 +79,7 @@ class _SortBodyState extends State<SortBody> {
                 },
               ),
               const VirticalSpace(5),
-              const CustomSubTitle(text: "Skills"),
+              const CustomSubTitle(text: 'حسب المهارات'),
               const VirticalSpace(1.5),
               CustomDropdownSearchSkills(
                 categories: _selectedCategories,
@@ -104,7 +104,7 @@ class _SortBodyState extends State<SortBody> {
               ),
               const VirticalSpace(3),
               const CustomSubTitle(
-                text: "By Deadline",
+                text: "حسب المدة",
               ),
               const VirticalSpace(2),
               RangeSliderDeadLine(
@@ -116,7 +116,7 @@ class _SortBodyState extends State<SortBody> {
                       maxDuration?.toDouble() ?? 150)),
               const VirticalSpace(3),
               const CustomSubTitle(
-                text: "By budget",
+                text: "حسب الميزانية",
               ),
               const VirticalSpace(2),
               RangeSliderBudget(
@@ -126,7 +126,7 @@ class _SortBodyState extends State<SortBody> {
                   },
                   init: RangeValues(minBudget?.toDouble() ?? 500000,
                       maxBudget?.toDouble() ?? 50000000)),
-              const VirticalSpace(12),
+              const VirticalSpace(9),
               Center(
                 child: CustomButtonGeneral(
                     onPressed: () {
@@ -146,7 +146,7 @@ class _SortBodyState extends State<SortBody> {
                     },
                     color: Theme.of(context).primaryColor,
                     textcolor: Colors.white,
-                    text: "filter",
+                    text: "فرز",
                     borderSide: const BorderSide(width: 0),
                     width: SizeConfig.defaultSize! * 20),
               ),

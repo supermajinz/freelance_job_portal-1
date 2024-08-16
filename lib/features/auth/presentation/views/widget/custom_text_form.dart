@@ -25,7 +25,7 @@ class CustomTextForm extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.only(
-          bottom: SizeConfig.defaultSize! * 2,
+          bottom: SizeConfig.defaultSize! * 3,
           left: SizeConfig.defaultSize! * 2,
           right: SizeConfig.defaultSize! * 2),
       child: TextFormField(

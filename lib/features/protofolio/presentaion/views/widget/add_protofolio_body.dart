@@ -165,9 +165,7 @@ class _AddProtofolioBodyState extends State<AddProtofolioBody> {
                     ],
                   ),
                   const VirticalSpace(5),
-                  const CustomTextFormGeneral(
-                      hinttext: "", lable: "Link", isNumber: false),
-                  const VirticalSpace(5),
+
                   Center(
                       child: CustomButtonGeneral(
                           onPressed: () {

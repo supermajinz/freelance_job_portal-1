@@ -16,7 +16,7 @@ class EditOffer extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const CustomTitle(
-          text: 'Edit Offer',
+          text: 'تعدبل العرض',
           white: true,
         ),
         centerTitle: true,

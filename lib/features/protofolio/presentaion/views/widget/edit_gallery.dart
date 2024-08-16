@@ -83,7 +83,10 @@ class _EditImageGalleryWidgetState
                 size: SizeConfig.defaultSize! * 4,
                 color: Colors.blue,
               ),
-              onPressed: () => _showImageSourceBottomSheet(context),
+              onPressed: () {
+                Navigator.pop(context);
+                pickImage(ImageSource.gallery);
+              },
             ),
             SizedBox(height: SizeConfig.defaultSize! * 2),
             _buildImageGallery(context),
@@ -146,75 +149,6 @@ class _EditImageGalleryWidgetState
           ),
         ),
       ],
-    );
-  }
-
-  void _showImageSourceBottomSheet(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      builder: (context) {
-        return Card(
-          child: Container(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height / 5.2,
-            margin: EdgeInsets.only(top: SizeConfig.defaultSize! * 1),
-            padding: EdgeInsets.all(SizeConfig.defaultSize! * 1.5),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Expanded(
-                  child: InkWell(
-                    child: Column(
-                      children: [
-                        Icon(Icons.image,
-                            size: SizeConfig.defaultSize! * 6,
-                            color: Colors.green),
-                        const VirticalSpace(1.2),
-                        Text(
-                          "Gallery",
-                          style: Theme.of(context)
-                              .textTheme
-                              .headlineLarge
-                              ?.copyWith(color: Colors.green),
-                          textAlign: TextAlign.center,
-                        )
-                      ],
-                    ),
-                    onTap: () {
-                      Navigator.pop(context);
-                      pickImage(ImageSource.gallery);
-                    },
-                  ),
-                ),
-                Expanded(
-                  child: InkWell(
-                    child: Column(
-                      children: [
-                        Icon(Icons.camera_alt,
-                            size: SizeConfig.defaultSize! * 6,
-                            color: Colors.green),
-                        const VirticalSpace(1.2),
-                        Text(
-                          "Camera",
-                          style: Theme.of(context)
-                              .textTheme
-                              .headlineLarge
-                              ?.copyWith(color: Colors.green),
-                          textAlign: TextAlign.center,
-                        )
-                      ],
-                    ),
-                    onTap: () {
-                      Navigator.pop(context);
-                      //pickImage(ImageSource.camera);
-                    },
-                  ),
-                )
-              ],
-            ),
-          ),
-        );
-      },
     );
   }
 

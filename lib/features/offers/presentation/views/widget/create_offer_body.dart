@@ -42,11 +42,15 @@ class _CreateOfferBodyState extends State<CreateOfferBody> {
     return BlocConsumer<OfferBloc, OfferState>(
       listener: (context, state) {
         if (state is OfferSuccess) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('Offer created successfully!')),
-          );
-          widget.projectModel.offerCount++;
-          GoRouter.of(context).pop();
+          ScaffoldMessenger.of(context)
+              .showSnackBar(
+                const SnackBar(content: Text('تم ارسال عرضك بنجاح')),
+              )
+              .closed
+              .then((_) {
+            widget.projectModel.offerCount++;
+            GoRouter.of(context).pop();
+          });
         } else if (state is OfferFaliure) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
@@ -167,7 +171,7 @@ class _CreateOfferBodyState extends State<CreateOfferBody> {
                         )
                       ],
                     ),
-                    const VirticalSpace(29),
+                    const VirticalSpace(27),
                     Center(
                       child: CustomButtonGeneral(
                           onPressed: () {
@@ -190,7 +194,7 @@ class _CreateOfferBodyState extends State<CreateOfferBody> {
                           },
                           color: Theme.of(context).primaryColor,
                           textcolor: Colors.white,
-                          text: "Send",
+                          text: "ارسال",
                           borderSide: const BorderSide(),
                           width: SizeConfig.defaultSize! * 20),
                     )

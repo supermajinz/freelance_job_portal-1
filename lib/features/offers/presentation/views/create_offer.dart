@@ -23,7 +23,7 @@ class CreateOffer extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           title: const CustomTitle(
-            text: 'Create Offer',
+            text: 'ارسال العرض',
             white: true,
           ),
           centerTitle: true,

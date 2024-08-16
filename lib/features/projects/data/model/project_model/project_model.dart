@@ -13,7 +13,7 @@ class ProjectModel {
   int offerCount;
   Categories? projectCategory;
   List<Skills> projectSkill;
-  final String status;
+   String status;
   final DateTime? createDate;
   final Client? client;
   final Worker? worker;

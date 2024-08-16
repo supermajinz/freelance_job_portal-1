@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freelance_job_portal/core/utils/functions/validinput.dart';
 import 'package:freelance_job_portal/core/utils/size_config.dart';
-import 'package:freelance_job_portal/core/widget/custom_body_medium.dart';
 import 'package:freelance_job_portal/core/widget/custom_title.dart';
 import 'package:freelance_job_portal/features/auth/presentation/view_models/bloc/auth_bloc.dart';
 import 'package:freelance_job_portal/features/auth/presentation/views/widget/custom_auth_title.dart';
@@ -42,27 +41,31 @@ class _LoginBodyState extends State<LoginBody> {
             const VirticalSpace(5),
             const Center(
                 child: CustomAuthTitle(
-              text: "Sign In",
+              text: "مرحبًا مجددًا، دعنا نبدأ!",
             )),
             const VirticalSpace(3),
             Image.asset(
-              "assets/images/logo1.png",
+              "assets/images/signin.png",
               height: SizeConfig.defaultSize! * 15,
               width: SizeConfig.defaultSize! * 15,
             ),
             const VirticalSpace(4),
-            const Center(child: CustomTitle(text: "Welcom Back")),
+            const Center(child: CustomTitle(text: "يسعدنا رؤيتك هنا!")),
             const VirticalSpace(2),
-            const Center(
-              child: CustomBody(
-                text: "Sign In With Phone Number and Password",
+            Padding(
+              padding:
+                  EdgeInsets.symmetric(horizontal: SizeConfig.defaultSize! * 1),
+              child: Text(
+                style: Theme.of(context).textTheme.bodyLarge!,
+                textAlign: TextAlign.center,
+                "أكمل رحلتك في عالم العمل الحر. سجّل دخولك لاستكشاف المشاريع الجديدة وفرص النجاح.",
               ),
             ),
             const VirticalSpace(6),
             CustomTextForm(
               mycontroller: _phoneController,
-              hinttext: "Enter Your Phone Number",
-              lable: "Phone Number",
+              hinttext: "ادخل رقم هاتفك",
+              lable: "رقم الهاتف",
               icon: Icons.phone_android_outlined,
               isNumber: true,
               valid: (p0) {
@@ -72,15 +75,15 @@ class _LoginBodyState extends State<LoginBody> {
             CustomTextForm(
               mycontroller: _passwordController,
               obs: true,
-              hinttext: "Enter Your Password",
-              lable: "Password",
+              hinttext: "ادخل كلمة المرور",
+              lable: "كلمة المرور",
               icon: Icons.lock_outline,
               isNumber: false,
               valid: (password) {
                 return validInput(password!, 5, 30, "password");
               },
             ),
-            const VirticalSpace(8),
+            const VirticalSpace(6),
             CustomButton(
                 onPressed: () {
                   context.read<AuthBloc>().add(
@@ -91,13 +94,13 @@ class _LoginBodyState extends State<LoginBody> {
                 },
                 color: Theme.of(context).colorScheme.secondary,
                 textcolor: Colors.white,
-                text: "Sign In",
+                text: "تسجيل الدخول",
                 borderSide: const BorderSide(width: 0),
                 width: SizeConfig.defaultSize! * 2),
             const VirticalSpace(1),
             TextSignUp(
-              text1: "Don’t have an account?  ",
-              text2: "Sign Up",
+              text1: " هل أنت جديد هنا؟",
+              text2: " أنشئ حسابًا وابدأ رحلتك اليوم ",
               onTap: () {
                 GoRouter.of(context).push("/signup");
               },

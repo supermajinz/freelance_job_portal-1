@@ -83,12 +83,17 @@ class _ShowProjectDetailsBodyState extends State<ProjectStatusDetailsBody>
     return Scaffold(
       body: BlocListener<ProjectBloc, ProjectState>(
         listener: (context, state) {
+          print("state $state");
           if (state is ProjectDelet) {
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(content: Text('تم حذف المشروع بنجاح')),
             );
             GoRouter.of(context).pop();
+            context.read<MyProjectBloc>().add(FetchMyProject(userId));
           } else if (state is ProjectClose) {
+              setState(() {
+        widget.project.status = 'closed';
+      });
             ScaffoldMessenger.of(context).showSnackBar(
               const SnackBar(content: Text('تم اغلاق المشروع بنجاح')),
             );

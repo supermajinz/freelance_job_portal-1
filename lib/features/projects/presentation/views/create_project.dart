@@ -20,7 +20,7 @@ class CreateProject extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
             title: const CustomTitle(
-              text: 'Create Project',
+              text: 'انشاء مشروع',
               white: true,
             ),
             centerTitle: true,
@@ -49,6 +49,7 @@ class CreateProject extends StatelessWidget {
                     } else if (profileState is ProfilesLoaded) {
                       return Scaffold(
                         body: CreateProjectBody(
+                          clientProfiles: profileState.profiles,
                           profile: profileState.profiles[0],
                         ),
                       );

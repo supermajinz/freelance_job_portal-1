@@ -10,7 +10,6 @@ import 'package:freelance_job_portal/core/widget/custom_sub_title.dart';
 import 'package:freelance_job_portal/core/widget/space.dart';
 import 'package:freelance_job_portal/features/profile/data/models/profile/client_profile.dart';
 import 'package:freelance_job_portal/features/profile/presentation/views/widget/custom_profile_card.dart';
-import 'package:freelance_job_portal/features/profile/presentation/views/widget/custom_zzz.dart';
 import 'package:freelance_job_portal/features/profile/presentation/views/widget/show_chip.dart';
 import 'package:freelance_job_portal/features/projects/presentation/views/widget/custom_project_card.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -179,11 +178,11 @@ class _ProfileBodyState extends State<ProfileBody> {
                     : const SizedBox(),
                 const VirticalSpace(4),
                 const CustomSubTitle(
-                  text: "Projects completed",
+                  text: "المشاريع المكتملة",
                 ),
                 const VirticalSpace(0.5),
                 SizedBox(
-                  height: SizeConfig.defaultSize! * 29,
+                  height: SizeConfig.defaultSize! * 31,
                   child: ListView.separated(
                     separatorBuilder: (context, index) {
                       return const HorizintalSpace(0.3);
@@ -199,7 +198,7 @@ class _ProfileBodyState extends State<ProfileBody> {
                 //  const CustomZzz(),
                 const VirticalSpace(5),
                 const CustomSubTitle(
-                  text: "Ratings and reviews",
+                  text: "التقيمات",
                 ),
                 const CusromRatingSummary(),
               ],

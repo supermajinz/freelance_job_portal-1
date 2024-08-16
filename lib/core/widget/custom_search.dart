@@ -39,8 +39,6 @@ class CustomSearch extends StatelessWidget {
                 borderSide: const BorderSide(color: Colors.grey),
                 borderRadius:
                     BorderRadius.circular(SizeConfig.defaultSize! * 3)),
-            filled: true,
-            fillColor: Colors.white,
             prefixIcon: IconButton(
                 onPressed: onPressedSer,
                 icon: const Icon(

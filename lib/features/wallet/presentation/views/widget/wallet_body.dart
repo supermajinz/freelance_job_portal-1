@@ -8,10 +8,22 @@ import 'package:freelance_job_portal/features/wallet/data/models/wallet_payments
 import 'package:iconly/iconly.dart';
 import 'package:intl/intl.dart';
 
-class WalletBody extends StatelessWidget {
+class WalletBody extends StatefulWidget {
   final int myUserId;
   final WalletPayments wallet;
   const WalletBody({super.key, required this.wallet, required this.myUserId});
+
+  @override
+  State<WalletBody> createState() => _WalletBodyState();
+}
+
+class _WalletBodyState extends State<WalletBody> {
+  // @override
+  // void initState() {
+  //   final userId = (context.read<AuthBloc>().state as AuthAuthenticated).id;
+  //   context.read<WalletBloc>().add(GetWalletPayments(userId));
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -30,10 +42,7 @@ class WalletBody extends StatelessWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                Icon(
-                  IconlyBold.wallet,
-                  size: SizeConfig.defaultSize! * 15,
-                ),
+                Icon(IconlyBold.wallet, size: SizeConfig.defaultSize! * 15),
                 const HorizintalSpace(1),
                 Column(
                   children: [
@@ -41,14 +50,15 @@ class WalletBody extends StatelessWidget {
                       text: ":الرصيد:",
                     ),
                     CustomSubTitleMedium(
-                      text: wallet.wallet!.totalBalance.toString(),
+                      text: "${widget.wallet.wallet!.totalBalance!.toInt()}",
                       color: Colors.grey,
                     ),
                     const CustomSubTitle(
                       text: "الرصيد المحجوز:",
                     ),
                     CustomSubTitleMedium(
-                      text: wallet.wallet!.totalHeldBalance.toString(),
+                      text:
+                          "${widget.wallet.wallet!.totalHeldBalance!.toInt()}",
                       color: Colors.grey,
                     ),
                   ],
@@ -89,76 +99,88 @@ class WalletBody extends StatelessWidget {
           const VirticalSpace(1),
           SizedBox(
             height: SizeConfig.defaultSize! * 40,
-            child: ListView.separated(
-                itemBuilder: (context, index) {
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Wrap(
+            child: widget.wallet.transactions!.isEmpty
+                ? const Center(
+                    child: Text(
+                      'لا يوجد عمليات حتى الآن.',
+                      style: TextStyle(fontSize: 18, color: Colors.grey),
+                    ),
+                  )
+                : ListView.separated(
+                    itemBuilder: (context, index) {
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          CustomBody(
-                              text: wallet.transactions![index].amount!
-                                  .toString()),
-                          CustomBody(
-                            text: wallet.transactions![index].senderUserId ==
-                                    myUserId
-                                ? " قد أرسلت   "
-                                : " استلمت  ",
-                            color: Colors.grey,
+                          Wrap(
+                            children: [
+                              CustomBody(
+                                  text: widget
+                                      .wallet.transactions![index].amount!
+                                      .toString()),
+                              CustomBody(
+                                text: widget.wallet.transactions![index]
+                                            .senderUserId ==
+                                        widget.myUserId
+                                    ? " قد أرسلت   "
+                                    : " استلمت  ",
+                                color: Colors.grey,
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
-                      CustomBody(
-                        text:
-                            "التاريخ : ${DateFormat('yyyy-MM-dd').format(wallet.transactions![index].transactionDate!)}",
-                      ),
-                      CustomBody(
-                        text:
-                            "رقم عملية التحويل: ${wallet.transactions![index].transactionNumber!.toString()}",
-                      ),
-                      Row(
-                        children: [
                           CustomBody(
                             text:
-                                "نوع العملية: ${wallet.transactions![index].type}",
-                            color: Colors.grey,
+                                "التاريخ : ${DateFormat('yyyy-MM-dd').format(widget.wallet.transactions![index].transactionDate!)}",
                           ),
-                          Builder(
-                            builder: (context) {
-                              if (wallet.transactions![index].type ==
-                                  "DEPOSIT") {
-                                return const Icon(Icons.move_to_inbox_rounded);
-                              }
-                              if (wallet.transactions![index].type ==
-                                  "WITHDRAW") {
-                                return const Icon(Icons.outbox);
-                              }
-                              if (wallet.transactions![index].type ==
-                                  "TRANSFER") {
-                                return const Icon(Icons.send);
-                              }
-                              if (wallet.transactions![index].type ==
-                                  "TRANSFERHELD") {
-                                return const Icon(Icons.send_and_archive);
-                              }
-                              if (wallet.transactions![index].type == "HOLD") {
-                                return const Icon(Icons.back_hand_rounded);
-                              }
-                              if (wallet.transactions![index].type == "HOLD") {
-                                return const Icon(Icons.handshake);
-                              }
-                              return const HorizintalSpace(1);
-                            },
-                          )
+                          CustomBody(
+                            text:
+                                "رقم عملية التحويل: ${widget.wallet.transactions![index].transactionNumber!.toString()}",
+                          ),
+                          Row(
+                            children: [
+                              CustomBody(
+                                text:
+                                    "نوع العملية: ${widget.wallet.transactions![index].type}",
+                                color: Colors.grey,
+                              ),
+                              Builder(
+                                builder: (context) {
+                                  if (widget.wallet.transactions![index].type ==
+                                      "DEPOSIT") {
+                                    return const Icon(
+                                        Icons.move_to_inbox_rounded);
+                                  }
+                                  if (widget.wallet.transactions![index].type ==
+                                      "WITHDRAW") {
+                                    return const Icon(Icons.outbox);
+                                  }
+                                  if (widget.wallet.transactions![index].type ==
+                                      "TRANSFER") {
+                                    return const Icon(Icons.send);
+                                  }
+                                  if (widget.wallet.transactions![index].type ==
+                                      "TRANSFERHELD") {
+                                    return const Icon(Icons.send_and_archive);
+                                  }
+                                  if (widget.wallet.transactions![index].type ==
+                                      "HOLD") {
+                                    return const Icon(Icons.back_hand_rounded);
+                                  }
+                                  if (widget.wallet.transactions![index].type ==
+                                      "HOLD") {
+                                    return const Icon(Icons.handshake);
+                                  }
+                                  return const HorizintalSpace(1);
+                                },
+                              )
+                            ],
+                          ),
                         ],
-                      ),
-                    ],
-                  );
-                },
-                separatorBuilder: (context, index) {
-                  return const Divider();
-                },
-                itemCount: wallet.transactions!.length),
+                      );
+                    },
+                    separatorBuilder: (context, index) {
+                      return const Divider();
+                    },
+                    itemCount: widget.wallet.transactions!.length),
           )
         ],
       ),

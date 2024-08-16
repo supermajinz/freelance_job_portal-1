@@ -5,7 +5,6 @@ import 'package:freelance_job_portal/core/utils/size_config.dart';
 import 'package:freelance_job_portal/features/auth/presentation/view_models/bloc/auth_bloc.dart';
 import 'package:freelance_job_portal/features/auth/presentation/views/widget/custom_auth_title.dart';
 import 'package:freelance_job_portal/features/auth/presentation/views/widget/custom_button_auth.dart';
-import 'package:freelance_job_portal/core/widget/custom_title.dart';
 import 'package:freelance_job_portal/core/widget/space.dart';
 import 'package:freelance_job_portal/features/auth/presentation/views/widget/otp_text_field.dart';
 import 'package:go_router/go_router.dart';
@@ -56,15 +55,13 @@ class _VerificationSignupBodyState extends State<VerificationSignupBody> {
         return ListView(
           children: [
             const VirticalSpace(5),
-            const Center(child: CustomAuthTitle(text: "Check Phone Number")),
+            const Center(child: CustomAuthTitle(text: "التحقق من الرمز")),
             const VirticalSpace(4),
-            const Center(child: CustomTitle(text: "Complete Sign Up")),
-            const VirticalSpace(2),
             Container(
               margin: EdgeInsets.symmetric(
                   horizontal: SizeConfig.defaultSize! * 1.5),
               child: Text(
-                  "We have sent a code to your phone number,Please enter it below to complete signing up",
+                  "لقد أرسلنا رمز تحقق إلى رقم هاتفك. من فضلك أدخل الرمز المكون من 6 أرقام أدناه لإكمال عملية التحقق وتفعيل حسابك.",
                   style: Theme.of(context).textTheme.bodyLarge,
                   textAlign: TextAlign.center),
             ),
@@ -91,11 +88,11 @@ class _VerificationSignupBodyState extends State<VerificationSignupBody> {
             const VirticalSpace(29),
             CustomButton(
                 onPressed: () {
-                  showButtomSheet(context, "Account successfully created");
+                  showButtomSheet(context, "تم انشاء الحساب بنجاح");
                 },
                 color: const Color.fromARGB(255, 80, 34, 88),
                 textcolor: Colors.white,
-                text: "Check",
+                text: "تحقق",
                 borderSide: const BorderSide(width: 0),
                 width: SizeConfig.defaultSize! * 2)
           ],
