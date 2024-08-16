@@ -145,4 +145,7 @@ class DependencyInjection {
   static NotificationLocalRepo provideNotificationsRepo() {
     return const NotificationLocalRepoImpl();
   }
+  static ChatRepo provideChatRepo() {
+    return ChatRepo(DependencyInjection.provideApiService());
+  }
 }

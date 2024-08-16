@@ -1,13 +1,19 @@
 import 'package:chat_bubbles/bubbles/bubble_special_three.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:freelance_job_portal/core/widget/space.dart';
+import 'package:freelance_job_portal/features/chat/data/models/chat_model.dart';
+import 'package:freelance_job_portal/features/chat/data/models/message.dart';
 import 'package:freelance_job_portal/features/chat/presentation/view_models/bloc/chat_bloc.dart';
 import 'package:freelance_job_portal/features/chat/presentation/views/widget/custom_text_form_chat.dart';
 
+import '../../../../auth/data/models/user.dart';
+import '../../../../auth/presentation/view_models/bloc/auth_bloc.dart';
+
 class DmsBody extends StatefulWidget {
-  final String chatUrl;
-  const DmsBody({super.key, required this.chatUrl});
+  final ChatRoomModel chat;
+  const DmsBody({super.key, required this.chat});
 
   @override
   State<DmsBody> createState() => _DmsBodyState();
@@ -16,16 +22,28 @@ class DmsBody extends StatefulWidget {
 class _DmsBodyState extends State<DmsBody> {
   final TextEditingController _messageController = TextEditingController();
   final ScrollController _scrollController = ScrollController();
+  late final User user;
+  late final User secondUser;
+  List<MessageModel> messages = [];
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   context.read<ChatBloc>().add(ConnectToChatEvent(widget.chatUrl));
-  // }
+
+  @override
+  void initState() {
+    super.initState();
+    context.read<ChatBloc>().add(ConnectToChatEvent(chatId: widget.chat.chatId));
+    final userId = (context.read<AuthBloc>().state as AuthAuthenticated).id;
+    if(widget.chat.sender.id == userId){
+      user = widget.chat.sender;
+      secondUser = widget.chat.recipient;
+    }else{
+      user = widget.chat.recipient;
+      secondUser = widget.chat.sender;
+    }
+  }
 
   @override
   void dispose() {
-    context.read<ChatBloc>().add(DisconnectFromChatEvent());
+    context.read<ChatBloc>().add(DisconnectFromChatEvent(widget.chat));
     _messageController.dispose();
     _scrollController.dispose();
     super.dispose();
@@ -114,16 +132,16 @@ class _DmsBodyState extends State<DmsBody> {
                     IconButton(
                         onPressed: () {}, icon: const Icon(Icons.arrow_back)),
                     const HorizintalSpace(7),
-                    const CircleAvatar(
-                      radius: 30,
-                      backgroundImage: AssetImage(
-                        "assets/images/pro.jpg",
-                      ),
-                    ),
-                    const HorizintalSpace(1.5),
-                    const Text(
-                      "Xabi Alonso",
-                      style: TextStyle(fontSize: 18),
+                    // const CircleAvatar(
+                    //   radius: 30,
+                    //   backgroundImage: AssetImage(
+                    //     "assets/images/pro.jpg",
+                    //   ),
+                    // ),
+                    // const HorizintalSpace(1.5),
+                    Text(
+                        "${secondUser.firstname} ${secondUser.lastname}",
+                      style: const TextStyle(fontSize: 18),
                     ),
                   ],
                 ),
@@ -131,21 +149,20 @@ class _DmsBodyState extends State<DmsBody> {
                 Expanded(
                   child: BlocBuilder<ChatBloc, ChatState>(
                     builder: (context, state) {
-                      final messages =
-                          (state is ChatMessageReceived) ? state.messages : [];
                       return ListView.builder(
                         itemCount: messages.length,
                         itemBuilder: (context, index) {
                           final message = messages[index];
+                          final isSender = message.senderId == user.id.toString();
                           return BubbleSpecialThree(
-                            isSender: message.isSender,
+                            isSender: isSender,
                             text: message.content,
-                            color: message.isSender
+                            color: isSender
                                 ? const Color(0xFF1B97F3)
                                 : Colors.grey[300]!,
                             tail: true,
                             textStyle: TextStyle(
-                                color: message.isSender
+                                color: isSender
                                     ? Colors.white
                                     : Colors.black,
                                 fontSize: 16),
@@ -169,7 +186,7 @@ class _DmsBodyState extends State<DmsBody> {
 
   _sendMessage() {
     if (_messageController.text.isNotEmpty) {
-      context.read<ChatBloc>().add(SendMessageEvent(_messageController.text));
+      context.read<ChatBloc>().add(SendMessageEvent(_messageController.text, widget.chat));
       _messageController.clear();
     }
   }

@@ -9,27 +9,41 @@ abstract class ChatEvent extends Equatable {
 }
 
 class ConnectToChatEvent extends ChatEvent {
-  final String chatUrl;
+  final String chatId;
   const ConnectToChatEvent({
-    required this.chatUrl,
+    required this.chatId,
   });
 }
 
-class DisconnectFromChatEvent extends ChatEvent {}
+class DisconnectFromChatEvent extends ChatEvent {
+  final ChatRoomModel chat;
+
+  const DisconnectFromChatEvent(this.chat);
+
+}
 
 class SendMessageEvent extends ChatEvent {
   final String message;
+  final ChatRoomModel chat;
 
-  const SendMessageEvent(this.message);
+  const SendMessageEvent(this.message, this.chat);
 
   @override
-  List<Object> get props => [message];
+  List<Object> get props => [message, chat];
 }
 
 class GetChats extends ChatEvent {
-
-  const GetChats();
+  final int userId;
+  const GetChats(this.userId);
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [userId];
+}
+
+class GetOldMessages extends ChatEvent {
+  final ChatRoomModel chat;
+  const GetOldMessages(this.chat);
+
+  @override
+  List<Object> get props => [chat];
 }

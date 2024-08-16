@@ -2,6 +2,8 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:freelance_job_portal/core/errors/failures.dart';
 import 'package:freelance_job_portal/core/utils/dependency_injection.dart';
+import 'package:freelance_job_portal/features/chat%20copy/data/message.dart';
+import 'package:freelance_job_portal/features/chat/data/models/chat_model.dart';
 import 'package:freelance_job_portal/features/chat/data/models/message.dart';
 import 'package:stomp_dart_client/stomp_dart_client.dart';
 import 'package:freelance_job_portal/features/auth/data/auth_token_service.dart';
@@ -19,40 +21,26 @@ class ChatService {
     _initializeStompClient();
   }
 
+
+
+
+
   Future<void> _initializeStompClient() async {
     final token = await tokenService.getToken('access_token');
     _stompClient = StompClient(
       config: StompConfig(
-        url: 'ws://localhost:8080/ws',
-        onConnect: _onConnect,
-        beforeConnect: _beforeConnect,
-        onWebSocketError: _onWebSocketError,
-        onStompError: _onStompError,
-        onDisconnect: _onDisconnect,
+        url: 'ws://localhost:8080/ws/websocket',
+        // onConnect: _onConnect,
+        // beforeConnect: _beforeConnect,
+        // onWebSocketError: _onWebSocketError,
+        // onStompError: _onStompError,
+        // onDisconnect: _onDisconnect,
         stompConnectHeaders: {'Authorization': 'Bearer $token'},
         webSocketConnectHeaders: {'Authorization': 'Bearer $token'},
         reconnectDelay: const Duration(seconds: 5),
       ),
     );
-  }
-
-  message() {
-    final client = StompClient(
-        config: StompConfig(
-          url: 'ws://localhost:8080/ws/websocket',
-          reconnectDelay: const Duration(seconds: 5),
-        ));
-    client.activate();
-    await Future.delayed(const Duration(seconds: 1));
-    //subscribe to chat
-    client.subscribe(
-        destination: "/user/456/queue/messages",
-        callback: (p0) => print("comingMessage: ${p0.body}"));
-    //send message in chat
-    client.send(
-        destination: "/app/chat",
-        body: json.encode(
-            {"senderId": 123, "recipientId": 456, "content": "Hello, world!"}));
+    _stompClient.activate();
   }
 
   Future<void> connect() async {
@@ -111,7 +99,7 @@ class ChatService {
   void _resubscribeAll() {
     _subscriptions.forEach((destination, _) {
       _subscriptions[destination] = _stompClient.subscribe(
-        destination: destination,
+        destination: "/user/$destination/queue/messages",
         callback: (StompFrame frame) {
           _handleMessage;
         },
@@ -119,19 +107,19 @@ class ChatService {
     });
   }
 
-  Future<void> subscribeToChat(String chatId) async {
-    final destination = '/chat/$chatId';
-    if (!_subscriptions.containsKey(destination)) {
+  Future<void> subscribeToChat(String chatId,
+      {required void Function(MessageModel msg) callback}) async {
+    if (!_subscriptions.containsKey(chatId)) {
       if (!_isConnected) await connect();
-      _subscriptions[destination] = _stompClient.subscribe(
-        destination: destination,
-        callback: _handleMessage,
+      _subscriptions[chatId] = _stompClient.subscribe(
+        destination: "/user/$chatId/queue/messages",
+        callback: (p0) => _handleMessage(p0, callback),
       );
     }
   }
 
   Future<void> unsubscribeFromChat(String chatId) async {
-    final destination = '/chat/$chatId';
+    final destination = chatId;
     if (_subscriptions.containsKey(destination)) {
       if (_isConnected) {
         final unsubscribe = _subscriptions.remove(destination);
@@ -144,30 +132,28 @@ class ChatService {
     }
   }
 
-  Future<void> sendMessage(Message message, String chatId) async {
-    if (message.content.trim().isEmpty) return;
-
+  Future<void> sendMessage(String message, ChatRoomModel chat) async {
+    // if (message.content.trim().isEmpty) return;
+    if(message.trim().isEmpty)return;
     if (!_isConnected) await connect();
 
     final messagePayload = {
-      'id': message.id,
-      'senderId': message.senderId,
-      'recipientId': message.recipientId,
-      'content': message.content,
-      'timestamp': message.timestamp.toIso8601String(),
+      'senderId': chat.sender,
+      'recipientId': chat.recipient,
+      'content': message,
     };
 
     _stompClient.send(
-      destination: '/chat/$chatId',
+      destination: '/app/chat',
       body: json.encode(messagePayload),
     );
   }
 
-  void _handleMessage(StompFrame frame) {
+  void _handleMessage(StompFrame frame, void Function(MessageModel msg) callback) {
     try {
       final Map<String, dynamic> jsonMessage = json.decode(frame.body!);
-      final message = Message.fromJson(jsonMessage);
-      print('Received message: ${message.content} from ${message.senderId}');
+      final message = MessageModel.fromJson(jsonMessage);
+      callback(message);
     } catch (e) {
       print('Error parsing message: $e');
     }

@@ -1,4 +1,4 @@
-class Message {
+class MessageModel {
   final String id;
   final String senderId;
   final String recipientId;
@@ -7,7 +7,7 @@ class Message {
   final String content;
   final DateTime timestamp;
 
-  Message({
+  MessageModel({
     required this.id,
     required this.senderId,
     required this.recipientId,
@@ -17,8 +17,8 @@ class Message {
     required this.timestamp,
   });
 
-  factory Message.fromJson(Map<String, dynamic> json) {
-    return Message(
+  factory MessageModel.fromJson(Map<String, dynamic> json) {
+    return MessageModel(
       id: json['id'] as String,
       senderId: json['senderId'] as String,
       recipientId: json['recipientId'] as String,

@@ -7,6 +7,7 @@ import 'package:freelance_job_portal/features/auth/presentation/views/forget_pas
 import 'package:freelance_job_portal/features/auth/presentation/views/resetpassword.dart';
 import 'package:freelance_job_portal/features/auth/presentation/views/signup.dart';
 import 'package:freelance_job_portal/features/auth/presentation/views/verification_signup.dart';
+import 'package:freelance_job_portal/features/chat/data/models/chat_model.dart';
 import 'package:freelance_job_portal/features/chat/presentation/views/chat.dart';
 import 'package:freelance_job_portal/features/chat/presentation/views/dms.dart';
 import 'package:freelance_job_portal/features/home/presentation/views/home.dart';
@@ -176,7 +177,7 @@ abstract class AppRouter {
     ),
     GoRoute(
       path: '/dms',
-      builder: (context, state) => const DMs(),
+      builder: (context, state) => DMs(room: state.extra as ChatRoomModel),
     ),
     GoRoute(
       path: '/saved',
