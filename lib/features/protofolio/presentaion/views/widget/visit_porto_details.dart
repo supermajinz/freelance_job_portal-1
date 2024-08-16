@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freelance_job_portal/core/widget/custom_icon_back.dart';
@@ -7,9 +8,20 @@ import 'package:freelance_job_portal/features/protofolio/presentaion/view%20mode
 import 'package:freelance_job_portal/features/protofolio/presentaion/views/widget/show_proto_details_body.dart';
 import 'package:go_router/go_router.dart';
 
-class VisitShowProtoDetails extends StatelessWidget {
+class VisitShowProtoDetails extends StatefulWidget {
   final PortofolioJob job;
   const VisitShowProtoDetails({super.key, required this.job});
+
+  @override
+  State<VisitShowProtoDetails> createState() => _VisitShowProtoDetailsState();
+}
+
+class _VisitShowProtoDetailsState extends State<VisitShowProtoDetails> {
+  @override
+  void initState() {
+    context.read<PortofolioBloc>().add(ViewPortofolioJob(jobId: widget.job.id!));
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +50,7 @@ class VisitShowProtoDetails extends StatelessWidget {
               )),
           body: SafeArea(
               child: ShowProtoDetailsBody(
-            job: job,
+            job: widget.job,
           )),
         );
       },

@@ -69,7 +69,8 @@ class _EditPhotoProfileState extends State<EditPhotoProfile> {
                     ),
                   ),
                   child: IconButton(
-                    onPressed: () {Navigator.pop(context);
+                    onPressed: () {
+                      //Navigator.pop(context);
                       pickImage(ImageSource.gallery);},
                     icon: Icon(
                       Icons.edit_outlined,
