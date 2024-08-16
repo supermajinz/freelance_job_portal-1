@@ -34,5 +34,5 @@ class TransactionHistoryLoaded extends WalletState {
 class WalletPaymentsLoaded extends WalletState {
   final WalletPayments walletPayments;
 
-  WalletPaymentsLoaded(this.walletPayments);
+  const WalletPaymentsLoaded(this.walletPayments);
 }

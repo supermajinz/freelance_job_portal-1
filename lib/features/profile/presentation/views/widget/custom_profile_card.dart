@@ -1,19 +1,15 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:freelance_job_portal/core/utils/dependency_injection.dart';
 import 'package:freelance_job_portal/features/profile/data/models/profile/client_profile.dart';
 import 'package:go_router/go_router.dart';
 import 'package:photo_view/photo_view.dart';
-import 'package:photo_view/photo_view_gallery.dart';
-import 'package:smooth_page_indicator/smooth_page_indicator.dart';
-
 import 'package:freelance_job_portal/core/utils/size_config.dart';
 import 'package:freelance_job_portal/core/widget/custom_body_medium.dart';
 import 'package:freelance_job_portal/core/widget/custom_label.dart';
 import 'package:freelance_job_portal/core/widget/custom_subtitle_medium.dart';
 import 'package:freelance_job_portal/core/widget/space.dart';
-
 import '../../../../../core/utils/functions/utils.dart';
-import '../../../../../core/widget/custom_title.dart';
 
 class CustomProfileCard extends StatelessWidget {
   final ClientProfile profile;
@@ -32,7 +28,7 @@ class CustomProfileCard extends StatelessWidget {
     final clientName =
         '${profile.userDto!.firstname ?? 'Unknown'} ${profile.userDto!.lastname ?? ''}';
     final clientPhotoUrl = profile.photoDtOs?.isNotEmpty == true
-        ? "http://10.0.2.2:8080/api/v1/file/photo/${profile.photoDtOs![0].photo}"
+        ? "${DependencyInjection.baseUrl}file/photo/${profile.photoDtOs![0].photo}"
         : null;
     final backgroundColor =
         clientPhotoUrl == null ? Utils.getBackgroundColor(clientName) : null;
@@ -299,7 +295,7 @@ class _ImageGalleryScreenState extends State<ImageGalleryScreen> {
                     },
                     child: PhotoView(
                       imageProvider: NetworkImage(
-                          "http://localhost:8080/api/v1/file/photo/${imageUrls[index]}"),
+                          "${DependencyInjection.baseUrl}file/photo/${imageUrls[index]}"),
                       heroAttributes: const PhotoViewHeroAttributes(
                           tag:
                               'profileImage'), // Use the same tag as the profile image

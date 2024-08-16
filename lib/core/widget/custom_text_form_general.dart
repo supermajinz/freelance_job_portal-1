@@ -22,6 +22,7 @@ class CustomTextFormGeneral extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      maxLength: 255,
       minLines: 1,
       maxLines: 5,
       inputFormatters: [if (isNumber) FilteringTextInputFormatter.digitsOnly],

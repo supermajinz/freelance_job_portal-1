@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:freelance_job_portal/core/utils/dependency_injection.dart';
 import 'package:freelance_job_portal/features/profile/data/models/profile/worker_Profile/worker_profile.dart';
-import 'package:go_router/go_router.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:freelance_job_portal/core/utils/size_config.dart';
 import 'package:freelance_job_portal/core/widget/custom_body_medium.dart';
@@ -9,13 +8,14 @@ import 'package:freelance_job_portal/core/widget/custom_label.dart';
 import 'package:freelance_job_portal/core/widget/custom_subtitle_medium.dart';
 import 'package:freelance_job_portal/core/widget/space.dart';
 import '../../../../core/utils/functions/utils.dart';
+import '../../../../core/widget/bookmark_button.dart';
 
-class WorkerCustomProfileCard extends StatelessWidget {
+class VisitWorkerCustomProfileCard extends StatelessWidget {
   final WorkerProfile profile;
   final IconData? icon;
   final void Function()? onPressed;
 
-  const WorkerCustomProfileCard({
+  const VisitWorkerCustomProfileCard({
     super.key,
     required this.profile,
     this.icon,
@@ -104,22 +104,14 @@ class WorkerCustomProfileCard extends StatelessWidget {
               ],
             ),
             const Spacer(),
-            Column(
+            Row(
               children: [
-                const CustomLabel(
-                  text: 'فريلانسر',
-                  color: Colors.black,
-                ),
-                IconButton(
-                    onPressed: () {
-                      GoRouter.of(context)
-                          .push('/editWorkerProfile', extra: profile);
-                    },
-                    icon: Icon(
-                      icon,
-                      size: SizeConfig.defaultSize! * 2.5,
-                      color: Colors.black,
-                    )),
+                BookmarkButton(isProject: false, id: profile.userId!),
+              
+                // CustomLabel(
+                //   text: 'فريلانسر',
+                //   color: Colors.black,
+                // ),
               ],
             )
           ],

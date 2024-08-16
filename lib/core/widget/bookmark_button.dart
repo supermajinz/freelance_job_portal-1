@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:freelance_job_portal/core/constants/colors.dart';
 import 'package:freelance_job_portal/features/auth/presentation/view_models/bloc/auth_bloc.dart';
 import 'package:freelance_job_portal/features/saved/presentation/view_models/favorites_bloc/favorites_bloc.dart';
 
@@ -44,16 +43,17 @@ class BookmarkButton extends StatelessWidget {
           context.read<FavoritesBloc>().add(GetFavorite(userId));
           ScaffoldMessenger.of(context).showSnackBar(
             const SnackBar(
-              content: Text('تم إلغاء حفظ المستخدم'),
+              content: Text('تم حفظ المستخدم'),
             ),
           );
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('تم حفظ المستخدم')),
-          );
+         
         } else if (!isProject &&
             state is DeleteUserFromFavoriteSuccess &&
             state.favoriteUserId == id) {
           context.read<FavoritesBloc>().add(GetFavorite(userId));
+           ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(content: Text('تم الغاء حفظ المستخدم')),
+          );
         }
       },
       builder: (context, state) {

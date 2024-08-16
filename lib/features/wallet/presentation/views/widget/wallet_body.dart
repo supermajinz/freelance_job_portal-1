@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:freelance_job_portal/core/constants/colors.dart';
 import 'package:freelance_job_portal/core/utils/size_config.dart';
 import 'package:freelance_job_portal/core/widget/custom_body_medium.dart';
-import 'package:freelance_job_portal/core/widget/custom_button_general.dart';
 import 'package:freelance_job_portal/core/widget/custom_sub_title.dart';
 import 'package:freelance_job_portal/core/widget/custom_subtitle_medium.dart';
 import 'package:freelance_job_portal/core/widget/space.dart';
-import 'package:freelance_job_portal/features/wallet/data/models/wallet_model.dart';
 import 'package:freelance_job_portal/features/wallet/data/models/wallet_payments/wallet_payments.dart';
-import 'package:go_router/go_router.dart';
 import 'package:iconly/iconly.dart';
 import 'package:intl/intl.dart';
 
@@ -106,22 +102,10 @@ class WalletBody extends StatelessWidget {
                           CustomBody(
                             text: wallet.transactions![index].senderUserId ==
                                     myUserId
-                                ? " قد أرسلت إلى  "
-                                : " استلمت من ",
+                                ? " قد أرسلت   "
+                                : " استلمت  ",
                             color: Colors.grey,
                           ),
-                          CustomBody(
-                            text: "", //TODO Name
-                          ),
-                          CustomBody(
-                            text: " ",
-                            color: Colors.grey,
-                          ),
-                          /*
-                          CustomBody(
-                            text: "Order Management App",
-                          )
-                          */
                         ],
                       ),
                       CustomBody(
@@ -131,6 +115,42 @@ class WalletBody extends StatelessWidget {
                       CustomBody(
                         text:
                             "رقم عملية التحويل: ${wallet.transactions![index].transactionNumber!.toString()}",
+                      ),
+                      Row(
+                        children: [
+                          CustomBody(
+                            text:
+                                "نوع العملية: ${wallet.transactions![index].type}",
+                            color: Colors.grey,
+                          ),
+                          Builder(
+                            builder: (context) {
+                              if (wallet.transactions![index].type ==
+                                  "DEPOSIT") {
+                                return const Icon(Icons.move_to_inbox_rounded);
+                              }
+                              if (wallet.transactions![index].type ==
+                                  "WITHDRAW") {
+                                return const Icon(Icons.outbox);
+                              }
+                              if (wallet.transactions![index].type ==
+                                  "TRANSFER") {
+                                return const Icon(Icons.send);
+                              }
+                              if (wallet.transactions![index].type ==
+                                  "TRANSFERHELD") {
+                                return const Icon(Icons.send_and_archive);
+                              }
+                              if (wallet.transactions![index].type == "HOLD") {
+                                return const Icon(Icons.back_hand_rounded);
+                              }
+                              if (wallet.transactions![index].type == "HOLD") {
+                                return const Icon(Icons.handshake);
+                              }
+                              return const HorizintalSpace(1);
+                            },
+                          )
+                        ],
                       ),
                     ],
                   );

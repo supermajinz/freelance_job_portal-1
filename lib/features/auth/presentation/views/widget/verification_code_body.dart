@@ -29,7 +29,7 @@ class _VerificationCodeBodyState extends State<VerificationCodeBody> {
     return BlocConsumer<AuthBloc, AuthState>(
       listener: (context, state) {
         if (state is AuthAuthenticated) {
-          GoRouter.of(context).push("/homescreen");
+          GoRouter.of(context).pushReplacement("/homescreen");
         } else if (state is AuthError) {
           ScaffoldMessenger.of(context)
               .showSnackBar(SnackBar(content: Text(state.error)));
@@ -76,10 +76,6 @@ class _VerificationCodeBodyState extends State<VerificationCodeBody> {
                 style: const TextStyle(color: Colors.red),
               )),
             const VirticalSpace(1),
-            const Text("Resend",
-                style: TextStyle(
-                    fontSize: 16, decoration: TextDecoration.underline),
-                textAlign: TextAlign.center),
             const VirticalSpace(35),
             CustomButton(
                 onPressed: () {

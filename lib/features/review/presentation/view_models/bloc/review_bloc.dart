@@ -13,6 +13,8 @@ class ReviewBloc extends Bloc<ReviewEvent, ReviewState> {
     on<GetReview>(_onGetReview);
   }
   Future<void> _onAddReview(AddReview event, Emitter<ReviewState> emit) async {
+    print(event);
+    print(event.projectId);
     emit(ReviewLoading());
     final result = await repo.addRate(event.projectId, event.reviewData);
     result.fold(
@@ -23,7 +25,7 @@ class ReviewBloc extends Bloc<ReviewEvent, ReviewState> {
 
   Future<void> _onGetReview(GetReview event, Emitter<ReviewState> emit) async {
     emit(ReviewLoading());
-    final result = await repo.getProfileRate(event.profileId);
+    final result = await repo.getProfileRate(event.profileId, event.isClient);
     result.fold(
       (failure) => emit(ReviewFaliure(failure.errMessage)),
       (review) => emit(GetReviewSuccess(review)),

@@ -6,5 +6,5 @@ import 'package:freelance_job_portal/features/review/data/model/review_model.dar
 abstract class ReviewRepo {
   Future<Either<Failure, ReviewModel>> addRate(
       int projectId, Map<String, dynamic> reviewData);
-  Future<Either<Failure, ProfileRates>> getProfileRate(int profileId);
+  Future<Either<Failure, ProfileRates>> getProfileRate(int profileId, bool isClient);
 }

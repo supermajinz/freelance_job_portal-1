@@ -16,7 +16,7 @@ class ShowProjectDetails extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
           title: const CustomTitle(
-            text: 'Project Details',
+            text: 'تفاصيل المشروع',
             white: true,
           ),
           centerTitle: true,

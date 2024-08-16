@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freelance_job_portal/core/localization/bloc/localization_bloc.dart';
 import 'package:freelance_job_portal/core/utils/size_config.dart';
+import 'package:freelance_job_portal/core/widget/space.dart';
 import 'package:freelance_job_portal/features/auth/presentation/view_models/bloc/auth_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:iconly/iconly.dart';
 
 class DrawarBody extends StatelessWidget {
-  const DrawarBody({super.key});
+  const DrawarBody({super.key, required this.controller});
+  final AdvancedDrawerController controller;
 
   @override
   Widget build(BuildContext context) {
@@ -27,18 +30,19 @@ class DrawarBody extends StatelessWidget {
             child: CircleAvatar(
               radius: SizeConfig.defaultSize! * 5,
               backgroundImage: const AssetImage(
-                "assets/images/pro.jpg",
+                "assets/images/aaa.jpg",
               ),
             ),
           ),
-          ListTile(
-            onTap: () {},
-            leading: const Icon(Icons.home),
-            title: const Text('الرئيسية'),
-          ),
+          // ListTile(
+          //   onTap: () {},
+          //   leading: const Icon(Icons.home),
+          //   title: const Text('الرئيسية'),
+          // ),
           ListTile(
             onTap: () {
               GoRouter.of(context).push('/report', extra: null);
+              controller.hideDrawer();
             },
             leading: const Icon(Icons.report),
             title: const Text('ارسال شكوى'),
@@ -46,6 +50,7 @@ class DrawarBody extends StatelessWidget {
           ListTile(
             onTap: () {
               GoRouter.of(context).push('/saved');
+              controller.hideDrawer();
             },
             leading: const Icon(Icons.bookmark_add),
             title: const Text('العناصر المحفوظة'),
@@ -53,44 +58,53 @@ class DrawarBody extends StatelessWidget {
           ListTile(
             onTap: () {
               GoRouter.of(context).push('/wallet');
+              controller.hideDrawer();
             },
             leading: const Icon(IconlyBold.wallet),
             title: const Text('المحفظة'),
           ),
-          ListTile(
-            onTap: () {},
-            leading: const Icon(Icons.settings),
-            title: const Text('الإعدادات'),
-          ),
+          // ListTile(
+          //   onTap: () {},
+          //   leading: const Icon(Icons.settings),
+          //   title: const Text('الإعدادات'),
+          // ),
           ListTile(
             onTap: () {
               context.read<AuthBloc>().add(LogoutEvent());
+              controller.hideDrawer();
             },
             leading: const Icon(Icons.logout),
             title: const Text('تسجيل الخروج'),
           ),
-          PopupMenuButton<String>(
-            icon: const Icon(
-              Icons.language,
-              color: Colors.white,
-            ),
-            itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
-              PopupMenuItem<String>(
-                value: 'en',
-                child: const Text('English'),
-                onTap: () {
-                  BlocProvider.of<LocalizationBloc>(context)
-                      .add(const LoadLocalization(Locale('en')));
-                },
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              HorizintalSpace(0.5),
+              PopupMenuButton<String>(
+                icon: const Icon(
+                  Icons.language,
+                  color: Colors.white,
+                ),
+                itemBuilder: (BuildContext context) => <PopupMenuEntry<String>>[
+                  // PopupMenuItem<String>(
+                  //   value: 'en',
+                  //   child: const Text('English'),
+                  //   onTap: () {
+                  //     BlocProvider.of<LocalizationBloc>(context)
+                  //         .add(const LoadLocalization(Locale('en')));
+                  //   },
+                  // ),
+                  PopupMenuItem<String>(
+                    value: 'ar',
+                    child: const Text('Arabic'),
+                    onTap: () {
+                      BlocProvider.of<LocalizationBloc>(context)
+                          .add(const LoadLocalization(Locale('ar')));
+                    },
+                  ),
+                ],
               ),
-              PopupMenuItem<String>(
-                value: 'ar',
-                child: const Text('Arabic'),
-                onTap: () {
-                  BlocProvider.of<LocalizationBloc>(context)
-                      .add(const LoadLocalization(Locale('ar')));
-                },
-              ),
+              Text('اللغة', style: TextStyle(color: Colors.white)),
             ],
           ),
           const Spacer(),

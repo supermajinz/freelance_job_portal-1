@@ -8,7 +8,6 @@ import 'package:freelance_job_portal/core/widget/custom_sub_title.dart';
 import 'package:freelance_job_portal/core/widget/custom_text_form_general.dart';
 import 'package:freelance_job_portal/core/widget/space.dart';
 import 'package:freelance_job_portal/features/categories%20and%20skills/bloc/categories_skills_bloc.dart';
-import 'package:freelance_job_portal/features/categories%20and%20skills/models/categories/category.dart';
 import 'package:freelance_job_portal/features/categories%20and%20skills/models/job_title.dart';
 import 'package:freelance_job_portal/features/home/data/model/caregories/caregories.dart';
 import 'package:freelance_job_portal/features/home/data/model/skills/skills.dart';
@@ -16,11 +15,7 @@ import 'package:freelance_job_portal/features/home/presentation/view_models/nav_
 import 'package:freelance_job_portal/features/home/presentation/view_models/nav_bar_bloc/nav_bar_event.dart';
 import 'package:freelance_job_portal/features/photo/bloc/image_bloc.dart';
 import 'package:freelance_job_portal/features/profile/presentation/view_models/bloc/profile_bloc.dart';
-import 'package:freelance_job_portal/features/profile/presentation/views/widget/add_edit_proto.dart';
-import 'package:freelance_job_portal/features/profile/presentation/views/widget/custom_dropdown_searsh.dart';
-import 'package:freelance_job_portal/features/profile/presentation/views/widget/custom_show_chip_button.dart';
 import 'package:freelance_job_portal/features/profile/presentation/views/widget/image_gallery_widget.dart';
-import 'package:freelance_job_portal/features/profile/presentation/views/widget/show_chip.dart';
 import 'package:freelance_job_portal/features/projects/presentation/views/widget/create_project_body.dart';
 import 'package:go_router/go_router.dart';
 

@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:freelance_job_portal/core/utils/dependency_injection.dart';
 import 'package:freelance_job_portal/core/utils/size_config.dart';
 import 'package:freelance_job_portal/core/widget/space.dart';
 import 'package:freelance_job_portal/features/photo/bloc/image_bloc.dart';
@@ -59,7 +60,7 @@ class _EditImageGalleryWidgetState
     if (photoName.startsWith('http://') || photoName.startsWith('https://')) {
       return photoName;
     }
-    return 'http://localhost:8080/api/v1/file/photo/$photoName';
+    return '${DependencyInjection.baseUrl}file/photo/$photoName';
   }
 
   @override

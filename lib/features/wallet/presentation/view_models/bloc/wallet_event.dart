@@ -22,5 +22,5 @@ class GetTransactionHistory extends WalletEvent {
 class GetWalletPayments extends WalletEvent {
   final int userId;
 
-  GetWalletPayments(this.userId);
+  const GetWalletPayments(this.userId);
 }

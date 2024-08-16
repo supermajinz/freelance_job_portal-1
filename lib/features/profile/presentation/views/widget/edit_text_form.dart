@@ -22,7 +22,7 @@ class EditTextForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
+    return TextFormField(maxLength: 255,
       //initialValue: initvalue,
       minLines: 1,
       maxLines: 5,

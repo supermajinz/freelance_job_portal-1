@@ -1,10 +1,10 @@
-import 'package:animated_rating_bar/widgets/animated_rating_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:freelance_job_portal/core/utils/size_config.dart';
 import 'package:freelance_job_portal/core/widget/custom_label.dart';
 import 'package:freelance_job_portal/core/widget/custom_subtitle_medium.dart';
 import 'package:freelance_job_portal/core/widget/space.dart';
-import 'package:intl/intl.dart';
+import 'package:intl/intl.dart' as intl;
 import '../../../../review/data/model/rate_model/rate.dart';
 
 class CustomReviewCardWorker extends StatelessWidget {
@@ -45,20 +45,26 @@ class CustomReviewCardWorker extends StatelessWidget {
         const VirticalSpace(1.5),
         Row(
           children: [
-            AnimatedRatingBar(
-              activeFillColor: Theme.of(context).colorScheme.inversePrimary,
-              strokeColor: Colors.green,
+            RatingBar(
               initialRating: rate.totalRate,
-              height: SizeConfig.defaultSize! * 2,
-              width: SizeConfig.defaultSize! * 8,
-              animationColor: Colors.red,
+              allowHalfRating: true,
               onRatingUpdate: (rating) {
                 debugPrint(rating.toString());
               },
+              ignoreGestures: true,
+              itemSize: 17,
+              ratingWidget: RatingWidget(
+                  full: const Icon(Icons.star, color: Colors.yellow),
+                  half: const Icon(
+                    Icons.star_half,
+                    color: Colors.yellow,
+                    textDirection: TextDirection.ltr,
+                  ),
+                  empty: const Icon(Icons.star_outline, color: Colors.yellow)),
             ),
             const HorizintalSpace(1.5),
             CustomLabel(
-              text: DateFormat('yyyy-MM-dd').format(rate.createDate),
+              text: intl.DateFormat('yyyy-MM-dd').format(rate.createDate),
             )
           ],
         ),

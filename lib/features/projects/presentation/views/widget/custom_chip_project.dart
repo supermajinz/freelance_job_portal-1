@@ -9,7 +9,7 @@ class CustomChipProject extends StatelessWidget {
   Widget build(BuildContext context) {
     return CustomChoiceChip(
       text: text,
-      color: Colors.transparent,
+      color: Colors.black,
     );
   }
 }

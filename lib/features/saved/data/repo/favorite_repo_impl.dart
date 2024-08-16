@@ -1,11 +1,9 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/foundation.dart';
 import 'package:freelance_job_portal/core/errors/failures.dart';
 import 'package:freelance_job_portal/core/utils/api_service.dart';
 import 'package:freelance_job_portal/features/projects/data/model/project_model/project_model.dart';
 import 'package:freelance_job_portal/features/saved/data/repo/favorite_repo.dart';
-
 import '../../../auth/data/models/user.dart';
 
 class FavoriteRepoImpl implements FavoriteRepo {

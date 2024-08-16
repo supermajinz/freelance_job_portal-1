@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:freelance_job_portal/core/utils/dependency_injection.dart';
 import 'package:freelance_job_portal/core/utils/size_config.dart';
 import 'package:freelance_job_portal/core/widget/custom_body_medium.dart';
 import 'package:freelance_job_portal/core/widget/custom_label.dart';
+import 'package:freelance_job_portal/core/widget/custom_money_body.dart';
 import 'package:freelance_job_portal/core/widget/custom_subtitle_medium.dart';
 import 'package:freelance_job_portal/core/widget/space.dart';
 import 'package:freelance_job_portal/features/home/presentation/views/widget/custom_choice_chip.dart';
@@ -10,6 +12,7 @@ import 'package:freelance_job_portal/features/projects/data/model/project_model/
 import 'package:timeago/timeago.dart' as timeago;
 
 import '../../../../../core/utils/functions/utils.dart';
+import '../../../../../core/widget/bookmark_button.dart';
 
 class CustomProjectStatus extends StatelessWidget {
   const CustomProjectStatus({super.key, required this.projectModel});
@@ -23,7 +26,7 @@ class CustomProjectStatus extends StatelessWidget {
     final clientName =
         '${client?.userDto?.firstname ?? 'Unknown'} ${client?.userDto?.lastname ?? ''}';
     final clientPhotoUrl = client?.photoDtOs?.isNotEmpty == true
-        ? "http://10.0.2.2:8080/api/v1/file/photo/${client!.photoDtOs![0].photo}"
+        ? "${DependencyInjection.baseUrl}file/photo/${client!.photoDtOs![0].photo}"
         : null;
     final backgroundColor =
         clientPhotoUrl == null ? Utils.getBackgroundColor(clientName) : null;
@@ -37,25 +40,39 @@ class CustomProjectStatus extends StatelessWidget {
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
             Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
+                  padding: EdgeInsets.only(top: SizeConfig.defaultSize! * 1),
+                  width: SizeConfig.defaultSize! * 20,
                   margin: EdgeInsets.only(right: SizeConfig.defaultSize! * 1.2),
-                  child: CustomSubTitleMedium(text: projectModel.name),
+                  child: Text(
+                    projectModel.name,
+                    style: Theme.of(context).textTheme.titleMedium!,
+                    maxLines: 2,
+                  ),
                 ),
                 const Spacer(),
-                CustomLabel(
-                  text: formattedCreateDate,
+                Container(
+                  padding: EdgeInsets.only(top: SizeConfig.defaultSize! * 1),
+                  width: SizeConfig.defaultSize! * 5,
+                  child: Text(
+                    textAlign: TextAlign.center,
+                    formattedCreateDate,
+                    style: Theme.of(context).textTheme.labelLarge!,
+                  ),
                 ),
-                IconButton(
-                    onPressed: () {},
-                    icon: const Icon(Icons.bookmark_add_outlined))
+                BookmarkButton(isProject: true, id: projectModel.id)
               ],
             ),
+            const VirticalSpace(2),
             Container(
               margin: EdgeInsets.only(right: SizeConfig.defaultSize! * 1.2),
               child: CustomBody(text: projectModel.description),
             ),
-             CustomTimeline(currentStatus: ProjectModel.projectStatuses.indexOf(projectModel.status)),
+            CustomTimeline(
+                currentStatus:
+                    ProjectModel.projectStatuses.indexOf(projectModel.status)),
             const VirticalSpace(1),
             Container(
               margin: EdgeInsets.only(right: SizeConfig.defaultSize! * 1.2),
@@ -80,12 +97,12 @@ class CustomProjectStatus extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                CustomBody(
+                CustomMoneyBody(
                   isCurrency: true,
                   text: '${projectModel.minBudget} - ${projectModel.maxBudget}',
                   color: Colors.green,
                 ),
-                CustomBody(
+                CustomMoneyBody(
                   isday: true,
                   text: projectModel.expectedDuration.toString(),
                   color: Colors.red,

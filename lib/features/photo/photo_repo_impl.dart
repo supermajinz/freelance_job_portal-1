@@ -3,12 +3,13 @@ import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
 import 'package:freelance_job_portal/core/errors/failures.dart';
 import 'package:freelance_job_portal/core/utils/api_service.dart';
+import 'package:freelance_job_portal/core/utils/dependency_injection.dart';
 import 'package:freelance_job_portal/features/photo/model/photo.dart';
 import 'package:freelance_job_portal/features/photo/photo_repo.dart';
 
 class PhotoRepoImpl extends PhotoRepo {
   final ApiService _apiService;
-  final String photoBaseUrl = 'http://localhost:8080/api/v1/file/photo';
+  final String photoBaseUrl = '${DependencyInjection.baseUrl}file/photo';
 
   PhotoRepoImpl(this._apiService);
 

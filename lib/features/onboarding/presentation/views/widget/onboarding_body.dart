@@ -61,7 +61,7 @@ class _OnboardingBodyState extends State<OnboardingBody> {
               },
               width: SizeConfig.defaultSize! * 25.5,
               borderSide: const BorderSide(width: 0),
-              color: Colors.cyanAccent,
+              color: Theme.of(context).colorScheme.secondary,
               text: "تسجيل دخول",
               textcolor: Colors.white,
             )),

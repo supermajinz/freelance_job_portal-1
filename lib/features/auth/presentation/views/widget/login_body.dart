@@ -80,20 +80,6 @@ class _LoginBodyState extends State<LoginBody> {
                 return validInput(password!, 5, 30, "password");
               },
             ),
-            Container(
-              margin: EdgeInsets.only(
-                  right: SizeConfig.defaultSize! * 2.5,
-                  left: SizeConfig.defaultSize! * 2.5),
-              child: InkWell(
-                onTap: () {
-                  GoRouter.of(context).push("/forgetpassword");
-                },
-                child: const Text("Forget Password",
-                    style: TextStyle(
-                        fontSize: 15, color: Color.fromARGB(255, 165, 11, 11)),
-                    textAlign: TextAlign.end),
-              ),
-            ),
             const VirticalSpace(8),
             CustomButton(
                 onPressed: () {
@@ -103,7 +89,7 @@ class _LoginBodyState extends State<LoginBody> {
                             password: _passwordController.text),
                       );
                 },
-                color: Colors.cyanAccent,
+                color: Theme.of(context).colorScheme.secondary,
                 textcolor: Colors.white,
                 text: "Sign In",
                 borderSide: const BorderSide(width: 0),

@@ -32,7 +32,7 @@ class _VerificationSignupBodyState extends State<VerificationSignupBody> {
     return BlocConsumer<AuthBloc, AuthState>(
       listener: (context, state) {
         if (state is AuthAuthenticated) {
-          GoRouter.of(context).push("/homescreen");
+          GoRouter.of(context).pushReplacement("/homescreen");
         } else if (state is AuthError) {
           ScaffoldMessenger.of(context)
               .showSnackBar(SnackBar(content: Text(state.error)));
@@ -88,15 +88,6 @@ class _VerificationSignupBodyState extends State<VerificationSignupBody> {
                 ),
               ),
             const VirticalSpace(1),
-            InkWell(
-              onTap: () {},
-              child: const Text(
-                "Resend",
-                style: TextStyle(
-                    fontSize: 16, decoration: TextDecoration.underline),
-                textAlign: TextAlign.center,
-              ),
-            ),
             const VirticalSpace(29),
             CustomButton(
                 onPressed: () {

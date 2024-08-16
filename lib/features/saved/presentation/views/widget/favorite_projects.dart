@@ -22,7 +22,6 @@ class FavoriteProjects extends StatelessWidget {
                   return const CustomEmpty();
                 } else {
                   return ListView.builder(
-                    // physics: const NeverScrollableScrollPhysics(),
                     shrinkWrap: true,
                     itemCount: state.projects.length,
                     itemBuilder: (context, index) {

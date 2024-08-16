@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:freelance_job_portal/core/utils/size_config.dart';
-import 'package:freelance_job_portal/core/widget/custom_body_medium.dart';
+import 'package:freelance_job_portal/core/widget/custom_money_body.dart';
 
 class CustomContainer extends StatelessWidget {
   const CustomContainer({super.key, required this.text});
@@ -15,7 +15,7 @@ class CustomContainer extends StatelessWidget {
           color: Colors.white,
           border: Border.all(width: 1, color: Theme.of(context).primaryColor),
           borderRadius: BorderRadius.circular(SizeConfig.defaultSize! * 10)),
-      child: CustomBody(
+      child: CustomMoneyBody(
         isday: true,
         text: text,
       ),

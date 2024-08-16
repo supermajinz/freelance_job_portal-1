@@ -6,9 +6,7 @@ import 'package:freelance_job_portal/features/home/presentation/view_models/nav_
 import 'package:freelance_job_portal/features/home/presentation/view_models/nav_bar_bloc/nav_bar_state.dart';
 import 'package:freelance_job_portal/features/home/presentation/views/home.dart';
 import 'package:freelance_job_portal/features/my_project/presentation/views/my_project.dart';
-import 'package:freelance_job_portal/features/profile/presentation/views/profile.dart';
 import 'package:freelance_job_portal/features/profile/presentation/views/widget/profile_switcher.dart';
-import 'package:freelance_job_portal/features/profile/worker%20profile/widgets/worker_profile_screen.dart';
 import 'package:freelance_job_portal/features/searsh/presentation/views/searsh.dart';
 
 class NavigationBloc extends Bloc<NavigationEvent, NavigationState> {
