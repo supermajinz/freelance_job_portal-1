@@ -11,6 +11,8 @@ import 'package:freelance_job_portal/core/widget/custom_meony.dart';
 import 'package:freelance_job_portal/core/widget/custom_subtitle_medium.dart';
 import 'package:freelance_job_portal/core/widget/space.dart';
 import 'package:freelance_job_portal/features/auth/presentation/view_models/bloc/auth_bloc.dart';
+import 'package:freelance_job_portal/features/chat/data/models/chat_model.dart';
+import 'package:freelance_job_portal/features/chat/presentation/view_models/bloc/chat_bloc.dart';
 import 'package:freelance_job_portal/features/offers/presentation/view_models/bloc/offer_bloc.dart';
 import 'package:freelance_job_portal/features/profile/data/models/profile/worker_Profile/worker_profile.dart';
 import 'package:freelance_job_portal/features/profile/worker%20profile/bloc/worker_profile_bloc.dart';
@@ -28,21 +30,26 @@ import 'package:timeago/timeago.dart' as timeago;
 class OfferDetailsBody extends StatelessWidget {
   const OfferDetailsBody(
       {super.key, required this.offer, required this.project});
+
   final OffersModel offer;
   final ProjectModel project;
 
   @override
   Widget build(BuildContext context) {
-    final userId = (context.read<AuthBloc>().state as AuthAuthenticated).id;
+    final userId = (context
+        .read<AuthBloc>()
+        .state as AuthAuthenticated).id;
     final createDate = offer.createDate?.toLocal() ?? DateTime.now();
     final formattedCreateDate = timeago.format(createDate, locale: 'ar');
     final workerName =
-        '${offer.worker!.userDto!.firstname ?? 'Unknown'} ${offer.worker!.userDto!.lastname ?? ''}';
+        '${offer.worker!.userDto!.firstname ?? 'Unknown'} ${offer.worker!
+        .userDto!.lastname ?? ''}';
     final workerPhotoUrl = offer.worker!.photoDtOs?.isNotEmpty == true
-        ? "${DependencyInjection.baseUrl}file/photo/${offer.worker!.photoDtOs![0].photo}"
+        ? "${DependencyInjection.baseUrl}file/photo/${offer.worker!
+        .photoDtOs![0].photo}"
         : null;
     final backgroundColor =
-        workerPhotoUrl == null ? Utils.getBackgroundColor(workerName) : null;
+    workerPhotoUrl == null ? Utils.getBackgroundColor(workerName) : null;
     return Scaffold(
       body: BlocListener<OfferBloc, OfferState>(
         listener: (context, state) {
@@ -66,11 +73,14 @@ class OfferDetailsBody extends StatelessWidget {
                     horizontal: SizeConfig.defaultSize! * .5),
                 padding: EdgeInsets.all(SizeConfig.defaultSize! * 1),
                 decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.secondary,
+                    color: Theme
+                        .of(context)
+                        .colorScheme
+                        .secondary,
                     borderRadius: BorderRadius.only(
                         topLeft: Radius.circular(SizeConfig.defaultSize! * 4),
                         topRight:
-                            Radius.circular(SizeConfig.defaultSize! * 4))),
+                        Radius.circular(SizeConfig.defaultSize! * 4))),
                 child: Column(
                   children: [
                     Row(
@@ -79,7 +89,8 @@ class OfferDetailsBody extends StatelessWidget {
                         Padding(
                             padding: const EdgeInsets.only(top: 5),
                             child: BlocProvider(
-                              create: (context) => WorkerProfileBloc(
+                              create: (context) =>
+                              WorkerProfileBloc(
                                   DependencyInjection
                                       .provideWorkerProfileRepo(),
                                   DependencyInjection
@@ -96,8 +107,8 @@ class OfferDetailsBody extends StatelessWidget {
                                     return const Placeholder();
                                   }
                                   final WorkerProfile visitedProfile =
-                                      state.profiles.firstWhere((profile) =>
-                                          profile.id == offer.worker!.id);
+                                  state.profiles.firstWhere((profile) =>
+                                  profile.id == offer.worker!.id);
                                   return InkWell(
                                     onTap: () {
                                       if (offer.worker!.userId != userId) {
@@ -114,13 +125,13 @@ class OfferDetailsBody extends StatelessWidget {
                                             : null,
                                         child: workerPhotoUrl == null
                                             ? Center(
-                                                child: Text(
-                                                  Utils.getInitials(workerName),
-                                                  style: const TextStyle(
-                                                      color: Colors.white,
-                                                      fontSize: 30),
-                                                ),
-                                              )
+                                          child: Text(
+                                            Utils.getInitials(workerName),
+                                            style: const TextStyle(
+                                                color: Colors.white,
+                                                fontSize: 30),
+                                          ),
+                                        )
                                             : null),
                                   );
                                 },
@@ -132,7 +143,9 @@ class OfferDetailsBody extends StatelessWidget {
                           children: [
                             CustomSubTitleMedium(
                               text:
-                                  "${offer.worker?.userDto?.firstname ?? 'Unknown'} ${offer.worker?.userDto?.lastname ?? ''}",
+                              "${offer.worker?.userDto?.firstname ??
+                                  'Unknown'} ${offer.worker?.userDto
+                                  ?.lastname ?? ''}",
                               color: Colors.white,
                             ),
                             CustomBody(
@@ -178,13 +191,14 @@ class OfferDetailsBody extends StatelessWidget {
                                     .add(DeleteOffer(offer.id!));
                               }
                             },
-                            itemBuilder: (context) => [
+                            itemBuilder: (context) =>
+                            [
                               if (project.status == "open")
                                 const PopupMenuItem(
                                     value: 'edit',
                                     child: Row(
                                       mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
+                                      MainAxisAlignment.spaceAround,
                                       children: [
                                         Icon(IconlyBroken.edit),
                                         CustomBody(
@@ -196,7 +210,7 @@ class OfferDetailsBody extends StatelessWidget {
                                   value: "delete",
                                   child: Row(
                                     mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
+                                    MainAxisAlignment.spaceAround,
                                     children: [
                                       Icon(
                                         IconlyBroken.delete,
@@ -233,7 +247,9 @@ class OfferDetailsBody extends StatelessWidget {
                 margin: EdgeInsets.symmetric(
                     horizontal: SizeConfig.defaultSize! * .5),
                 decoration: BoxDecoration(
-                  color: Theme.of(context).focusColor,
+                  color: Theme
+                      .of(context)
+                      .focusColor,
                 ),
                 child: Padding(
                   padding: EdgeInsets.all(SizeConfig.defaultSize! * 2),
@@ -253,7 +269,10 @@ class OfferDetailsBody extends StatelessWidget {
                           textAlign: TextAlign.start,
                           maxLines: 5,
                           overflow: TextOverflow.ellipsis,
-                          style: Theme.of(context).textTheme.bodyLarge,
+                          style: Theme
+                              .of(context)
+                              .textTheme
+                              .bodyLarge,
                         ),
                       ),
                       const VirticalSpace(4),
@@ -272,7 +291,7 @@ class OfferDetailsBody extends StatelessWidget {
                         children: [
                           const Expanded(
                               child:
-                                  CustomSubTitleMedium(text: "المدة المتوقعة")),
+                              CustomSubTitleMedium(text: "المدة المتوقعة")),
                           Expanded(
                             child: CustomContainer(
                               text: offer.deliveryTime?.toString() ?? 'N/A',
@@ -281,7 +300,8 @@ class OfferDetailsBody extends StatelessWidget {
                         ],
                       ),
                       const VirticalSpace(17),
-                      if (project.client?.userId == userId)
+                      if (project.client?.userId == userId &&
+                          project.status == 'open')
                         _buildProjectOwnerButtons(context),
                       if (offer.worker?.userId == userId)
                         _buildOfferOwnerButton(context)
@@ -298,20 +318,21 @@ class OfferDetailsBody extends StatelessWidget {
 
   _buildProjectOwnerButtons(BuildContext context) {
     return BlocListener<ProjectBloc, ProjectState>(
-      listener: (context, state) {
-        if (state is OfferAccept) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('تم قبول العرض بنجاح')),
-          );
-          GoRouter.of(context).pushReplacement("/myproject");
-        } else if (state is OfferReject) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(content: Text('تم رفض العرض بنجاح')),
-          );
-        }
-      },
-      child: project.status == 'open'
-          ? Row(
+        listener: (context, state) {
+          if (state is OfferAccept) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('تم قبول العرض بنجاح')),
+            );
+            GoRouter.of(context).pushReplacement("/myproject");
+          } else if (state is OfferReject) {
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(content: Text('تم رفض العرض بنجاح')),
+            );
+          }
+        },
+        child: Column(
+          children: [
+            Row(
               children: [
                 Expanded(
                   flex: 7,
@@ -341,7 +362,8 @@ class OfferDetailsBody extends StatelessWidget {
                       icon: const Icon(LineAwesomeIcons.times_circle_1,
                           color: Color.fromARGB(255, 179, 56, 56)),
                       onPressed: () {
-                        context.read<ProjectBloc>().add(RejectOffer(offer.id!));
+                        context.read<ProjectBloc>().add(
+                            RejectOffer(offer.id!));
                       },
                       color: Colors.white,
                       textcolor: const Color.fromARGB(255, 179, 56, 56),
@@ -353,17 +375,35 @@ class OfferDetailsBody extends StatelessWidget {
                       width: SizeConfig.defaultSize! * 20),
                 )
               ],
-            )
-          : const Center(
-              // child: CustomButtonGeneral(
-              //     icon: const Icon(IconlyBroken.chat, color: Colors.white),
-              //     onPressed: () {},
-              //     color: Theme.of(context).primaryColor,
-              //     textcolor: Colors.white,
-              //     text: "محادثة",
-              //     borderSide: const BorderSide(width: 0),
-              //     width: SizeConfig.defaultSize! * 20),
-              ),
+            ),
+            const VirticalSpace(1),
+            BlocListener<ChatBloc, ChatState>(
+              listener: (context, state) {
+                if(state is ChatCreated){
+                  GoRouter.of(context).push("/dms", extra: state.room);
+                }
+              },
+              child: CustomButtonGeneral(
+                  icon: const Icon(IconlyBroken.chat, color: Colors.white),
+                  onPressed: () {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text('جاري انشاء محادثة'),
+                      ),
+                    );
+                    context.read<ChatBloc>().add(
+                        CreateChat(offer.worker!.userId!));
+                  },
+                  color: Theme
+                      .of(context)
+                      .primaryColor,
+                  textcolor: Colors.white,
+                  text: "بدأ محادثة",
+                  borderSide: const BorderSide(width: 0),
+                  width: SizeConfig.defaultSize! * 20),
+            ),
+          ],
+        )
     );
   }
 

@@ -11,34 +11,34 @@ class CustomTextFormChat extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MessageBar(
-      replying: true, textFieldTextStyle: const TextStyle(fontSize: 20),
+      onTextChanged: (p0) => controller.text = p0,
+      // replying: true, textFieldTextStyle: const TextStyle(fontSize: 20),
       // ignore: avoid_print
       onSend: (_) {
         onSend();
-        controller.clear();
       },
       actions: [
-        InkWell(
-          child: const Icon(
-            Icons.add,
-            color: Colors.black,
-            size: 24,
-          ),
-          onTap: () {},
-        ),
-        Padding(
-          padding: EdgeInsets.only(
-              left: SizeConfig.defaultSize! * .8,
-              right: SizeConfig.defaultSize! * .8),
-          child: InkWell(
-            child: const Icon(
-              Icons.camera_alt,
-              color: Colors.green,
-              size: 24,
-            ),
-            onTap: () {},
-          ),
-        ),
+        // InkWell(
+        //   child: const Icon(
+        //     Icons.add,
+        //     color: Colors.black,
+        //     size: 24,
+        //   ),
+        //   onTap: () {},
+        // ),
+        // Padding(
+        //   padding: EdgeInsets.only(
+        //       left: SizeConfig.defaultSize! * .8,
+        //       right: SizeConfig.defaultSize! * .8),
+        //   child: InkWell(
+        //     child: const Icon(
+        //       Icons.camera_alt,
+        //       color: Colors.green,
+        //       size: 24,
+        //     ),
+        //     onTap: () {},
+        //   ),
+        // ),
       ],
     );
   }

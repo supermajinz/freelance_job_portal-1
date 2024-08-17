@@ -30,7 +30,7 @@ class DrawarBody extends StatelessWidget {
             child: CircleAvatar(
               radius: SizeConfig.defaultSize! * 5,
               backgroundImage: const AssetImage(
-                "assets/images/aaa.jpg",
+                "assets/images/logo.jpg",
               ),
             ),
           ),

@@ -17,7 +17,7 @@ class OtpTextFieldVer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Directionality(
-      textDirection: TextDirection.rtl,
+      textDirection: TextDirection.ltr,
       child: OtpTextField(
         numberOfFields: 6,
         borderRadius: BorderRadius.circular(SizeConfig.defaultSize! * 2),

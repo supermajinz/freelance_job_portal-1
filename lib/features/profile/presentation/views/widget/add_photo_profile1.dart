@@ -65,7 +65,7 @@ class _AddPhotoProfileState extends State<AddPhotoProfile> {
                   ),
                   child: IconButton(
                     onPressed: () {
-                      Navigator.pop(context);
+                     //Navigator.pop(context);
                       pickImage(ImageSource.gallery);
                     },
                     icon: Icon(

@@ -6,6 +6,7 @@ import 'package:freelance_job_portal/features/categories%20and%20skills/category
 import 'package:freelance_job_portal/features/categories%20and%20skills/category_skill_repo_impl.dart';
 import 'package:freelance_job_portal/features/chat/data/chat_repo.dart';
 import 'package:freelance_job_portal/features/chat/data/ChatService.dart';
+import 'package:freelance_job_portal/features/notifications/presentation/data/repo/notification_local_repo_impl.dart';
 import 'package:freelance_job_portal/features/photo/photo_repo_impl.dart';
 import 'package:freelance_job_portal/features/my_project/data/repo/my_project_repo.dart';
 import 'package:freelance_job_portal/features/my_project/data/repo/my_project_repo_impl.dart';
@@ -29,12 +30,16 @@ import 'package:freelance_job_portal/features/wallet/data/repo/payments_repo.dar
 import 'package:freelance_job_portal/features/wallet/data/repo/payments_repo_impl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../features/notifications/presentation/data/repo/notification_local_repo.dart';
 import '../../features/projects/data/repo/project_repo_imp.dart';
 import '../../features/searsh/data/repo/search_repo_.dart';
 import '../../features/searsh/data/repo/search_repo_impl.dart';
 
 class DependencyInjection {
-  static const String baseUrl = "http://10.0.2.2:8080/api/v1/";
+  static const String baseHost = "192.168.64.252:8080";
+  // static const String baseHost = "localhost:8080";
+  static const String protocol = "http";
+  static const String baseUrl = "$protocol://$baseHost/api/v1/";
   static AuthTokenService provideAuthTokenService() {
     return AuthTokenService();
   }
@@ -73,7 +78,7 @@ class DependencyInjection {
     return HomeRepoImpl(apiService);
   }
 
-  static OfferRepo provideOfferRepo() {
+  static OffersRepo provideOfferRepo() {
     final apiService = provideApiService();
     return OfferRepoImpl(apiService);
   }
@@ -138,5 +143,12 @@ class DependencyInjection {
   static PaymentsRepo providePaymentsRepo() {
     final apiService = provideApiService();
     return PaymentsRepoImpl(apiService);
+  }
+
+  static NotificationLocalRepo provideNotificationsRepo() {
+    return const NotificationLocalRepoImpl();
+  }
+  static ChatRepo provideChatRepo() {
+    return ChatRepo(DependencyInjection.provideApiService());
   }
 }

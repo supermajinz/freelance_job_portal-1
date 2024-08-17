@@ -7,6 +7,8 @@ import 'package:freelance_job_portal/features/auth/data/auth_repo.dart';
 import 'package:freelance_job_portal/features/auth/data/auth_token_service.dart';
 import 'package:freelance_job_portal/features/auth/data/models/user.dart';
 
+import '../../../core/notifications/firebase_messaging.dart';
+
 class AuthRepoImpl implements AuthRepo {
   final regEndpoint = 'auth/register';
   final logEndPoint = 'auth/first-step-login';
@@ -23,6 +25,7 @@ class AuthRepoImpl implements AuthRepo {
       final response = await _apiService.post(logEndPoint, {
         'phone': phone,
         'password': password,
+        'device_token': token,
       });
       return Right(response['message']);
     } on ServerFailure catch (e) {
@@ -35,6 +38,7 @@ class AuthRepoImpl implements AuthRepo {
     try {
       final Map<String, dynamic> userData = user.toJson();
       userData['password'] = password;
+      userData['device_token'] = token;
       final response = await _apiService.post(regEndpoint, userData);
       return Right(response['message']);
     } on ServerFailure catch (e) {

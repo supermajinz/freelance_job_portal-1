@@ -2,9 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freelance_job_portal/core/constants/theme.dart';
 import 'package:freelance_job_portal/core/localization/bloc/localization_bloc.dart';
+import 'package:freelance_job_portal/core/notifications/firebase_messaging.dart';
 import 'package:freelance_job_portal/core/utils/app_router.dart';
 import 'package:freelance_job_portal/core/utils/dependency_injection.dart';
 import 'package:freelance_job_portal/features/auth/presentation/view_models/bloc/auth_bloc.dart';
+import 'package:freelance_job_portal/features/chat/data/ChatService.dart';
+import 'package:freelance_job_portal/features/chat/presentation/view_models/bloc/chat_bloc.dart';
 import 'package:freelance_job_portal/features/home/presentation/view_models/home_bloc/home_bloc.dart';
 import 'package:freelance_job_portal/features/home/presentation/view_models/nav_bar_bloc/nav_bar_bloc.dart';
 import 'package:freelance_job_portal/features/my_project/presentation/view_models/bloc/my_project_bloc.dart';
@@ -28,6 +31,7 @@ import 'package:timeago/timeago.dart' as timeago_ar;
 void main() async {
   timeago.setLocaleMessages('ar', timeago_ar.ArMessages());
   WidgetsFlutterBinding.ensureInitialized();
+  initFireBase();
   // final sharedPreferences = await SharedPreferences.getInstance;
   await DependencyInjection.initSharedPreferences();
   runApp(MultiBlocProvider(
@@ -85,6 +89,9 @@ void main() async {
       BlocProvider(
           create: (context) =>
               ReportBloc(DependencyInjection.provideReportRepo())),
+      BlocProvider(
+          create: (context) =>
+              ChatBloc(ChatService())),
     ],
     child: const FreelanceJob(),
   ));

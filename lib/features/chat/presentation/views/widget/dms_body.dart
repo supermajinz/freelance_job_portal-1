@@ -1,13 +1,23 @@
 import 'package:chat_bubbles/bubbles/bubble_special_three.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:freelance_job_portal/core/widget/custom_loading.dart';
 import 'package:freelance_job_portal/core/widget/space.dart';
+import 'package:freelance_job_portal/features/chat%20copy/data/message.dart';
+import 'package:freelance_job_portal/features/chat/data/models/chat_model.dart';
+import 'package:freelance_job_portal/features/chat/data/models/message.dart';
 import 'package:freelance_job_portal/features/chat/presentation/view_models/bloc/chat_bloc.dart';
 import 'package:freelance_job_portal/features/chat/presentation/views/widget/custom_text_form_chat.dart';
+import 'package:go_router/go_router.dart';
+
+import '../../../../auth/data/models/user.dart';
+import '../../../../auth/presentation/view_models/bloc/auth_bloc.dart';
 
 class DmsBody extends StatefulWidget {
-  final String chatUrl;
-  const DmsBody({super.key, required this.chatUrl});
+  final ChatRoomModel chat;
+
+  const DmsBody({super.key, required this.chat});
 
   @override
   State<DmsBody> createState() => _DmsBodyState();
@@ -16,16 +26,35 @@ class DmsBody extends StatefulWidget {
 class _DmsBodyState extends State<DmsBody> {
   final TextEditingController _messageController = TextEditingController();
   final ScrollController _scrollController = ScrollController();
+  late final User user;
+  late final User secondUser;
+
+  // List<MessageModel> messages = [];
+
+  @override
+  void initState() {
+    super.initState();
+    user = widget.chat.sender;
+    final bloc = context.read<ChatBloc>();
+    // bloc.add(ConnectToChatEvent(chatId: widget.chat.chatId));
+    bloc.add(GetOldMessages(widget.chat));
+    secondUser = widget.chat.recipient;
+    Future.doWhile(() async {
+      await Future.delayed(const Duration(milliseconds: 400));
+      bloc.add(GetOldMessages(widget.chat));
+      return true;
+    });
+  }
 
   // @override
-  // void initState() {
-  //   super.initState();
-  //   context.read<ChatBloc>().add(ConnectToChatEvent(widget.chatUrl));
+  // void didChangeDependencies() {
+  //   dependOnInheritedWidgetOfExactType();
+  //   super.didChangeDependencies();
   // }
 
   @override
   void dispose() {
-    context.read<ChatBloc>().add(DisconnectFromChatEvent());
+    // context.read<ChatBloc>().add(DisconnectFromChatEvent(widget.chat));
     _messageController.dispose();
     _scrollController.dispose();
     super.dispose();
@@ -88,88 +117,77 @@ class _DmsBodyState extends State<DmsBody> {
     //     ),
     //   );
     // }
-    return BlocConsumer<ChatBloc, ChatState>(
-      listener: (context, state) {
-        if (state is ChatMessageReceived) {
-          _scrollToBottom();
-        }
-      },
-      builder: (context, state) {
-        if (state is ChatConnecting) {
-          return const Center(child: CircularProgressIndicator());
-        } else if (state is ChatError) {
-          return Center(
-              child: Text(
-            'Error: ${state.message}',
-            style: const TextStyle(color: Colors.red),
-          ));
-        }
-        return SafeArea(
-          child: Container(
-            margin: const EdgeInsets.only(top: 25),
-            child: Column(
+    return SafeArea(
+      child: Container(
+        margin: const EdgeInsets.only(top: 25),
+        child: Column(
+          children: [
+            Row(
               children: [
-                Row(
-                  children: [
-                    IconButton(
-                        onPressed: () {}, icon: const Icon(Icons.arrow_back)),
-                    const HorizintalSpace(7),
-                    const CircleAvatar(
-                      radius: 30,
-                      backgroundImage: AssetImage(
-                        "assets/images/pro.jpg",
-                      ),
-                    ),
-                    const HorizintalSpace(1.5),
-                    const Text(
-                      "Xabi Alonso",
-                      style: TextStyle(fontSize: 18),
-                    ),
-                  ],
+                IconButton(
+                    onPressed: () {
+                      GoRouter.of(context).pop();
+                    }, icon: const Icon(Icons.arrow_back)),
+                const HorizintalSpace(7),
+                Text(
+                  "${secondUser.firstname} ${secondUser.lastname}",
+                  style: const TextStyle(fontSize: 18),
                 ),
-                const Divider(),
-                Expanded(
-                  child: BlocBuilder<ChatBloc, ChatState>(
-                    builder: (context, state) {
-                      final messages =
-                          (state is ChatMessageReceived) ? state.messages : [];
-                      return ListView.builder(
-                        itemCount: messages.length,
-                        itemBuilder: (context, index) {
-                          final message = messages[index];
-                          return BubbleSpecialThree(
-                            isSender: message.isSender,
-                            text: message.content,
-                            color: message.isSender
-                                ? const Color(0xFF1B97F3)
-                                : Colors.grey[300]!,
-                            tail: true,
-                            textStyle: TextStyle(
-                                color: message.isSender
-                                    ? Colors.white
-                                    : Colors.black,
-                                fontSize: 16),
-                          );
-                        },
-                      );
-                    },
-                  ),
-                ),
-                CustomTextFormChat(
-                  controller: _messageController,
-                  onSend: _sendMessage,
-                )
               ],
             ),
-          ),
-        );
-      },
+            const Divider(),
+            Expanded(
+              child: BlocBuilder<ChatBloc, ChatState>(
+                builder: (context, state) {
+                  if (state is ChatMessagesFetched) {
+                    final messages = state.msgs;
+                    return ListView.builder(
+                      itemCount: messages.length,
+                      itemBuilder: (context, index) {
+                        print("message:$index");
+                        final message = messages[index];
+                        final isSender =
+                            message.senderId == user.id.toString();
+                        return BubbleSpecialThree(
+                          isSender: isSender,
+                          text: message.content,
+                          color: isSender
+                              ? const Color(0xFF1B97F3)
+                              : Colors.grey[300]!,
+                          tail: true,
+                          textStyle: TextStyle(
+                              color: isSender ? Colors.white : Colors.black,
+                              fontSize: 16),
+                        );
+                      },
+                    );
+                  } else {
+                    return const CustomLoading();
+                  }
+                },
+              ),
+            ),
+            CustomTextFormChat(
+              controller: _messageController,
+              onSend: () {
+                print("dknasf");
+                return _sendMessage();
+              },
+            )
+          ],
+        ),
+      ),
     );
   }
 
   _sendMessage() {
+    print('26516+8152');
+    print(_messageController.text);
     if (_messageController.text.isNotEmpty) {
-      context.read<ChatBloc>().add(SendMessageEvent(_messageController.text));
+      print('aasdasf');
+      context
+          .read<ChatBloc>()
+          .add(SendMessageEvent(_messageController.text, widget.chat));
       _messageController.clear();
     }
   }

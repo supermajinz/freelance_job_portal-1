@@ -7,11 +7,9 @@ part 'offer_event.dart';
 part 'offer_state.dart';
 
 class OfferBloc extends Bloc<OfferEvent, OfferState> {
-  final OfferRepo repo;
+  final OffersRepo repo;
   OfferBloc(this.repo) : super(OfferInitial()) {
     on<CreateOffer>(_onCreateOffer);
-    on<UpdateOffer>(_onUpdateOffer);
-    on<DeleteOffer>(_onDeleteOffer);
   }
 
   Future<void> _onCreateOffer(
@@ -25,32 +23,6 @@ class OfferBloc extends Bloc<OfferEvent, OfferState> {
       (offer) {
         emit(OfferSuccess(offer));
       },
-    );
-  }
-
-  Future<void> _onUpdateOffer(
-    UpdateOffer event,
-    Emitter<OfferState> emit,
-  ) async {
-    emit(OfferLoading());
-    final result = await repo.updateOffer(event.offerId, event.offerData);
-    result.fold(
-      (failure) => emit(OfferFaliure(failure.errMessage)),
-      (offer) {
-        event.offer.message = offer.message;
-        event.offer.cost = offer.cost;
-        event.offer.deliveryTime = offer.deliveryTime;
-        emit(OfferSuccess(offer));
-      },
-    );
-  }
-
-  Future<void> _onDeleteOffer(
-      DeleteOffer event, Emitter<OfferState> emit) async {
-    final result = await repo.deleteOffer(event.offerId);
-    result.fold(
-      (failure) => emit(OfferFaliure(failure.errMessage)),
-      (_) => emit(OfferDeleteSuccess()),
     );
   }
 }

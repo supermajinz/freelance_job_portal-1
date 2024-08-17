@@ -2,6 +2,8 @@ import 'dart:async';
 import 'dart:convert';
 import 'package:freelance_job_portal/core/errors/failures.dart';
 import 'package:freelance_job_portal/core/utils/dependency_injection.dart';
+import 'package:freelance_job_portal/features/chat%20copy/data/message.dart';
+import 'package:freelance_job_portal/features/chat/data/models/chat_model.dart';
 import 'package:freelance_job_portal/features/chat/data/models/message.dart';
 import 'package:stomp_dart_client/stomp_dart_client.dart';
 import 'package:freelance_job_portal/features/auth/data/auth_token_service.dart';
@@ -19,26 +21,32 @@ class ChatService {
     _initializeStompClient();
   }
 
+
+
+
+
   Future<void> _initializeStompClient() async {
     final token = await tokenService.getToken('access_token');
     _stompClient = StompClient(
       config: StompConfig(
-        url: 'ws://localhost:8080/ws',
+        url: 'ws:/${DependencyInjection.baseHost}/ws/websocket',
         onConnect: _onConnect,
-        beforeConnect: _beforeConnect,
-        onWebSocketError: _onWebSocketError,
-        onStompError: _onStompError,
-        onDisconnect: _onDisconnect,
-        stompConnectHeaders: {'Authorization': 'Bearer $token'},
-        webSocketConnectHeaders: {'Authorization': 'Bearer $token'},
         reconnectDelay: const Duration(seconds: 5),
       ),
     );
+        // stompConnectHeaders: {'Authorization': 'Bearer $token'},
+        // webSocketConnectHeaders: {'Authorization': 'Bearer $token'},
+        // beforeConnect: _beforeConnect,
+        // onWebSocketError: _onWebSocketError,
+        // onStompError: _onStompError,
+        // onDisconnect: _onDisconnect,
+    _stompClient.activate();
+    print("isActive ${_stompClient.isActive}");
   }
 
   Future<void> connect() async {
     if (!_isConnected) {
-      await _initializeStompClient();
+      // await _initializeStompClient();
       _stompClient.activate();
     }
   }
@@ -50,10 +58,12 @@ class ChatService {
   }
 
   void _onConnect(StompFrame frame) {
-    _isConnected = true;
-    _reconnectAttempts = 0;
-    _resubscribeAll();
+    print("connected");
+    print(frame);
   }
+    // _isConnected = true;
+    // _reconnectAttempts = 0;
+    // _resubscribeAll();
 
   Future<void> _beforeConnect() async {
     print('Waiting to connect...');
@@ -92,7 +102,7 @@ class ChatService {
   void _resubscribeAll() {
     _subscriptions.forEach((destination, _) {
       _subscriptions[destination] = _stompClient.subscribe(
-        destination: destination,
+        destination: "/user/$destination/queue/messages",
         callback: (StompFrame frame) {
           _handleMessage;
         },
@@ -100,19 +110,21 @@ class ChatService {
     });
   }
 
-  Future<void> subscribeToChat(String chatId) async {
-    final destination = '/chat/$chatId';
-    if (!_subscriptions.containsKey(destination)) {
-      if (!_isConnected) await connect();
-      _subscriptions[destination] = _stompClient.subscribe(
-        destination: destination,
-        callback: _handleMessage,
+  Future<void> subscribeToChat(String chatId,
+      {required void Function(MessageModel msg) callback}) async {
+    // await _initializeStompClient();
+    if (!_subscriptions.containsKey(chatId)) {
+      print("isActive2 ${_stompClient.isActive}");
+      print("connection ${_stompClient.config.url}");
+      _subscriptions[chatId] = _stompClient.subscribe(
+        destination: "/user/$chatId/queue/messages",
+        callback: (p0) => _handleMessage(p0, callback),
       );
     }
   }
 
   Future<void> unsubscribeFromChat(String chatId) async {
-    final destination = '/chat/$chatId';
+    final destination = chatId;
     if (_subscriptions.containsKey(destination)) {
       if (_isConnected) {
         final unsubscribe = _subscriptions.remove(destination);
@@ -125,30 +137,31 @@ class ChatService {
     }
   }
 
-  Future<void> sendMessage(Message message, String chatId) async {
-    if (message.content.trim().isEmpty) return;
-
+  Future<void> sendMessage(String message, ChatRoomModel chat) async {
+    // if (message.content.trim().isEmpty) return;
+    if(message.trim().isEmpty)return;
     if (!_isConnected) await connect();
-
     final messagePayload = {
-      'id': message.id,
-      'senderId': message.senderId,
-      'recipientId': message.recipientId,
-      'content': message.content,
-      'timestamp': message.timestamp.toIso8601String(),
+      'senderId': chat.sender.id,
+      'recipientId': chat.recipient.id,
+      'content': message,
     };
 
+    print("sending $messagePayload to /app/chat");
     _stompClient.send(
-      destination: '/chat/$chatId',
+      destination: '/app/chat',
+      headers: {
+        "content-type": "application/json"
+      },
       body: json.encode(messagePayload),
     );
   }
 
-  void _handleMessage(StompFrame frame) {
+  void _handleMessage(StompFrame frame, void Function(MessageModel msg) callback) {
     try {
       final Map<String, dynamic> jsonMessage = json.decode(frame.body!);
-      final message = Message.fromJson(jsonMessage);
-      print('Received message: ${message.content} from ${message.senderId}');
+      final message = MessageModel.fromJson(jsonMessage);
+      callback(message);
     } catch (e) {
       print('Error parsing message: $e');
     }

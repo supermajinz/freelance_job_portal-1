@@ -7,17 +7,16 @@ class ApiService {
   final Dio _dio;
   final AuthTokenService _authTokenService;
 
-
   ApiService(
       {required String baseUrl, required AuthTokenService authTokenService})
       : _dio = Dio(BaseOptions(baseUrl: baseUrl)),
         _authTokenService = authTokenService {
     _dio.interceptors.add(InterceptorsWrapper(
       onRequest: (options, handler) async {
-        const token =
-  "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIwOTg2NDExMTk4IiwiaWF0IjoxNzIzODczMjU0LCJleHAiOjE3MjM5NTk2NTR9.Iwygg4Ve3_N0Q8KS7rp4qFbL4Ky3dDcBwPh3d8kR1Ag";
+       // const token =
+       //    "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIwOTg2NDExMDAwIiwiaWF0IjoxNzIzNzE2ODEwLCJleHAiOjE3MjM4MDMyMTB9.6iwL9qLpEB5zH_Pk2wEQ2QEYXyJ0je80PrxZ7sXlaTM";
        // "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIwOTg2NDExNjIxIiwiaWF0IjoxNzIzMzk4OTgxLCJleHAiOjE3MjM0ODUzODF9.VnjjhGZc5VlW4KB_qS3a0DyatmvloiMDjctHCMR9ec8";
-        //final token = await _authTokenService.getToken('access_token');
+        final token = await _authTokenService.getToken('access_token');
         if (token != null) {
           options.headers['Authorization'] = 'Bearer $token';
         }
