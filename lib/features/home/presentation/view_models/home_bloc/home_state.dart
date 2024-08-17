@@ -21,10 +21,17 @@ class HomeLoaded extends HomeState {
   List<Object> get props => [categories, skillsByCategory];
 }
 
-class HomeSuccess extends HomeState {
+class HomeSuccessMostCommon extends HomeState {
   final List<ProjectModel> project;
 
-  const HomeSuccess(this.project);
+  const HomeSuccessMostCommon(this.project);
+  @override
+  List<Object> get props => [project];
+}
+class HomeSuccessSuggestion extends HomeState {
+  final List<ProjectModel> project;
+
+  const HomeSuccessSuggestion(this.project);
   @override
   List<Object> get props => [project];
 }

@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:freelance_job_portal/core/utils/size_config.dart';
 import 'package:freelance_job_portal/core/widget/custom_label.dart';
+import 'package:freelance_job_portal/core/widget/custom_loading.dart';
 import 'package:freelance_job_portal/core/widget/custom_sub_title.dart';
 import 'package:freelance_job_portal/core/widget/space.dart';
 import 'package:freelance_job_portal/features/home/presentation/view_models/home_bloc/home_bloc.dart';
 import 'package:freelance_job_portal/features/home/presentation/views/widget/custom_cartegory_card.dart';
-import 'package:freelance_job_portal/features/projects/data/model/project_model/project_model.dart';
-
 import 'package:freelance_job_portal/features/projects/presentation/views/widget/custom_project_card.dart';
 import 'package:go_router/go_router.dart';
 
@@ -87,21 +86,27 @@ class HomeBody extends StatelessWidget {
                 ],
               )),
           const VirticalSpace(1),
-          SizedBox(
-            height: SizeConfig.defaultSize! * 31,
-            child: ListView.builder(
-              itemCount: 4,
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) {
-                return InkWell(
-                    onTap: () {
-                      GoRouter.of(context).push('/showprojectdetails',
-                          extra: ProjectModel(id: 22).id);
-                    },
-                    child: CustomProjectCard(project: ProjectModel()));
-              },
-            ),
-          ),
+          // BlocBuilder<HomeBloc, HomeState>(
+          //   builder: (context, state) {
+          //     if (state is HomeSuccessSuggestion) {
+          //       return SizedBox(
+          //         height: SizeConfig.defaultSize! * 31,
+          //         child: ListView.builder(
+          //           itemCount: state.project.length,
+          //           scrollDirection: Axis.horizontal,
+          //           itemBuilder: (context, index) {
+          //             return CustomProjectCard(project: state.project[index]);
+          //           },
+          //         ),
+          //       );
+          //     } else if (state is HomeFailure) {
+          //       return Center(child: Text(state.errMessage));
+          //     } else if (state is HomeLoading) {
+          //       const CustomLoading();
+          //     }
+          //     return const Center();
+          //   },
+          // ),
           const VirticalSpace(4),
           Container(
               margin: EdgeInsets.only(
@@ -123,21 +128,27 @@ class HomeBody extends StatelessWidget {
                 ],
               )),
           const VirticalSpace(1),
-          SizedBox(
-            height: SizeConfig.defaultSize! * 31,
-            child: ListView.builder(
-              itemCount: 4,
-              scrollDirection: Axis.horizontal,
-              itemBuilder: (context, index) {
-                return InkWell(
-                    onTap: () {
-                      GoRouter.of(context)
-                          .push('/showprojectdetails', extra: ProjectModel());
-                    },
-                    child: CustomProjectCard(project: ProjectModel()));
-              },
-            ),
-          ),
+          // BlocBuilder<HomeBloc, HomeState>(
+          //   builder: (context, state) {
+          //     if (state is HomeSuccessMostCommon) {
+          //       return SizedBox(
+          //         height: SizeConfig.defaultSize! * 31,
+          //         child: ListView.builder(
+          //           itemCount: state.project.length,
+          //           scrollDirection: Axis.horizontal,
+          //           itemBuilder: (context, index) {
+          //             return CustomProjectCard(project: state.project[index]);
+          //           },
+          //         ),
+          //       );
+          //     } else if (state is HomeFailure) {
+          //       return Center(child: Text(state.errMessage));
+          //     } else if (state is HomeLoading) {
+          //       return const CustomLoading();
+          //     }
+          //     return const Center();
+          //   },
+          // ),
           const VirticalSpace(1),
         ],
       ),

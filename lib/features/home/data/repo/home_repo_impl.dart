@@ -5,7 +5,8 @@ import 'package:freelance_job_portal/core/utils/api_service.dart';
 import 'package:freelance_job_portal/features/home/data/model/caregories/caregories.dart';
 import 'package:freelance_job_portal/features/home/data/model/skills/skills.dart';
 import 'package:freelance_job_portal/features/home/data/repo/home_repo.dart';
-import 'package:freelance_job_portal/features/projects/data/model/project_model/project_model.dart';
+
+import '../../../projects/data/model/project_model/project_model.dart';
 
 class HomeRepoImpl implements HomeRepo {
   final ApiService apiService;
@@ -45,24 +46,17 @@ class HomeRepoImpl implements HomeRepo {
       return left(ServerFailure(errMessage: e.toString()));
     }
   }
-  // final response = await http.get(Uri.parse('YOUR_API_ENDPOINT/$categoryId'));
-  // if (response.statusCode == 200) {
-  //   Map<String, dynamic> jsonMap = json.decode(response.body);
-  //   List<dynamic> jsonList = jsonMap['clientProfiles']['body'];
-  //   return jsonList.map((json) => Skill.fromJson(json)).toList();
-  // } else {
-  //   throw Exception('Failed to load skills');
-  // }
-
-  @override
-  Future<Either<Failure, List<ProjectModel>>> fetchProjectMostCommon() async {
+    @override
+  Future<Either<Failure, List<ProjectModel>>> fetchProjectMostCommon(
+      {Map<String, dynamic>? params}) async {
     try {
-      var data = await apiService.get("");
-      List<ProjectModel> project = [];
-      for (var item in data['']) {
-        project.add(ProjectModel.fromJson(item));
+      var data = await apiService.get('projects', params: params);
+
+      List<ProjectModel> projects = [];
+      for (var item in data['projects']) {
+        projects.add(ProjectModel.fromJson(item));
       }
-      return right(project);
+      return Right(projects);
     } catch (e) {
       if (e is DioException) {
         return left(ServerFailure.fromDioException(e));
@@ -72,14 +66,16 @@ class HomeRepoImpl implements HomeRepo {
   }
 
   @override
-  Future<Either<Failure, List<ProjectModel>>> fetchProjectSuggestion() async {
+  Future<Either<Failure, List<ProjectModel>>> fetchProjectSuggestion(
+      {Map<String, dynamic>? params}) async {
     try {
-      var data = await apiService.get("");
-      List<ProjectModel> project = [];
-      for (var item in data['']) {
-        project.add(ProjectModel.fromJson(item));
+      var data = await apiService.get('projects', params: params);
+
+      List<ProjectModel> projects = [];
+      for (var item in data['projects']) {
+        projects.add(ProjectModel.fromJson(item));
       }
-      return right(project);
+      return Right(projects);
     } catch (e) {
       if (e is DioException) {
         return left(ServerFailure.fromDioException(e));
@@ -88,3 +84,4 @@ class HomeRepoImpl implements HomeRepo {
     }
   }
 }
+  

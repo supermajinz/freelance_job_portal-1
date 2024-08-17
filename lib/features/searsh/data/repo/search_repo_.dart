@@ -7,4 +7,10 @@ abstract class SearchRepo {
   Future<Either<Failure, List<ProjectModel>>> searchProjects({
     Map<String, dynamic> params,
   });
+  //  Future<Either<Failure, List<ProjectModel>>> fetchProjectSuggestion({
+  //   Map<String, dynamic> params,
+  // });
+  //  Future<Either<Failure, List<ProjectModel>>> fetchProjectMostCommon({
+  //   Map<String, dynamic> params,
+  // });
 }

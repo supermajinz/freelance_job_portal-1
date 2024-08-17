@@ -44,7 +44,6 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     Emitter<HomeState> emit,
   ) async {
     // event.search
-    // event.minBudget
     emit(HomeLoading());
     final results = await homeRepo.fetchSkillsByCategory(event.categoryId);
     results.fold(
@@ -73,9 +72,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     Emitter<HomeState> emit,
   ) async {
     emit(HomeLoading());
-    final resuls = await homeRepo.fetchProjectMostCommon();
+    final resuls = await homeRepo.fetchProjectMostCommon(params: event.filters);
     resuls.fold((faliure) => emit(HomeFailure(faliure.errMessage)),
-        (project) => emit(HomeSuccess(project)));
+        (project) => emit(HomeSuccessMostCommon(project)));
   }
 
   Future<void> _fetchProjectSuggestion(
@@ -83,8 +82,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
     Emitter<HomeState> emit,
   ) async {
     emit(HomeLoading());
-    final resuls = await homeRepo.fetchProjectSuggestion();
+    final resuls = await homeRepo.fetchProjectSuggestion(params: event.filters);
     resuls.fold((faliure) => emit(HomeFailure(faliure.errMessage)),
-        (project) => emit(HomeSuccess(project)));
+        (project) => emit(HomeSuccessSuggestion(project)));
   }
 }

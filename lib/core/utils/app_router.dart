@@ -63,7 +63,7 @@ abstract class AppRouter {
           if (state is AuthAuthenticated) {
             return const Homescreen();
           } else {
-            return const OnboardingView();
+            return const SplashScreen();
           }
         },
       ),

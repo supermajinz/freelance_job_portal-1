@@ -17,6 +17,20 @@ class FetchSkillsByCategoryEvent extends HomeEvent {
   List<Object> get props => [categoryId];
 }
 
-class FetchProjectMostCommon extends HomeEvent {}
+class FetchProjectMostCommon extends HomeEvent {
+  final Map<String, dynamic> filters;
 
-class FetchProjectSuggestion extends HomeEvent {}
+  const FetchProjectMostCommon({required this.filters});
+
+  @override
+  List<Object> get props => [filters];
+}
+
+class FetchProjectSuggestion extends HomeEvent {
+  final Map<String, dynamic> filters;
+
+  const FetchProjectSuggestion({required this.filters});
+
+  @override
+  List<Object> get props => [filters];
+}
