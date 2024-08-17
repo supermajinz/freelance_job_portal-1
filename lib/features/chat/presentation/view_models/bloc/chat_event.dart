@@ -8,19 +8,19 @@ abstract class ChatEvent extends Equatable {
   List<Object> get props => [];
 }
 
-class ConnectToChatEvent extends ChatEvent {
-  final String chatId;
-  const ConnectToChatEvent({
-    required this.chatId,
-  });
-}
+// class ConnectToChatEvent extends ChatEvent {
+//   final String chatId;
+//   const ConnectToChatEvent({
+//     required this.chatId,
+//   });
+// }
 
-class DisconnectFromChatEvent extends ChatEvent {
-  final ChatRoomModel chat;
-
-  const DisconnectFromChatEvent(this.chat);
-
-}
+// class DisconnectFromChatEvent extends ChatEvent {
+//   final ChatRoomModel chat;
+//
+//   const DisconnectFromChatEvent(this.chat);
+//
+// }
 
 class SendMessageEvent extends ChatEvent {
   final String message;

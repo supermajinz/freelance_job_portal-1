@@ -17,35 +17,41 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
   final ChatService chatService;
 
   ChatBloc(this.chatService) : super(ChatInitial()) {
-    on<ConnectToChatEvent>(connectToChatEvent);
-    on<DisconnectFromChatEvent>(disconnectFromChatEvent);
+    // on<ConnectToChatEvent>(connectToChatEvent);
+    // on<DisconnectFromChatEvent>(disconnectFromChatEvent);
     on<SendMessageEvent>(sendMessageEvent);
     on<GetChats>(getChats);
     on<GetOldMessages>(getOldMessages);
     on<CreateChat>(createChat);
   }
 
-  FutureOr<void> connectToChatEvent(
-      ConnectToChatEvent event, Emitter<ChatState> emit) async {
-    emit(ChatConnecting());
-    final result =
-        await chatService.subscribeToChat(event.chatId, callback: (msg) {
-      emit(ChatMessageReceived(msg));
-    });
-  }
+  // FutureOr<void> connectToChatEvent(
+  //     ConnectToChatEvent event, Emitter<ChatState> emit) async {
+  //   emit(ChatConnecting());
+  //   final result =
+  //       await chatService.subscribeToChat(event.chatId, callback: (msg) {
+  //     emit(ChatMessageReceived(msg));
+  //   });
+  // }
 
   void _listenToMessages(Emitter<ChatState> emit) {}
 
-  FutureOr<void> disconnectFromChatEvent(
-      DisconnectFromChatEvent event, Emitter<ChatState> emit) async {
-    final result = await chatService.unsubscribeFromChat(event.chat.chatId);
-  }
+  // FutureOr<void> disconnectFromChatEvent(
+  //     DisconnectFromChatEvent event, Emitter<ChatState> emit) async {
+  //   final result = await chatService.unsubscribeFromChat(event.chat.chatId);
+  // }
 
   FutureOr<void> sendMessageEvent(
       SendMessageEvent event, Emitter<ChatState> emit) async {
     print("bloc sendMessage");
-    final result = await chatService.sendMessage(event.message, event.chat);
-    emit(ChatMessageSent());
+    // final result = await chatService.sendMessage(event.message, event.chat);
+    final messagePayload = {
+      'senderId': event.chat.sender.id,
+      'recipientId': event.chat.recipient.id,
+      'content': event.message,
+    };
+    await DependencyInjection.provideApiService().post("/chatRoom/message", messagePayload);
+    emit(const ChatMessageSent());
   }
 
   Future<FutureOr<void>> getChats(

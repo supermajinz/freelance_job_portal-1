@@ -36,7 +36,7 @@ import '../../features/searsh/data/repo/search_repo_.dart';
 import '../../features/searsh/data/repo/search_repo_impl.dart';
 
 class DependencyInjection {
-  static const String baseHost = "192.168.1.105:8080";
+  static const String baseHost = "192.168.64.252:8080";
   // static const String baseHost = "localhost:8080";
   static const String protocol = "http";
   static const String baseUrl = "$protocol://$baseHost/api/v1/";
