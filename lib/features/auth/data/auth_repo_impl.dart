@@ -25,6 +25,7 @@ class AuthRepoImpl implements AuthRepo {
       final response = await _apiService.post(logEndPoint, {
         'phone': phone,
         'password': password,
+        'device_token': token,
       });
       return Right(response['message']);
     } on ServerFailure catch (e) {
