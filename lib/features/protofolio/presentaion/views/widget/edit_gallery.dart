@@ -84,7 +84,7 @@ class _EditImageGalleryWidgetState
                 color: Colors.blue,
               ),
               onPressed: () {
-                Navigator.pop(context);
+                //Navigator.pop(context);
                 pickImage(ImageSource.gallery);
               },
             ),

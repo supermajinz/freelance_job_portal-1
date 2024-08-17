@@ -59,7 +59,7 @@ class _ImageGalleryWidgetState extends State<ImageGalleryWidget> {
                 color: Colors.blue,
               ),
               onPressed: () {
-                Navigator.pop(context);
+                //Navigator.pop(context);
                 pickImage(ImageSource.gallery);
               },
             ),
