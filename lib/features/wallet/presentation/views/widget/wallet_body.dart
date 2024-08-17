@@ -8,6 +8,8 @@ import 'package:freelance_job_portal/features/wallet/data/models/wallet_payments
 import 'package:iconly/iconly.dart';
 import 'package:intl/intl.dart';
 
+import '../../../../../core/widget/custom_empty.dart';
+
 class WalletBody extends StatefulWidget {
   final int myUserId;
   final WalletPayments wallet;
@@ -98,12 +100,17 @@ class _WalletBodyState extends State<WalletBody> {
           ),
           const VirticalSpace(1),
           SizedBox(
-            height: SizeConfig.defaultSize! * 40,
+            height: SizeConfig.defaultSize! * 43,
             child: widget.wallet.transactions!.isEmpty
                 ? const Center(
-                    child: Text(
-                      'لا يوجد عمليات حتى الآن.',
-                      style: TextStyle(fontSize: 18, color: Colors.grey),
+                    child: Column(
+                      children: [
+                        CustomEmpty(),
+                        Text(
+                          'لا يوجد عمليات حتى الآن',
+                          style: TextStyle(fontSize: 18, color: Colors.grey),
+                        ),
+                      ],
                     ),
                   )
                 : ListView.separated(

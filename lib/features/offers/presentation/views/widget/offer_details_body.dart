@@ -111,9 +111,11 @@ class OfferDetailsBody extends StatelessWidget {
                                   profile.id == offer.worker!.id);
                                   return InkWell(
                                     onTap: () {
-                                      GoRouter.of(context).push(
-                                          '/visitworkerprofile',
-                                          extra: visitedProfile);
+                                      if (offer.worker!.userId != userId) {
+                                        GoRouter.of(context).push(
+                                            '/visitworkerprofile',
+                                            extra: visitedProfile);
+                                      }
                                     },
                                     child: CircleAvatar(
                                         radius: SizeConfig.defaultSize! * 5,

@@ -7,7 +7,6 @@ class ApiService {
   final Dio _dio;
   final AuthTokenService _authTokenService;
 
-
   ApiService(
       {required String baseUrl, required AuthTokenService authTokenService})
       : _dio = Dio(BaseOptions(baseUrl: baseUrl)),

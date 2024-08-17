@@ -23,6 +23,7 @@ class _MyProjectBodyState extends State<MyProjectBody> {
   }
 
   void _fetchProjects() {
+    if (context.read<AuthBloc>().state is! AuthAuthenticated) return;
     final userId = (context.read<AuthBloc>().state as AuthAuthenticated).id;
     context.read<MyProjectBloc>().add(FetchMyProject(userId));
   }
