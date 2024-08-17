@@ -47,3 +47,10 @@ class GetOldMessages extends ChatEvent {
   @override
   List<Object> get props => [chat];
 }
+class CreateChat extends ChatEvent {
+  final int userId;
+  const CreateChat(this.userId);
+
+  @override
+  List<Object> get props => [userId];
+}

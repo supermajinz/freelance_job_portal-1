@@ -20,13 +20,15 @@ class ChatBody extends StatefulWidget {
 class _ChatBodyState extends State<ChatBody> {
   @override
   void initState() {
-    final userId = (context.read<AuthBloc>().state as AuthAuthenticated).id;
-    context.read<ChatBloc>().add(GetChats(userId));
+    // final userId = (context.read<AuthBloc>().state as AuthAuthenticated).id;
+    // context.read<ChatBloc>().add(GetChats(userId));
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    final userId = (context.read<AuthBloc>().state as AuthAuthenticated).id;
+    context.read<ChatBloc>().add(GetChats(userId));
     TextEditingController chatController = TextEditingController();
     return Column(
       children: [

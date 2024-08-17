@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:freelance_job_portal/core/widget/space.dart';
+import 'package:freelance_job_portal/features/chat%20copy/data/message.dart';
 import 'package:freelance_job_portal/features/chat/data/models/chat_model.dart';
 import 'package:freelance_job_portal/features/chat/data/models/message.dart';
 import 'package:freelance_job_portal/features/chat/presentation/view_models/bloc/chat_bloc.dart';
@@ -13,6 +14,7 @@ import '../../../../auth/presentation/view_models/bloc/auth_bloc.dart';
 
 class DmsBody extends StatefulWidget {
   final ChatRoomModel chat;
+
   const DmsBody({super.key, required this.chat});
 
   @override
@@ -26,24 +28,26 @@ class _DmsBodyState extends State<DmsBody> {
   late final User secondUser;
   List<MessageModel> messages = [];
 
-
   @override
   void initState() {
     super.initState();
-    context.read<ChatBloc>().add(ConnectToChatEvent(chatId: widget.chat.chatId));
-    final userId = (context.read<AuthBloc>().state as AuthAuthenticated).id;
-    if(widget.chat.sender.id == userId){
-      user = widget.chat.sender;
-      secondUser = widget.chat.recipient;
-    }else{
-      user = widget.chat.recipient;
-      secondUser = widget.chat.sender;
-    }
+    user = widget.chat.sender;
+    context
+        .read<ChatBloc>()
+        .add(ConnectToChatEvent(chatId: widget.chat.chatId));
+    context.read<ChatBloc>().add(GetOldMessages(widget.chat));
+    secondUser = widget.chat.recipient;
   }
+
+  // @override
+  // void didChangeDependencies() {
+  //   dependOnInheritedWidgetOfExactType();
+  //   super.didChangeDependencies();
+  // }
 
   @override
   void dispose() {
-    context.read<ChatBloc>().add(DisconnectFromChatEvent(widget.chat));
+    // context.read<ChatBloc>().add(DisconnectFromChatEvent(widget.chat));
     _messageController.dispose();
     _scrollController.dispose();
     super.dispose();
@@ -108,8 +112,18 @@ class _DmsBodyState extends State<DmsBody> {
     // }
     return BlocConsumer<ChatBloc, ChatState>(
       listener: (context, state) {
+        print(state);
         if (state is ChatMessageReceived) {
           _scrollToBottom();
+          messages.add(state.message);
+          setState(() {});
+        } else if (state is ChatMessagesFetched) {
+          setState(() {
+            messages = state.msgs;
+          });
+        } else if (state is ChatMessageSent) {
+          context.read<ChatBloc>().add(GetOldMessages(widget.chat));
+          setState(() {});
         }
       },
       builder: (context, state) {
@@ -140,7 +154,7 @@ class _DmsBodyState extends State<DmsBody> {
                     // ),
                     // const HorizintalSpace(1.5),
                     Text(
-                        "${secondUser.firstname} ${secondUser.lastname}",
+                      "${secondUser.firstname} ${secondUser.lastname}",
                       style: const TextStyle(fontSize: 18),
                     ),
                   ],
@@ -152,8 +166,10 @@ class _DmsBodyState extends State<DmsBody> {
                       return ListView.builder(
                         itemCount: messages.length,
                         itemBuilder: (context, index) {
+                          print("message:$index");
                           final message = messages[index];
-                          final isSender = message.senderId == user.id.toString();
+                          final isSender =
+                              message.senderId == user.id.toString();
                           return BubbleSpecialThree(
                             isSender: isSender,
                             text: message.content,
@@ -162,9 +178,7 @@ class _DmsBodyState extends State<DmsBody> {
                                 : Colors.grey[300]!,
                             tail: true,
                             textStyle: TextStyle(
-                                color: isSender
-                                    ? Colors.white
-                                    : Colors.black,
+                                color: isSender ? Colors.white : Colors.black,
                                 fontSize: 16),
                           );
                         },
@@ -174,7 +188,10 @@ class _DmsBodyState extends State<DmsBody> {
                 ),
                 CustomTextFormChat(
                   controller: _messageController,
-                  onSend: _sendMessage,
+                  onSend: () {
+                    print("dknasf");
+                    return _sendMessage();
+                  },
                 )
               ],
             ),
@@ -185,8 +202,13 @@ class _DmsBodyState extends State<DmsBody> {
   }
 
   _sendMessage() {
+    print('26516+8152');
+    print(_messageController.text);
     if (_messageController.text.isNotEmpty) {
-      context.read<ChatBloc>().add(SendMessageEvent(_messageController.text, widget.chat));
+      print('aasdasf');
+      context
+          .read<ChatBloc>()
+          .add(SendMessageEvent(_messageController.text, widget.chat));
       _messageController.clear();
     }
   }

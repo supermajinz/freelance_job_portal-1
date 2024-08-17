@@ -24,10 +24,23 @@ class ChatRepo {
 
   Future<Either<Failure, List<MessageModel>>> getOldChatMessages(ChatRoomModel room) async{
     try{
-      final res = await apiService.get("/messages/${room.sender.id}/${room.recipient.id}");
+      final res = await apiService.get("/chatRoom/messages/${room.sender.id}/${room.recipient.id}");
+      print(res);
       return right(res['data'].map<MessageModel>((e) => MessageModel.fromJson(e)).toList());
     }catch(e){
+      if(e is TypeError){
+        print(e.stackTrace);
+      }
       return left(ServerFailure(errMessage: "Error getting chat rooms"));
+    }
+  }
+
+  Future<Either<Failure, ChatRoomModel>> createChat(int userId) async {
+    try{
+      final res = await apiService.post("/chatRoom/$userId", {});
+      return right(ChatRoomModel.fromMap(res));
+    }catch(e){
+      return left(ServerFailure(errMessage: "خطأ في إنشاء المحادثة"));
     }
   }
 }

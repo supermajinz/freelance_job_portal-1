@@ -10,7 +10,7 @@ class CustomMessageCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      isThreeLine: true,
+      // isThreeLine: true,
       title:
           Text("${room.recipient.firstname} ${room.recipient.lastname}", style: Theme.of(context).textTheme.titleLarge!),
       // subtitle: Text("Lorem ipsum dolor sit amet, consectetur .........",

@@ -22,6 +22,7 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
     on<SendMessageEvent>(sendMessageEvent);
     on<GetChats>(getChats);
     on<GetOldMessages>(getOldMessages);
+    on<CreateChat>(createChat);
   }
 
   FutureOr<void> connectToChatEvent(
@@ -42,7 +43,9 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
 
   FutureOr<void> sendMessageEvent(
       SendMessageEvent event, Emitter<ChatState> emit) async {
+    print("bloc sendMessage");
     final result = await chatService.sendMessage(event.message, event.chat);
+    emit(ChatMessageSent());
   }
 
   Future<FutureOr<void>> getChats(
@@ -56,7 +59,14 @@ class ChatBloc extends Bloc<ChatEvent, ChatState> {
   Future<FutureOr<void>> getOldMessages(GetOldMessages event, Emitter<ChatState> emit) async {
     final result =
         await DependencyInjection.provideChatRepo().getOldChatMessages(event.chat);
-    result.fold((l) => emit(const ChatError("خطأ في الحصول على المحادثات")),
+    result.fold((l) => emit(const ChatError("خطأ في الحصول على الرسائل")),
             (r) => emit(ChatMessagesFetched(r)));
+  }
+
+  Future<FutureOr<void>> createChat(CreateChat event, Emitter<ChatState> emit) async {
+    final result =
+        await DependencyInjection.provideChatRepo().createChat(event.userId);
+    result.fold((l) => emit(const ChatError("خطأ في  المحادثات")),
+            (r) => emit(ChatCreated(r)));
   }
 }

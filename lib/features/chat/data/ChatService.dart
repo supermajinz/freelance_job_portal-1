@@ -29,23 +29,24 @@ class ChatService {
     final token = await tokenService.getToken('access_token');
     _stompClient = StompClient(
       config: StompConfig(
-        url: 'ws://localhost:8080/ws/websocket',
-        // onConnect: _onConnect,
+        url: 'ws:/${DependencyInjection.baseHost}/ws/websocket',
+        onConnect: _onConnect,
+        reconnectDelay: const Duration(seconds: 5),
+      ),
+    );
+        // stompConnectHeaders: {'Authorization': 'Bearer $token'},
+        // webSocketConnectHeaders: {'Authorization': 'Bearer $token'},
         // beforeConnect: _beforeConnect,
         // onWebSocketError: _onWebSocketError,
         // onStompError: _onStompError,
         // onDisconnect: _onDisconnect,
-        stompConnectHeaders: {'Authorization': 'Bearer $token'},
-        webSocketConnectHeaders: {'Authorization': 'Bearer $token'},
-        reconnectDelay: const Duration(seconds: 5),
-      ),
-    );
     _stompClient.activate();
+    print("isActive ${_stompClient.isActive}");
   }
 
   Future<void> connect() async {
     if (!_isConnected) {
-      await _initializeStompClient();
+      // await _initializeStompClient();
       _stompClient.activate();
     }
   }
@@ -57,10 +58,12 @@ class ChatService {
   }
 
   void _onConnect(StompFrame frame) {
-    _isConnected = true;
-    _reconnectAttempts = 0;
-    _resubscribeAll();
+    print("connected");
+    print(frame);
   }
+    // _isConnected = true;
+    // _reconnectAttempts = 0;
+    // _resubscribeAll();
 
   Future<void> _beforeConnect() async {
     print('Waiting to connect...');
@@ -109,8 +112,10 @@ class ChatService {
 
   Future<void> subscribeToChat(String chatId,
       {required void Function(MessageModel msg) callback}) async {
+    // await _initializeStompClient();
     if (!_subscriptions.containsKey(chatId)) {
-      if (!_isConnected) await connect();
+      print("isActive2 ${_stompClient.isActive}");
+      print("connection ${_stompClient.config.url}");
       _subscriptions[chatId] = _stompClient.subscribe(
         destination: "/user/$chatId/queue/messages",
         callback: (p0) => _handleMessage(p0, callback),
@@ -136,15 +141,18 @@ class ChatService {
     // if (message.content.trim().isEmpty) return;
     if(message.trim().isEmpty)return;
     if (!_isConnected) await connect();
-
     final messagePayload = {
-      'senderId': chat.sender,
-      'recipientId': chat.recipient,
+      'senderId': chat.sender.id,
+      'recipientId': chat.recipient.id,
       'content': message,
     };
 
+    print("sending $messagePayload to /app/chat");
     _stompClient.send(
       destination: '/app/chat',
+      headers: {
+        "content-type": "application/json"
+      },
       body: json.encode(messagePayload),
     );
   }

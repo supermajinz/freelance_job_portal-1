@@ -22,8 +22,8 @@ class MessageModel {
       id: json['id'] as String,
       senderId: json['senderId'] as String,
       recipientId: json['recipientId'] as String,
-      senderName: json['senderName'] as String,
-      recipientName: json['recipientName'] as String,
+      senderName: json['senderName'] as String? ??"",
+      recipientName: json['recipientName'] as String? ??"",
       content: json['content'] as String,
       timestamp: DateTime.parse(json['timestamp'] as String),
     );

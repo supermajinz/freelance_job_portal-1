@@ -52,10 +52,16 @@ class ChatMessageReceived extends ChatConnected {
 }
 
 class ChatMessageSent extends ChatConnected {
-  final MessageModel message;
-
-  const ChatMessageSent(this.message);
+  const ChatMessageSent();
 
   @override
-  List<Object> get props => [message];
+  List<Object> get props => [];
+}
+class ChatCreated extends ChatConnected {
+  final ChatRoomModel room;
+
+  const ChatCreated(this.room);
+
+  @override
+  List<Object> get props => [room];
 }
