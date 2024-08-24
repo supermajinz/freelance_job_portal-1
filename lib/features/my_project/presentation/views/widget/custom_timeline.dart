@@ -126,7 +126,7 @@ class CustomTimeline extends StatelessWidget {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    SizedBox(height: SizeConfig.defaultSize! * 1),
+                    SizedBox(height: SizeConfig.defaultSize! * .5),
                     CustomLabel(
                       text: text,
                       color: index <= currentStatus

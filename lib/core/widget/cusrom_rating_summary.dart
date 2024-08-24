@@ -25,7 +25,7 @@ class CusromRatingSummary extends StatelessWidget {
                 CustomRate(profileRate: state.profileRates),
                 const VirticalSpace(6),
                 SizedBox(
-                  height: SizeConfig.defaultSize! * 40,
+                  // height: SizeConfig.defaultSize! * 40,
                   child: ListView.separated(
                     shrinkWrap: true,
                     physics: const AlwaysScrollableScrollPhysics(),

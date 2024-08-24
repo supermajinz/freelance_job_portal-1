@@ -13,6 +13,7 @@ import 'package:timeago/timeago.dart' as timeago;
 
 class CustomProjectCard extends StatefulWidget {
   const CustomProjectCard({super.key, required this.project});
+
   final ProjectModel project;
 
   @override
@@ -29,128 +30,147 @@ class _CustomProjectCardState extends State<CustomProjectCard> {
           .push('/showprojectdetails', extra: widget.project),
       child: SizedBox(
         width: MediaQuery.of(context).size.width * .85,
+        height: MediaQuery.of(context).size.height * .4,
         child: Card(
             child: Container(
           padding: EdgeInsets.only(
               top: SizeConfig.defaultSize! * 0.2,
-              bottom: SizeConfig.defaultSize! * 1.2),
+              bottom: SizeConfig.defaultSize! * .6),
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-            Padding(
-              padding: EdgeInsets.only(right: SizeConfig.defaultSize! * 1.2),
-              child: Row(
-                children: [
-                  Container(
-                      width: SizeConfig.defaultSize! * 20,
+            Flexible(
+              child: Padding(
+                padding: EdgeInsets.only(right: SizeConfig.defaultSize! * 1.2),
+                child: Row(
+                  children: [
+                    Container(
+                        width: SizeConfig.defaultSize! * 20,
+                        padding:
+                            EdgeInsets.only(top: SizeConfig.defaultSize! * 1),
+                        child: Text(
+                          widget.project.name,
+                          textAlign: TextAlign.start,
+                          style: Theme.of(context).textTheme.titleMedium!,
+                          maxLines: 2,
+                        )),
+                    const Spacer(),
+                    Container(
                       padding:
                           EdgeInsets.only(top: SizeConfig.defaultSize! * 1),
+                      width: SizeConfig.defaultSize! * 5,
                       child: Text(
-                        widget.project.name,
-                        textAlign: TextAlign.start,
-                        style: Theme.of(context).textTheme.titleMedium!,
-                        maxLines: 2,
-                      )),
-                  const Spacer(),
-                  Container(
-                    padding: EdgeInsets.only(top: SizeConfig.defaultSize! * 1),
-                    width: SizeConfig.defaultSize! * 5,
-                    child: Text(
-                      formattedCreateDate,
-                      textAlign: TextAlign.center,
+                        formattedCreateDate,
+                        textAlign: TextAlign.center,
+                      ),
                     ),
-                  ),
-                  BookmarkButton(isProject: true, id: widget.project.id)
-                ],
-              ),
-            ),
-            Padding(
-              padding: EdgeInsets.only(
-                  right: SizeConfig.defaultSize! * 1.2,
-                  left: SizeConfig.defaultSize! * 1.2,
-                  top: SizeConfig.defaultSize! * 2),
-              child: CustomBody(text: widget.project.description),
-            ),
-            Padding(
-              padding: EdgeInsets.only(
-                  right: SizeConfig.defaultSize! * 1.2,
-                  top: SizeConfig.defaultSize! * 2),
-              child: SizedBox(
-                height: SizeConfig.defaultSize! * 4,
-                child: ListView.separated(
-                  separatorBuilder: (context, index) {
-                    return const HorizintalSpace(.5);
-                  },
-                  scrollDirection: Axis.horizontal,
-                  itemCount: widget.project.projectSkill.length,
-                  itemBuilder: (context, index) {
-                    return CustomChoiceChip(
-                      text: widget.project.projectSkill[index].name,
-                      color: Theme.of(context).colorScheme.secondary,
-                    );
-                  },
+                    BookmarkButton(isProject: true, id: widget.project.id)
+                  ],
                 ),
               ),
             ),
-            Container(
-              padding: EdgeInsets.only(top: SizeConfig.defaultSize! * 2),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  CustomMoneyBody(
-                    isCurrency: true,
-                    text:
-                        '${widget.project.minBudget} - ${widget.project.maxBudget}',
-                    color: Colors.green,
-                  ),
-                  CustomMoneyBody(
-                    isday: true,
-                    text: '${widget.project.expectedDuration}',
-                    color: Colors.red,
-                  ),
-                  CustomBody(
-                    text: '${widget.project.offerCount} عرض',
-                    color: Colors.blueAccent,
-                  )
-                ],
+            Flexible(
+              child: Padding(
+                padding: EdgeInsets.only(
+                    right: SizeConfig.defaultSize! * 1.2,
+                    left: SizeConfig.defaultSize! * 1.2,
+                    top: SizeConfig.defaultSize! * 2),
+                child: CustomBody(text: widget.project.description),
               ),
             ),
-            Padding(
-              padding: EdgeInsets.only(
-                  right: SizeConfig.defaultSize! * 1.2,
-                  top: SizeConfig.defaultSize! * 2),
-              child: Row(
-                children: [
-                  CircleAvatar(
-                    maxRadius: SizeConfig.defaultSize! * 3,
-                    backgroundImage: const AssetImage(
-                      "assets/images/pro.jpg",
+            Flexible(
+              child: Padding(
+                padding: EdgeInsets.only(
+                    right: SizeConfig.defaultSize! * 1.2,
+                    top: SizeConfig.defaultSize! * 2),
+                child: SizedBox(
+                  height: SizeConfig.defaultSize! * 4,
+                  child: ListView.separated(
+                    separatorBuilder: (context, index) {
+                      return const HorizintalSpace(.5);
+                    },
+                    scrollDirection: Axis.horizontal,
+                    itemCount: widget.project.projectSkill.length,
+                    itemBuilder: (context, index) {
+                      return CustomChoiceChip(
+                        text: widget.project.projectSkill[index].name,
+                        color: Theme.of(context).colorScheme.secondary,
+                      );
+                    },
+                  ),
+                ),
+              ),
+            ),
+            Flexible(
+              child: Container(
+                padding: EdgeInsets.only(top: SizeConfig.defaultSize! * 2),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Flexible(
+                      child: CustomMoneyBody(
+                        isCurrency: true,
+                        text:
+                            '${widget.project.minBudget} - ${widget.project.maxBudget}',
+                        color: Colors.green,
+                      ),
                     ),
-                  ),
-                  const HorizintalSpace(1),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      CustomSubTitleMedium(
-                          text:
-                              widget.project.client?.userDto!.firstname! ?? ''),
-                      const VirticalSpace(1),
-                      Row(
-                        children: [
-                          CustomLabel(
-                            text: "${widget.project.client?.rate ?? ''}",
-                            color: Colors.black,
-                          ),
-                          const HorizintalSpace(.8),
-                          Icon(
-                            Icons.star,
-                            color: Colors.yellow,
-                            size: SizeConfig.defaultSize! * 2,
-                          )
-                        ],
-                      )
-                    ],
-                  ),
-                ],
+                    Flexible(
+                      child: CustomMoneyBody(
+                        isday: true,
+                        text: '${widget.project.expectedDuration}',
+                        color: Colors.red,
+                      ),
+                    ),
+                    Flexible(
+                      child: CustomBody(
+                        text: '${widget.project.offerCount} عرض',
+                        color: Colors.blueAccent,
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ),
+            Flexible(
+              flex: 2,
+              child: Padding(
+                padding: EdgeInsets.only(
+                    right: SizeConfig.defaultSize! * 1.2,
+                    top: SizeConfig.defaultSize! * 1),
+                child: Row(
+                  children: [
+                    CircleAvatar(
+                      maxRadius: SizeConfig.defaultSize! * 3,
+                      backgroundImage: const AssetImage(
+                        "assets/images/pro.jpg",
+                      ),
+                    ),
+                    const HorizintalSpace(1),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        CustomSubTitleMedium(
+                            text: widget.project.client?.userDto!.firstname! ??
+                                ''),
+                        const VirticalSpace(1),
+                        Row(
+                          children: [
+                            CustomLabel(
+                              text: "${widget.project.client?.rate ?? ''}",
+                              color: Colors.black,
+                            ),
+                            const HorizintalSpace(.8),
+                            Icon(
+                              Icons.star,
+                              color: Colors.yellow,
+                              size: SizeConfig.defaultSize! * 2,
+                            )
+                          ],
+                        )
+                      ],
+                    ),
+                  ],
+                ),
               ),
             ),
           ]),

@@ -27,8 +27,10 @@ class _ChatBodyState extends State<ChatBody> {
 
   @override
   Widget build(BuildContext context) {
-    final userId = (context.read<AuthBloc>().state as AuthAuthenticated).id;
-    context.read<ChatBloc>().add(GetChats(userId));
+    if(context.read<AuthBloc>().state is AuthAuthenticated){
+      final userId = (context.read<AuthBloc>().state as AuthAuthenticated).id;
+      context.read<ChatBloc>().add(GetChats(userId));
+    }
     TextEditingController chatController = TextEditingController();
     return Column(
       children: [

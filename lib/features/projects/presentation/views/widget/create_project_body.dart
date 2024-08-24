@@ -72,7 +72,7 @@ class _CreateProjectBodyState extends State<CreateProjectBody> {
                               mainAxisSize: MainAxisSize.min,
                               children: [
                                 SizedBox(
-                                  height: SizeConfig.defaultSize! * 35,
+                                  height: SizeConfig.defaultSize! * 40,
                                   child: ListView.separated(
                                     separatorBuilder: (context, index) {
                                       return const VirticalSpace(1);

@@ -14,8 +14,11 @@ class HomeLoading extends HomeState {}
 class HomeLoaded extends HomeState {
   final List<Categories> categories;
   final Map<int, List<Skills>> skillsByCategory;
+  final List<ProjectModel> projectSugg;
+  final List<ProjectModel> projectMost;
 
-  const HomeLoaded({required this.categories, required this.skillsByCategory});
+
+  const HomeLoaded({required this.projectSugg, required this.projectMost, required this.categories, required this.skillsByCategory});
 
   @override
   List<Object> get props => [categories, skillsByCategory];
