@@ -71,15 +71,15 @@ class _VerificationCodeBodyState extends State<VerificationCodeBody> {
               )),
             const VirticalSpace(1),
             const VirticalSpace(35),
-            CustomButton(
-                onPressed: () {
-                  GoRouter.of(context).push("/resetpassword");
-                },
-                color: Theme.of(context).primaryColor,
-                textcolor: Colors.white,
-                text: "تحقق",
-                borderSide: const BorderSide(width: 0),
-                width: SizeConfig.defaultSize! * 2)
+            // CustomButton(
+            //     onPressed: () {
+            //       // GoRouter.of(context).push("/resetpassword");
+            //     },
+            //     color: Theme.of(context).primaryColor,
+            //     textcolor: Colors.white,
+            //     text: "تحقق",
+            //     borderSide: const BorderSide(width: 0),
+            //     width: SizeConfig.defaultSize! * 2)
           ],
         );
       },

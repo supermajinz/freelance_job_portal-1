@@ -19,7 +19,7 @@ class CustomCartegoryCard extends StatelessWidget {
             borderRadius:
                 BorderRadius.all(Radius.circular(SizeConfig.defaultSize! * 1)),
           ),
-          child: Image.asset("assets/images/ux.png",
+          child: Image.asset("assets/images/6488533.png",
               height: SizeConfig.defaultSize! * 6,
               width: SizeConfig.defaultSize! * 6,
               fit: BoxFit.fill),

@@ -36,52 +36,57 @@ class CustomOffer extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              CircleAvatar(
-                  radius: SizeConfig.defaultSize! * 4,
-                  backgroundColor: backgroundColor,
-                  backgroundImage: workerPhotoUrl != null
-                      ? NetworkImage(workerPhotoUrl)
-                      : null,
-                  child: workerPhotoUrl == null
-                      ? Center(
-                          child: Text(
-                            Utils.getInitials(workerName),
-                            style: const TextStyle(
-                                color: Colors.white, fontSize: 20),
-                          ),
-                        )
-                      : null),
-              const Spacer(),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  CustomSubTitleMedium(
-                    text:
-                        "${offer.worker!.userDto!.firstname} ${offer.worker!.userDto!.lastname}",
-                    color: Colors.white,
-                  ),
-                  SizedBox(
-                    width:SizeConfig.defaultSize! * 19,
-                    child: CustomBody(
-                      text: offer.worker!.jobTitleDto!.title!,
+              Flexible(
+                flex: 2,
+                child: CircleAvatar(
+                    radius: SizeConfig.defaultSize! * 4,
+                    backgroundColor: backgroundColor,
+                    backgroundImage: workerPhotoUrl != null
+                        ? NetworkImage(workerPhotoUrl)
+                        : null,
+                    child: workerPhotoUrl == null
+                        ? Center(
+                            child: Text(
+                              Utils.getInitials(workerName),
+                              style: const TextStyle(
+                                  color: Colors.white, fontSize: 20),
+                            ),
+                          )
+                        : null),
+              ),
+              Flexible(
+                flex: 3,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    CustomSubTitleMedium(
+                      text:
+                          "${offer.worker!.userDto!.firstname} ${offer.worker!.userDto!.lastname}",
                       color: Colors.white,
                     ),
-                  ),
-                  const VirticalSpace(0.2),
-                  Row(
-                    children: [
-                      CustomLabel(
-                        text: offer.worker!.rate.toString(),
+                    SizedBox(
+                      width:SizeConfig.defaultSize! * 19,
+                      child: CustomBody(
+                        text: offer.worker!.jobTitleDto!.title!,
                         color: Colors.white,
                       ),
-                      const Icon(
-                        Icons.star,
-                        color: Colors.yellow,
-                        size: 20,
-                      ),
-                    ],
-                  ),
-                ],
+                    ),
+                    const VirticalSpace(0.2),
+                    Row(
+                      children: [
+                        CustomLabel(
+                          text: offer.worker!.rate.toString(),
+                          color: Colors.white,
+                        ),
+                        const Icon(
+                          Icons.star,
+                          color: Colors.yellow,
+                          size: 20,
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
               const Spacer(),
               CustomLabel(

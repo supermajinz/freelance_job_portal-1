@@ -89,7 +89,7 @@ class _WorkerProfileBodyState extends State<WorkerProfileBody> {
                       mainAxisSize: MainAxisSize.min,
                       children: [
                         SizedBox(
-                          height: SizeConfig.defaultSize! * 35,
+                          height: SizeConfig.defaultSize! * 40,
                           child: ListView.separated(
                             separatorBuilder: (context, index) {
                               return const VirticalSpace(1);
@@ -211,26 +211,26 @@ class _WorkerProfileBodyState extends State<WorkerProfileBody> {
                 PortofolioWidget(
                   workerProfileId: currentProfile.id!,
                 ),
-                const VirticalSpace(4),
-                const CustomSubTitle(
-                  text: "المشاريع المكتملة",
-                ),
-                const VirticalSpace(0.5),
-                SizedBox(
-                  height: SizeConfig.defaultSize! *31,
-                  child: ListView.separated(
-                    separatorBuilder: (context, index) {
-                      return const HorizintalSpace(0.3);
-                    },
-                    itemCount: 3,
-                    scrollDirection: Axis.horizontal,
-                    itemBuilder: (context, index) {
-                      return CustomProjectCard(project: ProjectModel());
-                    },
-                  ),
-                ),
-                const VirticalSpace(5),
-                const CustomZzz(),
+                // const VirticalSpace(4),
+                // const CustomSubTitle(
+                //   text: "المشاريع المكتملة",
+                // ),
+                // const VirticalSpace(0.5),
+                // SizedBox(
+                //   height: SizeConfig.defaultSize! *31,
+                //   child: ListView.separated(
+                //     separatorBuilder: (context, index) {
+                //       return const HorizintalSpace(0.3);
+                //     },
+                //     itemCount: 3,
+                //     scrollDirection: Axis.horizontal,
+                //     itemBuilder: (context, index) {
+                //       return CustomProjectCard(project: ProjectModel());
+                //     },
+                //   ),
+                // ),
+                // const VirticalSpace(5),
+                // const CustomZzz(),
                 const VirticalSpace(5),
                 const CustomSubTitle(
                   text: "التقيمات",

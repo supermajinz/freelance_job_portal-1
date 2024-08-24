@@ -86,15 +86,17 @@ class _VerificationSignupBodyState extends State<VerificationSignupBody> {
               ),
             const VirticalSpace(1),
             const VirticalSpace(29),
-            CustomButton(
-                onPressed: () {
-                  showButtomSheet(context, "تم انشاء الحساب بنجاح");
-                },
-                color: const Color.fromARGB(255, 80, 34, 88),
-                textcolor: Colors.white,
-                text: "تحقق",
-                borderSide: const BorderSide(width: 0),
-                width: SizeConfig.defaultSize! * 2)
+            // CustomButton(
+            //     onPressed: () {
+            //       // context
+            //       //     .read<AuthBloc>()
+            //       //     .add(VerifyEvent(code: ver));
+            //     },
+            //     color: const Color.fromARGB(255, 80, 34, 88),
+            //     textcolor: Colors.white,
+            //     text: "تحقق",
+            //     borderSide: const BorderSide(width: 0),
+            //     width: SizeConfig.defaultSize! * 2)
           ],
         );
       },

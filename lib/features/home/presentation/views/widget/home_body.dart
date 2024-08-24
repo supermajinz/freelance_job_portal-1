@@ -10,9 +10,19 @@ import 'package:freelance_job_portal/features/home/presentation/views/widget/cus
 import 'package:freelance_job_portal/features/projects/presentation/views/widget/custom_project_card.dart';
 import 'package:go_router/go_router.dart';
 
-class HomeBody extends StatelessWidget {
+class HomeBody extends StatefulWidget {
   const HomeBody({super.key});
 
+  @override
+  State<HomeBody> createState() => _HomeBodyState();
+}
+
+class _HomeBodyState extends State<HomeBody> {
+  @override
+  void initState() {
+    context.read<HomeBloc>().add(FetchCategories());
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -77,36 +87,36 @@ class HomeBody extends StatelessWidget {
                   const CustomSubTitle(
                     text: "المقترحات",
                   ),
-                  InkWell(
-                      onTap: () {},
-                      child: const CustomLabel(
-                        text: "إظهار الكل",
-                        color: Colors.blueAccent,
-                      ))
+                  // InkWell(
+                  //     onTap: () {},
+                  //     child: const CustomLabel(
+                  //       text: "إظهار الكل",
+                  //       color: Colors.blueAccent,
+                  //     ))
                 ],
               )),
           const VirticalSpace(1),
-          // BlocBuilder<HomeBloc, HomeState>(
-          //   builder: (context, state) {
-          //     if (state is HomeSuccessSuggestion) {
-          //       return SizedBox(
-          //         height: SizeConfig.defaultSize! * 31,
-          //         child: ListView.builder(
-          //           itemCount: state.project.length,
-          //           scrollDirection: Axis.horizontal,
-          //           itemBuilder: (context, index) {
-          //             return CustomProjectCard(project: state.project[index]);
-          //           },
-          //         ),
-          //       );
-          //     } else if (state is HomeFailure) {
-          //       return Center(child: Text(state.errMessage));
-          //     } else if (state is HomeLoading) {
-          //       const CustomLoading();
-          //     }
-          //     return const Center();
-          //   },
-          // ),
+          BlocBuilder<HomeBloc, HomeState>(
+            builder: (context, state) {
+              if (state is HomeLoaded) {
+                return SizedBox(
+                  height: SizeConfig.defaultSize! * 40,
+                  child: ListView.builder(
+                    itemCount: state.projectSugg.length,
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (context, index) {
+                      return CustomProjectCard(project: state.projectSugg[index]);
+                    },
+                  ),
+                );
+              } else if (state is HomeFailure) {
+                return Center(child: Text(state.errMessage));
+              } else if (state is HomeLoading) {
+                const CustomLoading();
+              }
+              return const Center();
+            },
+          ),
           const VirticalSpace(4),
           Container(
               margin: EdgeInsets.only(
@@ -119,36 +129,36 @@ class HomeBody extends StatelessWidget {
                   const CustomSubTitle(
                     text: "الأكثر شيوعا",
                   ),
-                  InkWell(
-                      onTap: () {},
-                      child: const CustomLabel(
-                        text: "إظهار الكل",
-                        color: Colors.blueAccent,
-                      ))
+                  // InkWell(
+                  //     onTap: () {},
+                  //     child: const CustomLabel(
+                  //       text: "إظهار الكل",
+                  //       color: Colors.blueAccent,
+                  //     ))
                 ],
               )),
           const VirticalSpace(1),
-          // BlocBuilder<HomeBloc, HomeState>(
-          //   builder: (context, state) {
-          //     if (state is HomeSuccessMostCommon) {
-          //       return SizedBox(
-          //         height: SizeConfig.defaultSize! * 31,
-          //         child: ListView.builder(
-          //           itemCount: state.project.length,
-          //           scrollDirection: Axis.horizontal,
-          //           itemBuilder: (context, index) {
-          //             return CustomProjectCard(project: state.project[index]);
-          //           },
-          //         ),
-          //       );
-          //     } else if (state is HomeFailure) {
-          //       return Center(child: Text(state.errMessage));
-          //     } else if (state is HomeLoading) {
-          //       return const CustomLoading();
-          //     }
-          //     return const Center();
-          //   },
-          // ),
+          BlocBuilder<HomeBloc, HomeState>(
+            builder: (context, state) {
+              if (state is HomeLoaded) {
+                return SizedBox(
+                  height: SizeConfig.defaultSize! * 40,
+                  child: ListView.builder(
+                    itemCount: state.projectMost.length,
+                    scrollDirection: Axis.horizontal,
+                    itemBuilder: (context, index) {
+                      return CustomProjectCard(project: state.projectMost[index]);
+                    },
+                  ),
+                );
+              } else if (state is HomeFailure) {
+                return Center(child: Text(state.errMessage));
+              } else if (state is HomeLoading) {
+                return const CustomLoading();
+              }
+              return const Center();
+            },
+          ),
           const VirticalSpace(1),
         ],
       ),

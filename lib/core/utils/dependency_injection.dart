@@ -5,7 +5,6 @@ import 'package:freelance_job_portal/features/auth/data/auth_token_service.dart'
 import 'package:freelance_job_portal/features/categories%20and%20skills/category_skill_repo.dart';
 import 'package:freelance_job_portal/features/categories%20and%20skills/category_skill_repo_impl.dart';
 import 'package:freelance_job_portal/features/chat/data/chat_repo.dart';
-import 'package:freelance_job_portal/features/chat/data/ChatService.dart';
 import 'package:freelance_job_portal/features/notifications/presentation/data/repo/notification_local_repo_impl.dart';
 import 'package:freelance_job_portal/features/photo/photo_repo_impl.dart';
 import 'package:freelance_job_portal/features/my_project/data/repo/my_project_repo.dart';
@@ -36,7 +35,7 @@ import '../../features/searsh/data/repo/search_repo_.dart';
 import '../../features/searsh/data/repo/search_repo_impl.dart';
 
 class DependencyInjection {
-  static const String baseHost = "192.168.64.252:8080";
+  static const String baseHost = "192.168.57.252:8080";
   // static const String baseHost = "localhost:8080";
   static const String protocol = "http";
   static const String baseUrl = "$protocol://$baseHost/api/v1/";

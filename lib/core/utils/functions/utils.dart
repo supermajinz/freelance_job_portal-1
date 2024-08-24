@@ -39,7 +39,11 @@ class Utils {
 
   // Function to get initials from a name
   static String getInitials(String name) {
+
     List<String> nameParts = name.split(' ');
+    if(nameParts.isEmpty){
+      return name;
+    }
     String initials = '';
 
     if (nameParts.isNotEmpty) {
@@ -49,6 +53,6 @@ class Utils {
       }
     }
 
-    return initials.toUpperCase();
+    return initials;
   }
 }

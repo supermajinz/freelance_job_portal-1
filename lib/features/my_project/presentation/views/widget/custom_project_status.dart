@@ -97,19 +97,25 @@ class CustomProjectStatus extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                CustomMoneyBody(
-                  isCurrency: true,
-                  text: '${projectModel.minBudget} - ${projectModel.maxBudget}',
-                  color: Colors.green,
+                Flexible(
+                  child: CustomMoneyBody(
+                    isCurrency: true,
+                    text: '${projectModel.minBudget} - ${projectModel.maxBudget}',
+                    color: Colors.green,
+                  ),
                 ),
-                CustomMoneyBody(
-                  isday: true,
-                  text: projectModel.expectedDuration.toString(),
-                  color: Colors.red,
+                Flexible(
+                  child: CustomMoneyBody(
+                    isday: true,
+                    text: projectModel.expectedDuration.toString(),
+                    color: Colors.red,
+                  ),
                 ),
-                CustomBody(
-                  text: "${projectModel.offerCount.toString()} عرض",
-                  color: Colors.blueAccent,
+                Flexible(
+                  child: CustomBody(
+                    text: "${projectModel.offerCount.toString()} عرض",
+                    color: Colors.blueAccent,
+                  ),
                 )
               ],
             ),

@@ -42,7 +42,7 @@ class _DmsBodyState extends State<DmsBody> {
     Future.doWhile(() async {
       await Future.delayed(const Duration(milliseconds: 400));
       bloc.add(GetOldMessages(widget.chat));
-      return true;
+      return context.mounted;
     });
   }
 
