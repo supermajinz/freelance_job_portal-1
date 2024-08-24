@@ -90,7 +90,7 @@ class _VerificationSignupBodyState extends State<VerificationSignupBody> {
                 onPressed: () {
                   showButtomSheet(context, "تم انشاء الحساب بنجاح");
                 },
-                color: const Color.fromARGB(255, 80, 34, 88),
+                color: Theme.of(context).primaryColor,
                 textcolor: Colors.white,
                 text: "تحقق",
                 borderSide: const BorderSide(width: 0),
