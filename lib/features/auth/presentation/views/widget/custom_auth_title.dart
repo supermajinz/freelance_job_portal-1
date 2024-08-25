@@ -10,6 +10,6 @@ class CustomAuthTitle extends StatelessWidget {
         style: Theme.of(context)
             .textTheme
             .headlineMedium!
-            .copyWith(color: Colors.blueAccent));
+            .copyWith(color: Theme.of(context).colorScheme.secondary));
   }
 }

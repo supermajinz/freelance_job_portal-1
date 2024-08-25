@@ -26,7 +26,7 @@ class TextSignUp extends StatelessWidget {
             style: Theme.of(context)
                 .textTheme
                 .bodyLarge!
-                .copyWith(color: Colors.blueAccent),
+                .copyWith(color: Theme.of(context).colorScheme.secondary,fontWeight: FontWeight.w800),
           ),
         )
       ],

@@ -80,19 +80,19 @@ class _HomeBodyState extends State<HomeBody> {
               margin: EdgeInsets.only(
                   left: SizeConfig.defaultSize! * 1,
                   right: SizeConfig.defaultSize! * 1),
-              child: Row(
+              child:  Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   const CustomSubTitle(
                     text: "المقترحات",
                   ),
-                  // InkWell(
-                  //     onTap: () {},
-                  //     child: const CustomLabel(
-                  //       text: "إظهار الكل",
-                  //       color: Colors.blueAccent,
-                  //     ))
+                  InkWell(
+                      onTap: () {},
+                      child: const CustomLabel(
+                        text: "إظهار الكل",
+                        color: Colors.blueAccent,
+                      ))
                 ],
               )),
           const VirticalSpace(1),
@@ -122,19 +122,19 @@ class _HomeBodyState extends State<HomeBody> {
               margin: EdgeInsets.only(
                   left: SizeConfig.defaultSize! * 1,
                   right: SizeConfig.defaultSize! * 1),
-              child: Row(
+              child:  Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   const CustomSubTitle(
                     text: "الأكثر شيوعا",
                   ),
-                  // InkWell(
-                  //     onTap: () {},
-                  //     child: const CustomLabel(
-                  //       text: "إظهار الكل",
-                  //       color: Colors.blueAccent,
-                  //     ))
+                  InkWell(
+                      onTap: () {},
+                      child: const CustomLabel(
+                        text: "إظهار الكل",
+                        color: Colors.blueAccent,
+                      ))
                 ],
               )),
           const VirticalSpace(1),

@@ -35,9 +35,9 @@ import '../../features/searsh/data/repo/search_repo_.dart';
 import '../../features/searsh/data/repo/search_repo_impl.dart';
 
 class DependencyInjection {
-  static const String baseHost = "192.168.57.252:8080";
+  static const String baseHost = "24d3-203-161-44-194.ngrok-free.app";
   // static const String baseHost = "localhost:8080";
-  static const String protocol = "http";
+  static const String protocol = "https846638";
   static const String baseUrl = "$protocol://$baseHost/api/v1/";
   static AuthTokenService provideAuthTokenService() {
     return AuthTokenService();
@@ -147,6 +147,7 @@ class DependencyInjection {
   static NotificationLocalRepo provideNotificationsRepo() {
     return const NotificationLocalRepoImpl();
   }
+
   static ChatRepo provideChatRepo() {
     return ChatRepo(DependencyInjection.provideApiService());
   }

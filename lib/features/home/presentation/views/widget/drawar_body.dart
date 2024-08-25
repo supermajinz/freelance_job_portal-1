@@ -30,15 +30,11 @@ class DrawarBody extends StatelessWidget {
             child: CircleAvatar(
               radius: SizeConfig.defaultSize! * 5,
               backgroundImage: const AssetImage(
-                "assets/images/logo.jpg",
+                "assets/images/aaa.jpg",
               ),
             ),
           ),
-          // ListTile(
-          //   onTap: () {},
-          //   leading: const Icon(Icons.home),
-          //   title: const Text('الرئيسية'),
-          // ),
+
           ListTile(
             onTap: () {
               GoRouter.of(context).push('/report', extra: null);

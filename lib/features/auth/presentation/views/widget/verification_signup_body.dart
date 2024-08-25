@@ -28,6 +28,7 @@ class _VerificationSignupBodyState extends State<VerificationSignupBody> {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return BlocConsumer<AuthBloc, AuthState>(
       listener: (context, state) {
         if (state is AuthAuthenticated) {
@@ -65,7 +66,7 @@ class _VerificationSignupBodyState extends State<VerificationSignupBody> {
                   style: Theme.of(context).textTheme.bodyLarge,
                   textAlign: TextAlign.center),
             ),
-            const VirticalSpace(6),
+            const VirticalSpace(8),
             OtpTextFieldVer(
               controller: otpController,
               isError: isCodeInvalid,
@@ -84,8 +85,7 @@ class _VerificationSignupBodyState extends State<VerificationSignupBody> {
                   textAlign: TextAlign.center,
                 ),
               ),
-            const VirticalSpace(1),
-            const VirticalSpace(29),
+            const VirticalSpace(40),
             CustomButton(
                 onPressed: () {
                   showButtomSheet(context, "تم انشاء الحساب بنجاح");
