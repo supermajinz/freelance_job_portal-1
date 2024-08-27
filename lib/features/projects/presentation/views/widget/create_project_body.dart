@@ -71,8 +71,7 @@ class _CreateProjectBodyState extends State<CreateProjectBody> {
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
                               children: [
-                                SizedBox(
-                                  height: SizeConfig.defaultSize! * 40,
+                                Expanded(
                                   child: ListView.separated(
                                     separatorBuilder: (context, index) {
                                       return const VirticalSpace(1);
@@ -97,7 +96,7 @@ class _CreateProjectBodyState extends State<CreateProjectBody> {
                                     },
                                   ),
                                 ),
-                                const VirticalSpace(2),
+                               const Spacer(),
                                 CustomButtonGeneral(
                                     onPressed: () {
                                       GoRouter.of(context)

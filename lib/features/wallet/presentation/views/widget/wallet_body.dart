@@ -7,6 +7,7 @@ import 'package:freelance_job_portal/core/widget/space.dart';
 import 'package:freelance_job_portal/features/wallet/data/models/wallet_payments/wallet_payments.dart';
 import 'package:iconly/iconly.dart';
 import 'package:intl/intl.dart';
+import 'package:lottie/lottie.dart';
 
 import '../../../../../core/widget/custom_empty.dart';
 
@@ -102,13 +103,14 @@ class _WalletBodyState extends State<WalletBody> {
           SizedBox(
             height: SizeConfig.defaultSize! * 43,
             child: widget.wallet.transactions!.isEmpty
-                ? const Center(
+                ?  Center(
                     child: Column(
                       children: [
+                       // Lottie.asset(''),
                         CustomEmpty(),
                         Text(
                           'لا يوجد عمليات حتى الآن',
-                          style: TextStyle(fontSize: 18, color: Colors.grey),
+                          style: TextStyle(fontSize: 18, color: Theme.of(context).colorScheme.secondary),
                         ),
                       ],
                     ),

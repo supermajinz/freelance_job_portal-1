@@ -35,9 +35,9 @@ import '../../features/searsh/data/repo/search_repo_.dart';
 import '../../features/searsh/data/repo/search_repo_impl.dart';
 
 class DependencyInjection {
-  static const String baseHost = "10.0.2.2:8082";
+  static const String baseHost = "ad3e-46-213-56-223.ngrok-free.app";
   // static const String baseHost = "localhost:8080";
-  static const String protocol = "http";
+  static const String protocol = "https";
   static const String baseUrl = "$protocol://$baseHost/api/v1/";
   static AuthTokenService provideAuthTokenService() {
     return AuthTokenService();

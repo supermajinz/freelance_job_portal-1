@@ -37,21 +37,16 @@ class _ReportBodyState extends State<ReportBody> {
               horizontal: SizeConfig.defaultSize! * 1.5,
             ),
             child: CustomTextFormGeneral(
-              minLines: 3,
+                minLines: 3,
                 mycontroller: messageController,
                 hinttext: "",
                 lable: "رسالة الشكوى",
                 isNumber: false),
           ),
           const VirticalSpace(5),
-          // Icon(
-          //   IconlyBroken.paper_negative,
-          //   size: SizeConfig.defaultSize! * 23,
-          //   color: Theme.of(context).colorScheme.error,
-          // ),
           // Lottie.asset(""),
-          const VirticalSpace(20),
-          const VirticalSpace(20),
+          Image.asset('assets/images/report.png'),
+          const VirticalSpace(7),
           Center(
               child: BlocListener<ReportBloc, ReportState>(
             listener: (context, state) {

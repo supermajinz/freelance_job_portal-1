@@ -41,7 +41,7 @@ class Wallet extends StatelessWidget {
                       ),
                       actions: [
                         IconButton(
-                          icon: const Icon(IconlyLight.info_circle,color: Colors.white,size: 30),
+                          icon:  const Icon(Icons.info,color: Colors.black,size: 25),
                           onPressed: () {
                             _showGuidelinesBottomSheet(context);
                           },
