@@ -54,6 +54,7 @@ class CustomOffer extends StatelessWidget {
                           )
                         : null),
               ),
+              const HorizintalSpace(1),
               Flexible(
                 flex: 3,
                 child: Column(

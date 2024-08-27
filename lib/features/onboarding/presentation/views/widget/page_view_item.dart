@@ -10,11 +10,12 @@ class PageViewItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Lottie.asset(
-          image,
-          height: SizeConfig.defaultSize! * 50,
-          width: double.infinity,
-          fit: BoxFit.fill,
+        SizedBox(
+          height: SizeConfig.defaultSize! * 40,
+          child: Lottie.asset(
+            image,
+            fit: BoxFit.fill,
+          ),
         ),
         Padding(
           padding: EdgeInsets.symmetric(

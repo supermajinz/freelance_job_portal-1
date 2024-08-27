@@ -10,6 +10,7 @@ class CustomTextFormGeneral extends StatelessWidget {
   final bool isNumber;
   final bool? obs;
   final void Function()? onTapicon;
+  final int minLines;
   const CustomTextFormGeneral(
       {super.key,
       required this.hinttext,
@@ -17,13 +18,14 @@ class CustomTextFormGeneral extends StatelessWidget {
       this.mycontroller,
       required this.isNumber,
       this.obs,
+      this.minLines = 1,
       this.onTapicon});
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
       maxLength: 255,
-      minLines: 1,
+      minLines: minLines,
       maxLines: 5,
       inputFormatters: [if (isNumber) FilteringTextInputFormatter.digitsOnly],
       keyboardType: isNumber

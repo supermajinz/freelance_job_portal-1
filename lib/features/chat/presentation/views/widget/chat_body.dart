@@ -22,20 +22,20 @@ class _ChatBodyState extends State<ChatBody> {
   void initState() {
     // final userId = (context.read<AuthBloc>().state as AuthAuthenticated).id;
     // context.read<ChatBloc>().add(GetChats(userId));
+    if(context.read<AuthBloc>().state is AuthAuthenticated){
+      final userId = (context.read<AuthBloc>().state as AuthAuthenticated).id;
+      context.read<ChatBloc>().add(GetChats(userId));
+    }
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    if(context.read<AuthBloc>().state is AuthAuthenticated){
-      final userId = (context.read<AuthBloc>().state as AuthAuthenticated).id;
-      context.read<ChatBloc>().add(GetChats(userId));
-    }
     TextEditingController chatController = TextEditingController();
     return Column(
       children: [
         const VirticalSpace(1),
-        CustomSearch(title: "Hinted search text", myController: chatController),
+        CustomSearch(title: "ابحث..", myController: chatController),
         Container(
           color: Theme
               .of(context)
@@ -60,11 +60,7 @@ class _ChatBodyState extends State<ChatBody> {
                 shrinkWrap: true,
                 itemCount: state.rooms.length,
                 itemBuilder: (context, index) {
-                  return InkWell(
-                      onTap: () {
-                        GoRouter.of(context).push("/dms", extra: state.rooms[index]);
-                      },
-                      child: CustomMessageCard(room: state.rooms[index]));
+                  return CustomMessageCard(room: state.rooms[index]);
                 },
               );
             },

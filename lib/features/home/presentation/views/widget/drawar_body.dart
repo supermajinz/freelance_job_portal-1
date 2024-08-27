@@ -67,6 +67,7 @@ class DrawarBody extends StatelessWidget {
           ListTile(
             onTap: () {
               context.read<AuthBloc>().add(LogoutEvent());
+              GoRouter.of(context).push("/onboardingview");
               controller.hideDrawer();
             },
             leading: const Icon(Icons.logout),

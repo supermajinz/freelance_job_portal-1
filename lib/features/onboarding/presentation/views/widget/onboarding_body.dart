@@ -78,7 +78,7 @@ class _OnboardingBodyState extends State<OnboardingBody> {
           ),
         ),
         Positioned(
-          bottom: SizeConfig.defaultSize! * 19,
+          bottom: SizeConfig.defaultSize! * 21.5,
           left: 0,
           right: 0,
           child: CustomIndcator(
@@ -86,7 +86,7 @@ class _OnboardingBodyState extends State<OnboardingBody> {
           ),
         ),
         Positioned(
-          bottom: SizeConfig.defaultSize! * 12,
+          bottom: SizeConfig.defaultSize! * 14.5,
           left: SizeConfig.defaultSize! * 8,
           child: CustomButtonGeneral(
             onPressed: () {
@@ -100,7 +100,7 @@ class _OnboardingBodyState extends State<OnboardingBody> {
           ),
         ),
         Positioned(
-          bottom: SizeConfig.defaultSize! * 6.5,
+          bottom: SizeConfig.defaultSize! * 9,
           left: SizeConfig.defaultSize! * 8,
           child: CustomButtonGeneral(
             onPressed: () {
@@ -114,7 +114,7 @@ class _OnboardingBodyState extends State<OnboardingBody> {
           ),
         ),
         Positioned(
-          bottom: SizeConfig.defaultSize! * 1,
+          bottom: SizeConfig.defaultSize! * 3.5,
           left: SizeConfig.defaultSize! * 8,
           child: CustomButtonGeneral(
             onPressed: () {

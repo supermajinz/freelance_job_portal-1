@@ -83,8 +83,8 @@ class _ProfileBodyState extends State<ProfileBody> {
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        SizedBox(
-                          height: SizeConfig.defaultSize! * 40,
+                        Expanded(
+                          // height: SizeConfig.defaultSize! * 40,
                           child: ListView.separated(
                             separatorBuilder: (context, index) {
                               return const VirticalSpace(1);

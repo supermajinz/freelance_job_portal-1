@@ -11,6 +11,8 @@ import 'package:freelance_job_portal/features/chat/presentation/view_models/bloc
 import 'package:freelance_job_portal/features/chat/presentation/views/widget/custom_text_form_chat.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../../../../core/utils/functions/utils.dart';
+import '../../../../../core/utils/size_config.dart';
 import '../../../../auth/data/models/user.dart';
 import '../../../../auth/presentation/view_models/bloc/auth_bloc.dart';
 
@@ -41,8 +43,10 @@ class _DmsBodyState extends State<DmsBody> {
     secondUser = widget.chat.recipient;
     Future.doWhile(() async {
       await Future.delayed(const Duration(milliseconds: 400));
-      bloc.add(GetOldMessages(widget.chat));
-      return context.mounted;
+      if(mounted){
+        bloc.add(GetOldMessages(widget.chat));
+      }
+      return mounted;
     });
   }
 
@@ -62,120 +66,93 @@ class _DmsBodyState extends State<DmsBody> {
 
   @override
   Widget build(BuildContext context) {
-    //   return SafeArea(
-    //     child: Column(
-    //       children: [
-    //         Column(
-    //           children: [
-    //             const VirticalSpace(2),
-    //             Container(
-    //               height:SizeConfig.defaultSize!*7,
-    //               decoration: const BoxDecoration(
-    //                 border:
-    //                     Border(bottom: BorderSide(width: 1, color: Colors.grey)),
-    //               ),
-    //               child: Row(crossAxisAlignment: CrossAxisAlignment.start,
-    //                 children: [
-    //                   IconButton(
-    //                       onPressed: () {},
-    //                       icon: const Icon(
-    //                         Icons.arrow_back,
-    //                         size: 30,
-    //                       )),
-    //                   CircleAvatar(
-    //                     radius: SizeConfig.defaultSize!*3,
-    //                     backgroundImage: const AssetImage(
-    //                       "assets/images/pro.jpg",
-    //                     ),
-    //                   ),
-    //                   const HorizintalSpace(1),
-    //                   const Text(
-    //                     "Xabi Alonso",
-    //                     style: TextStyle(fontSize: 18),
-    //                   ),
-    //                 ],
-    //               ),
-    //             ),
-    //           ],
-    //         ),
-    //         Expanded(
-    //           child: ListView.builder(
-    //             itemCount: chat.length,
-    //             itemBuilder: (context, index) {
-    //               return BubbleSpecialThree(
-    //                 isSender: false,
-    //                 text: chat[index].toString(),
-    //                 color: const Color(0xFF1B97F3),
-    //                 tail: true,
-    //                 textStyle: const TextStyle(color: Colors.white, fontSize: 16),
-    //               );
-    //             },
-    //           ),
-    //         ),
-    //         const CustomTextFormChat()
-    //       ],
-    //     ),
-    //   );
-    // }
+    final userName =
+        '${widget.chat.recipient.firstname ?? ''} ${widget.chat.recipient.lastname ?? ''}';
+
+    final isClient = widget.chat.recipient.role == "CLIENT";
+    final isWorker = widget.chat.recipient.role == "WORKER";
+
+    final userPhotoUrl = isClient
+        ? null
+        : isWorker
+        ? null
+        : null;
+    final backgroundColor =
+    userPhotoUrl == null ? Utils.getBackgroundColor(userName) : null;
     return SafeArea(
-      child: Container(
-        margin: const EdgeInsets.only(top: 25),
-        child: Column(
-          children: [
-            Row(
-              children: [
-                IconButton(
-                    onPressed: () {
-                      GoRouter.of(context).pop();
-                    }, icon: const Icon(Icons.arrow_back)),
-                const HorizintalSpace(7),
-                Text(
-                  "${secondUser.firstname} ${secondUser.lastname}",
-                  style: const TextStyle(fontSize: 18),
-                ),
-              ],
-            ),
-            const Divider(),
-            Expanded(
-              child: BlocBuilder<ChatBloc, ChatState>(
-                builder: (context, state) {
-                  if (state is ChatMessagesFetched) {
-                    final messages = state.msgs;
-                    return ListView.builder(
-                      itemCount: messages.length,
-                      itemBuilder: (context, index) {
-                        print("message:$index");
-                        final message = messages[index];
-                        final isSender =
-                            message.senderId == user.id.toString();
-                        return BubbleSpecialThree(
-                          isSender: isSender,
-                          text: message.content,
-                          color: isSender
-                              ? const Color(0xFF1B97F3)
-                              : Colors.grey[300]!,
-                          tail: true,
-                          textStyle: TextStyle(
-                              color: isSender ? Colors.white : Colors.black,
-                              fontSize: 16),
-                        );
-                      },
-                    );
-                  } else {
-                    return const CustomLoading();
-                  }
-                },
+      child: Column(
+        children: [
+          Row(
+            children: [
+              IconButton(
+                  onPressed: () {
+                    GoRouter.of(context).pop();
+                  }, icon: const Icon(Icons.arrow_back)),
+              const HorizintalSpace(0),
+              CircleAvatar(
+                radius: SizeConfig.defaultSize! * 3,
+                backgroundColor: backgroundColor?.withOpacity(.7),
+                backgroundImage:
+                userPhotoUrl != null ? NetworkImage(userPhotoUrl) : null,
+                child: userPhotoUrl == null
+                    ? Center(
+                  child: Text(
+                    Utils.getInitials(userName),
+                    style: const TextStyle(color: Colors.white, fontSize: 20),
+                  ),
+                )
+                    : null,
               ),
-            ),
-            CustomTextFormChat(
-              controller: _messageController,
-              onSend: () {
-                print("dknasf");
-                return _sendMessage();
+              const HorizintalSpace(2),
+              Text(
+                "${secondUser.firstname} ${secondUser.lastname}",
+                style: const TextStyle(fontSize: 18),
+              ),
+              const Spacer(),
+            ],
+          ),
+          const Divider(),
+          Expanded(
+            child: BlocBuilder<ChatBloc, ChatState>(
+              builder: (context, state) {
+                if (state is ChatMessagesFetched) {
+                  final messages = state.msgs;
+                  return ListView.builder(
+                    itemCount: messages.length,
+                    itemBuilder: (context, index) {
+                      print("message:$index");
+                      final message = messages[index];
+                      final isSender =
+                          message.senderId == user.id.toString();
+                      final nextIsSender = messages.length > index+1?
+                          messages[index+1].senderId == user.id.toString() : !isSender;
+                      return BubbleSpecialThree(
+                        isSender: isSender,
+                        text: message.content,
+                        color: isSender
+                            ? const Color(0xFF1B97F3)
+                            : Colors.grey[300]!,
+                        tail: nextIsSender != isSender,
+                        textStyle: TextStyle(
+                            color: isSender ? Colors.white : Colors.black,
+                            fontSize: 16),
+                      );
+                    },
+                  );
+                } else {
+                  return const CustomLoading();
+                }
               },
-            )
-          ],
-        ),
+            ),
+          ),
+          CustomTextFormChat(
+            controller: _messageController,
+            onSend: () {
+              print("dknasf");
+              return _sendMessage();
+            },
+          )
+        ],
       ),
     );
   }

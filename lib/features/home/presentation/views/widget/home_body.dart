@@ -100,7 +100,7 @@ class _HomeBodyState extends State<HomeBody> {
             builder: (context, state) {
               if (state is HomeLoaded) {
                 return SizedBox(
-                  height: SizeConfig.defaultSize! * 40,
+                  height: SizeConfig.defaultSize! * 35,
                   child: ListView.builder(
                     itemCount: state.projectSugg.length,
                     scrollDirection: Axis.horizontal,
@@ -142,7 +142,7 @@ class _HomeBodyState extends State<HomeBody> {
             builder: (context, state) {
               if (state is HomeLoaded) {
                 return SizedBox(
-                  height: SizeConfig.defaultSize! * 40,
+                  height: SizeConfig.defaultSize! * 35,
                   child: ListView.builder(
                     itemCount: state.projectMost.length,
                     scrollDirection: Axis.horizontal,

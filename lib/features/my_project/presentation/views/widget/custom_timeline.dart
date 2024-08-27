@@ -96,12 +96,12 @@ class CustomTimeline extends StatelessWidget {
         height: SizeConfig.defaultSize! * 13,
         child: Timeline.tileBuilder(
           scrollDirection: Axis.horizontal,
+          physics: const NeverScrollableScrollPhysics(),
           builder: TimelineTileBuilder.connected(
             connectionDirection: ConnectionDirection.before,
             itemCount: 4,
             contentsBuilder: (context, index) {
               String text;
-
               switch (index) {
                 case 0:
                   text = 'مطبق/نشط';
@@ -118,10 +118,9 @@ class CustomTimeline extends StatelessWidget {
                 default:
                   text = 'غير معروف';
               }
-
               return Padding(
                 padding: EdgeInsets.symmetric(
-                    horizontal: SizeConfig.defaultSize! * 2.4,
+                    horizontal: SizeConfig.defaultSize! * 1.8,
                     vertical: SizeConfig.defaultSize! * 0.8),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,

@@ -65,18 +65,15 @@ class _SplashScreenState extends State<SplashScreen>
     SizeConfig().init(context);
     return Scaffold(
       body: Container(
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           gradient: LinearGradient(
             colors: [
-              Color(0xFF1a237e), // أزرق داكن
-              Color(0xFF283593), // أرجواني داكن
-              Color(0xFF4a148c), // بنفسجي داكن
-              Color(0xFF6a1b9a), // أرجواني غامق
-              Color(0xFF1b1b1b), // رمادي داكن
+              Theme.of(context).primaryColor,
+              Theme.of(context).colorScheme.secondary,
             ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
-            stops: [0.1, 0.3, 0.5, 0.7, 1.0],
+            // stops: [0.1, 0.3, 0.5, 0.7, 1.0],
           ),
         ),
         child: Center(
@@ -85,37 +82,27 @@ class _SplashScreenState extends State<SplashScreen>
             children: [
               AnimatedBuilder(
                 animation: _controller,
-                child: Image.asset(
-                  'assets/images/logo_outline.png',
-                  width: 250,
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 40),
+                  child: Image.asset(
+                    'assets/images/logo_outline.png',
+                    width: 250,
+                  ),
                 ),
                 builder: (context, child) {
                   return Transform.scale(
                     scale: _scaleAnimation.value,
-                    child: Transform.rotate(
-                      angle: _rotationAnimation.value,
-                      child: Container(
-                        decoration: BoxDecoration(
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.4),
-                              spreadRadius: 5,
-                              blurRadius: 7,
-                              offset: const Offset(0, 3),
-                            ),
-                          ],
-                        ),
-                        child: child,
-                      ),
+                    child: Container(
+                      child: child,
                     ),
                   );
                 },
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 40),
               FadeTransition(
                 opacity: _fadeAnimation,
                 child: Text(
-                  'Welcome to Our App',
+                  'منصة إنجاز للأعمال الحرة',
                   style: TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold,

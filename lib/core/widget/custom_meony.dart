@@ -3,6 +3,8 @@ import 'package:freelance_job_portal/core/utils/size_config.dart';
 import 'package:freelance_job_portal/core/widget/custom_money_body.dart';
 import 'package:freelance_job_portal/core/widget/custom_subtitle_medium.dart';
 
+import 'custom_body_medium.dart';
+
 class CustomMeony extends StatelessWidget {
   const CustomMeony({super.key, required this.text});
   final String text;
@@ -37,7 +39,7 @@ class CustomMeony extends StatelessWidget {
                 bottomLeft: Radius.circular(SizeConfig.defaultSize! * 10),
                 topLeft: Radius.circular(SizeConfig.defaultSize! * 10)),
           ),
-          child: CustomMoneyBody(
+          child: CustomBody(
             text: text,
           ),
         ),

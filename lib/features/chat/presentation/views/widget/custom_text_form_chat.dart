@@ -12,11 +12,13 @@ class CustomTextFormChat extends StatelessWidget {
   Widget build(BuildContext context) {
     return MessageBar(
       onTextChanged: (p0) => controller.text = p0,
+      messageBarHintText: "رسالة..",
       // replying: true, textFieldTextStyle: const TextStyle(fontSize: 20),
       // ignore: avoid_print
       onSend: (_) {
         onSend();
       },
+
       actions: [
         // InkWell(
         //   child: const Icon(

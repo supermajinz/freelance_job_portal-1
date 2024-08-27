@@ -6,20 +6,21 @@ class CustomMoneyBody extends StatelessWidget {
     required this.text,
     this.color = Colors.black,
     this.isCurrency = false,
-    this.isday = false,
+    this.isday = false, this.maxLines = 2,
   });
   final String text;
   final Color color;
   final bool isCurrency;
   final bool isday;
+  final int maxLines;
 
   @override
   Widget build(BuildContext context) {
     return Text(
       _formatText(text),
       overflow: TextOverflow.ellipsis,
-      maxLines: 2,
-      style: Theme.of(context).textTheme.bodyLarge!.copyWith(color: color),
+      maxLines: maxLines,
+      style: Theme.of(context).textTheme.bodyMedium!.copyWith(color: color),
     );
   }
 
@@ -52,14 +53,14 @@ class CustomMoneyBody extends StatelessWidget {
 
     if (number >= 1000000) {
       int millions = number ~/ 1000000;
-      partText += '$millions مليون';
+      partText += '$millions م.';
       number %= 1000000;
     }
 
     if (number >= 1000) {
       if (partText.isNotEmpty) partText += ' و ';
       int thousands = number ~/ 1000;
-      partText += '$thousands ألف';
+      partText += '$thousands أ.';
       number %= 1000;
     }
 
